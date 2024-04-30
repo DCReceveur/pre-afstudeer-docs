@@ -273,7 +273,6 @@ bijbehorende usecases “Done” zijn.</p></li>
 of productmanager en indien ze complex zijn of om andere reden er een
 wens is alt flows toe te lichten worden ze meegenomen in het FO en
 Testrapport.</p></li>
-<li></li>
 </ul></td>
 <td><ul>
 <li><p>Het testrapport wordt op de laatste dag van elke sprint opnieuw
@@ -349,6 +348,7 @@ enkel een generiek overzicht gegeven worden van de richtlijnen van de al
 geplande op te leveren producten. Uiteraard kan het zijn dat er (vooral
 in de latere sprints) wordt afgeweken van de planning om meer tijd te
 steken in problemen die nu nog niet aan het licht zijn gekomen.
+
 
 ## Risico’s
 
