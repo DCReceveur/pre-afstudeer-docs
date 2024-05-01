@@ -2,14 +2,16 @@
 
 ## Inleiding
 
-Achtergrond van het project:
-Bluenotion levert voor verschillende klanten op maat gemaakte softwareoplossingen. Te verrichte taken voor het bouwen van de softwareoplossingen worden bijgehouden in productive.io. 
+### Achtergrond van het project
 
+Bluenotion levert voor verschillende klanten op maat gemaakte softwareoplossingen. Te verrichte taken voor het bouwen van de softwareoplossingen worden bijgehouden in productive.io. Op het moment wordt de status van het project en de bijbehorende taken op twee manieren gecommuniceerd naar de klant:
+
+- Directe communicatie via de PM:
 Voor de meeste projecten dient de Product owner als koppeling tussen de projectplanning en de klant. Het is dan aan de product owner om de huidige staat van het project tijdens vaste contact momenten te communiceren en waar nodig nieuwe taken aan te maken voor het verwerken van feedback van de klant of het creëren van nieuwe functionaliteiten.
-
+- Guest account in Productive:
 Voor een aantal projecten zijn aan de klant accounts beschikbaar gesteld waarin ze direct inzicht kunnen krijgen in productive.io. Hiermee kunnen ze real-time inzicht krijgen over de staat van het project en waar nodig zelf taken inschieten.
 
-## Probleem
+### Probleem
 
 Beide manieren van het communiceren van de project status brengen voor- en nadelen met zich mee.
 
@@ -17,7 +19,7 @@ De management volledig overlaten aan de product owner heeft als resultaat dat de
 
 Productive.io accounts beschikbaar stellen voor de klant heeft als resultaat dat de klant voor Bluenotion op een niet-Bluenotion portaal terecht komt waar de data ongefilterd en voor klanten mogelijk onduidelijk beschikbaar is. Per klant verschilt of dit leidt tot vragen over bestaande taken en incorrect toegevoegde nieuwe taken.
 
-## Doelstelling
+### Doelstelling
 
 Zorg voor een systeem waar de klanten van Bluenotion inzicht krijgen in de huidige staat van de voor hun relevante projecten met de optie hier nieuwe wensen aan toe te voegen die gereflecteerd worden in taken in Productive.
 
@@ -30,7 +32,7 @@ Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van
 ## Project grenzen
 
 - Het projectmanagement portal wordt niet ontwikkeld als vervanging van productive.io voor het dev team.
-- Het project wordt in iedergeval door ontwikkeld (precieze datum eind stage nazoeken)
+- Het project wordt in ieder geval door ontwikkeld tot (precieze datum eind stage nazoeken)
 
 ## Op te leveren producten en kwaliteitseisen en uit te voeren activiteiten
 
@@ -122,7 +124,7 @@ prioritisering</a></p></li>
 aan de hand van de DoR</p></li>
 <li><p>Tijdens de sprint reviews dient het document als basis voor de
 presentatie tegenover de opdrachtgever.</p></li>
-<li><p><mark>Wijzigingen in het TO/FO meenemen in de PR?</mark></p></li>
+<li><p>Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.</p></li>
 </ul></td>
 </tr>
 <tr class="odd">
@@ -135,9 +137,7 @@ huidige staat.</p></li>
 <li><p>Bevat een deployment diagram die overeenkomt met de software in
 zijn huidige staat.</p></li>
 <li><p>Bevat een Database model die de huidige staat van de database
-representeerd.</p></li>
-<li><p><mark>Bevat verantwoording voor alle architecturaal relevante
-gemaakte keuzes binnen het project.</mark></p></li>
+representeert.</p></li>
 <li><p>Bevat een API-definitie met alle binnen de applicatie beschikbare
 end-points en de relevante producers/consumers.</p></li>
 </ul></td>
@@ -156,15 +156,16 @@ het FO aanwezige wensen.</p></li>
 wijzigingen in aanbrengen (DoD).</p></li>
 </ul></td>
 <td><ul>
-<li><p><mark>Wijzigingen in het TO/FO meenemen in de PR?</mark></p></li>
+<li><p>Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.</p></li>
 <li><p>Wanneer een taak resulteert in wijzigingen in een van de in het
 TO aanwezige diagrammen dienen deze diagrammen en de bijbehorende
 toelichting bijgewerkt te worden voor de taak af is (DoD)</p></li>
 </ul></td>
 </tr>
 <tr class="even">
-<td>UX <mark>Designonderzoek</mark> &amp; wireframes</td>
+<td>UX Designonderzoek &amp; wireframes</td>
 <td><ul>
+<!-- TODO: is dit wel een onderzoek? -->
 <li><p><mark>Bevat een hoofd en deelvragen?</mark></p></li>
 <li><p>Bevat wireframes of mockups van elke usecase voordat deze in code
 wordt uitgewerkt.</p></li>
@@ -181,11 +182,13 @@ opdrachtgever.</p></li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><mark>Software Architecture Document</mark></td>
+<td>Software Architecture Document</td>
 <td><ul>
 <li><p>Bevat een globaal overzicht van het systeem en de data flows die
 hierin voorkomen volgens het <a href="https://c4model.com/">4C
 model.</a></p></li>
+<li><p>Bevat verantwoording voor alle architecturaal relevante
+gemaakte keuzes binnen het project.</p></li>
 <li><p>Bevat een overzicht van alle <a
 href="https://medium.com/oolooroo/a-step-wise-guide-to-architectural-decisions-ee7304871a71">Architectural
 Relevant Decisions</a></p></li>
@@ -197,13 +200,13 @@ van de eerste requirements van de software.</p></li>
 SAD gezet te worden.</p></li>
 </ul></td>
 <td><ul>
-<li><p>Het SAD dient over de levensduure van het project ADR geüpdatet
-te worden volgens het <a
-href="https://www.microtool.de/en/knowledge-base/what-is-the-twin-peaks-model/">Twin
-Peaks Model</a>.</p></li>
+<li><p>Het SAD dient over de levensduur van het project ADR geüpdatet
+te worden volgens het <a href="https://www.microtool.de/en/knowledge-base/what-is-the-twin-peaks-model/">
+TwinPeaks Model</a>.</p></li>
 </ul></td>
 </tr>
-<tr class="even">
+<!-- TODO: is er wens naar een onderzoek hoe er met productive gepraat moet worden? -->
+<!-- <tr class="even">
 <td>Onderzoek communicatie Productive</td>
 <td><ul>
 <li><p>Bevat een lijst die data wensen verbindt aan de relevante
@@ -228,17 +231,13 @@ database.</p></li>
 <li><p><mark>Er worden van tevoren unit tests gemaakt die race
 conditions controlleren en de ratelimit voor de poc.</mark></p></li>
 </ul></td>
-</tr>
+</tr> -->
 <tr class="odd">
 <td>Code</td>
 <td><ul>
 <li><p>Code &amp; comments worden in het engels te schrijven</p></li>
 <li><p>Code is herleidbaar naar oorsprong in het FO/TO</p></li>
-<li><p>Er wordt <mark>zo veel mogelijk</mark> rekening gehouden met <a
-href="https://refactoring.guru/refactoring/what-is-refactoring">CLEAN</a>
-en <a
-href="https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design">SOLID</a>
-coding principles.</p></li>
+<li><p>Er wordt waar praktisch mogelijk rekening gehouden met <a href="https://refactoring.guru/refactoring/what-is-refactoring">CLEAN</a> en <a href="https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design">SOLID</a> coding principles.</p></li>
 <li><p>Frontend code wordt geanalyseerd door <a
 href="https://eslint.org/">ESLint</a>.</p></li>
 <li><p>Backend code wordt geanalyseerd door StyleCop.</p></li>
@@ -332,6 +331,8 @@ belangrijke eisen niet blijven liggen tot een van de latere sprints.
 | Contactmomenten: | Sprint review |
 | verantwoordelijkheden: | Feedback/mogelijkheid tot sparren over functionele aspecten van het project. |
 
+<!-- Deze wordt toegekend aan het begin van de stage. -->
+
 | Rol(len): | **Docentbegeleider** |
 |---|---|
 | Naam: | Onbekend |
@@ -341,14 +342,27 @@ belangrijke eisen niet blijven liggen tot een van de latere sprints.
 
 ## Planning
 
-Zoals besproken in het hoofdstuk Ontwikkelmethoden hebben sprints een
-duur van 2 weken, met een stageperiode van 18 weken komt dit uit op 9
-sprints. Aangezien er tijdens het project agile gewerkt wordt kan er
-enkel een generiek overzicht gegeven worden van de richtlijnen van de al
-geplande op te leveren producten. Uiteraard kan het zijn dat er (vooral
-in de latere sprints) wordt afgeweken van de planning om meer tijd te
-steken in problemen die nu nog niet aan het licht zijn gekomen.
+Zoals besproken in het hoofdstuk Ontwikkelmethoden hebben sprints een duur van 2 weken, met een stageperiode van 18 weken komt dit uit op 9 sprints. Aangezien de wensen voor het Minimal Viable Product al redelijk vast staan worden deze wensen gebruikt als basis van de UX ontwerpen. Door in een vroeg stadium de belevings ervaring van de klant in kaart te brengen wordt eerder gewerkt naar iets dat de klant ook daadwerkelijk wilt gebruiken.
 
+De planning van de stage is in [het volgende document](./Planning.md) opgenomen, opgedeeld in de bovengenoemde 9 sprints.
+
+Aangezien de stage uitgesteld is en er tijd en ruimte is al voorbereidend werk te doen voor de opdracht is er een kleine planning gemaakt tot het begin van de stage.
+
+Ook deze zijn ingedeeld in sprints van 2 weken, aangezien er per week twee werkdagen tijd is om aan de voorbereiding van de afstudeer opdracht te werken is er tijdens de sprints rekening gehouden met 32 werkuur per sprint. Het doel van het voorbereidend werk is voor de afstudeer periode de wensen voor het project vast te stellen en de praktische en technische haalbaarheid van het project te beoordelen.
+
+
+| Sprint | Werkzaamheden | Op te leveren producten |
+|---|---|---|
+| Sprint 1 | Verfijnen projectplan. | PVA |
+| Sprint 2 | Opzet FO & SAD | User stories, NFR's & domein model |
+| Sprint 3 | Verfijnen FO & SAD | Fully dressed usecases en wireframes/mock-ups |
+| Sprint 4 | In kaart brengen welke domein data uit welke Productive endpoints kunnen komen | Communicatie poc? |
+| Sprint 5 | Technische uitdagingen uitsluiten. | SAD uitgebreid met de tot nu toe besproken ADR's |
+| Sprint 6 | Opzet TO | Database/entity model en bijbehorende endpoints voor de back-end |
+| Sprint 7 | Verfijnen TO | back-end endpoint definities en signatures |
+| Sprint 8 | ? |  |
+| Sprint 9 | ? |  |
+| Sprint 10 | ? |  |
 
 ## Risico’s
 
@@ -356,4 +370,5 @@ steken in problemen die nu nog niet aan het licht zijn gekomen.
 |---|---|---|---|---|
 | Langdurige ziekte | Klein    | Middel     | ?     | Thuis werken   |
 | Verlies data development machine | Klein | Klein  | Zorg ervoor dat wijzigingen elke dag online worden gezet  | Herstel vanuit git & cloud storage.                                                            |
-| Productive.io API is niet toereikend aan het project | Klein    | Middel     | <span class="mark">Overleg met productive.io of er wijzigingen mogelijk zijn?</span> | Overleg met opdrachtgever over wat te doen met de functionaliteit die de API niet ondersteund. |
+| Productive.io API is niet toereikend aan het project | Klein    | Middel     | Overleg met productive.io of er wijzigingen mogelijk zijn?  | Overleg met opdrachtgever over wat te doen met de functionaliteit die de API niet ondersteund. |
+<!-- 3 is een beetje onzinnige tegenmaatregel -->

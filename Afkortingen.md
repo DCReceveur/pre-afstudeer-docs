@@ -15,3 +15,4 @@ Binnen dit document worden alle afkortingen toegelicht die over de loop van het 
 | PM | Project Manager |  |
 | TL | Tech Lead |  |
 | SAD | Software Architecture Document |  |
+| PMP | Project Management Portal |  |
