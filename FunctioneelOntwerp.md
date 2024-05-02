@@ -1,38 +1,20 @@
 # Functioneel ontwerp Project Management Portal
 
-## Domain model
+Dit document dient als toelichting op de functionele eisen van het Product Management Portal. Na het doornemen van dit document dienen alle betrokken partijen een duidelijk beeld te hebben van precies wat het opgeleverde Project Management Portal functioneel kan.
 
-```plantuml
 
-abstract abstract
-entity Project
-entity Task {
-  priority
-  type
-  status
-}
+Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Voor het schrijven van dit document zijn wel de volgende technische aannames gedaan:
 
-entity User
-entity ProductiveProject
-entity ProductiveBoard
+- De API van Productive.io Kan alle door de klant gewenste informatie aanleveren.
+- Het aantal naar de Productive API gestuurde requests blijft onder 100 per 30 sec.
+<!-- TODO: link naar TO zodra deze bestaat. -->
 
-entity Klant
-entity Tech_lead
-entity Project_manager
-
-ProductiveProject -- ProductiveBoard : > manages
-Task::status--ProductiveBoard
-Klant --|> User
-Tech_lead --|> User
-Project_manager --|> User
-
-'TL en PM zijn niet de 'owner' van het project
-User -- Project : > Owner of
-Project -- Task : < Work for
-
-```
 
 ## Actors
+
+De actors zijn de mensen/rollen die gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
+
+<!-- Een andere optie voor actors is: gebruiker & admin -->
 
 ### ACT1: Externe klant
 
@@ -44,12 +26,11 @@ Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een p
 
 Doelen nieuwe project management portal:
 
-- Inzicht krijgen in het door Bluenotion te verrichten werk.
-- Inzicht krijgen in het door de externe klant te verrichten werk.
+- Inzicht krijgen in het door Bluenotion te verrichten werk. 
+- Inzicht krijgen in het door mij verrichten werk.
 - toevoegen van nieuwe taken.
 - Prioriteren van bestaande taken?
-
-<!-- Een externe klant heeft een contract getekend voor een project bij Bluenotion. De klant kan tickets inschieten via het systeem met bugs of extra gewenste functionaliteiten. Na goedkeuring van deze tickets kan het ontwikkel team de tickets op pakken en de klant de voorgang hiervan real time inzien. -->
+- Aanpassen onduidelijke/incomplete taken
 
 Aanspreekpunt: Jesse Bekke
 
@@ -104,7 +85,131 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
     van projectmanagement software)
  -->
 
+
+## Domein
+
+In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind.
+
+<!-- ```plantuml
+
+abstract abstract
+entity Project
+entity Task {
+  priority
+  type
+  status
+}
+
+entity User
+entity ProductiveProject
+entity ProductiveBoard
+
+entity Klant
+entity Tech_lead
+entity Project_manager
+
+ProductiveProject -- ProductiveBoard : > manages
+Task::status--ProductiveBoard
+Klant --|> User
+Tech_lead --|> User
+Project_manager --|> User
+
+'TL en PM zijn niet de 'owner' van het project
+User -- Project : > Owner of
+Project -- Task : < Work for
+
+``` -->
+
+
+```plantuml
+
+'abstract placeholder
+
+entity Klant
+entity Project
+entity Planning
+entity Taak
+entity Prioriteit
+entity Type
+entity Wishlist
+
+note "1. Blocker \n2. Critical \n3. Major \n4. Minor \n5. Trivial \n6. Reminder" as TaakPrioriteiten
+note "1. Bug\n2. Story\n3. Task\n4. Improvement\n5. New feature" as TaakTypes
+
+TaakPrioriteiten .. Prioriteit
+TaakTypes .. Taak
+
+Klant -- Project : > Eigenaar van
+Planning -- Project: > Voor 
+Taak -- Planning: > Opgenomen in
+Prioriteit -- Taak: > Voor
+Taak -- Type : > Ingediend als
+(Klant, Taak) .. Wishlist : Aangevraagde taken
+Wishlist -- Project :> Voor
+
+Wishlist--Planning:> Gewenst voor
+
+```
+
+Domein definities
+
+| Term | Uitleg | Oorsprong |
+|---|---|---|
+| Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | |
+| Taak | Een wens die een **Klant** heeft bij een **Project**. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-taken) te vinden. |  |
+| Klant (verander naar tennant?) | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion |  |
+| Wishlist | Een lijst met wensen van de klant die nog niet zijn goedgekeurd voor ontwikkeling door een [PM](#act2-product-manager) of [TL](#act4-tech-lead) |  |
+| Planning | Een lijst met alle taken die goedgekeurd zijn voor ontwikkeling. |  |
+| Type | Het soort taak afhankelijk van het gewenste werk TODO: no its not |  |
+| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de opdrachtgever. |  |
+|  |  |  |
+
+### Lifecycle taken
+
+Aangezien het beheren van de workflow van taken een groot aspect zijn van het PMP is een korte toelichting gemaakt op de levensloop van een typische taak. Dit proces kan per project verschillen met details als of klanten zelf toegang hebben tot Productive of toevoeging/weglaten van sommige task lists maar het blijft in grove lijnen over de meeste projecten het zelfde.
+
+Als een klant een bug of doorontwikkeling meld wordt hier een taak voor aangemaakt. Over de levensloop van een taak worden van verschillende actors verschillende acties verwacht. Om dit te organiseren worden op het moment binnen een project verschillende "Task lists" gebruikt. De levensloop van een taak ziet er bij de meeste projecten als volgt uit:
+
+- **Wishlist**</br>Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de wishlist terecht.
+  - **Waiting for reply PM/TL** </br> Een taak die binnen is gekomen via de klant waar nog geen goedkeuring op is gegeven door een PM/TL.
+  - **Waiting for feedback Customer**</br> Een taak die gecontroleerd is door een PM/TL maar waar meer informatie nodig is van de klant. Denk hierbij aan extra informatie in de taak omschrijving of een akkoord met de time/cost estimate.
+
+- **Planning**</br>Taken die opgenomen zijn in de planning hebben een akkoord van beiden de klant en Bluenotion (via PM/TL). Deze taken zijn compleet met time/cost estimates en een juiste prioriteit.
+  - **Backlog**</br>De backlog is waar taken terecht komen na de wishlist. Vanaf de backlog pakken de aangewezen teams de taken op.
+  - **In progress**</br>Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.
+  - **In review**</br>Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.
+  - **Development**</br>Alle afgeronde taken die draaien in de dev omgeving?
+  - **Testing**</br>Alle afgeronde taken die draaien in de test omgeving?
+  - **Staging**</br>???
+  - **Live**</br>Alle afgeronde taken die draaien op de klant omgeving.
+
+## Requirements
+
+
+
 ### Functioneel
+
+```plantuml
+
+:ACT1 Externe klant: as klant
+:ACT4 Tech lead: as TL
+:ACT2 Product manager: as PM
+
+(FR1: Inzien projecten) as FR1
+(FR2: Inzien uit te voeren taken in een project) as FR2
+(FR3: Toevoegen nieuwe taak in een project) as FR3
+(FR4: Feedback geven op taken) as FR4
+(FR5: Goedkeuren extern toegevoegde taken) as FR5
+
+klant --> FR1
+klant --> FR2
+klant --> FR3
+klant -->FR4
+
+TL-->FR5
+PM-->FR5
+
+```
 
 - FR1: Inzien projecten
   - Als PM wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken. (ACT1)
@@ -126,6 +231,7 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
 - FR5: Goedkeuren extern toegevoegde taken
   - Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.
 
+<!-- Is dit een fr of valt dit onder fr aanmaken/feedback geven? -->
 - FR?: Toevoegen screenshots aan een taak
 - FR?: Mention screenshots in taak description
 - FR?: Aanpassen geaccepteerde taken? Kunnen taken die al op de backlog (of verder) nog aangepast worden door de klant? idee: naam en beschrijving niet, comments kunnen wel toegevoegd worden?
@@ -136,7 +242,10 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
 - FR?: Klanten kunnen enkel data zien en aanpassen voor de projecten waar ze beheerder van zijn.
 - FR?: Acties die effect hebben op de staat van een project (bijvoorbeeld FR3, FR4, FR5) dienen gelogd te worden.
 - FR?: klanten kunnen tickets voor verschillende omgevingen aanmaken.
+- FR?: Bij het accepteren van een taak aanvinken voor welke teams dat de taak is en subtaken aanmaken voor UX, FE, BE.... (Niet besproken)
 
+<!-- 
+Old:
 - Inzien project status (PM & Extern)
   - Beschikbare projecten voor meerdere projecten bij 1 klant?
   - Uren/kosten verbruikt en totaal?
@@ -157,7 +266,7 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
   - Na terugkoppeling van PM met time/cost estimates een
     bevestiging/annulering optie?
 
-- Toevoegen/aanpassen SLA? (PM)
+- Toevoegen/aanpassen SLA? (PM) -->
 
 ### Non-functioneel
 
@@ -175,8 +284,6 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
 
 - NFR?: Het systeem mag met N aantal gebruikers niet boven de 100 requests per 10 seconde rate limit van de productive.io mogen komen.
 - NFR?: Het systeem mag met N aantal gebruikers niet boven de 10 rapport generating per 30 seconde requests rate limit van productive.io mogen komen.
-
-
 
 #### Supportability
 
@@ -197,3 +304,92 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
 
 - Voor de back-end wordt gebruik gemaakt van .NET <span class="mark">framework</span> om bedrijf standaarden te hanteren.
 - Voor het front-end wordt gebruik gemaakt van React Native om bedrijf standaarden te hanteren.
+
+### Fully dressed Use Cases
+
+#### FR1: Inzien projecten
+
+| |  |
+|---|---|
+| Naam | FR1: Inzien projecten |
+| Primaire Actor | ACT1: Externe klant |
+| Stakeholders | PM, TL, SD |
+| Pre condities | De klant kan inloggen in het PMP. |
+| Post condities | De klant heeft een lijst met de voor hem beschikbare projecten. |
+| Triggers | De klant vraagt de lijst met voor hem beschikbare projecten op |
+| Exceptions |  |
+| Open issues | Data verzamelen: Wie is de klant, wat zijn zijn projecten? |
+
+##### FR1: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | Opent de PWA |  |
+| 2 | Toont alle voor de klant beschikbare projecten | |
+
+##### FR1: Alternative flow - no projects for customer
+
+|Stap| Actor | System |
+|---|---|---|
+|1 | Opent de PWA |  |
+|2 |  | Toont geen projecten omdat er geen projecten aan de klant gekoppeld zijn. |
+
+#### FR2: Inzien uit te voeren taken in een project
+
+| |  |
+|---|---|
+| Naam | FR2: Inzien uit te voeren taken in een project |
+| Primaire Actor | ACT1: Externe klant |
+| Stakeholders | PM |
+| Pre condities | De klant kan inloggen in het PMP </br> De klant heeft een gepland, lopend of afgerond project bij Bluenotion |
+| Post condities | De klant heeft een overzicht van de taken die voor de software developers op de planning staan. [(planning van lifecycle taken)](#lifecycle-taken) |
+| Triggers | De klant vraagt de details voor een project op |
+| Exceptions | Het opgevraagde project bestaat niet |
+| Open issues |  |
+
+<!-- TODO: Exception staat ook bij preconditie -->
+
+##### FR2: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | Vraagt voor een project alle bijbehorende taken op |  |
+| 2 |  | Presenteert een aantal lijsten met uit te voeren taken, geplande taken, taken waar de gebruiker feedback op moet geven en afgeronde taken. |
+
+##### FR2: Alternative flow - flow name
+
+|Stap | Actor | System |
+|---|---|---|
+| 2 |  |  |
+
+<!-- 
+https://www.studocu.com/row/document/riphah-international-university/computer-sciences/fully-dressed-use-case-example-pdf/19676384
+
+https://www.tmaworld.com/2017/10/04/use-case-approach/#:~:text=Fully%20dressed%20use%20case%3A%20A,goals%2C%20tasks%2C%20and%20requirements.
+
+ -->
+#### FR?: Empty FDUC
+
+| |  |
+|---|---|
+| Naam | FR?: Empty FDUC |
+| Primaire Actor | ACT?:  |
+| Stakeholders |  |
+| Pre condities |  |
+| Post condities |  |
+| Triggers |  |
+| Exceptions |  |
+| Open issues |  |
+
+##### FR?: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |
+|  |  |  |
+
+##### FR?: Alternative flow - flow name
+
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |

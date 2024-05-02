@@ -2,6 +2,8 @@
 
 ## Inleiding
 
+Binnen dit document wordt toelichting gegeven op het Project Management Portal dat als afstudeer opdracht ontwikkeld wordt voor Bluenotion. Er wordt toelichting gegeven op de oorsprong en doel van het project en een ontwikkelplan besproken om tot een product te komen waar alle stakeholders tevreden mee zijn.
+
 ### Achtergrond van het project
 
 Bluenotion levert voor verschillende klanten op maat gemaakte softwareoplossingen. Te verrichte taken voor het bouwen van de softwareoplossingen worden bijgehouden in productive.io. Op het moment wordt de status van het project en de bijbehorende taken op twee manieren gecommuniceerd naar de klant:
@@ -23,7 +25,7 @@ Productive.io accounts beschikbaar stellen voor de klant heeft als resultaat dat
 
 Zorg voor een systeem waar de klanten van Bluenotion inzicht krijgen in de huidige staat van de voor hun relevante projecten met de optie hier nieuwe wensen aan toe te voegen die gereflecteerd worden in taken in Productive.
 
-## Concrete resultaten
+### Concrete resultaten
 
 Een applicatie met een C# back-end (.NET), Typescript front-end (React Native) waar een externe klant of interne PM de huidige staat van projecten zijn/haar kan inzien en/of nieuwe taken kan inschieten.
 
@@ -146,7 +148,7 @@ end-points en de relevante producers/consumers.</p></li>
 initiële wensen.</p></li>
 <li><p>Maak een package diagram aan op basis van gekozen software
 architectuur.</p></li>
-<li><p>Maak een deployment diagram aan op bsasis van de gekozen software
+<li><p>Maak een deployment diagram aan op basis van de gekozen software
 architectuur</p></li>
 <li><p>Maak een database model aan op basis van het domeinmodel en de in
 het FO aanwezige wensen.</p></li>
@@ -162,10 +164,9 @@ TO aanwezige diagrammen dienen deze diagrammen en de bijbehorende
 toelichting bijgewerkt te worden voor de taak af is (DoD)</p></li>
 </ul></td>
 </tr>
-<tr class="even">
+<!-- <tr class="even">
 <td>UX Designonderzoek &amp; wireframes</td>
 <td><ul>
-<!-- TODO: is dit wel een onderzoek? -->
 <li><p><mark>Bevat een hoofd en deelvragen?</mark></p></li>
 <li><p>Bevat wireframes of mockups van elke usecase voordat deze in code
 wordt uitgewerkt.</p></li>
@@ -180,7 +181,7 @@ helpen het overzicht voor de klant te verbeteren.</p></li>
 <li><p>Designs zijn goedgekeurd door UX-designer en
 opdrachtgever.</p></li>
 </ul></td>
-</tr>
+</tr> -->
 <tr class="odd">
 <td>Software Architecture Document</td>
 <td><ul>
