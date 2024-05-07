@@ -2,13 +2,13 @@
 
 Dit document dient als toelichting op de functionele eisen van het Product Management Portal. Na het doornemen van dit document dienen alle betrokken partijen een duidelijk beeld te hebben van precies wat het opgeleverde Project Management Portal functioneel kan.
 
+## Aannames en afhankelijkheden
 
 Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Voor het schrijven van dit document zijn wel de volgende technische aannames gedaan:
 
 - De API van Productive.io Kan alle door de klant gewenste informatie aanleveren.
 - Het aantal naar de Productive API gestuurde requests blijft onder 100 per 30 sec.
 <!-- TODO: link naar TO zodra deze bestaat. -->
-
 
 ## Actors
 
@@ -90,37 +90,6 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind.
 
-<!-- ```plantuml
-
-abstract abstract
-entity Project
-entity Task {
-  priority
-  type
-  status
-}
-
-entity User
-entity ProductiveProject
-entity ProductiveBoard
-
-entity Klant
-entity Tech_lead
-entity Project_manager
-
-ProductiveProject -- ProductiveBoard : > manages
-Task::status--ProductiveBoard
-Klant --|> User
-Tech_lead --|> User
-Project_manager --|> User
-
-'TL en PM zijn niet de 'owner' van het project
-User -- Project : > Owner of
-Project -- Task : < Work for
-
-``` -->
-
-
 ```plantuml
 
 'abstract placeholder
@@ -139,7 +108,7 @@ note "1. Bug\n2. Story\n3. Task\n4. Improvement\n5. New feature" as TaakTypes
 TaakPrioriteiten .. Prioriteit
 TaakTypes .. Taak
 
-Klant -- Project : > Eigenaar van
+Klant -down- Project : > Eigenaar van
 Planning -- Project: > Voor 
 Taak -- Planning: > Opgenomen in
 Prioriteit -- Taak: > Voor
@@ -160,7 +129,7 @@ Domein definities
 | Klant (verander naar tennant?) | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion |  |
 | Wishlist | Een lijst met wensen van de klant die nog niet zijn goedgekeurd voor ontwikkeling door een [PM](#act2-product-manager) of [TL](#act4-tech-lead) |  |
 | Planning | Een lijst met alle taken die goedgekeurd zijn voor ontwikkeling. |  |
-| Type | Het soort taak afhankelijk van het gewenste werk TODO: no its not |  |
+| Type | Het soort taak . |  |
 | Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de opdrachtgever. |  |
 |  |  |  |
 
@@ -198,7 +167,7 @@ Als een klant een bug of doorontwikkeling meld wordt hier een taak voor aangemaa
 (FR1: Inzien projecten) as FR1
 (FR2: Inzien uit te voeren taken in een project) as FR2
 (FR3: Toevoegen nieuwe taak in een project) as FR3
-(FR4: Feedback geven op taken) as FR4
+(FR4: Taak open zetten voor feedback klant) as FR4
 (FR5: Goedkeuren extern toegevoegde taken) as FR5
 
 klant --> FR1
@@ -223,10 +192,11 @@ PM-->FR5
 - FR3: Toevoegen nieuwe taak in een project
   - Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.
 
-- FR4: Feedback geven op taken
+- FR4: Taak open zetten voor feedback klant
   - Als PM wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen. (ACT2)
   - Als TL wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen. (ACT4)
   - Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog. (ACT1)
+  - Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen. (ACT1)
 
 - FR5: Goedkeuren extern toegevoegde taken
   - Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.
@@ -331,8 +301,8 @@ Old:
 
 |Stap| Actor | System |
 |---|---|---|
-|1 | Opent de PWA |  |
-|2 |  | Toont geen projecten omdat er geen projecten aan de klant gekoppeld zijn. |
+| 2A |  | Toont geen projecten omdat er geen projecten aan de klant gekoppeld zijn. |
+
 
 #### FR2: Inzien uit te voeren taken in een project
 
@@ -341,7 +311,7 @@ Old:
 | Naam | FR2: Inzien uit te voeren taken in een project |
 | Primaire Actor | ACT1: Externe klant |
 | Stakeholders | PM |
-| Pre condities | De klant kan inloggen in het PMP </br> De klant heeft een gepland, lopend of afgerond project bij Bluenotion |
+| Pre condities | DDe klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
 | Post condities | De klant heeft een overzicht van de taken die voor de software developers op de planning staan. [(planning van lifecycle taken)](#lifecycle-taken) |
 | Triggers | De klant vraagt de details voor een project op |
 | Exceptions | Het opgevraagde project bestaat niet |
@@ -356,11 +326,111 @@ Old:
 | 1 | Vraagt voor een project alle bijbehorende taken op |  |
 | 2 |  | Presenteert een aantal lijsten met uit te voeren taken, geplande taken, taken waar de gebruiker feedback op moet geven en afgeronde taken. |
 
-##### FR2: Alternative flow - flow name
+##### FR2: Alternative flow - Project heeft geen taken
 
 |Stap | Actor | System |
 |---|---|---|
+| 2A |  | Toont lege takenlijsten |
+
+#### FR3: Toevoegen nieuwe taak in een project
+
+| |  |
+|---|---|
+| Naam | FR3: Toevoegen nieuwe taak in een project |
+| Primaire Actor | ACT1: Externe klant |
+| Stakeholders | PM |
+| Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
+| Post condities | Er is binnen Productive een nieuwe taak toegevoegd aan de wishlist. |
+| Triggers | De klant geeft aan werk gedaan te willen hebben. |
+| Exceptions | Het opgevraagde project bestaat niet. |
+| Open issues | Maakt de PM/TL hier ook gebruik van of is dit specifiek voor de klant? </br> Kunnen projecten permanent gesloten/gearchiveerd zijn en dus niet meer bijgevuld worden? |
+
+##### FR3: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | Geeft aan een wens te hebben voor een bestaand project |  |
+| 2 |  | Stelt de gebruiker een aantal vragen om de wens van de klant duidelijk te krijgen. |
+| 3 | Controleert de ingevulde vragen, past ze aan waar nodig en stuurt ze op voor verdere verwerking |  |
+| 4 |  | Maakt op basis van de ingevulde gegevens een taak aan op de wishlist in Productive. |
+
+##### FR3: Alternative flow - blocking issue
+
+|Stap | Actor | System |
+|---|---|---|
+| 4A |  | Taak is een blocker met hoge priority dus wordt direct in de backlog gezet? |
+
+#### FR4: Taak open zetten voor feedback klant
+
+| |  |
+|---|---|
+| Naam | FR4: Taak open zetten voor feedback klant |
+| Primaire Actor | ACT2: Project Manager, ACT4: Tech Lead |
+| Stakeholders | ACT1: Externe klant, ACT3: Software developer |
+| Pre condities | Er bestaat op zijn minst één project, taak en klant.  |
+| Post condities | De klant wordt op de hoogte gebracht dat er om feedback is gevraagd. |
+| Triggers | De PM of TL stelt vast dat een taak nog niet duidelijk genoeg is voor voor de backlog. |
+| Exceptions |  |
+| Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de wishlist of wordt deze alsnog naar de backlog gehaald? |
+
+##### FR4: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | Geeft bij een taak op de wishlist aan wat mist of onduidelijk is aan de taak. |  |
+| 2 |  | Registreert de taak als "waiting for customer" en stelt de klant (open issues) op de hoogte |
+
+##### FR4: Alternative flow - Klant geeft meerdere wensen door in één taak op de wishlist
+
+|Stap | Actor | System |
+|---|---|---|
+| 1A | Maakt per taak een nieuwe taak aan en geeft aan dat deze feedback nodig hebben van de klant |  |
+| 2A |  | Resume normal flow but for every new task |
+
+#### FR5: Goedkeuren extern toegevoegde taken
+
+| |  |
+|---|---|
+| Naam | FR5: Goedkeuren extern toegevoegde taken |
+| Primaire Actor | ACT2: Product manager, ACT4: Tech Lead  |
+| Stakeholders | ACT1: Externe klant |
+| Pre condities | Er is een taak toegevoegd in de wishlist van een project. |
+| Post condities | De bovengenoemde taak is toegevoegd aan de backlog van het project. |
+| Triggers | De primaire actor geeft aan dat een taak duidelijk genoeg is voor development. |
+| Exceptions | De taak is in de tussentijd verwijderd door de externe klant? |
+| Open issues |  |
+
+##### FR5: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | De PM of TL geeft aan dat de taak voldoende is ingevuld voor development en kent er een time/cost estimate aan. |  |
 | 2 |  |  |
+
+##### FR5: Alternative flow - flow name
+
+
+#### FR?: Overzicht geheel proces aanmaken en goedkeuren nieuwe taak vanuit klant.
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | EK: Geeft aan een wens te hebben voor een project |  |
+| 2 |  | Registreert de wens in de wishlist van het project als "waiting for PM" |
+| 3 | PM: geeft aan dat de taak voldoende is ingevuld voor development en kent er een time/cost estimate aan. |  |
+| 4 |  | Registreert de wens als "Waiting for EK" |
+| 5 | EK: keurt de time/cost estimate goed |  |
+| 6 |  | Registreert de wens als "Accepted" en zet deze taak in de backlog voor development |
+| 7 | SD: werkt aan de taak en zet deze binnen Productive op In Progress, In review, Development, Testing, Staging en Live. |  |
+| 8 |  | Stelt de klant op de hoogte als voor hem relevante taken in het "Live" bord terecht komen. (Of gewoon status closed?) |
+
+
+|Stap | Actor | System |
+|---|---|---|
+| 3A | PM: geeft aan dat de taak onvoldoende is ingevuld voor development. |  |
+| 4A |  | FR5: Goedkeuren extern toegevoegde taken |
+
+| 5B | EK: Geeft aan dat de wens te duur is voor het resultaat |
+| 6B |  | ??? |
 
 <!-- 
 https://www.studocu.com/row/document/riphah-international-university/computer-sciences/fully-dressed-use-case-example-pdf/19676384
