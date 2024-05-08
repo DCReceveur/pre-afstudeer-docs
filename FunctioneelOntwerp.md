@@ -26,7 +26,7 @@ Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een p
 
 Doelen nieuwe project management portal:
 
-- Inzicht krijgen in het door Bluenotion te verrichten werk. 
+- Inzicht krijgen in het door Bluenotion te verrichten werk.
 - Inzicht krijgen in het door mij verrichten werk.
 - toevoegen van nieuwe taken.
 - Prioriteren van bestaande taken?
@@ -88,95 +88,178 @@ Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol 
 
 ## Domein
 
-In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind.
+In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het productive systeem direct vastgelegd.
 
 ```plantuml
 
 'abstract placeholder
+' skinparam linetype polyline
+skinparam linetype ortho
 
+
+
+
+rectangle "Project management portal"{
+together{
 entity Klant
-entity Project
-entity Planning
-entity Taak
-entity Prioriteit
-entity Type
-entity Wishlist
+entity Aanvraag
+entity Team
+entity SLA
+}
+
+rectangle "Productive"{
+together{
+  entity Project
+  entity Board
+  entity Taak
+  entity Prioriteit
+  entity Type
+  entity Werknemer
+}
+
 
 note "1. Blocker \n2. Critical \n3. Major \n4. Minor \n5. Trivial \n6. Reminder" as TaakPrioriteiten
-note "1. Bug\n2. Story\n3. Task\n4. Improvement\n5. New feature" as TaakTypes
+note "1. Bug\n2. Story\n3. Task\n4. Improvement \n5. New feature" as TaakTypes
+}
+
+}
 
 TaakPrioriteiten .. Prioriteit
-TaakTypes .. Taak
+TaakTypes .. Type
 
-Klant -down- Project : > Eigenaar van
-Planning -- Project: > Voor 
-Taak -- Planning: > Opgenomen in
-Prioriteit -- Taak: > Voor
-Taak -- Type : > Ingediend als
-(Klant, Taak) .. Wishlist : Aangevraagde taken
-Wishlist -- Project :> Voor
+Klant "1..*?" -- "0..*" Project : > Eigenaar van
+Board "1..*"--"1" Project: > Planning voor 
+Taak "0..*"--"1" Board: > Opgenomen in
+Prioriteit "1"--"0..*" Taak: > Voor
+Taak "0..*"--L--"1" Type : > Ingediend als
+Aanvraag "1"--"1..*" Taak :> Resulteert in
+Werknemer "0..*"-R-"0..*" Taak :> Werkt aan
+Werknemer "0..*"--"0..*" Team :> Onderdeel van
+Taak "1"--"1" Team :> beschrijft werkzaamheden voor
 
-Wishlist--Planning:> Gewenst voor
-
+Klant "1"-L-"0..*" Aanvraag :> Doet een
+Project "0..*"--"1" SLA :> Valt onder
+SLA "0..*"--"0..*" Type :> Bepaalt
+SLA "0..*"--"0..*" Prioriteit :> Bepaalt
 ```
 
-Domein definities
+### Toelichting domeinmodel
 
 | Term | Uitleg | Oorsprong |
 |---|---|---|
-| Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | |
-| Taak | Een wens die een **Klant** heeft bij een **Project**. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-taken) te vinden. |  |
-| Klant (verander naar tennant?) | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion |  |
-| Wishlist | Een lijst met wensen van de klant die nog niet zijn goedgekeurd voor ontwikkeling door een [PM](#act2-product-manager) of [TL](#act4-tech-lead) |  |
-| Planning | Een lijst met alle taken die goedgekeurd zijn voor ontwikkeling. |  |
-| Type | Het soort taak . |  |
-| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de opdrachtgever. |  |
-|  |  |  |
+| Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | FR1 |
+| Klant  | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion | FR1 |
+| Aanvraag | Iets dat de **klant** wil in zijn/haar **project** | FR3 |
+| Taak | Een **Aanvraag** waar een [PM](#act2-product-manager) of [TL](#act4-tech-lead) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-taken) te vinden. | FR2, FR3 |
+| Bord | Een bord waar intern voor Bluenotion taken op worden bijgehouden. Zie [lifecycle taken](#lifecycle-taken) voor meer informatie. | FR3,FR4,FR5 |
+| Team | Een representatie van de rollen en beschikbare kennis binnen Bluenotion die worden gebruikt voor het toekennen van de juiste taak aan de juiste werknemers. (UX, FE, BE) | FR??? Niet besproken |
+| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de opdrachtgever. | FR? |
+| Type | Het soort taak, afhankelijk van de SLA met de klant. | FR? |
+| Werknemer | Een werknemer van Bluenotion die aan taken werkt en de status hiervan bijhoudt in Productive. | NFR2 |
+| SLA | Een **klant** heeft een aantal afspraken voor een **project** vaststaan in een Service Level Agreement waar KPI's zijn vastgelegd die leidend zijn in de **prioriteit** en het **type** van een taak. |  |
 
 ### Lifecycle taken
 
 Aangezien het beheren van de workflow van taken een groot aspect zijn van het PMP is een korte toelichting gemaakt op de levensloop van een typische taak. Dit proces kan per project verschillen met details als of klanten zelf toegang hebben tot Productive of toevoeging/weglaten van sommige task lists maar het blijft in grove lijnen over de meeste projecten het zelfde.
 
-Als een klant een bug of doorontwikkeling meld wordt hier een taak voor aangemaakt. Over de levensloop van een taak worden van verschillende actors verschillende acties verwacht. Om dit te organiseren worden op het moment binnen een project verschillende "Task lists" gebruikt. De levensloop van een taak ziet er bij de meeste projecten als volgt uit:
+Als een klant iets wil in zijn/haar project doen ze hier een aanvraag voor. Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier taken van. Deze taken worden over de loop van tijd op verschillende borden gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak. Hier onder volgt een generalisatie van hoe de workflow van de meeste projecten loopt.
 
-- **Wishlist**</br>Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de wishlist terecht.
-  - **Waiting for reply PM/TL** </br> Een taak die binnen is gekomen via de klant waar nog geen goedkeuring op is gegeven door een PM/TL.
-  - **Waiting for feedback Customer**</br> Een taak die gecontroleerd is door een PM/TL maar waar meer informatie nodig is van de klant. Denk hierbij aan extra informatie in de taak omschrijving of een akkoord met de time/cost estimate.
+```plantuml
+title Boards and statuses
 
-- **Planning**</br>Taken die opgenomen zijn in de planning hebben een akkoord van beiden de klant en Bluenotion (via PM/TL). Deze taken zijn compleet met time/cost estimates en een juiste prioriteit.
-  - **Backlog**</br>De backlog is waar taken terecht komen na de wishlist. Vanaf de backlog pakken de aangewezen teams de taken op.
-  - **In progress**</br>Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.
-  - **In review**</br>Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.
-  - **Development**</br>Alle afgeronde taken die draaien in de dev omgeving?
-  - **Testing**</br>Alle afgeronde taken die draaien in de test omgeving?
-  - **Staging**</br>???
-  - **Live**</br>Alle afgeronde taken die draaien op de klant omgeving.
+left to right direction
+skinparam groupInheritance 3
+
+' skinparam linetype polyline
+' skinparam linetype ortho
+(backlog) #orange
+(in progress) as in_progress  #orange
+(in review) as in_review #orange 
+(development) #orange
+(staging) #orange
+(live) #green
+(wishlist) #red
+(aanvragen) #red
+actor "Externe klant" as EK
+
+
+aanvragen -DOWN-> backlog : ✓
+wishlist -[norank]-> in_progress : ✓
+backlog -DOWN-> in_progress : ✓
+in_progress -DOWN-> in_review : ✓
+in_review -DOWN-> development : ✓
+development -DOWN-> staging : ✓
+staging -DOWN-> live : ✓
+in_review -[norank]-> backlog : Denied by reviewer
+wishlist -[norank]-> wishlist : Denied by PM/TL
+aanvragen -[norank]-> aanvragen : Denied by PM/TL
+development -[norank]-> backlog : Denied by customer
+staging -[norank]-> backlog : Denied by customer
+in_progress -[norank]-> wishlist : functionality is nice to have but outside of scope
+EK -[norank]-> aanvragen
+
+
+legend left
+    | Color | Status |
+    |<#Red>| Not started |
+    |<#Orange>| Started/Open |
+    |<#Green>| Finished/closed |
+    | ✓ | Accepted |
+endlegend
+
+```
+
+Toelichting borden:
+
+- **Aanvragen**</br>Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de aanvragen lijst terecht.
+- **Wishlist**</br>Taken die tijdens ontwikkeling naar boven zijn gekomen als "Nice to haves" en worden opgepakt als er tijd over is.
+- **Backlog**</br>De backlog is waar geaccepteerde taken terecht komen. Vanaf de backlog pakken de aangewezen teams de taken op.
+- **In progress**</br>Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.
+- **In review**</br>Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.
+- **Development**</br>Alle afgeronde taken die draaien in de dev omgeving?
+- **Staging**</br>Alle afgeronde taken die draaien in de test omgeving tot.... sprint review?
+- **Live**</br>Alle afgeronde taken die draaien op de klant omgeving.
+
+Toelichting statussen:
+
+De klant is geïnteresseerd in delen van dit proces en zou ingelicht moeten worden als er voor hem relevante wijzigingen zijn in taken.
+
+- **Not started** </br> Een taak die nog niet gestart is. Dit kan meerdere redenen hebben die naar de klant gecommuniceerd dienen te worden.
+  - **Waiting for reply PM/TL** </br> Een taak die binnen is gekomen via de klant waar nog geen goedkeuring op is gegeven door een PM/TL. Deze taken kunnen enkel voorkomen in de wishlist en aanvragen lijsten.
+  - **Waiting for feedback Customer** </br> Een taak die afhankelijk is van de klant voordat deze verder afgehandeld kan worden. Dit kunnen taken zijn waar nog niet aan is begonnen (wishlist/aanvraag) of taken waar aan gewerkt is en na goedkeuring van de klant gesloten kunnen worden. (development/staging)
+- **Started/Open** </br> Een taak die is goedgekeurd door een PM/TL waar verschillende medewerkers van Bluenotion aan (gaan) werken.
+- **Finished/Closed** </br> Een taak die is afgerond en op de live omgeving staat. Deze taken dienen als archief van geleverd werk.
 
 ## Requirements
-
-
 
 ### Functioneel
 
 ```plantuml
+left to right direction
 
-:ACT1 Externe klant: as klant
+:ACT1 Externe klant: as KL
 :ACT4 Tech lead: as TL
 :ACT2 Product manager: as PM
 
 (FR1: Inzien projecten) as FR1
-(FR2: Inzien uit te voeren taken in een project) as FR2
-(FR3: Toevoegen nieuwe taak in een project) as FR3
-(FR4: Taak open zetten voor feedback klant) as FR4
+(FR2: Inzien taken) as FR2
+(FR3: Toevoegen taak) as FR3
+(FR4: Vragen feedback klant) as FR4
 (FR5: Goedkeuren extern toegevoegde taken) as FR5
 
-klant --> FR1
-klant --> FR2
-klant --> FR3
-klant -->FR4
+KL -DOWN-> FR1
+KL -DOWN-> FR2
+KL -DOWN-> FR3
 
-TL-->FR5
-PM-->FR5
+
+TL-DOWN->FR5
+PM-DOWN->FR5
+TL-DOWN->FR4
+PM-DOWN->FR4
+
+PM-LEFT-|>KL
+TL-LEFT-|>KL
+
 
 ```
 
@@ -205,6 +288,8 @@ PM-->FR5
 - FR?: Toevoegen screenshots aan een taak
 - FR?: Mention screenshots in taak description
 - FR?: Aanpassen geaccepteerde taken? Kunnen taken die al op de backlog (of verder) nog aangepast worden door de klant? idee: naam en beschrijving niet, comments kunnen wel toegevoegd worden?
+- FR?: Aanpassen prioriteit
+- FR?: Aanpassen taak type
 - FR?: Priority afleiden van de SLA
 - FR?: Verkopen extra uren indien deze binnen Bluenotion beschikbaar zijn.
 - FR?: Pre-project proces vastleggen in PMP
@@ -248,7 +333,7 @@ Old:
 #### Reliability
 
 - NFR?: database back-ups?
-- NFR?: Het systeem maakt gebruik van het al draaiende Productive.io systeem als Single Source of Truth.
+- NFR2: Het systeem maakt gebruik van het al draaiende Productive.io systeem als Single Source of Truth.
 
 #### Performance
 
@@ -340,7 +425,7 @@ Old:
 | Primaire Actor | ACT1: Externe klant |
 | Stakeholders | PM |
 | Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
-| Post condities | Er is binnen Productive een nieuwe taak toegevoegd aan de wishlist. |
+| Post condities | Er is binnen Productive een nieuwe taak toegevoegd aan de aanvragen lijst. |
 | Triggers | De klant geeft aan werk gedaan te willen hebben. |
 | Exceptions | Het opgevraagde project bestaat niet. |
 | Open issues | Maakt de PM/TL hier ook gebruik van of is dit specifiek voor de klant? </br> Kunnen projecten permanent gesloten/gearchiveerd zijn en dus niet meer bijgevuld worden? |
@@ -349,10 +434,10 @@ Old:
 
 |Stap | Actor | System |
 |---|---|---|
-| 1 | Geeft aan een wens te hebben voor een bestaand project |  |
-| 2 |  | Stelt de gebruiker een aantal vragen om de wens van de klant duidelijk te krijgen. |
+| 1 | Geeft aan een aanvraag te hebben voor een bestaand project |  |
+| 2 |  | Stelt de gebruiker een aantal vragen om de aanvraag van de klant duidelijk te krijgen. |
 | 3 | Controleert de ingevulde vragen, past ze aan waar nodig en stuurt ze op voor verdere verwerking |  |
-| 4 |  | Maakt op basis van de ingevulde gegevens een taak aan op de wishlist in Productive. |
+| 4 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. |
 
 ##### FR3: Alternative flow - blocking issue
 
@@ -371,16 +456,16 @@ Old:
 | Post condities | De klant wordt op de hoogte gebracht dat er om feedback is gevraagd. |
 | Triggers | De PM of TL stelt vast dat een taak nog niet duidelijk genoeg is voor voor de backlog. |
 | Exceptions |  |
-| Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de wishlist of wordt deze alsnog naar de backlog gehaald? |
+| Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen of wordt deze alsnog naar de backlog gehaald? |
 
 ##### FR4: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
-| 1 | Geeft bij een taak op de wishlist aan wat mist of onduidelijk is aan de taak. |  |
+| 1 | Geeft bij een taak op de aanvragen lijst aan wat mist of onduidelijk is aan de taak. |  |
 | 2 |  | Registreert de taak als "waiting for customer" en stelt de klant (open issues) op de hoogte |
 
-##### FR4: Alternative flow - Klant geeft meerdere wensen door in één taak op de wishlist
+##### FR4: Alternative flow - Klant geeft meerdere taken door in één aanvraag
 
 |Stap | Actor | System |
 |---|---|---|
@@ -394,7 +479,7 @@ Old:
 | Naam | FR5: Goedkeuren extern toegevoegde taken |
 | Primaire Actor | ACT2: Product manager, ACT4: Tech Lead  |
 | Stakeholders | ACT1: Externe klant |
-| Pre condities | Er is een taak toegevoegd in de wishlist van een project. |
+| Pre condities | Er is een taak toegevoegd in de aanvragen lijst van een project. |
 | Post condities | De bovengenoemde taak is toegevoegd aan de backlog van het project. |
 | Triggers | De primaire actor geeft aan dat een taak duidelijk genoeg is voor development. |
 | Exceptions | De taak is in de tussentijd verwijderd door de externe klant? |
@@ -409,27 +494,25 @@ Old:
 
 ##### FR5: Alternative flow - flow name
 
-
-#### FR?: Overzicht geheel proces aanmaken en goedkeuren nieuwe taak vanuit klant.
+#### FR?: Overzicht geheel proces aanmaken en goedkeuren nieuwe taak vanuit klant
 
 |Stap | Actor | System |
 |---|---|---|
-| 1 | EK: Geeft aan een wens te hebben voor een project |  |
-| 2 |  | Registreert de wens in de wishlist van het project als "waiting for PM" |
+| 1 | EK: Geeft aan een aanvraag te hebben voor een project |  |
+| 2 |  | Registreert de aanvraag in de aanvragenlijst van het project als "waiting for PM" |
 | 3 | PM: geeft aan dat de taak voldoende is ingevuld voor development en kent er een time/cost estimate aan. |  |
-| 4 |  | Registreert de wens als "Waiting for EK" |
+| 4 |  | Registreert de aanvraag als "Waiting for EK" |
 | 5 | EK: keurt de time/cost estimate goed |  |
-| 6 |  | Registreert de wens als "Accepted" en zet deze taak in de backlog voor development |
+| 6 |  | Registreert de aanvraag als "Accepted" en zet deze taak in de backlog voor development |
 | 7 | SD: werkt aan de taak en zet deze binnen Productive op In Progress, In review, Development, Testing, Staging en Live. |  |
 | 8 |  | Stelt de klant op de hoogte als voor hem relevante taken in het "Live" bord terecht komen. (Of gewoon status closed?) |
-
 
 |Stap | Actor | System |
 |---|---|---|
 | 3A | PM: geeft aan dat de taak onvoldoende is ingevuld voor development. |  |
 | 4A |  | FR5: Goedkeuren extern toegevoegde taken |
 
-| 5B | EK: Geeft aan dat de wens te duur is voor het resultaat |
+| 5B | EK: Geeft aan dat de aanvraag te duur is voor het resultaat |
 | 6B |  | ??? |
 
 <!-- 

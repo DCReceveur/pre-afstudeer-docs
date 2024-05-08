@@ -1,4 +1,4 @@
-# Plan van aanpak
+# Plan van aanpak Project Management Portal
 
 ## Inleiding
 
@@ -9,7 +9,7 @@ Binnen dit document wordt toelichting gegeven op het Project Management Portal d
 Bluenotion levert voor verschillende klanten op maat gemaakte softwareoplossingen. Te verrichte taken voor het bouwen van de softwareoplossingen worden bijgehouden in productive.io. Op het moment wordt de status van het project en de bijbehorende taken op twee manieren gecommuniceerd naar de klant:
 
 - Directe communicatie via de PM:
-Voor de meeste projecten dient de Product owner als koppeling tussen de projectplanning en de klant. Het is dan aan de product owner om de huidige staat van het project tijdens vaste contact momenten te communiceren en waar nodig nieuwe taken aan te maken voor het verwerken van feedback van de klant of het creëren van nieuwe functionaliteiten.
+Voor de meeste projecten dient de Project manager als koppeling tussen de projectplanning en de klant. Het is dan aan de Project manager om de huidige staat van het project tijdens vaste contact momenten te communiceren en waar nodig nieuwe taken aan te maken voor het verwerken van feedback van de klant of het creëren van nieuwe functionaliteiten.
 - Guest account in Productive:
 Voor een aantal projecten zijn aan de klant accounts beschikbaar gesteld waarin ze direct inzicht kunnen krijgen in productive.io. Hiermee kunnen ze real-time inzicht krijgen over de staat van het project en waar nodig zelf taken inschieten.
 
@@ -17,7 +17,7 @@ Voor een aantal projecten zijn aan de klant accounts beschikbaar gesteld waarin 
 
 Beide manieren van het communiceren van de project status brengen voor- en nadelen met zich mee.
 
-De management volledig overlaten aan de product owner heeft als resultaat dat de klant geen direct eenduidig overzicht heeft van de status van zijn/haar project en wanneer hij/zij dit wel wil wordt de werkdruk van de PM verhoogd.
+De management volledig overlaten aan de Project manager heeft als resultaat dat de klant geen direct eenduidig overzicht heeft van de status van zijn/haar project en wanneer hij/zij dit wel wil wordt de werkdruk van de PM verhoogd.
 
 Productive.io accounts beschikbaar stellen voor de klant heeft als resultaat dat de klant voor Bluenotion op een niet-Bluenotion portaal terecht komt waar de data ongefilterd en voor klanten mogelijk onduidelijk beschikbaar is. Per klant verschilt of dit leidt tot vragen over bestaande taken en incorrect toegevoegde nieuwe taken.
 
@@ -35,8 +35,11 @@ Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van
 
 - Het projectmanagement portal wordt niet ontwikkeld als vervanging van productive.io voor het dev team.
 - Het project wordt in ieder geval door ontwikkeld tot (precieze datum eind stage nazoeken)
+<!-- - Meer? -->
 
 ## Op te leveren producten en kwaliteitseisen en uit te voeren activiteiten
+
+Binnen dit project worden de volgende producten opgeleverd.
 
 <table>
 <colgroup>
@@ -164,24 +167,6 @@ TO aanwezige diagrammen dienen deze diagrammen en de bijbehorende
 toelichting bijgewerkt te worden voor de taak af is (DoD)</p></li>
 </ul></td>
 </tr>
-<!-- <tr class="even">
-<td>UX Designonderzoek &amp; wireframes</td>
-<td><ul>
-<li><p><mark>Bevat een hoofd en deelvragen?</mark></p></li>
-<li><p>Bevat wireframes of mockups van elke usecase voordat deze in code
-wordt uitgewerkt.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Verzamel delen van andere projectmanagement software die kunnen
-helpen het overzicht voor de klant te verbeteren.</p></li>
-<li><p>Ga in gesprek met een van de inhouse UX-designers.</p></li>
-<li><p>Maak de ontwerpen op basis van afgetekende usecases.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Designs zijn goedgekeurd door UX-designer en
-opdrachtgever.</p></li>
-</ul></td>
-</tr> -->
 <tr class="odd">
 <td>Software Architecture Document</td>
 <td><ul>
@@ -206,33 +191,6 @@ te worden volgens het <a href="https://www.microtool.de/en/knowledge-base/what-i
 TwinPeaks Model</a>.</p></li>
 </ul></td>
 </tr>
-<!-- TODO: is er wens naar een onderzoek hoe er met productive gepraat moet worden? -->
-<!-- <tr class="even">
-<td>Onderzoek communicatie Productive</td>
-<td><ul>
-<li><p>Bevat een lijst die data wensen verbindt aan de relevante
-Productive API endpoints.</p></li>
-<li><p>Bevat een proof of concept applicatie <mark>die taak informatie
-kan ophalen en verwerken boven de 100 requests per 10 sec rate
-limit.</mark></p></li>
-<li><p>Het POC dient de productive API te gebruiken als single source of
-truth.</p></li>
-<li><p>Er mogen geen race conditions voorkomen in het POC.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Na het verzamelen van de wensen en het opzetten van de mockups
-wordt gekeken welke data nodig is voor het implementeren van de wensen.
-Binnen de Productive API wordt vervolgens een endpoint gezocht die deze
-data kan aanleveren.</p></li>
-<li><p>Het POC wordt gebouwd met een manier van caching of een eigen
-database.</p></li>
-<li></li>
-</ul></td>
-<td><ul>
-<li><p><mark>Er worden van tevoren unit tests gemaakt die race
-conditions controlleren en de ratelimit voor de poc.</mark></p></li>
-</ul></td>
-</tr> -->
 <tr class="odd">
 <td>Code</td>
 <td><ul>
@@ -296,41 +254,50 @@ ingevuld.</p></li>
 
 ## Ontwikkelmethoden
 
-Binnen dit project wordt
-[agile](https://www.agilealliance.org/agile101/#:~:text=Agile%20is%20the%20ability%20to,an%20uncertain%20and%20turbulent%20environment.)
-gewerkt in sprints van twee weken. Deze standaard wordt gehanteerd om in
-dezelfde cyclus te draaien als de rest van het bedrijf en omdat dit
-project na afloop van de stage nog doorontwikkeld wordt.
+Het project wordt voornamelijk door één software developer uitgevoerd. Daar waar gewenst zijn binnen Bluenotion collega's beschikbaar voor feedback en tips op het gebied van Project management, UX, UI en het programmeren zelf maar deze collega's zijn in hun dagelijks werk aan het werk aan andere projecten.
 
-Voor het globale overzicht wordt ook vooruitgekeken naar het project
-zoals het er nu aan het eind van de stage uit zou moeten zien. Dit zou
-beschouwd kunnen worden als pre-game of <span class="mark">een beetje
-waterval</span>. Door dit te doen zijn in ieder geval op hoog niveau
-alle use cases al besproken met de opdrachtgever zodat misverstanden of
-belangrijke eisen niet blijven liggen tot een van de latere sprints.
+Aangezien binnen Bluenotion vaker met kleine teams tegelijkertijd aan verschillende projecten wordt gewerkt hanteren ze hier een lichtere vorm van SCRUM dan die aangegeven in het SCRUM manifesto. Om de voortgang van het project voor alle stakeholders duidelijk te houden wordt er wel gewerkt in sprints van 2 weken per stuk waar aan het eind van elke sprint concrete deliverables worden aangeleverd.
+
+Deze deliverables worden besproken tijdens een sprint review waar stakeholders de optie hebben feedback te geven en het project bij te sturen. De review is de enige Scrum ceremonie die met regelmaat wordt uitgevoerd en dient tevens als retrospective en planning voor de volgende sprint.
+
+Met een klein team waar elke sprint afhankelijk van wat er in het project nodig is collega's aan/af kunnen haken is de keuze gemaakt deze structuur ook voor het project management portal aan te houden. Bij dit project zal ik de rol van Tech lead op me nemen en collega's per sprint inschakelen waar ik het nodig acht.
 
 ## Projectorganisatie en communicatie
 
-| Rol(len): | **Student** |
+| Rol(len): | **Student & Tech lead** |
 |---|---|
 | Naam: | Daan Receveur |
 | Contactgegevens: | <daan@bluenotion.nl> |
 | Contactmomenten: | Maandag tm vrijdag 9 tm 17:30 |
 | Verantwoordelijkheden | - Plannen en uitvoeren van het afstudeerproject. </br> - Plannen van de begeleidingsafspraken en communicatie met de docentbegeleider en bedrijfsbegeleider. |
 
-| Rol(len): | **Bedrijfsbegeleider & Techlead** |
+| Rol(len): | **Bedrijfsbegeleider & ACT4: Tech lead** |
 |---|---|
 | Naam: | Yannic Smeets |
 | Contactgegevens: | <yannic@bluenotion.nl> |
 | Contactmomenten | Sprint review |
 | verantwoordelijkheden | Feedback/mogelijkheid tot sparren over technische aspecten van het project. |
 
-| Rol(len): | **Projectmanager & Opdrachtgever** |
+| Rol(len): | **ACT2: Projectmanager & Opdrachtgever** |
 |---|---|
 | Naam: | Jesse Bekke |
 | Contactgegevens: | <jesse@bluenotion.nl> |
 | Contactmomenten: | Sprint review |
 | verantwoordelijkheden: | Feedback/mogelijkheid tot sparren over functionele aspecten van het project. |
+
+| Rol(len): | **UX Designer** |
+|---|---|
+| Naam: | Roel Dekkers |
+| Contactgegevens: | Roel@bluenotion.nl |
+| Contactmomenten | Op aanvraag |
+| verantwoordelijkheden | Brainstormen en feedback leveren op de user experience |
+
+| Rol(len): | **UI Developer** |
+|---|---|
+| Naam: | ? |
+| Contactgegevens: | ? |
+| Contactmomenten | Op aanvraag |
+| verantwoordelijkheden | Brainstormen en feedback leveren op de development van de UI |
 
 <!-- Deze wordt toegekend aan het begin van de stage. -->
 
@@ -350,7 +317,6 @@ De planning van de stage is in [het volgende document](./Planning.md) opgenomen,
 Aangezien de stage uitgesteld is en er tijd en ruimte is al voorbereidend werk te doen voor de opdracht is er een kleine planning gemaakt tot het begin van de stage.
 
 Ook deze zijn ingedeeld in sprints van 2 weken, aangezien er per week twee werkdagen tijd is om aan de voorbereiding van de afstudeer opdracht te werken is er tijdens de sprints rekening gehouden met 32 werkuur per sprint. Het doel van het voorbereidend werk is voor de afstudeer periode de wensen voor het project vast te stellen en de praktische en technische haalbaarheid van het project te beoordelen.
-
 
 | Sprint | Werkzaamheden | Op te leveren producten |
 |---|---|---|
