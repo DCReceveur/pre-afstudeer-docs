@@ -18,3 +18,6 @@ Binnen dit document worden alle afkortingen toegelicht die over de loop van het 
 | PM | Project Manager | Een werknemer van Bluenotion die het project en bijbehorende taken beheert. |
 | TL | Tech Lead | Een werknemer van Bluenotion die de technische aspecten van het project beheert. |
 | PMP | Project Management Portal | De te bouwen software oplossing waarin voornamelijk door externe klanten en project managers project taken/wensen beheerd worden. |
+| FE | Front End |  |
+| BE | Back End |  |
+| DB | Data Base |  |

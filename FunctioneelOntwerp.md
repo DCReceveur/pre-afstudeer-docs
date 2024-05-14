@@ -263,17 +263,22 @@ TL-LEFT-|>KL
 
 ```
 
-- FR1: Inzien projecten
-  - Als PM wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken. (ACT1)
-  - Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden. (ACT2)
+User stories:
 
-- FR2: Inzien uit te voeren taken in een project
-  - Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. (ACT2)
-  - Als PM wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen. (ACT1)
-  - Als software developer wil ik niet mijn werkwijze aanpassen om een externe klant inzicht te geven in mijn werk. (ACT3)
+| User story no | Gerelateerde actors  | User story  | Resulterende requirement(s)  |
+|---|---|---|---|
+| US1   | ACT1  | Als PM wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken.  | FR1  |
+| US2  | ACT2 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | FR1  |
+| US3  | ACT2 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | FR2 |
+| US4?  | ACT1  | Als PM wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  | FR2   |
+| US5  | ACT3  | Als software developer wil ik niet mijn werkwijze aanpassen om een externe klant inzicht te geven in mijn werk.  |   |
+| US6  | ACT2  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | FR2  |
+| US7  | ACT1, ACT2  | Als PM wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | FR2  |
+| US8  | ACT2  | Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | FR2  |
+| US9  | ACT2  | Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | FR2  |
+| US10  | ACT1  | Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.  | FR2  |
+| US11  |   | Als ?software developer? wil ik geen data over het netwerk sturen waar de klant geen toegang toe heeft.  |   |
 
-- FR3: Toevoegen nieuwe taak in een project
-  - Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.
 
 - FR4: Taak open zetten voor feedback klant
   - Als PM wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen. (ACT2)
@@ -298,6 +303,101 @@ TL-LEFT-|>KL
 - FR?: Acties die effect hebben op de staat van een project (bijvoorbeeld FR3, FR4, FR5) dienen gelogd te worden.
 - FR?: klanten kunnen tickets voor verschillende omgevingen aanmaken.
 - FR?: Bij het accepteren van een taak aanvinken voor welke teams dat de taak is en subtaken aanmaken voor UX, FE, BE.... (Niet besproken)
+
+Main requirements:
+
+| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references |
+|---|---|---|---|---|---|
+|   |   |   |   |   |   |
+| FR1  | Beheren projecten |   | Must have  | NFR0.5  |   |
+| FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  |   |
+| FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  |   |
+| FR1.3  |   | Toekennen overige project uren  | Could have  | FR1.2  |   |
+| FR1.4  |   | Toekenen SLA KPI's | Could have  | FR1.1  |   |
+| FR2  | Beheren taken  |   |   |   |   |
+| FR2.1  |   | Inzien taken van project  | Must have  |   |   |
+|   |   | TODO: bij inzien taken dient het gelijk duidelijk te zijn in welke "staat" de taken zijn. Denk verschillende lijsten of filters |  |  |  |
+| FR2.2  |   | Toevoegen nieuwe taak (extern)  | Must have  |   |   |
+| FR2.3  |   | Toevoegen bijlagen bij taak | Must have |  |  |
+| FR2.4  |   | Inzien geplande+besteden uren+kosten  | Must have  |   |   |
+| FR2.5  |   | Feedback geven op taak (extern)  | Must have  |   |   |
+| FR2.6  |   | Feedback geven op taak (intern)  | Must have  |   |   |
+| FR2.7  |   | Toevoegen bijlagen binnen feedback | Should have? |  |  |
+| FR2.8  |   | Tonen taken in Gantt chart?  | Could have |  |  |
+| FR2.9  |   | Op splitten taak naar "team" taken | Could have |   |   |
+| FR2.10  |   | Aanpassen taak prioriteit/type |  |  |  |
+|   | Performance  |   |   |   |   |
+|   |   | Onder normale omstandigheden wordt data die niet afkomstig is van de Productive API binnen 1? seconde na aanvraag getoond aan de gebruiker.  |   |   |   |
+|   |   | Onder normale omstandigheden wordt data die afkomstig is van de Productive API binnen 3? seconden na aanvraag getoond aan de gebruiker. |   |   |   |
+|   | Scalability  |   |   |   |   |
+|   |   | De software komt met 50? gelijktijdige gebruikers niet aan de Productive API rate limits  | Should have  |   |   |
+|   |   | De software komt ongeacht hoeveelheid gelijktijdige gebruikers niet aan de Productive API rate limits?  | Would have  |   |
+|   | Portability  |  |   |   |   |
+|   |   | Het systeem schaalt "netjes"? op alle Windows en MAC versies van de afgelopen 3? jaar  |   |   |   |
+|   |   | Het systeem is platform onafhankelijk (zou implementaties kunnen hebben met bijvoorbeeld Jira, GitLab, Trello)  | Would  |   |   |
+|   |   | Het systeem werkt in alle FireFox, Chrome, Edge en Safari versies van de afgelopen 3? jaar.  |   |   |   |
+|   | Compatibility  |   |   |   |   |
+|   |   | Het systeem werkt op alle Windows en MAC versies van de afgelopen 3? jaar  | Must have  |   |   |
+|   | Reliability  |   |   |   |   |
+|   |   | Informatie over projecten en taken komen altijd overeen met de informatie op Productive.  |   |   |   |
+|   |   | Het systeem geeft bij 95% van de requests in een maand antwoord zoals beschreven in dit document.  |   |   |   |
+|   | Maintainability  |   |   |   |   |
+|   |   | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  | Bij verlies van de database raken geen gegevens over projecten of taken verloren.  |   |   |
+|   |   | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  |   |   |   |
+|   | Security |  |  |  |  |
+|   |   | Authenticatie: Uitnodigen nieuwe gebruikers via e-mail | Must have |  |  |
+|   |   | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |   |   |
+|   |   | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |   |   |
+|   |   | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database |   |   |
+|   |   | Accounting: Loggen write events  | Must have?  |   |   |
+|   |   | Accounting: Loggen read events?  | Could have?  |   |   |
+|   |   | Het systeem is AVG/GDPR compliant (TODO: smart uitwerken.)  |   |   |   |
+|   | Usability  |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+
+<!-- Idee: meerdere plannings systemen? -->
+
+| NFR0  | Opzetten technische infrastructuur  |   | Must have  |   |   |
+| NFR0.1  |   | Opzetten initial Front-end  | Must have  |   |   |
+| NFR0.2  |   | Opzetten initial Back-end  | Must have  |   |   |
+| NFR0.3  |   | Opzetten initial database  | Must have  |   |   |
+| NFR0.4  |   | Opzetten test infrastructuur  | Must have  |   |   |
+| NFR0.5  |   | Opzetten verbinding Productive.io API | Must have  |  |  |
+| NFR0.6  |   | Opzetten mailing system  | Must have  |   |   |
+| NFR0.7  |   | Opzetten internationalisatie infrastructuur | Should have |  |  |
+
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+
+<!-- https://www.altexsoft.com/blog/software-requirements-specification/ -->
+
+- Gebruik Bluenotion template (NFR?)
+  - Opzetten initial DB
+  - Opzetten initial BE
+  - Opzetten initial FE
+- Aanmelden PMP
+  - Aanmelden externe klant
+  - Aanmelden Bluenotion medewerker (aparte admin/TL?)
+- Communiceren met productive api
+  - Aanmelden
+  - Aanvragen doen REST API
+  - Verkrijgen webhooks
+- Beheren project
+- Beheren taken in een project
+  - Toevoegen nieuwe taak
+    - Externe klant
+    - Medewerker Bluenotion
+  - Feedback geven op bestaande taak
+    - Externe klant
+    - Bluenotion
+- Feedback geven op een project
+- Sturen notificatie?
+- 
+
 
 <!-- 
 Old:
@@ -355,7 +455,6 @@ Old:
 #### Physical requirements -->
 
 - Het systeem zou moeten werken binnen het huidige productive abonnement
-
 
 - Voor de back-end wordt gebruik gemaakt van .NET <span class="mark">framework</span> om bedrijf standaarden te hanteren.
 - Voor het front-end wordt gebruik gemaakt van React Native om bedrijf standaarden te hanteren.
