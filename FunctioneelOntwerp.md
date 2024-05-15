@@ -2,6 +2,8 @@
 
 Dit document dient als toelichting op de functionele eisen van het Product Management Portal. Na het doornemen van dit document dienen alle betrokken partijen een duidelijk beeld te hebben van precies wat het opgeleverde Project Management Portal functioneel kan.
 
+
+
 ## Aannames en afhankelijkheden
 
 Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Voor het schrijven van dit document zijn wel de volgende technische aannames gedaan:
@@ -271,7 +273,7 @@ User stories:
 | US2  | ACT2 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | FR1  |
 | US3  | ACT2 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | FR2 |
 | US4?  | ACT1  | Als PM wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  | FR2   |
-| US5  | ACT3  | Als software developer wil ik niet mijn werkwijze aanpassen om een externe klant inzicht te geven in mijn werk.  |   |
+| US5  | ACT3  | Als Bluenotion medewerker wil ik niet mijn werkwijze aanpassen om een nieuw systeem voor de klant te ondersteunen.  |   |
 | US6  | ACT2  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | FR2  |
 | US7  | ACT1, ACT2  | Als PM wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | FR2  |
 | US8  | ACT2  | Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | FR2  |
@@ -279,15 +281,6 @@ User stories:
 | US10  | ACT1  | Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.  | FR2  |
 | US11  |   | Als ?software developer? wil ik geen data over het netwerk sturen waar de klant geen toegang toe heeft.  |   |
 
-
-- FR4: Taak open zetten voor feedback klant
-  - Als PM wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen. (ACT2)
-  - Als TL wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen. (ACT4)
-  - Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog. (ACT1)
-  - Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen. (ACT1)
-
-- FR5: Goedkeuren extern toegevoegde taken
-  - Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.
 
 <!-- Is dit een fr of valt dit onder fr aanmaken/feedback geven? -->
 - FR?: Toevoegen screenshots aan een taak
@@ -309,55 +302,76 @@ Main requirements:
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references |
 |---|---|---|---|---|---|
 |   |   |   |   |   |   |
-| FR1  | Beheren projecten |   | Must have  | NFR0.5  |   |
+| FR1  | Inzien project plannings informatie |   | Must have  | NFR0.5  |   |
 | FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  |   |
 | FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  |   |
 | FR1.3  |   | Toekennen overige project uren  | Could have  | FR1.2  |   |
-| FR1.4  |   | Toekenen SLA KPI's | Could have  | FR1.1  |   |
-| FR2  | Beheren taken  |   |   |   |   |
+| FR1.4  |   | Toekennen SLA KPI's | Could have  | FR1.1  |   |
+| FR2  | Inzien taken  |   |   |   |   |
 | FR2.1  |   | Inzien taken van project  | Must have  |   |   |
-|   |   | TODO: bij inzien taken dient het gelijk duidelijk te zijn in welke "staat" de taken zijn. Denk verschillende lijsten of filters |  |  |  |
-| FR2.2  |   | Toevoegen nieuwe taak (extern)  | Must have  |   |   |
+| FR2.2  |   | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have |  |  |
+|   |   | Filteren taken op: issue of doorontwikkeling  | Should have  |   |   |
 | FR2.3  |   | Toevoegen bijlagen bij taak | Must have |  |  |
 | FR2.4  |   | Inzien geplande+besteden uren+kosten  | Must have  |   |   |
-| FR2.5  |   | Feedback geven op taak (extern)  | Must have  |   |   |
-| FR2.6  |   | Feedback geven op taak (intern)  | Must have  |   |   |
-| FR2.7  |   | Toevoegen bijlagen binnen feedback | Should have? |  |  |
-| FR2.8  |   | Tonen taken in Gantt chart?  | Could have |  |  |
-| FR2.9  |   | Op splitten taak naar "team" taken | Could have |   |   |
-| FR2.10  |   | Aanpassen taak prioriteit/type |  |  |  |
+| FR2.5  |   | Tonen taken in Gantt chart?  | Could have |  |  |
+| FR2.6  |   | Aanpassen taak prioriteit? |  |  |  |
+| FR2.7  |   | Comments toevoegen op lopende taak?  |   |  |  |
+| FR3 | Toevoegen taken |  |  |  |  |
+| FR3.1  |   | Toevoegen nieuwe taak (extern)  | Must have  |   |   |
+| FR3.2  |   | Feedback geven op taak (extern)  | Must have  |   |   |
+| FR3.3  |   | Feedback geven op taak (intern)  | Must have  |   |   |
+| FR3.4  |   | Op splitten taak naar "team" taken | Could have |   |   |
+| FR3.5  |   | Toevoegen bijlagen binnen feedback | Should have? |  |  |
+| FR3.6  |   | Toevoegen taken past zich aan aan de klant zijn SLA |  | FR1.4 |  |
+| FR4?  | Versturen notificaties  |   |   |   |   |
+| FR4.1?  |   | Inlichten klant wanneer een taak wacht op input van de klant  |   |   |   |
+| FR4.2?  |   | Inlichten Bluenotion bij blockers/criticals?  |   |   |   |
+| FR5? | Opstellen project |  |  |  |  |
+| FR5.1  |   | Afhandelen project setup binnen PMP  | Could have  |   |   |
+| FR6  | Inzien project service statuses  |   |   |   |   |
+| FR6.1  |   | Inzien lijst van project dependencies  |   |   |   |
+| FR6.2  |   | Inzien huidige status (online/offline) project dependencies |   |   |   |
+| FR6.3  |   | Beheren project services  |   |   |   |
+| FR7  | Inzien project documentatie |  |  |  |  |
+| FR7.1  |   | Openen/downloaden document  |   |   |   |
+| FR7.2  |   | Filteren documentnaam/categorie?  |   |   |   |
+| FR7.3  |   | Beheren project documentatie  |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   |   |   |   |   |   |
+|   | Usability  |   |   |   |   |
+|   |   | Het systeem dient beschikbaar te zijn in Nederlands en Engels, met optie tot uitbreiding.  |   |   |   |
+|   | Reliability  |   |   |   |   |
+|   |   | Informatie over projecten en taken komen altijd overeen met de informatie op Productive.  |   |   |   |
+|   |   | Het systeem geeft bij 95% van de requests in een maand antwoord zoals beschreven in dit document.  |   |   |   |
 |   | Performance  |   |   |   |   |
 |   |   | Onder normale omstandigheden wordt data die niet afkomstig is van de Productive API binnen 1? seconde na aanvraag getoond aan de gebruiker.  |   |   |   |
 |   |   | Onder normale omstandigheden wordt data die afkomstig is van de Productive API binnen 3? seconden na aanvraag getoond aan de gebruiker. |   |   |   |
+|   | Security |  |  |  |  |
+|   |   | Authenticatie: Uitnodigen nieuwe gebruikers via e-mail | Must have |  |  |
+|   |   | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |   |   |
+|   |   | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |   |   |
+|   |   | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database |   |   |   |
+|   |   | Accounting: Loggen write events  | Must have?  |   |   |
+|   |   | Accounting: Loggen read events?  | Could have?  |   |   |
+|   |   | Het systeem is AVG/GDPR compliant (TODO: smart uitwerken.)  |   |   |   |
+|   |   |   |   |   |   |
 |   | Scalability  |   |   |   |   |
 |   |   | De software komt met 50? gelijktijdige gebruikers niet aan de Productive API rate limits  | Should have  |   |   |
-|   |   | De software komt ongeacht hoeveelheid gelijktijdige gebruikers niet aan de Productive API rate limits?  | Would have  |   |
+|   |   | De software komt ongeacht hoeveelheid gelijktijdige gebruikers niet aan de Productive API rate limits?  | Would have  |   |   |
 |   | Portability  |  |   |   |   |
 |   |   | Het systeem schaalt "netjes"? op alle Windows en MAC versies van de afgelopen 3? jaar  |   |   |   |
 |   |   | Het systeem is platform onafhankelijk (zou implementaties kunnen hebben met bijvoorbeeld Jira, GitLab, Trello)  | Would  |   |   |
 |   |   | Het systeem werkt in alle FireFox, Chrome, Edge en Safari versies van de afgelopen 3? jaar.  |   |   |   |
 |   | Compatibility  |   |   |   |   |
 |   |   | Het systeem werkt op alle Windows en MAC versies van de afgelopen 3? jaar  | Must have  |   |   |
-|   | Reliability  |   |   |   |   |
-|   |   | Informatie over projecten en taken komen altijd overeen met de informatie op Productive.  |   |   |   |
-|   |   | Het systeem geeft bij 95% van de requests in een maand antwoord zoals beschreven in dit document.  |   |   |   |
 |   | Maintainability  |   |   |   |   |
-|   |   | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  | Bij verlies van de database raken geen gegevens over projecten of taken verloren.  |   |   |
+|   |   | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  |   |   |   |
+|  |   |  Bij verlies van de database raken geen gegevens over projecten of taken verloren.|  |  |  |
 |   |   | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  |   |   |   |
-|   | Security |  |  |  |  |
-|   |   | Authenticatie: Uitnodigen nieuwe gebruikers via e-mail | Must have |  |  |
-|   |   | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |   |   |
-|   |   | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |   |   |
-|   |   | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database |   |   |
-|   |   | Accounting: Loggen write events  | Must have?  |   |   |
-|   |   | Accounting: Loggen read events?  | Could have?  |   |   |
-|   |   | Het systeem is AVG/GDPR compliant (TODO: smart uitwerken.)  |   |   |   |
-|   | Usability  |   |   |   |   |
 |   |   |   |   |   |   |
-|   |   |   |   |   |   |
-
-<!-- Idee: meerdere plannings systemen? -->
-
 | NFR0  | Opzetten technische infrastructuur  |   | Must have  |   |   |
 | NFR0.1  |   | Opzetten initial Front-end  | Must have  |   |   |
 | NFR0.2  |   | Opzetten initial Back-end  | Must have  |   |   |
@@ -366,98 +380,14 @@ Main requirements:
 | NFR0.5  |   | Opzetten verbinding Productive.io API | Must have  |  |  |
 | NFR0.6  |   | Opzetten mailing system  | Must have  |   |   |
 | NFR0.7  |   | Opzetten internationalisatie infrastructuur | Should have |  |  |
-
 |   |   |   |   |   |   |
 |   |   |   |   |   |   |
 |   |   |   |   |   |   |
 |   |   |   |   |   |   |
 |   |   |   |   |   |   |
 
+<!-- NFR categories: https://www.altexsoft.com/blog/non-functional-requirements/ -->
 <!-- https://www.altexsoft.com/blog/software-requirements-specification/ -->
-
-- Gebruik Bluenotion template (NFR?)
-  - Opzetten initial DB
-  - Opzetten initial BE
-  - Opzetten initial FE
-- Aanmelden PMP
-  - Aanmelden externe klant
-  - Aanmelden Bluenotion medewerker (aparte admin/TL?)
-- Communiceren met productive api
-  - Aanmelden
-  - Aanvragen doen REST API
-  - Verkrijgen webhooks
-- Beheren project
-- Beheren taken in een project
-  - Toevoegen nieuwe taak
-    - Externe klant
-    - Medewerker Bluenotion
-  - Feedback geven op bestaande taak
-    - Externe klant
-    - Bluenotion
-- Feedback geven op een project
-- Sturen notificatie?
-- 
-
-
-<!-- 
-Old:
-- Inzien project status (PM & Extern)
-  - Beschikbare projecten voor meerdere projecten bij 1 klant?
-  - Uren/kosten verbruikt en totaal?
-  - Quicklist van huidige taken?
-  - Timeline?
-  - PM contact info/eind sprint/volgend contact moment?
-
-- Inzien taken (PM & Extern)
-  - Uit te voeren taken?
-  - “In progress” taken?
-  - Voltooide taken?
-  - per taak: status, time/cost, due date?, task changelog + ability to
-    add comment?
-
-- Toevoegen taak (PM & Extern)
-  - Toevoegen problem omschrijving & screenshots
-  - Task priority aan de hand van een vragenlijstje en SLA
-  - Na terugkoppeling van PM met time/cost estimates een
-    bevestiging/annulering optie?
-
-- Toevoegen/aanpassen SLA? (PM) -->
-
-### Non-functioneel
-
-#### Usability
-
-- NFR1: Werkt op alle Windows en MacOS versies van de afgelopen 2 jaar?
-- PWA/site/app
-
-#### Reliability
-
-- NFR?: database back-ups?
-- NFR2: Het systeem maakt gebruik van het al draaiende Productive.io systeem als Single Source of Truth.
-
-#### Performance
-
-- NFR?: Het systeem mag met N aantal gebruikers niet boven de 100 requests per 10 seconde rate limit van de productive.io mogen komen.
-- NFR?: Het systeem mag met N aantal gebruikers niet boven de 10 rapport generating per 30 seconde requests rate limit van productive.io mogen komen.
-
-#### Supportability
-
-- NFR?: Het systeem dient beschikbaar te zijn in Nederlands en Engels, met optie tot uitbreiding.
-
-<!-- ### Plus
-
-#### Design constraints
-
-#### Implementation requirements
-
-#### Interface requirements
-
-#### Physical requirements -->
-
-- Het systeem zou moeten werken binnen het huidige productive abonnement
-
-- Voor de back-end wordt gebruik gemaakt van .NET <span class="mark">framework</span> om bedrijf standaarden te hanteren.
-- Voor het front-end wordt gebruik gemaakt van React Native om bedrijf standaarden te hanteren.
 
 ### Fully dressed Use Cases
 
@@ -610,7 +540,6 @@ Old:
 |---|---|---|
 | 3A | PM: geeft aan dat de taak onvoldoende is ingevuld voor development. |  |
 | 4A |  | FR5: Goedkeuren extern toegevoegde taken |
-
 | 5B | EK: Geeft aan dat de aanvraag te duur is voor het resultaat |
 | 6B |  | ??? |
 
