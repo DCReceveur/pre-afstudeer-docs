@@ -37,220 +37,20 @@ Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van
 - Het project wordt in ieder geval door ontwikkeld tot (precieze datum eind stage nazoeken)
 <!-- - Meer? -->
 
+<div style="page-break-after: always;"></div>
+
 ## Op te leveren producten en kwaliteitseisen en uit te voeren activiteiten
 
 Binnen dit project worden de volgende producten opgeleverd.
 
-<table>
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 27%" />
-<col style="width: 33%" />
-<col style="width: 21%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Product</th>
-<th>Productkwaliteitseisen</th>
-<th>Benodigde activiteiten om te komen tot het product</th>
-<th>Proceskwaliteit (5 x W, 1 x H)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Plan van Aanpak</td>
-<td><ul>
-<li><p>De opdrachtgever heeft afgetekend op het plan van
-aanpak.</p></li>
-<li><p>Geeft inzicht over de achtergrond, doelstelling en op te leveren
-resultaten van het project.</p></li>
-<li><p>Backend het project af met duidelijke project grenzen en
-randvoorwaarden.</p></li>
-<li><p>Op te leveren producten, kwaliteitseisen en uit te voeren
-activiteiten zijn aan de hand van <a
-href="https://en.wikipedia.org/wiki/SMART_criteria">SMAR(T)</a> en <a
-href="https://www.lean.nl/wat-is-de-5-x-w-1h-doorvraag-methode-green-belt/">5xW
-1xH</a> beschreven.</p></li>
-<li><p>De ontwikkelmethodiek is vastgelegd</p></li>
-<li><p>Voor elke tijdens de stage relevante partij zijn contactgegevens
-vastgelegd.</p></li>
-<li><p>Er is een globale planning aanwezig met alle aan te leveren
-producten.</p></li>
-<li><p>Risico’s zijn vastgelegd met tegenmaatregels en uitwijk
-strategieën</p></li>
-</ul></td>
-<td><ul>
-<li><p>Bespreking project met PM en TL om de informatie voor het
-document te verzamelen</p></li>
-<li><p>Aan de hand van de PvA handleiding van de HAN (HAN, 2024) het
-document schrijven.</p></li>
-</ul></td>
-<td><ul>
-<li><p>De developer zet in de eerste sprint het PvA op en loopt deze met
-de opdrachtgever door in de sprint review.</p></li>
-<li><p>Bespreking met PM die het systeem zou gebruiken de functionele
-aspecten van het project te controleren.</p></li>
-<li><p>Bespreking met TL om de technische aspecten van het project te
-controleren.</p></li>
-</ul></td>
-</tr>
-<tr class="even">
-<td>Functioneel Ontwerp</td>
-<td><ul>
-<li><p>Bevat een genummerde lijst van alle voor het project relevante
-stakeholders.</p></li>
-<li><p>Bevat een genummerde lijst van alle Functionele en
-non-functionele wensen.</p></li>
-<li><p>Bevat de happy flow van de software in
-wireframes/mockups</p></li>
-<li><p>Bevat een Usecase diagram</p></li>
-<li><p>Bevat een domein model</p></li>
-<li><p>Functionele requirements zijn uitgewerkt naar fully dressed
-usecases</p></li>
-<li><p>Bevat alternative flows die als relevant worden beoordeeld door
-de opdrachtgever, productmanager of techlead.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Gesprek met opdrachtgever om de wensen en stakeholders vast te
-leggen.</p></li>
-<li><p>(Optioneel) Gesprek met verdere stakeholders voor verduidelijking
-wensen.</p></li>
-<li><p>Gesprek met collega’s van UX om tot goed te gebruiken mockups te
-komen.</p></li>
-<li><p>Domein model maken op basis UX en gesprek
-opdrachtgever/stakeholders.</p></li>
-<li><p>Wensen opdelen in functioneel en non-functioneel</p></li>
-<li><p>Functionele wensen vastleggen in fully dressed usecases met <a
-href="https://www.productplan.com/glossary/moscow-prioritization/">MoSCoW
-prioritisering</a></p></li>
-</ul></td>
-<td><ul>
-<li><p>Aanpassingen binnen het document dienen gecontroleerd te worden
-aan de hand van de DoR</p></li>
-<li><p>Tijdens de sprint reviews dient het document als basis voor de
-presentatie tegenover de opdrachtgever.</p></li>
-<li><p>Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.</p></li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td>Technisch Ontwerp</td>
-<td><ul>
-<li><p>Bevat een klasse diagram die overeenkomt met de software in zijn
-huidige staat.</p></li>
-<li><p>Bevat een package diagram die overeenkomt met de software in zijn
-huidige staat.</p></li>
-<li><p>Bevat een deployment diagram die overeenkomt met de software in
-zijn huidige staat.</p></li>
-<li><p>Bevat een Database model die de huidige staat van de database
-representeert.</p></li>
-<li><p>Bevat een API-definitie met alle binnen de applicatie beschikbare
-end-points en de relevante producers/consumers.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Maak een klasse diagram aan op basis van het domeinmodel en de
-initiële wensen.</p></li>
-<li><p>Maak een package diagram aan op basis van gekozen software
-architectuur.</p></li>
-<li><p>Maak een deployment diagram aan op basis van de gekozen software
-architectuur</p></li>
-<li><p>Maak een database model aan op basis van het domeinmodel en de in
-het FO aanwezige wensen.</p></li>
-<li><p>Maak een API-definitie voor elk blootgestelde endpoint.
-(Automatiseren AHV swagger?)</p></li>
-<li><p>Werk het klasse diagram bij wanneer functionaliteiten hier
-wijzigingen in aanbrengen (DoD).</p></li>
-</ul></td>
-<td><ul>
-<li><p>Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.</p></li>
-<li><p>Wanneer een taak resulteert in wijzigingen in een van de in het
-TO aanwezige diagrammen dienen deze diagrammen en de bijbehorende
-toelichting bijgewerkt te worden voor de taak af is (DoD)</p></li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td>Software Architecture Document</td>
-<td><ul>
-<li><p>Bevat een globaal overzicht van het systeem en de data flows die
-hierin voorkomen volgens het <a href="https://c4model.com/">4C
-model.</a></p></li>
-<li><p>Bevat verantwoording voor alle architecturaal relevante
-gemaakte keuzes binnen het project.</p></li>
-<li><p>Bevat een overzicht van alle <a
-href="https://medium.com/oolooroo/a-step-wise-guide-to-architectural-decisions-ee7304871a71">Architectural
-Relevant Decisions</a></p></li>
-</ul></td>
-<td><ul>
-<li><p>De globale dataflow dient vastgelegd te worden na het vaststellen
-van de eerste requirements van de software.</p></li>
-<li><p>Wanneer een ADR wordt genomen dient deze de dag zelf nog in het
-SAD gezet te worden.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Het SAD dient over de levensduur van het project ADR geüpdatet
-te worden volgens het <a href="https://www.microtool.de/en/knowledge-base/what-is-the-twin-peaks-model/">
-TwinPeaks Model</a>.</p></li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td>Code</td>
-<td><ul>
-<li><p>Code &amp; comments worden in het engels te schrijven</p></li>
-<li><p>Code is herleidbaar naar oorsprong in het FO/TO</p></li>
-<li><p>Er wordt waar praktisch mogelijk rekening gehouden met <a href="https://refactoring.guru/refactoring/what-is-refactoring">CLEAN</a> en <a href="https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design">SOLID</a> coding principles.</p></li>
-<li><p>Frontend code wordt geanalyseerd door <a
-href="https://eslint.org/">ESLint</a>.</p></li>
-<li><p>Backend code wordt geanalyseerd door StyleCop.</p></li>
-<li><p>Code formatting wordt gedaan aan de hand van Editorconfig en
-prettier.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Voordat logica geschreven wordt worden alle relevante
-constructors en functie signatures klaargezet met de oorsprong in
-comments boven de signature.</p></li>
-<li><p>ESLint, StyleCop, Editorconfig en Prettier dienen geïnstalleerd
-en gebruikt te worden.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Voor het maken van een PR worden de wijzigingen vergeleken met de
-DoD.</p></li>
-</ul></td>
-</tr>
-<tr class="even">
-<td>Testplan &amp; Testrapport</td>
-<td><ul>
-<li><p>Het test plan is aan het eind van elke sprint een accurate
-representatie van de staat van het project.</p></li>
-<li><p>Het testplan bevat voor elke usecase de happy flow.</p></li>
-<li><p>Het testplan bevat alternative flows voor scenario’s waar de
-opdrachtgever dit belangrijk acht.</p></li>
-</ul></td>
-<td><ul>
-<li><p>In het testplan worden happy flows opgenomen zodra de
-bijbehorende usecases “Done” zijn.</p></li>
-<li><p>Alternative flows worden overlegd met de opdrachtgever, techlead
-of productmanager en indien ze complex zijn of om andere reden er een
-wens is alt flows toe te lichten worden ze meegenomen in het FO en
-Testrapport.</p></li>
-</ul></td>
-<td><ul>
-<li><p>Het testrapport wordt op de laatste dag van elke sprint opnieuw
-ingevuld.</p></li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td><mark>Opleverdocument</mark></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Product  | ProductKwaliteitseisen  | Benodigde activiteiten om te komen tot het product  | Proceskwaliteit (5 x W 1 x H)  |
+|---|---|---|---|
+| Plan van aanpak  | - De opdrachtgever heeft afgetekend op het plan van aanpak. </br>- Geeft inzicht over de achtergrond, doelstelling en op te leveren resultaten van het project.</br>- Backend het project af met duidelijke project grenzen en randvoorwaarden.</br>- Op te leveren producten, kwaliteitseisen en uit te voeren activiteiten zijn aan de hand van [SMAR(T)](https://en.wikipedia.org/wiki/SMART_criteria) en [5xW 1xH beschreven](https://www.lean.nl/wat-is-de-5-x-w-1h-doorvraag-methode-green-belt/).</br>- De ontwikkelmethodiek is vastgelegd</br>- Voor elke tijdens de stage relevante partij zijn contactgegevens vastgelegd.</br>- Er is een globale planning aanwezig met alle aan te leveren producten.</br>- Risico’s zijn vastgelegd met tegenmaatregels en uitwijk strategieën  | - Bespreking project met PM en TL om de informatie voor het document te verzamelen </br>- Aan de hand van de PvA handleiding van de HAN (HAN, 2024) het document schrijven.  | - De developer zet in de eerste sprint het PvA op en loopt deze met de opdrachtgever door in de sprint review. </br>- Bespreking met PM die het systeem zou gebruiken de functionele aspecten van het project te controleren.</br>- Bespreking met TL om de technische aspecten van het project te controleren.  |
+| Functioneel Ontwerp  | - Bevat een genummerde lijst van alle voor het project relevante stakeholders.</br>- Bevat een genummerde lijst van alle Functionele en non-functionele wensen.</br> - Bevat de happy flow van de software in wireframes/mockups</br> -Bevat een Usecase diagram</br> -Bevat een domein model</br> -Functionele requirements zijn uitgewerkt naar fully dressed usecases</br> -Bevat alternative flows die als relevant worden beoordeeld door de opdrachtgever, productmanager of techlead.  | - Gesprek met opdrachtgever om de wensen en stakeholders vast te leggen.</br> - (Optioneel) Gesprek met verdere stakeholders voor verduidelijking wensen.</br> - Gesprek met collega’s van UX om tot goed te gebruiken mockups te komen.</br> - Domein model maken op basis UX en gesprek opdrachtgever/stakeholders.</br> - Wensen opdelen in functioneel en non-functioneel</br> - Functionele wensen vastleggen in fully dressed usecases met [MoSCoW](https://www.productplan.com/glossary/moscow-prioritization/) prioritisering  | - Aanpassingen binnen het document dienen gecontroleerd te worden aan de hand van de DoR</br> - Tijdens de sprint reviews dient het document als basis voor de presentatie tegenover de opdrachtgever.</br> - Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.  |
+| Technisch ontwerp  | - Bevat een klasse diagram die overeenkomt met de software in zijn huidige staat.</br> - Bevat een package diagram die overeenkomt met de software in zijn huidige staat.</br> - Bevat een deployment diagram die overeenkomt met de software in zijn huidige staat.</br> - Bevat een Database model die de huidige staat van de database representeert.</br> - Bevat een API-definitie met alle binnen de applicatie beschikbare end-points en de relevante producers/consumers.  | - Maak een klasse diagram aan op basis van het domeinmodel en de initiële wensen.</br> - Maak een package diagram aan op basis van gekozen software architectuur.</br> - Maak een deployment diagram aan op basis van de gekozen software architectuur</br> - Maak een database model aan op basis van het domeinmodel en de in het FO aanwezige wensen.</br> - Maak een API-definitie voor elk blootgestelde endpoint. (Automatiseren AHV swagger?)</br> - Werk het klasse diagram bij wanneer functionaliteiten hier wijzigingen in aanbrengen (DoD).  | Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.</br> - Wanneer een taak resulteert in wijzigingen in een van de in het TO aanwezige diagrammen dienen deze diagrammen en de bijbehorende toelichting bijgewerkt te worden voor de taak af is (DoD)  |
+| Software architecture document  | - Bevat een globaal overzicht van het systeem en de data flows die hierin voorkomen volgens het [4C model](https://c4model.com/).</br> - Bevat verantwoording voor alle [architecturaal relevante gemaakte keuzes](https://medium.com/oolooroo/a-step-wise-guide-to-architectural-decisions-ee7304871a71) binnen het project.</br> - Bevat een overzicht van alle Architectural Relevant Decisions  | - De globale dataflow dient vastgelegd te worden na het vaststellen van de eerste requirements van de software.</br> - Wanneer een ADR wordt genomen dient deze de dag zelf nog in het SAD gezet te worden.  | Het SAD dient over de levensduur van het project ADR geüpdatet te worden volgens het [TwinPeaks Model](https://www.microtool.de/en/knowledge-base/what-is-the-twin-peaks-model/).  |
+| Code  | - Code & comments worden in het engels te schrijven</br> - Code is herleidbaar naar oorsprong in het FO/TO</br> - Er wordt waar praktisch mogelijk rekening gehouden met [CLEAN](https://refactoring.guru/refactoring/what-is-refactoring) en [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design") coding principles.</br> - Frontend code wordt geanalyseerd door [ESLint](https://eslint.org/).</br> - Backend code wordt geanalyseerd door [StyleCop](https://github.com/StyleCop/StyleCop).</br> - Code formatting wordt gedaan aan de hand van Editorconfig en prettier.  | - Voordat logica geschreven wordt worden alle relevante constructors en functie signatures klaargezet met de oorsprong in comments boven de signature.</br> - ESLint, StyleCop, Editorconfig en Prettier dienen geïnstalleerd en gebruikt te worden.  | - Voor het maken van een PR worden de wijzigingen vergeleken met de DoD.  |
+| Testplan & Testrapport  | - Het test plan is aan het eind van elke sprint een accurate representatie van de staat van het project.</br> - Het testplan bevat voor elke usecase de happy flow.</br> - Het testplan bevat alternative flows voor scenario’s waar de opdrachtgever dit belangrijk acht.  | - In het testplan worden happy flows opgenomen zodra de bijbehorende usecases “Done” zijn.</br> - Alternative flows worden overlegd met de opdrachtgever, techlead of productmanager en indien ze complex zijn of om andere reden er een wens is alt flows toe te lichten worden ze meegenomen in het FO en Testrapport.  | - Het testrapport wordt op de laatste dag van elke sprint opnieuw ingevuld.  |
 
 ## Ontwikkelmethoden
 
@@ -264,21 +64,21 @@ Met een klein team waar elke sprint afhankelijk van wat er in het project nodig 
 
 ## Projectorganisatie en communicatie
 
-| Rol(len): | **Student & Tech lead** |
+| Rol(len): | **Student** |
 |---|---|
 | Naam: | Daan Receveur |
 | Contactgegevens: | <daan@bluenotion.nl> |
 | Contactmomenten: | Maandag tm vrijdag 9 tm 17:30 |
 | Verantwoordelijkheden | - Plannen en uitvoeren van het afstudeerproject. </br> - Plannen van de begeleidingsafspraken en communicatie met de docentbegeleider en bedrijfsbegeleider. |
 
-| Rol(len): | **Bedrijfsbegeleider & ACT4: Tech lead** |
+| Rol(len): | **Bedrijfsbegeleider** |
 |---|---|
 | Naam: | Yannic Smeets |
 | Contactgegevens: | <yannic@bluenotion.nl> |
 | Contactmomenten | Sprint review |
 | verantwoordelijkheden | Feedback/mogelijkheid tot sparren over technische aspecten van het project. |
 
-| Rol(len): | **ACT2: Projectmanager & Opdrachtgever** |
+| Rol(len): | **Opdrachtgever** |
 |---|---|
 | Naam: | Jesse Bekke |
 | Contactgegevens: | <jesse@bluenotion.nl> |
@@ -288,7 +88,7 @@ Met een klein team waar elke sprint afhankelijk van wat er in het project nodig 
 | Rol(len): | **UX Designer** |
 |---|---|
 | Naam: | Roel Dekkers |
-| Contactgegevens: | Roel@bluenotion.nl |
+| Contactgegevens: | <Roel@bluenotion.nl> |
 | Contactmomenten | Op aanvraag |
 | verantwoordelijkheden | Brainstormen en feedback leveren op de user experience |
 

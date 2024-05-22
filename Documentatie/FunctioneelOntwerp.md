@@ -2,8 +2,6 @@
 
 Dit document dient als toelichting op de functionele eisen van het Product Management Portal. Na het doornemen van dit document dienen alle betrokken partijen een duidelijk beeld te hebben van precies wat het opgeleverde Project Management Portal functioneel kan.
 
-
-
 ## Aannames en afhankelijkheden
 
 Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Voor het schrijven van dit document zijn wel de volgende technische aannames gedaan:
@@ -15,8 +13,6 @@ Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Vo
 ## Actors
 
 De actors zijn de mensen/rollen die gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
-
-<!-- Een andere optie voor actors is: gebruiker & admin -->
 
 ### ACT1: Externe klant
 
@@ -36,11 +32,11 @@ Doelen nieuwe project management portal:
 
 Aanspreekpunt: Jesse Bekke
 
-### ACT2: Product manager
+### ACT2: Bluenotion Admin
 
-Omschrijving: De product manager is een medewerker van Bluenotion die projecten op functioneel en organisatorisch niveau beheert.
+Omschrijving: De Bluenotion admin is een medewerker van Bluenotion die het recht heeft de planning van projecten aan te passen. Doorgaans zijn dit Product managers (PM) en Tech leads (TL) maar andere medewerkers zouden ook de rol van Bluenotion Admin op zich kunnen nemen.
 
-Huidig proces: Aan het eind van elke sprint wordt door de PM een demo gegeven aan de klant met de in die sprint geboekte vooruitgang en de planning voor de volgende sprint. Bevindingen in deze review worden door de PM verwerkt in de interne Productive omgeving. Indien een klant directe toegang heeft tot de productive omgeving heeft de PM de taak van het controleren en goedkeuren van de door de klant ingeschoten taken. Mochten er onduidelijkheden zijn in een taak of velden verkeerd ingevuld zijn (vaker voorkomend bij priority) is het aan de PM verdere verduidelijking te vragen aan de klant.
+Huidig proces: Aan het eind van elke sprint wordt door de PM/TL een demo gegeven aan de klant met de in die sprint geboekte vooruitgang en de planning voor de volgende sprint. Bevindingen in deze review worden door de PM/TL verwerkt in de interne Productive omgeving. Indien een klant directe toegang heeft tot de productive omgeving heeft de PM/TL de taak van het controleren en goedkeuren van de door de klant ingeschoten taken. Mochten er onduidelijkheden zijn in een taak of velden verkeerd ingevuld zijn (vaker voorkomend bij priority) is het aan de PM verdere verduidelijking te vragen aan de klant.
 
 Doelen nieuwe project management portal:
 
@@ -50,55 +46,12 @@ Doelen nieuwe project management portal:
 
 Aanspreekpunt: Jesse Bekke
 
-### ACT3: Software developer
-
-<!-- of SD is geen stakeholder -->
-- Software developer
-  - Als Software developer wil ik niet mijn werkwijze aanpassen omdat een klant een nieuw portaal krijgt.
-Bluenotion is voorlopig geen stakeholder in dit project.
-
-Aanspreekpunt: NVT
-
-### ACT4: Tech Lead
-
-Is de tech lead een actor van did systeem of valt hij in dit geval onder de rol product manager?
-
-<!-- ## User stories
-
-  - Als product manager wil ik dat taken waar mogelijk herleidbaar zijn
-    naar de oorspronkelijke wens/feedback om de facturatie te
-    verantwoorden.
-
-  - Als product manager wil ik dat taken en feedback met juiste
-    prioritering (op basis van SLA) in productive terecht komen.
-
-  - Als product manager wil ik af kunnen tekenen op door de klant
-    voorgestelde taken met een time en cost estimate.
-
-  - Als klant wil ik inzicht krijgen in de status van taken gerelateerd
-    aan mijn project om wel geïnformeerde beslissingen te kunnen maken.
-
-  - Als klant wil ik feedback kunnen geven op het gedane werk om het
-    product te krijgen dat ik wil.
-
-  - Als klant wil ik een consistente plek waar ik alle voor mij
-    relevante gegevens terug kan vinden (iets met huis steil/wisselen
-    van projectmanagement software)
- -->
-
-
 ## Domein
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het productive systeem direct vastgelegd.
 
 ```plantuml
-
-'abstract placeholder
-' skinparam linetype polyline
 skinparam linetype ortho
-
-
-
 
 rectangle "Project management portal"{
 together{
@@ -158,12 +111,6 @@ SLA "0..*"--"0..*" Prioriteit :> Bepaalt
 | Type | Het soort taak, afhankelijk van de SLA met de klant. | FR? |
 | Werknemer | Een werknemer van Bluenotion die aan taken werkt en de status hiervan bijhoudt in Productive. | NFR2 |
 | SLA | Een **klant** heeft een aantal afspraken voor een **project** vaststaan in een Service Level Agreement waar KPI's zijn vastgelegd die leidend zijn in de **prioriteit** en het **type** van een taak. |  |
-
-#### Taak Impact, Urgentie en Prioriteit levels
-
-TODO: Toelichten prioriteit taken
-
-![alt text](image.png)
 
 ### Lifecycle taken
 
@@ -240,18 +187,63 @@ De klant is geïnteresseerd in delen van dit proces en zou ingelicht moeten word
 - **Started/Open** </br> Een taak die is goedgekeurd door een PM/TL waar verschillende medewerkers van Bluenotion aan (gaan) werken.
 - **Finished/Closed** </br> Een taak die is afgerond en op de live omgeving staat. Deze taken dienen als archief van geleverd werk.
 
+
+#### Incident Impact, Urgentie en Prioriteit levels
+
+Incident:
+Een incident is een aanvraag die te maken heeft met het niet goed functioneren van de huidige applicatie op de manier zoals wel uitdrukkelijk overeengekomen.
+
+Impact:
+
+De impact van een incident geeft aan hoe veel of weinig mensen last hebben van het incident. Urgentie wordt vastgelegd met de onderstaande tabel.
+
+| Categorie  | Omschrijving  |
+|---|---|
+| Hoog (H)  | - Een grote groep werknemers van Opdrachtgever wordt geraakt </br> - Een grote groep Eindgebruikers wordt geraakt </br> - Er bestaat een groot risico op reputatieschade  |
+| Middel (M)  | - Een beperkte groep van de werknemers van Opdrachtgever wordt geraakt  </br> - Een beperkte groep Eindgebruikers wordt geraakt </br> - Het ontstaan van enige reputatieschade is aannemelijk  |
+| Laag (L)  | - Slechts een klein aantal werknemers van Opdrachtgever wordt geraakt </br> - Slechts een klein aantal Eindgebruikers wordt geraakt </br>  - Er is slechts een kleine kans op reputatieschade  |
+
+Urgentie:
+
+De spoedeisendheid van een Incident voor de opdrachtgever.
+
+| Categorie  | Omschrijving  |
+|---|---|
+| Hoog (H)  | - de schade van het Incident neemt snel toe </br> - de verstoorde processen zijn sterk aan tijd gebonden </br> - snel ingrijpen kan voorkomen dat het Incident ernstiger wordt  |
+| Middel (M)  | - de schade van het Incident zal aanzienlijk toenemen gedurende de tijd </br> - de verstoorde processen kunnen enige tijd worden uitgesteld   |
+| Laag (L)  | - de schade van het Incident zal weinig toenemen gedurende de tijd </br> - de verstoorde processen zijn niet of nauwelijks aan tijd gebonden  |
+
+Prioriteit:
+
+Afhankelijk van de aan een incident toegekende impact en urgentie wordt door Bluenotion aan het Incident conform onderstaande matrix een Prioriteit toegekend.
+
+| Impact &#8594; </br> Urgentie &#8595; | Hoog  | Middel  | Laag  |
+|---|---|---|---|
+| Hoog  | 1  | 2  | 3  |
+| Middel  | 2  | 3  | 4  |
+| Laag  | 3  | 4  | 5  |
+
+Aan de hand van deze prioriteit worden per SLA voor de klant een verwachting geschetst van de reactie en oplostijd. De bepaling van de Urgentie, Impact en Prioriteit is per SLA het zelfde. Binnen verschillende SLA levels worden echter verschillende beloftes gedaan op basis van de prioriteit. Onderstaand is een voorbeeld van de wacht en oplostijd van de Bluenotion Gold level SLA:
+
+| Prioriteit | Reactietijd (in uren) | Oplostijd |
+|---|---|---|
+| 1 (Kritiek) | 1 uur | 2 uur |
+| 2 (Hoog) | 2 uur | 4 uur |
+| 3 (Gemiddeld) | 4 uur | 8 uur |
+| 4 (Laag) | 12 uur | 1 werkdag |
+| 5 (Gering) | 2 werkdagen | 4 werkdagen |
+
 ## Requirements
 
 ```plantuml
 left to right direction
 
 :ACT1 Externe klant: as KL
-:ACT4 Tech lead: as TL
-:ACT2 Product manager: as PM
+:ACT2 Bluenotion Admin: as ADM
 
-(FR1: Inzien projecten) as FR1
+(FR1: Inzien project plannings informatie) as FR1
 (FR2: Inzien taken) as FR2
-(FR3: Toevoegen taak) as FR3
+(FR3: Toevoegen taken) as FR3
 (FR4: Vragen feedback klant) as FR4
 (FR5: Goedkeuren extern toegevoegde taken) as FR5
 
@@ -260,13 +252,10 @@ KL -DOWN-> FR2
 KL -DOWN-> FR3
 
 
-TL-DOWN->FR5
-PM-DOWN->FR5
-TL-DOWN->FR4
-PM-DOWN->FR4
+ADM-DOWN->FR5
+ADM-DOWN->FR4
 
-PM-LEFT-|>KL
-TL-LEFT-|>KL
+ADM-LEFT-|>KL
 
 
 ```
@@ -303,32 +292,29 @@ TL-LEFT-|>KL
 - FR?: klanten kunnen tickets voor verschillende omgevingen aanmaken.
 - FR?: Bij het accepteren van een taak aanvinken voor welke teams dat de taak is en subtaken aanmaken voor UX, FE, BE.... (Niet besproken) -->
 
-### Requirements table
+### Requirements traceability matrix
 
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references |
 |---|---|---|---|---|---|
-|   |   |   |   |   |   |
 | FR1  | Inzien project plannings informatie |   | Must have  | NFR0.5  |   |
-| FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  |   |
-| FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  |   |
+| FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  | [Fully dressed usecase description](#fr11-inzien-projecten)  |
+| FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  | [Fully dressed usecase description](#fr12-inzien-totaal-geplande-urenkosten)  |
 | FR2  | Inzien taken  |   |   |   |   |
-| FR2.1  |   | Inzien taken van project  | Must have  |   |   |
-| FR2.2  |   | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have |  |  |
-| FR2.3  |   | Inzien taak details  | Must have  |   |   |
-| FR2.4  |   | Tonen taken in Gantt chart?  | Could have |  |  |
-| FR2.5  |   | Aanpassen taak prioriteit? (TODO: navragen, escalatie prioriteit punt 9.3 bronze SLA) |  |  |  |
-| FR2.6  |   | Comments toevoegen op lopende taak?  |   |  |  |
+| FR2.1  |   | Inzien taken van project  | Must have  |   | [Fully dressed usecase description](#fr21-inzien-taken-van-project)  |
+| FR2.2  |   | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have |  | [Fully dressed usecase description](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| FR2.3  |   | Inzien taak details  | Must have  |   | [Fully dressed usecase description](#fr23-inzien-taak-details)  |
+| FR2.4  |   | Tonen taken in Gantt chart?  | Could have |  | [Fully dressed usecase description](#fr24-tonen-taken-in-gantt-chart) |
+| FR2.5  |   | Aanpassen taak prioriteit? (TODO: navragen, escalatie prioriteit punt 9.3 bronze SLA) |  |  |[Fully dressed usecase description](#fr25-aanpassen-taak-prioriteit)  |
+| FR2.6  |   | Comments toevoegen op lopende taak?  |   |  | [Fully dressed usecase description](#fr26-comments-toevoegen-op-lopende-taak)  |
 | FR2.7  |   | Filteren taken op: incident of doorontwikkeling  | Should have  |   |   |
 | FR3 | Toevoegen taken |  |  |  |  |
-| FR3.1  |   | Toevoegen nieuwe taak (extern)  | Must have  |   |   |
-| FR3.2  |   | Toelichting geven op taak (extern)  | Must have  |   |   |
-| FR3.3  |   | Controleren aanvraag (intern)  | Must have  |   |   |
-| FR3.4  |   | Op splitten taak naar "team" taken | Could have |   |   |
-| FR3.5  |   | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | FR1.4 |  |
-| FR3.6 |   | Toevoegen bijlagen bij taak | Must have |  |  |
-| FR3.7  |   | Toevoegen bijlagen binnen feedback | Should have? |  |  |
+| FR3.1  |   | Toevoegen nieuwe taak | Must have  |   | [Fully dressed usecase description](#fr31-toevoegen-nieuwe-taak-in-een-project)  |
+| FR3.2  |   | Toelichting geven op taak (extern)  | Must have  |   | [Fully dressed usecase description](#fr32-toelichting-geven-op-taak)  |
+| FR3.3  |   | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | FR1.4 | [Fully dressed usecase description](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) |
+| FR3.4 |   | Toevoegen bijlagen bij taak | Must have |  | [Fully dressed usecase description](#fr34-toevoegen-bijlagen-bij-taak) |
+| FR3.5  |   | Toevoegen bijlagen binnen feedback | Should have? |  |  |
 | FR4?  | Versturen notificaties  |   |   |   |   |
-| FR4.1?  |   | Inlichten klant wanneer een taak wacht op input van de klant  |   |   |   |
+| FR4.1?  |   | Inlichten klant wanneer een taak wacht op input van de klant  |   |   | [Fully dressed usecase description](#fr41-versturen-notificatie)  |
 | FR4.2?  |   | Inlichten Bluenotion bij blockers/criticals?  |   |   |   |
 | FR5? | Opstellen project |  |  |  |  |
 | FR5.1  |   | Afhandelen project setup binnen PMP  | Could have  |   |   |
@@ -340,6 +326,9 @@ TL-LEFT-|>KL
 | FR7.1  |   | Openen/downloaden document  |   |   |   |
 | FR7.2  |   | Filteren documentnaam/categorie?  |   |   |   |
 | FR7.3  |   | Beheren project documentatie  |   |   |   |
+| FR 8 | Controleren aanvraag |  |  |  |  |
+| FR8.1  |   | Controleren aanvraag (intern)  | Must have  |   | [Fully dressed usecase description](#fr81-controleren-aanvraag)  |
+| FR8.2  |   | Op splitten taak naar "team" taken | Could have |   | [Fully dressed usecase description](#fr82-op-splitten-taak-naar-team-taken)  |
 | NFR  | Usability  |   |   |   |   |
 |   |   | Het systeem dient beschikbaar te zijn in Nederlands en Engels, met optie tot uitbreiding.  |   |   |   |
 | NFR  | Reliability  |   |   |   |   |
@@ -377,7 +366,6 @@ TL-LEFT-|>KL
 |---|---|---|---|---|---|
 | FR1.3  |   | Toekennen overige project uren  | Could have  | FR1.2  |   |
 | FR1.4  |   | Toekennen SLA KPI's | Could have  | FR1.1  |   |
-|   |   |   |   |   |   |
 | NFR0  | Opzetten technische infrastructuur  |   | Must have  |   |   |
 | NFR0.1  |   | Opzetten initial Front-end  | Must have  |   |   |
 | NFR0.2  |   | Opzetten initial Back-end  | Must have  |   |   |
@@ -635,11 +623,11 @@ TODO: het zou me niets verbazen als deze FR niet bestaat.
 | 3 | Vult de gepresenteerde velden in met informatie over de taak. |  |
 | 4 |   | Toont de ingevoerde informatie nogmaals en vraagt de gebruiker of de informatie correct is.  |
 | 5 | Controleert de ingevulde informatie en geeft aan dat de informatie correct is. |  |
-| 6 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. </br> TODO: navragen, tonen verwachte reactie tijd/opvolg instructies? Dit zou afhankelijk zijn van het SLA dus deel van FR3.5? |
+| 6 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. </br> TODO: navragen, tonen verwachte reactie tijd/opvolg instructies? Dit zou afhankelijk zijn van het SLA dus deel van FR3.3? |
 
 *Schatting van de door de actor aan te leveren informatie:
 
-Titel, korte omschrijving, Screenshot (urgentie & impact zie FR3.5)
+Titel, korte omschrijving, Screenshot (urgentie & impact zie FR3.3)
 
 ##### FR3.1: Alternative flow - Hoge prioriteit taak
 
@@ -699,9 +687,9 @@ A: Gebruiker annuleert de aanvraag.
 
 TODO: is het wel closed of een andere status? Moet ik hier iets zeggen over logging?
 
-#### FR3.3: Controleren aanvraag
+#### FR8.1: Controleren aanvraag
 
-| FR3.3 | Controleren aanvraag|
+| FR8.1 | Controleren aanvraag|
 |---|---|
 | Prioriteit | Must have  |
 | Primaire Actor | ACT2: Project Manager, ACT4: Tech Lead |
@@ -712,7 +700,7 @@ TODO: is het wel closed of een andere status? Moet ik hier iets zeggen over logg
 | Exceptions | In de tijd dat de vraag wordt gecontroleerd is de taak door de klant verwijderd. |
 | Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen of wordt deze alsnog naar de backlog gehaald? |
 
-##### FR3.3: Main flow
+##### FR8.1: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
@@ -723,14 +711,14 @@ TODO: is het wel closed of een andere status? Moet ik hier iets zeggen over logg
 
 TODO: Waar komt feedback? Wordt dit bijgehouden in de comments van de taak? De omschrijving? Apart in het PMP?
 
-##### FR3.3: Alternative flow - Taak is zelf aan te vullen
+##### FR8.1: Alternative flow - Taak is zelf aan te vullen
 
 |Stap | Actor | System |
 |---|---|---|
 | 3A | Past de ontbrekende/onduidelijke punten zelf aan |  |
 | 4A |  | Zet de nieuwe versie van de taak op "awaiting customer" zodat de klant goedkeuring kan geven voordat er aan begonnen wordt.  |
 
-#### FR3.4: Op splitten taak naar "team" taken
+#### FR8.2: Op splitten taak naar "team" taken
 
 | FR? | Op splitten taak naar "team" taken  |
 |---|---|
@@ -743,7 +731,7 @@ TODO: Waar komt feedback? Wordt dit bijgehouden in de comments van de taak? De o
 | Exceptions |  |
 | Open issues | Kunnen dependencies gebruikt worden? Hoofd en subtaken? TODO's? Wanneer is de controle voorbij?  |
 
-##### FR3.4: Main flow
+##### FR8.2: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
@@ -756,15 +744,15 @@ TODO: Waar komt feedback? Wordt dit bijgehouden in de comments van de taak? De o
 
 TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard split"
 
-##### FR3.4: Alternative flow - flow name
+##### FR8.2: Alternative flow - flow name
 
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
 
-#### FR3.5: Toevoegen taken past zich aan aan de klant zijn SLA
+#### FR3.3: Toevoegen taken past zich aan aan de klant zijn SLA
 
-| FR3.5 | Toevoegen taken past zich aan aan de klant zijn SLA |
+| FR3.3 | Toevoegen taken past zich aan aan de klant zijn SLA |
 |---|---|
 | Prioriteit |   |
 | Primaire Actor | ACT1: Externe klant |
@@ -775,22 +763,22 @@ TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard spl
 | Exceptions |  |
 | Open issues |  |
 
-##### FR3.5: Main flow
+##### FR3.3: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
 | 1 |   |   |
 | 2 |   |   |
 
-##### FR3.5: Alternative flow - flow name
+##### FR3.3: Alternative flow - flow name
 
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
 
-#### FR3.6: Toevoegen bijlagen bij taak
+#### FR3.4: Toevoegen bijlagen bij taak
 
-| FR3.6 | Toevoegen bijlagen bij taak |
+| FR3.4 | Toevoegen bijlagen bij taak |
 |---|---|
 | Prioriteit | Must have  |
 | Primaire Actor | ACT1: Externe klant |
@@ -801,7 +789,7 @@ TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard spl
 | Exceptions |  |
 | Open issues |  |
 
-##### FR3.6: Main flow
+##### FR3.4: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
@@ -810,16 +798,18 @@ TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard spl
 | 3 | De actor kiest één of meerdere bestanden om als bijlage toe te voegen. |  |
 | 4 |  | Het systeem upload de bestanden en refereert bij de taak naar deze bestanden. |
 
-##### FR3.6: Alternative flow - Upload fails
+##### FR3.4: Alternative flow - Upload fails
 
 |Stap | Actor | System |
 |---|---|---|
 | 4 |  | Het systeem geeft aan dat bestanden niet geüpload kunnen worden |
 | 5 | Slaat de taak op zonder bijlage. |  |
 
-TODO: FR3.7: Toevoegen bijlagen binnen feedback is hetzelfde als FR3.6?
+TODO: FR3.5: Toevoegen bijlagen binnen feedback is hetzelfde als FR3.4?
 
-#### FR4: Versturen notificatie
+#### FR4.1: Versturen notificatie
+
+<!-- Is dit een eis? -->
 
 | FR? | Empty FDUC |
 |---|---|
@@ -832,20 +822,20 @@ TODO: FR3.7: Toevoegen bijlagen binnen feedback is hetzelfde als FR3.6?
 | Exceptions |  |
 | Open issues |  |
 
-##### FR4: Main flow
+##### FR4.1: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
 |  |  |  |
 
-##### FR4: Alternative flow - flow name
+##### FR4.1: Alternative flow - flow name
 
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
 
-
+<!-- 
 #### FR5: Goedkeuren extern toegevoegde taken
 
 | |  |
@@ -887,7 +877,7 @@ TODO: FR3.7: Toevoegen bijlagen binnen feedback is hetzelfde als FR3.6?
 | 3A | PM: geeft aan dat de taak onvoldoende is ingevuld voor development. |  |
 | 4A |  | FR5: Goedkeuren extern toegevoegde taken |
 | 5B | EK: Geeft aan dat de aanvraag te duur is voor het resultaat |  |
-| 6B |  | ??? |
+| 6B |  | ??? | -->
 
 <!-- 
 https://www.studocu.com/row/document/riphah-international-university/computer-sciences/fully-dressed-use-case-example-pdf/19676384
