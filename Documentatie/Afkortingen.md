@@ -21,3 +21,5 @@ Binnen dit document worden alle afkortingen toegelicht die over de loop van het 
 | FE | Front End |  |
 | BE | Back End |  |
 | DB | Data Base |  |
+| PEK's | Profiel Eind Kwalificaties | De kwalificaties waar de student aan moet voldoen op het eind van de opleiding zoals beschreven in het OER in hoofdstuk "Bijlage 6: Eindkwalificaties HBO-ICT profiel Software Development (SD)" kolom "Eindkwalificatie" |
+| BoKS | Body of Knowledge and Skills | Kennis of vaardigheden waarvan de student bewijs dient te leveren dat de deze student bezit om aan het eind van de opleiding te bewijzen de Profiel Eind Kwalificaties behaald te hebben. De kennis opgenomen in het OER in hoofdstuk "Bijlage 6: Eindkwalificaties HBO-ICT profiel Software Development (SD)" kolom "Kennis" en de Vaardigheden in de zelfde bijlage onder kolom "Vaardigheden" |
