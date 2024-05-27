@@ -35,7 +35,7 @@ Binnen Bluenotion wordt voor de start van het project Productive gebruikt voor h
 
 ## Decision Outcome
 
-Chosen option: Data synchronisatie on request?
+Chosen option: O2 Continu synchroniserende backend database aan de hand van webhooks omdat het limiet van de webhooks hoog ligt. Limiet op verloren data is hoger dan directe communicatie. Complexiteit ligt niet heel hoog.
 
 Chosen option: "{title of option 1}", because
 {justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force {force} | … | comes out best (see below)}.
