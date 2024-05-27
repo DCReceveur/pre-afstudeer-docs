@@ -2,28 +2,53 @@
 
 ## Inleiding
 
-Binnen dit document wordt toelichting gegeven op het Project Management Portal dat als afstudeer opdracht ontwikkeld wordt voor Bluenotion. In de volgende hoofdstukken zal duidelijk gemaakt worden vanuit welke vraag de opdracht is ontstaan, het doel van de opdracht en worden verwachtingen geschetst van de concrete te leveren producten, de kwaliteits eisen hiervan en hoe deze eisen berijkt dienen te worden.
+Binnen dit document wordt toelichting gegeven op het Project Management Portal dat als afstudeer opdracht ontwikkeld wordt voor Bluenotion. In de volgende hoofdstukken zal duidelijk gemaakt worden vanuit welke vraag de opdracht is ontstaan, het doel van de opdracht en worden verwachtingen geschept van de concreet te leveren producten, de kwaliteitseisen hiervan en hoe deze eisen bereikt dienen te worden.
 
-### Achtergrond van het project
+## Achtergrond van het project
 
-Bluenotion levert voor verschillende klanten op maat gemaakte softwareoplossingen. Te verrichte taken voor het bouwen van de softwareoplossingen worden bijgehouden in productive.io. Op het moment wordt de status van het project en de bijbehorende taken op twee manieren gecommuniceerd naar de klant:
+Bluenotion is een bedrijf dat naar opdracht op maat gemaakte software oplossingen aanbiedt. Dit houdt in dat er op elk moment bij Bluenotion voor verschillende opdrachtgevers aan verschillende (vaak kort durende) projecten wordt gewerkt.
+
+Met deze projectmatige wijze van maatwerk software oplossingen leveren heeft Bluenotion ondervonden dat de opdrachtgever bij het bouwproces betrekken een positieve invloed heeft op het algemene ontwikkelproces. Om deze reden is de opdracht "Een centraal portaal bouwen waar beide actoren in kunnen werken. Zodat alle informatie aangaande het proces geborgen wordt in een single point of truth" bedacht. Het idee voor dit project bestaat al een tijdje maar is wegens de lagere prioriteit van interne projecten nooit gebouwd.
+
+Met het aanbod het project verder te laten uitwerken als afstudeer project zijn er intern resources beschikbaar gesteld voor verdere ontwikkeling.
+
+## Doelstelling, opdracht & op te leveren resultaten
+
+Binnen dit hoofdstuk wordt toegelicht welke delen in het huidig proces ervaren kunnen worden als probleem of uitdaging, wat het doel van Bluenotion is met deze opdracht, de opdracht omschrijving en een korte omschrijving van het uiteindelijk te leveren software pakket.
+
+### Probleem/uitdaging
+
+Op het moment worden te verrichte taken voor het bouwen van de software oplossingen bijgehouden in productive.io. De status van het project en de bijbehorende taken worden voornamelijk op de volgende twee manieren gecommuniceerd:
 
 - Directe communicatie via de PM:
-Voor de meeste projecten dient de Project manager als koppeling tussen de projectplanning en de klant. Het is dan aan de Project manager om de huidige staat van het project tijdens vaste contact momenten te communiceren en waar nodig nieuwe taken aan te maken voor het verwerken van feedback van de klant of het creëren van nieuwe functionaliteiten.
+Voor de meeste projecten dient de Project manager als koppeling tussen klant en development team. Het is dan aan de Project manager om de huidige staat van het project tijdens vaste contactmomenten te communiceren en waar nodig nieuwe taken aan te maken voor het verwerken van feedback van de klant of het creëren van nieuwe functionaliteiten.
 - Guest account in Productive:
-Voor een aantal projecten zijn aan de klant accounts beschikbaar gesteld waarin ze direct inzicht kunnen krijgen in productive.io. Hiermee kunnen ze real-time inzicht krijgen over de staat van het project en waar nodig zelf taken inschieten.
-
-### Probleem
+Voor een aantal projecten zijn aan de klant accounts beschikbaar gesteld waarin ze direct inzicht kunnen krijgen in de status van het bouwproces. Hiermee kunnen ze real-time inzicht krijgen over de staat van het project en waar nodig zelf taken inschieten.
 
 Beide manieren van het communiceren van de project status brengen voor- en nadelen met zich mee.
 
-De management volledig overlaten aan de Project manager heeft als resultaat dat de klant geen direct eenduidig overzicht heeft van de status van zijn/haar project en wanneer hij/zij dit wel wil wordt de werkdruk van de PM verhoogd.
+Het management volledig overlaten aan de Project manager heeft als resultaat dat de klant geen direct eenduidig overzicht heeft van de status van zijn/haar project en wanneer hij/zij dit wel wil wordt de werkdruk van de PM verhoogd.
 
 Productive.io accounts beschikbaar stellen voor de klant heeft als resultaat dat de klant voor Bluenotion op een niet-Bluenotion portaal terecht komt waar de data ongefilterd en voor klanten mogelijk onduidelijk beschikbaar is. Per klant verschilt of dit leidt tot vragen over bestaande taken en incorrect toegevoegde nieuwe taken.
 
 ### Doelstelling
 
-Bluenotion wilt het klant contact verbeteren en de manier waarop aanvragen/taken binnenkomen vereenvoudigen. Het PMP maakt hier deel van uit door klanten zelf toegang te geven tot een omgeving waar alle (voor de klant relevante) project informatie te vinden is en de klant zelfd taken/aanvragen kan inschietten.
+Aangezien Bluenotion voornamelijk maatwerk software bouwt wil Bluenotion dat de klant en ontwikkelaar in co-creatie samenwerken om tot de vereiste digitale oplossing te komen.
+
+### Opdracht
+
+Hiervoor dient een centraal portaal gebouwd te worden waar beide de klant en medewerkers van Bluenotion kunnen werken aan de zelfde projecten. Het PMP zal aan de hand van de onderstaande punten meehelpen aan deze doelstelling:
+
+- De klantvriendelijkheid te vergroten
+    Door de transparantie naar de klant te vergroten en de klant zelf te laten meewerken aan de planning van het project wordt de klantvriendelijkheid vergroot.
+- Als centraal overzicht voor de PM/Klant
+    Door de klant en de PM beiden via de zelfde portal te laten werken is het voor beiden partijen sneller duidelijk wat er gedaan moet worden en waar de ander vragen of opmerkingen over heeft.
+- Communicatie kanaal voor de PM/Klant
+    Door de communicatie over het aanmaken of prioriteren van taken via het PMP te laten lopen is het voor beide partijen gelijk inzichtelijk waar de ander het over heeft.
+- Stroomlijnen development proces
+    Door de klant meer input te geven over het plannings proces is de hoop dat onduidelijke taken verduidelijkt worden voordat ze bij developers terecht komen.
+- Borgen van kennis over projecten
+    Kennis als handleidingen of deployment informatie kunnen aangeleverd worden op de zelfde plek als waar de klant inzicht heeft in de ontwikkeling van het project. (TODO: navragen aanleveren documenten op het moment)
 
 ### Concrete resultaten
 
@@ -35,8 +60,8 @@ Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van
 
 - Het projectmanagement portal wordt niet ontwikkeld als vervanging van productive.io voor het dev team of de PM/TL. Enkel voor de communicatie met de externe klant. Hiermee hebben alle usecases waar de externe klant geen primaire actor is automatisch een MoSCoW prioriteit van "Should have" of lager.
 - Het project wordt in ieder geval door ontwikkeld tot (TODO: precieze datum eind stage nazoeken)
-- 
-<!-- - Meer? -->
+
+TODO: Grenzen overleggen
 
 ## Randvoorwaarden
 
@@ -54,13 +79,13 @@ Binnen dit project worden de volgende producten opgeleverd.
 | Product  | ProductKwaliteitseisen  | Benodigde activiteiten om te komen tot het product  | Proceskwaliteit (5 x W 1 x H)  |
 |---|---|---|---|
 | Code  | - Code & comments worden in het engels te schrijven</br> - Code is herleidbaar naar oorsprong in het FO/TO</br> - Er wordt waar praktisch mogelijk rekening gehouden met [CLEAN](https://refactoring.guru/refactoring/what-is-refactoring) en [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design") coding principles.</br> - Frontend code wordt geanalyseerd door [ESLint](https://eslint.org/).</br> - Backend code wordt geanalyseerd door [StyleCop](https://github.com/StyleCop/StyleCop).</br> - Code formatting wordt gedaan aan de hand van Editorconfig en prettier.  | - Voordat logica geschreven wordt worden alle relevante constructors en functie signatures klaargezet met de oorsprong in comments boven de signature.</br> - ESLint, StyleCop, Editorconfig en Prettier dienen geïnstalleerd en gebruikt te worden.  | - Voor het maken van een PR worden de wijzigingen vergeleken met de [DoD](kwaliteitseisen.md#definition-of-done).  |
-| Plan van aanpak  | - De opdrachtgever heeft afgetekend op het plan van aanpak. </br>- Geeft inzicht over de achtergrond, doelstelling en op te leveren resultaten van het project.</br>- Backend het project af met duidelijke project grenzen en randvoorwaarden.</br>- Op te leveren producten, kwaliteitseisen en uit te voeren activiteiten zijn aan de hand van [SMAR(T)](https://en.wikipedia.org/wiki/SMART_criteria) en [5xW 1xH beschreven](https://www.lean.nl/wat-is-de-5-x-w-1h-doorvraag-methode-green-belt/).</br>- De ontwikkelmethodiek is vastgelegd</br>- Voor elke tijdens de stage relevante partij zijn contactgegevens vastgelegd.</br>- Er is een globale planning aanwezig met alle aan te leveren producten.</br>- Risico’s zijn vastgelegd met tegenmaatregels en uitwijk strategieën  | - Bespreking project met PM en TL om de informatie voor het document te verzamelen </br>- Aan de hand van de PvA handleiding van de HAN (HAN, 2024) het document schrijven.  | - De developer zet in de eerste sprint het PvA op en loopt deze met de opdrachtgever door in de sprint review. </br>- Bespreking met PM die het systeem zou gebruiken de functionele aspecten van het project te controleren.</br>- Bespreking met TL om de technische aspecten van het project te controleren.  |
-| Functioneel Ontwerp  | - Bevat een genummerde lijst van alle voor het project relevante stakeholders.</br>- Bevat een genummerde lijst van alle Functionele en non-functionele wensen.</br> - Bevat de happy flow van de software in wireframes/mockups</br> -Bevat een Usecase diagram</br> -Bevat een domein model</br> -Functionele requirements zijn uitgewerkt naar fully dressed usecases</br> -Bevat alternative flows die als relevant worden beoordeeld door de opdrachtgever, productmanager of techlead.  | - Gesprek met opdrachtgever om de wensen en stakeholders vast te leggen.</br> - (Optioneel) Gesprek met verdere stakeholders voor verduidelijking wensen.</br> - Gesprek met collega’s van UX om tot goed te gebruiken mockups te komen.</br> - Domein model maken op basis UX en gesprek opdrachtgever/stakeholders.</br> - Wensen opdelen in functioneel en non-functioneel</br> - Functionele wensen vastleggen in fully dressed usecases met [MoSCoW](https://www.productplan.com/glossary/moscow-prioritization/) prioritisering  | - Aanpassingen binnen het document dienen gecontroleerd te worden aan de hand van de [DoR](kwaliteitseisen.md#definition-of-ready)</br> - Tijdens de sprint reviews dient het document als basis voor de presentatie tegenover de opdrachtgever.</br> - Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.  |
+| Plan van aanpak  | - De opdrachtgever heeft afgetekend op het plan van aanpak. </br>- Geeft inzicht over de achtergrond, doelstelling en op te leveren resultaten van het project.</br>- Backend het project af met duidelijke project grenzen en randvoorwaarden.</br>- Op te leveren producten, kwaliteitseisen en uit te voeren activiteiten zijn aan de hand van [SMAR(T)](https://en.wikipedia.org/wiki/SMART_criteria) en [5xW 1xH beschreven](https://www.lean.nl/wat-is-de-5-x-w-1h-doorvraag-methode-green-belt/).</br>- De ontwikkelmethodiek is vastgelegd</br>- Voor elke tijdens de stage relevante partij zijn contactgegevens vastgelegd.</br>- Er is een globale planning aanwezig met alle aan te leveren producten.</br>- Risico’s zijn vastgelegd met tegen maatregels en uitwijk strategieën  | - Bespreking project met PM en TL om de informatie voor het document te verzamelen </br>- Aan de hand van de PvA handleiding van de HAN (HAN, 2024) het document schrijven.  | - De developer zet in de eerste sprint het PvA op en loopt deze met de opdrachtgever door in de sprint review. </br>- Bespreking met PM die het systeem zou gebruiken de functionele aspecten van het project te controleren.</br>- Bespreking met TL om de technische aspecten van het project te controleren.  |
+| Functioneel Ontwerp  | - Bevat een genummerde lijst van alle voor het project relevante stakeholders.</br>- Bevat een genummerde lijst van alle Functionele en non-functionele wensen.</br> - Bevat de happy flow van de software in wireframes/mockups</br> -Bevat een Usecase diagram</br> -Bevat een domein model</br> -Functionele requirements zijn uitgewerkt naar fully dressed usecases</br> -Bevat alternative flows die als relevant worden beoordeeld door de opdrachtgever, productmanager of techlead.  | - Gesprek met opdrachtgever om de wensen en stakeholders vast te leggen.</br> - (Optioneel) Gesprek met verdere stakeholders voor verduidelijking wensen.</br> - Gesprek met collega’s van UX om tot goed te gebruiken mockups te komen.</br> - Domein model maken op basis UX en gesprek opdrachtgever/stakeholders.</br> - Wensen opdelen in functioneel en non-functioneel</br> - Functionele wensen vastleggen in fully dressed usecases met [MoSCoW](https://www.productplan.com/glossary/moscow-prioritization/) prioritering  | - Aanpassingen binnen het document dienen gecontroleerd te worden aan de hand van de [DoR](kwaliteitseisen.md#definition-of-ready)</br> - Tijdens de sprint reviews dient het document als basis voor de presentatie tegenover de opdrachtgever.</br> - Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.  |
 | Technisch ontwerp  | - Bevat een klasse diagram die overeenkomt met de software in zijn huidige staat.</br> - Bevat een package diagram die overeenkomt met de software in zijn huidige staat.</br> - Bevat een deployment diagram die overeenkomt met de software in zijn huidige staat.</br> - Bevat een Database model die de huidige staat van de database representeert.</br> - Bevat een API-definitie met alle binnen de applicatie beschikbare end-points en de relevante producers/consumers.  | - Maak een klasse diagram aan op basis van het domeinmodel en de initiële wensen.</br> - Maak een package diagram aan op basis van gekozen software architectuur.</br> - Maak een deployment diagram aan op basis van de gekozen software architectuur</br> - Maak een database model aan op basis van het domeinmodel en de in het FO aanwezige wensen.</br> - Maak een API-definitie voor elk blootgestelde endpoint. (Automatiseren AHV swagger?)</br> - Werk het klasse diagram bij wanneer functionaliteiten hier wijzigingen in aanbrengen ([DoD](kwaliteitseisen.md#definition-of-done)).  | Wijzigingen en het FO en TO worden direct meegenomen in PR's die de wijzigingen doen.</br> - Wanneer een taak resulteert in wijzigingen in een van de in het TO aanwezige diagrammen dienen deze diagrammen en de bijbehorende toelichting bijgewerkt te worden voor de taak af is ([DoD](kwaliteitseisen.md#definition-of-done))  |
 | Software architecture document  | - Bevat een globaal overzicht van het systeem en de data flows die hierin voorkomen volgens het [4C model](https://c4model.com/).</br> - Bevat verantwoording voor alle [architecturaal relevante gemaakte keuzes](https://medium.com/oolooroo/a-step-wise-guide-to-architectural-decisions-ee7304871a71) binnen het project.</br> - Bevat een overzicht van alle Architectural Relevant Decisions  | - De globale dataflow dient vastgelegd te worden na het vaststellen van de eerste requirements van de software.</br> - Wanneer een ADR wordt genomen dient deze de dag zelf nog in het SAD gezet te worden.  | Het SAD dient over de levensduur van het project ADR geüpdatet te worden volgens het [TwinPeaks Model](https://www.microtool.de/en/knowledge-base/what-is-the-twin-peaks-model/).  |
 | Testplan & Testrapport  | - Het test plan is aan het eind van elke sprint een accurate representatie van de staat van het project.</br> - Het testplan bevat voor elke usecase de happy flow.</br> - Het testplan bevat alternative flows voor scenario’s waar de opdrachtgever dit belangrijk acht.  | - In het testplan worden happy flows opgenomen zodra de bijbehorende usecases “Done” zijn.</br> - Alternative flows worden overlegd met de opdrachtgever, techlead of productmanager en indien ze complex zijn of om andere reden er een wens is alt flows toe te lichten worden ze meegenomen in het FO en Testrapport.  | - Het testrapport wordt op de laatste dag van elke sprint opnieuw ingevuld.  |
-| Afstudeerverslag | - Het afstudeerverslag is niet langer dan 6.000 woorden of 15 pagina's (exclusief samenvatting, inhoudsopgave, bronvermeldingen en bijlagen)</br> - Alle beoordelingscriteria (BC1 tm BC5) uit het beoordelingsformulier afstuderen ICT 2020-2021 van de Afstudeerhandleiding HBO-ICT en CMD 2024-2026 zijn met op zijn minst twee prestratiecriterium afgevinkt. </br> | | |
-| Eindpresentatie  | - Er wordt een presentatie gegeven van 20 tot 30 minuten over het afstudeerproject | | |
+| Afstudeerverslag | - Het afstudeerverslag is niet langer dan 6.000 woorden of 15 pagina's (exclusief samenvatting, inhoudsopgave, bronvermeldingen en bijlagen)</br> - Alle beoordelingscriteria (BC1 tm BC5) uit het beoordelingsformulier afstuderen ICT 2020-2021 van de Afstudeerhandleiding HBO-ICT en CMD 2024-2026 zijn met op zijn minst twee prestatiecriterium afgevinkt. </br> | - Woorden & pagina teller </br> - Feedback docent begeleider  | De beoordeling criteria en bijbehorende prestatie criteria in een verslag template zetten aan het begin van de stage en wanneer ze aan bod komen de bijbehorende hoofdstukken aanvullen. </br> indien halverwege de stage BC's of PC's blijven nog niet ingevuld zijn dit aangeven bij de bedrijf of docent begeleider met vraag om advies dit te rectificeren. |
+| Eindpresentatie  | - Er wordt een presentatie gegeven van 20 tot 30 minuten over het afstudeerproject | - Het stage verslag maken. | - Aan het eind van de stage het proces als vastgelegd in het afstudeerverslag in een powerpoint zetten. |
 
 ## Ontwikkelmethoden
 
