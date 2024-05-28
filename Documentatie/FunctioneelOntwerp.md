@@ -340,7 +340,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 |   | NFR4.2  | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |   | [US14](#user-stories)  |
 |   | NFR4.3  | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |   | [US14](#user-stories)  |
 |   | NFR4.4  | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database |   |   | [US14](#user-stories)  |
-|   | NFR4.5  | Accounting: Loggen write events  | Must have?  |   | [US15](#user-stories)  |
+|   | NFR4.5  | Accounting: Loggen write events  | Must œhave?  |   | [US15](#user-stories)  |
 |   | NFR4.6  | Accounting: Loggen read events?  | Could have?  |   | [US15](#user-stories)  |
 |   | NFR4.7  | Het systeem is AVG/GDPR compliant (TODO: smart uitwerken.)  |   |   |   |
 | NFR5 | Scalability  |   |   |   |   |
@@ -637,7 +637,7 @@ B: Aanpassen naar lage prioriteit
 
 |Stap | Actor | System |
 |---|---|---|
-| 4A |  | De taak heeft een prioriteit van 1 of 2 (zie [toelichting prioriteit taken](#taak-impact-urgentie-en-prioriteit-levels)) |
+| 4A |  | De taak heeft een prioriteit van 1 of 2 (zie [toelichting prioriteit taken](FunctioneelOntwerp.md#taak-impact-urgentie-en-prioriteit-levels)) |
 | 5A   |   | Geeft aan dat de taak critical is en vraagt om critical taken telefonisch door te geven. |
 | 6A | De klant geeft de taak telefonisch door | |
 | 6B | De klant past de urgentie of impact aan zodat de taak een prioriteit boven de 3 krijgt |  |
@@ -835,56 +835,83 @@ TODO: FR3.5: Toevoegen bijlagen binnen feedback is hetzelfde als FR3.4?
 |---|---|---|
 |  |  |  |
 
-<!-- 
-#### FR5: Goedkeuren extern toegevoegde taken
+#### FR5.1: Afhandelen project setup
 
-| |  |
+| FR5.1 | Afhandelen project setup |
 |---|---|
-| Prioriteit | Must have  |
-| Naam | FR5: Goedkeuren extern toegevoegde taken |
-| Primaire Actor | ACT2: Product manager, ACT4: Tech Lead  |
-| Stakeholders | ACT1: Externe klant |
-| Pre condities | Er is een taak toegevoegd in de aanvragen lijst van een project. |
-| Post condities | De bovengenoemde taak is toegevoegd aan de backlog van het project. |
-| Triggers | De primaire actor geeft aan dat een taak duidelijk genoeg is voor development. |
-| Exceptions | De taak is in de tussentijd verwijderd door de externe klant? |
+| Prioriteit | Could have  |
+| Primaire Actor | ACT1: Externe klant |
+| Stakeholders | ACT2: Bluenotion admin |
+| Pre condities | Beiden actoren hebben inlog gegevens voor het PMP |
+| Post condities | Een project is gestart met initiële scope |
+| Triggers | Op aanvraag van Externe klant |
+| Exceptions |  |
+| Open issues | Procedure vast leggen |
+
+##### FR5.1: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |
+|  |  |  |
+
+##### FR5.1: Alternative flow - flow name
+
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |
+
+#### FR6.1: Inzien lijst van project dependencies
+
+| FR? | Empty FDUC |
+|---|---|
+| Prioriteit |   |
+| Primaire Actor | ACT?:  |
+| Stakeholders |  |
+| Pre condities |  |
+| Post condities |  |
+| Triggers |  |
+| Exceptions |  |
 | Open issues |  |
 
-##### FR5: Main flow
+##### FR6.1: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
-| 1 | De PM of TL geeft aan dat de taak voldoende is ingevuld voor development en kent er een time/cost estimate aan. |  |
-| 2 |  |  |
+|  |  |  |
+|  |  |  |
 
-##### FR5: Alternative flow - flow name
-
-#### FR?: Overzicht geheel proces aanmaken en goedkeuren nieuwe taak vanuit klant
+##### FR6.1: Alternative flow - flow name
 
 |Stap | Actor | System |
 |---|---|---|
-| 1 | EK: Geeft aan een aanvraag te hebben voor een project |  |
-| 2 |  | Registreert de aanvraag in de aanvragenlijst van het project als "waiting for PM" |
-| 3 | PM: geeft aan dat de taak voldoende is ingevuld voor development en kent er een time/cost estimate aan. |  |
-| 4 |  | Registreert de aanvraag als "Waiting for EK" |
-| 5 | EK: keurt de time/cost estimate goed |  |
-| 6 |  | Registreert de aanvraag als "Accepted" en zet deze taak in de backlog voor development |
-| 7 | SD: werkt aan de taak en zet deze binnen Productive op In Progress, In review, Development, Testing, Staging en Live. |  |
-| 8 |  | Stelt de klant op de hoogte als voor hem relevante taken in het "Live" bord terecht komen. (Of gewoon status closed?) |
+|  |  |  |
+
+#### FR7.1: Openen/downloaden document
+
+| FR? | Empty FDUC |
+|---|---|
+| Prioriteit |   |
+| Primaire Actor | ACT?:  |
+| Stakeholders |  |
+| Pre condities |  |
+| Post condities |  |
+| Triggers |  |
+| Exceptions |  |
+| Open issues |  |
+
+##### FR7.1: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
-| 3A | PM: geeft aan dat de taak onvoldoende is ingevuld voor development. |  |
-| 4A |  | FR5: Goedkeuren extern toegevoegde taken |
-| 5B | EK: Geeft aan dat de aanvraag te duur is voor het resultaat |  |
-| 6B |  | ??? | -->
+|  |  |  |
+|  |  |  |
 
-<!-- 
-https://www.studocu.com/row/document/riphah-international-university/computer-sciences/fully-dressed-use-case-example-pdf/19676384
+##### FR7.1: Alternative flow - flow name
 
-https://www.tmaworld.com/2017/10/04/use-case-approach/#:~:text=Fully%20dressed%20use%20case%3A%20A,goals%2C%20tasks%2C%20and%20requirements.
-
- -->
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |
 
 #### FR?: Empty FDUC
 
@@ -911,3 +938,10 @@ https://www.tmaworld.com/2017/10/04/use-case-approach/#:~:text=Fully%20dressed%2
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
+
+<!-- 
+https://www.studocu.com/row/document/riphah-international-university/computer-sciences/fully-dressed-use-case-example-pdf/19676384
+
+https://www.tmaworld.com/2017/10/04/use-case-approach/#:~:text=Fully%20dressed%20use%20case%3A%20A,goals%2C%20tasks%2C%20and%20requirements.
+
+ -->
