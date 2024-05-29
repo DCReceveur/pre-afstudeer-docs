@@ -151,7 +151,8 @@ Als een klant iets wil in zijn/haar project doen ze hier een aanvraag voor. Op b
 
 ```plantuml
 title Boards and statuses
-
+skinparam nodesep 10
+skinparam ranksep 10
 left to right direction
 skinparam groupInheritance 3
 
@@ -307,7 +308,7 @@ left to right direction
 
 (FR1: Inzien project plannings informatie) as FR1
 (FR2: Inzien taken) as FR2
-(FR3: Toevoegen taken) as FR3
+(FR3: Toevoegen aanvraag) as FR3
 (FR4: Versturen notificaties) as FR4
 (FR5: Opstellen project) as FR5
 (FR6: Inzien project service statuses) as FR6
@@ -341,7 +342,7 @@ ADM-LEFT-|>KL
 | FR2.5  |   | Aanpassen taak prioriteit? (TODO: navragen, escalatie prioriteit punt 9.3 bronze SLA) |  |  |[Fully dressed usecase description](#fr25-aanpassen-taak-prioriteit)  |
 | FR2.6  |   | Comments toevoegen op lopende taak?  |   |  |  [US7](#user-stories), [Fully dressed usecase description](#fr26-comments-toevoegen-op-lopende-taak)  |
 | FR2.7  |   | Filteren taken op: incident of doorontwikkeling  | Should have  |   |   |
-| FR3 | Toevoegen taken |  |  |  |  |
+| FR3 | Toevoegen aanvraag |  |  |  |  |
 | FR3.1  |   | Toevoegen nieuwe taak | Must have  |   | [US6](#user-stories), [Fully dressed usecase description](#fr31-toevoegen-nieuwe-taak-in-een-project)  |
 | FR3.2  |   | Toelichting geven op taak (extern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](#fr32-toelichting-geven-op-taak)  |
 | FR3.3  |   | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | FR1.4 | [Fully dressed usecase description](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) |
@@ -638,9 +639,9 @@ TODO: het zou me niets verbazen als deze FR niet bestaat.
 |---|---|---|
 |  |  |  |
 
-#### FR3.1: Toevoegen nieuwe taak in een project
+#### FR3.1: Toevoegen nieuwe aanvraag in een project
 
-| FR3.1 | Toevoegen nieuwe taak in een project |
+| FR3.1 | Toevoegen nieuwe aanvraag in een project |
 |---|---|
 | Prioriteit | Must have  |
 | Primaire Actor | ACT1: Externe klant |
