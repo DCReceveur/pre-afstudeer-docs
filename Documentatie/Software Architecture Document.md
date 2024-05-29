@@ -81,7 +81,7 @@ top to bottom direction
 skinparam linetype ortho
 
 rectangle "React front-end"{
-    rectangle "View"{
+    rectangle "View" as view{
         rectangle "Admin" as Admin{
             rectangle "AdminProjectView"
             rectangle "AdminProjectDetailView"
@@ -107,11 +107,9 @@ rectangle "React front-end"{
         rectangle "Generated Models"
     }
 
+    view-->GeneratedAPI
     Admin-->Partials : uses
     Customer-->Partials : uses
-    Admin-->GeneratedAPI : uses
-    Customer-->GeneratedAPI : uses
-    Partials-->GeneratedAPI : uses
 }
 ```
 
@@ -136,12 +134,11 @@ rectangle "PMP API"{
         rectangle "ProjectController"
         rectangle "TaskController"
         rectangle "CommentController"
-
-
     }
     rectangle "Models"{
         rectangle "InputModels"
     }
+    Controllers --> Models : uses
 }
 
 ```
@@ -155,24 +152,35 @@ rectangle "PMP API"{
 | **Controllers**  | De controllers zijn verantwoordelijk voor het beschikbaar stellen van de juiste RESTful endpoints en het op basis van deze endpoints aanspreken van de juiste services om een antwoord terug te kunnen geven.  |
 | **AccountController**  | Verantwoordelijk voor endpoints met betrekking tot inloggen of account management  |
 | **ProjectController**  | Verantwoordelijk voor endpoints met betrekking tot Projecten of project management  |
-| **TaskController**  | ...  |
-| **CommentController**  | ...  |
+| **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
+| **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
 | **Models** | De Models zijn de objecten waar daadwerkelijk data voor de gebruiker in zit. |
 | **InputModels**  | De InputModels zijn data objecten die worden gebruikt als input voor de REST controllers.  |
 
 TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.
+
 TODO: Waarom in Api.Bluenotion.NL.Models alleen maar Input models?
 
 ### PMP Services
 
+TODO: interface names?
+
 ```plantuml
+top to bottom direction
+interface "IPersistence" as if1
+interface "INotification" as if2
+interface "IProductive" as if3
 
 rectangle "PMP Services"{
-    rectangle "Persistence service"
-    rectangle "Notification service"
-    rectangle "Synchronization service"
+    rectangle "Persistence service" as pes
+    rectangle "Notification service" as ns
+    rectangle "Productive service" as prs
 }
 
+if1 --> pes
+if2 --> ns
+if3 --> prs
+prs --> pes
 
 ```
 
@@ -180,17 +188,25 @@ rectangle "PMP Services"{
 
 | Component | Uitleg |
 |---|---|
-| Persistence service  | Verantwoordelijk voor het afhandelen van database access, dit wordt een laag waarschijnlijk gebaseerd op entity framework|
-| Notification service  |   |
-| Synchronization service  |   |
+| Persistence service  | Verantwoordelijk voor het afhandelen van database access, dit wordt een laag waarschijnlijk gebaseerd op entity framework TODO: ADR maken |
+| Notification service  | Verantwoordelijk voor het inlichten van de gebruiker van het systeem bij bijvoorbeeld password resets of ingestelde notificaties TODO: rewrite na confirmatie notificatie ding in FO  |
+| Productive service  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
+
+TODO: rename productive service?
 
 ### PMP DB
+
+Een database systeem gebaseerd op MySQL en ms Entity Framework waar data van productive wordt gecached zodat niet voor elke door de gebruiker van het PMP gemaakte request een request naar de Productive API gedaan hoeft te worden.
+
+TODO: database model?
 
 ### Notification system
 
 ### Productive API
 
 ## Code
+
+### Productive API sync unit TODO: sync schrijven
 
 ## Architectural Decision Records
 

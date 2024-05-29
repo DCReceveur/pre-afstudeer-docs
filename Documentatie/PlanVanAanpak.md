@@ -48,7 +48,7 @@ Hiervoor dient een centraal portaal gebouwd te worden waar beide de klant en med
 - Stroomlijnen development proces
     Door de klant meer input te geven over het plannings proces is de hoop dat onduidelijke taken verduidelijkt worden voordat ze bij developers terecht komen.
 - Borgen van kennis over projecten
-    Kennis als handleidingen of deployment informatie kunnen aangeleverd worden op de zelfde plek als waar de klant inzicht heeft in de ontwikkeling van het project. (TODO: navragen aanleveren documenten op het moment)
+    Kennis als handleidingen of deployment informatie kunnen aangeleverd worden op de zelfde plek als waar de klant inzicht heeft in de ontwikkeling van het project. (TODO: navragen aanleveren documenten in "huidige staat systeem")
 
 ### Concrete resultaten
 
