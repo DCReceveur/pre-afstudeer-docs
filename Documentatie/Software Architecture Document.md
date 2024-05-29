@@ -12,12 +12,12 @@ actor Admin
 rectangle "Productive API" as productive
 rectangle "Messaging system" as message
 rectangle "Project management portal" as PMP
-rectangle "PMP database" as BE_DB
+' rectangle "PMP database" as BE_DB
 Klant --> PMP : "Manages projects in                           "
 Admin --> PMP : "Validates tasks in           "
 
 PMP --> productive : "Retrieves project data from"
-PMP --> BE_DB : "Caches project data in"
+' PMP --> BE_DB : "Caches project data in"
 PMP --> message : "Informs customers using"
 
 ```
@@ -52,21 +52,143 @@ rectangle PMP{
 rectangle "React front-end" as PWA
 rectangle "PMP API" as API
 rectangle "PMP DB" as DB
+rectangle "PMP Services" as Service
 }
 
 rectangle "Notification system" as NS
 rectangle "Productive.io API" as PR_API
 
-Klant --> PWA : HTTP(S)
-Admin --> PWA : HTTP(S)
-PWA --> API : HTTP(S)
-API --> DB : MS Entity framework
-API --> PR_API : HTTP(S)
-API --> NS
+Klant --> PWA : HTTP(S)/JSON
+Admin --> PWA : HTTP(S)/JSON
+PWA --> API : HTTP(S)/JSON
+Service --> DB : MS Entity framework
+API-->Service
+Service --> PR_API : HTTP(S)/JSON
+Service --> NS : SMPT?
 
 ```
 
 ## Components
+
+### React front-end
+
+TODO: Lijntjes fixen
+
+TODO: De echte views hier in zetten.
+
+```plantuml
+top to bottom direction
+skinparam linetype ortho
+
+rectangle "React front-end"{
+    rectangle "View"{
+        rectangle "Admin" as Admin{
+            rectangle "AdminProjectView"
+            rectangle "AdminProjectDetailView"
+            rectangle "AdminTaskDetailView"
+            rectangle "AdminCommentsView"
+        }
+        rectangle "Customer" as Customer{
+            rectangle "CustomerProjectView"
+            rectangle "CustomerProjectDetailView"
+            rectangle "CustomerTaskDetailView"
+            rectangle "CustomerCommentsView"
+        }
+        rectangle "Partials" as Partials{
+            rectangle "ProjectsPartial"
+            rectangle "ProjectDetailsPartial"
+            rectangle "TaskDetailPartial"
+            rectangle "CommentsPartial"   
+        }
+    }
+
+    rectangle "Generated API" as GeneratedAPI{
+        rectangle "Generated Controllers"
+        rectangle "Generated Models"
+    }
+
+    Admin-->Partials : uses
+    Customer-->Partials : uses
+    Admin-->GeneratedAPI : uses
+    Customer-->GeneratedAPI : uses
+    Partials-->GeneratedAPI : uses
+}
+```
+
+#### Toelichting FE componenten
+
+| Component | Uitleg |
+|---|---|
+| **View** | In de front-end zijn de views van MVC hetgeen dat data (uit de models) laat zien en interactie aanbiedt met de rest van het systeem (via de controllers) |
+| **Admin** | Om meer zekerheid te bieden dat de klant niet "per ongeluk" in de admin omgeving terecht komt worden er aparte views aangemaakt met de functionaliteiten voor de Bluenotion Administrator (ACT2) |
+| **Customer** | Binnen de Customer views worden de functionaliteiten voor de externe klant (ACT1) met betrekking tot het tonen van data geïmplementeerd. |
+| **Partials** | Binnen de components worden generieke views gemaakt die onafhankelijk zijn van de gebruiker of die door de betreffende customer of admin views worden aangevuld. |
+| **Generated API** | De generated API is de OpenAPI representatie van de back-end. Deze wordt automatisch gegenereerd en is functioneel gelijk aan de [PMP API](#pmp-api) |
+
+### PMP API
+
+TODO: lijntjes
+
+```plantuml
+rectangle "PMP API"{
+    rectangle "Controllers"{
+        rectangle "AccountController"
+        rectangle "ProjectController"
+        rectangle "TaskController"
+        rectangle "CommentController"
+
+
+    }
+    rectangle "Models"{
+        rectangle "InputModels"
+    }
+}
+
+```
+
+#### Toelichting API componenten
+
+
+
+| Component | Uitleg |
+|---|---|
+| **Controllers**  | De controllers zijn verantwoordelijk voor het beschikbaar stellen van de juiste RESTful endpoints en het op basis van deze endpoints aanspreken van de juiste services om een antwoord terug te kunnen geven.  |
+| **AccountController**  | Verantwoordelijk voor endpoints met betrekking tot inloggen of account management  |
+| **ProjectController**  | Verantwoordelijk voor endpoints met betrekking tot Projecten of project management  |
+| **TaskController**  | ...  |
+| **CommentController**  | ...  |
+| **Models** | De Models zijn de objecten waar daadwerkelijk data voor de gebruiker in zit. |
+| **InputModels**  | De InputModels zijn data objecten die worden gebruikt als input voor de REST controllers.  |
+
+TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.
+TODO: Waarom in Api.Bluenotion.NL.Models alleen maar Input models?
+
+### PMP Services
+
+```plantuml
+
+rectangle "PMP Services"{
+    rectangle "Persistence service"
+    rectangle "Notification service"
+    rectangle "Synchronization service"
+}
+
+
+```
+
+#### Toelichting Service componenten
+
+| Component | Uitleg |
+|---|---|
+| Persistence service  | Verantwoordelijk voor het afhandelen van database access, dit wordt een laag waarschijnlijk gebaseerd op entity framework|
+| Notification service  |   |
+| Synchronization service  |   |
+
+### PMP DB
+
+### Notification system
+
+### Productive API
 
 ## Code
 
@@ -75,13 +197,9 @@ API --> NS
 ```plantuml
 
 rectangle "ADR001-O2-Continu synchroniserende backend database aan de hand van Webhooks" as ADR001o2 #Orange
-rectangle "ADR002-O1-React native" as ADR002 #Orange
-rectangle "ADR003-O1-asp.net core" as ADR003 #Orange
+rectangle "ADR002-O1-React native" as ADR002 #Green
+rectangle "ADR003-O1-asp.net core" as ADR003 #Green
 rectangle "ADR004-Database system-O1-SQL" as ADR004 #Orange
-
-' ADR001o1 --> ADR001o2 : Alternative for
-' ADR001o3 --> ADR001o2 : Alternative for
-' ADR001o4 --> ADR001o2 : Alternative for
 
 legend left
     | Color | Status |
@@ -171,7 +289,7 @@ Er zijn verschillende database systemen beschikbaar om data voor het PMP op te s
 
 **Consequences:**
 
-Door een reguliere SQL database te gebruiken kan eenvoudig gebruik gemaakt worden van Entity Framework als ORM.
+Door een reguliere MySQL database te gebruiken kan eenvoudig gebruik gemaakt worden van Entity Framework als ORM.
 
 **Alternatives:**
 
@@ -192,4 +310,33 @@ Om interacties met de database te vereenvoudigen kan een ORM gebruikt worden.
 
 **Consequences:**
 
+### ADR006-Frontend backend Communicatie
 
+<!-- Ook niet echt een ASR... -->
+
+**Status:** Proposed
+
+**Context:**
+Om de communicatie tussen de front en backend te faciliteren wordt gebruik gemaakt van de OpenAPI client generators.
+
+**Decision:**
+
+**Consequences:**
+
+### ADR007-MVC Design pattern
+
+<!-- En deze is wel een ASR maar heeft een slechte reden om te bestaan. -->
+
+**Status:** Proposed
+
+**Context:**
+
+Het PMP dient zo opgezet te worden dat de software onderhoudbaar is en zodat collega's er in de toekomst op verder kunnen bouwen. Hiervoor dient een standaard design pattern gebruikt te worden.
+
+**Decision:**
+
+Om de code onderhoudbaar te houden wordt gebruik gemaakt van het [MVC pattern](https://www.geeksforgeeks.org/mvc-design-pattern/).
+
+**Consequences:**
+
+- Code wordt gescheiden naar data, UI en logica (Separation of Concerns)
