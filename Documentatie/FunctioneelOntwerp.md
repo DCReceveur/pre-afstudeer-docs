@@ -25,8 +25,8 @@ Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een p
 Doelen nieuwe project management portal:
 
 - Inzicht geven in het door Bluenotion te verrichten werk door statussen toe te kennen aan taken.
-- Inzicht geven in de wensen die door mij (de externe klant) aangescherpt dienen te worden voor ontwikkeling door Bluenotion kan beginnen.
-- Toevoegen van nieuwe wensen/taken voor een project
+- Inzicht geven in de aanvragen/taken die door mij (de externe klant) aangescherpt dienen te worden voor ontwikkeling door Bluenotion kan beginnen.
+- Toevoegen van nieuwe aanvragen/taken voor een project
 - Prioriteren van bestaande taken
 - Aanpassen onduidelijke/incomplete taken
 - Communiceren van impact in de vorm van ureninschattingen
@@ -68,13 +68,11 @@ Doelen nieuwe project:
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het Productive systeem direct vastgelegd.
 
-TODO: een kiezen. Bij deze wordt elke aanvraag geregistreerd met een prio en type, ongeacht of het een aanvraag of incident is.
-
 ```plantuml
 skinparam linetype ortho
 skinparam nodesep 130
-skinparam ranksep 75
-top to bottom direction
+skinparam ranksep 120
+' top to bottom direction
 
 rectangle "Project management portal"{
 
@@ -84,6 +82,10 @@ rectangle "Project management portal"{
   rectangle SLA
   rectangle Prioriteit
   rectangle Type
+  rectangle Incident
+  rectangle Doorontwikkeling
+  rectangle Impact
+  rectangle Urgentie
 }
 
 rectangle "Productive"{
@@ -93,19 +95,23 @@ rectangle "Productive"{
   rectangle Werknemer
 
 }
-
+' Klant aanvraag
 Klant "1..*" -- "0..*" Project : > Eigenaar van
 Klant "1"--"0..*" Aanvraag :> Doet een
-
 Aanvraag "1"--"1..*" Taak :> Resulteert in
 Project "0..*"--"1" SLA :> Valt onder
-SLA "0..*"-u-"0..*" Type :> Bepaalt
-SLA "0..*"--"0..*" Prioriteit :> Bepaalt
 
 
-Prioriteit "1"-RIGHT-"0..*" Aanvraag : < Ingediend als
-Aanvraag "0..*"-r-"1" Type : > Ingediend als
+' Priority part
+Incident --|> Type
+Doorontwikkeling --|> Type
+Aanvraag "0..*"--"1" Type : > Ingediend als
+Impact "1"-r-"1" Prioriteit : < berekend met
+Urgentie "1"-l-"1" Prioriteit : < berekend met
+Prioriteit "1"--"0..*" Incident : < Ingediend als
+SLA "1"--"0..*" Aanvraag : > bepaalt tijdslimieten voor
 
+' Productive task board part
 Board "1..*"--"1" Project: > Planning voor 
 Taak "0..*"--"1" Board: > Opgenomen in
 Werknemer "0..*"--"0..*" Taak :> Werkt aan
@@ -116,132 +122,26 @@ Taak "1"--"1" Team :> beschrijft werkzaamheden voor
 
 Nu hebben enkel Issues een type/prio. Hoe wordt de prio van een doorontwikkeling bepaald? MoSCoW met de klant? Is dit iets dat de klant moet invoeren?
 
-```plantuml
-skinparam linetype ortho
-skinparam nodesep 130
-skinparam ranksep 75
-top to bottom direction
-
-rectangle "Project management portal"{
-
-  rectangle Klant
-  rectangle Aanvraag
-  rectangle Team
-  rectangle SLA
-  rectangle Prioriteit
-  rectangle Type
-  rectangle Doorontwikkeling
-  rectangle Issue
-}
-
-rectangle "Productive"{
-  rectangle Project
-  rectangle Board
-  rectangle Taak
-  rectangle Werknemer
-
-}
-
-Klant "1..*" -- "0..*" Project : > Eigenaar van
-Klant "1"--"0..*" Aanvraag :> Doet een
-Doorontwikkeling -UP-|> Aanvraag
-Issue -|> Aanvraag
-
-Aanvraag "1"--"1..*" Taak :> Resulteert in
-Project "0..*"--"1" SLA :> Valt onder
-SLA "0..*"-u-"0..*" Type :> Bepaalt
-SLA "0..*"--"0..*" Prioriteit :> Bepaalt
-
-
-Prioriteit "1"-RIGHT-"0..*" Issue : < Ingediend als
-Issue "0..*"-r-"1" Type : > Ingediend als
-
-Board "1..*"--"1" Project: > Planning voor 
-Taak "0..*"--"1" Board: > Opgenomen in
-Werknemer "0..*"--"0..*" Taak :> Werkt aan
-Werknemer "0..*"--"0..*" Team :> Onderdeel van
-Taak "1"--"1" Team :> beschrijft werkzaamheden voor
-
-```
-
-```plantuml
-skinparam linetype ortho
-skinparam nodesep 150
-skinparam ranksep 100
-top to bottom direction
-
-rectangle "Project management portal"{
-
-  rectangle Klant
-  rectangle Aanvraag
-  rectangle Team
-  rectangle SLA
-  rectangle Prioriteit
-  rectangle Urgentie
-  rectangle Impact
-  rectangle Type
-  rectangle Doorontwikkeling
-  rectangle Issue
-}
-
-rectangle "Productive"{
-  rectangle Project
-  rectangle Board
-  rectangle Taak
-  rectangle Werknemer
-
-}
-
-Klant "1..*" -- "0..*" Project : > Eigenaar van
-Klant "1"--"0..*" Aanvraag :> Doet een
-' Doorontwikkeling -UP-|> Aanvraag
-Issue -|> Type
-Urgentie "1"--"0..*" Issue : < Ingediend met urgentie
-Impact "1"--"0..*" Issue : < Ingediend met impact
-
-Doorontwikkeling -|> Type
-
-Aanvraag "1"--"1..*" Taak :> Resulteert in
-Project "0..*"--"1" SLA :> Valt onder
-SLA "0..*"-u-"0..*" Type :> Definieert 
-SLA "0..*"-u-"0..*" Urgentie :> Definieert 
-SLA "0..*"-u-"0..*" Impact :> Definieert 
-SLA "0..*"-u-"0..*" Prioriteit :> Definieert 
-
-' SLA "0..*"--"0..*" Prioriteit :> Bepaalt
-
-
-Aanvraag "0..*"--"1" Type : > Ingediend als
-
-Board "1..*"--"1" Project: > Planning voor 
-Taak "0..*"--"1" Board: > Opgenomen in
-Werknemer "0..*"--"0..*" Taak :> Werkt aan
-Werknemer "0..*"--"0..*" Team :> Onderdeel van
-Taak "1"--"1" Team :> beschrijft werkzaamheden voor
-
-```
-Impact:
-Urgentie:
-Prioriteit
-Type
-
-
 ### Toelichting domeinmodel
 
-| Term | Uitleg | Oorsprong |
+| Entiteit | Uitleg | Gebruik |
 |---|---|---|
-| Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | FR1 |
-| Klant  | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion | FR1 |
-| Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. | FR3 |
-| Taak | Een **Aanvraag** waar een [PM](FunctioneelOntwerp.md#act2-product-manager) of [TL](FunctioneelOntwerp.md#act4-tech-lead) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-taken) te vinden. | FR2, FR3 |
-| Bord | Een bord waar intern voor Bluenotion taken op worden bijgehouden. Zie [lifecycle taken](#lifecycle-taken) voor meer informatie. | FR3,FR4,FR5 |
-| Team | Een representatie van de rollen en beschikbare kennis binnen Bluenotion die worden gebruikt voor het toekennen van de juiste taak aan de juiste werknemers. (UX, FE, BE) | FR??? Niet besproken |
-| Urgentie  | De spoedeisendheid van een incident voor opdrachtgever, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels)   |   |
-| Impact  | De (ernst van de) gevolgen van een incident voor Opdrachtgever, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels)  |   |
-| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de opdrachtgever, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels) | FR? |
-| Type | Het soort taak, afhankelijk van de SLA met de klant. | FR? |
-| Werknemer | Een werknemer van Bluenotion die aan taken werkt en de status hiervan bijhoudt in Productive. | NFR2 |
-| SLA | Een **klant** heeft een aantal afspraken voor een **project** vaststaan in een Service Level Agreement waar KPI's zijn vastgelegd die leidend zijn in de **prioriteit** en het **type** van een taak. |  |
+| Productive (groepering) | De entiteiten binnen de Productive groepering bestaan de huidige staat van het systeem binnen de Bluenotion Productive.io omgeving.  | Bovenstaand diagram  |
+| Project management portal (groepering) | De entiteiten binnen de PMP groepering zijn gebaseerd op de Bluenotion workflow en de bijbehorende service level agreements. Deze entiteiten hebben geen al bestaande data in de Productive omgeving.  | Bovenstaand diagram  |
+| Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | [FR1.1](#fr11-inzien-projecten) |
+| Klant  | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion | [FR1.1](#fr11-inzien-projecten) |
+| Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. | [FR3.1](#fr31-toevoegen-nieuwe-taak-in-een-project) |
+| Taak | Een **Aanvraag** waar een [PM of TL](FunctioneelOntwerp.md#act2-bluenotion-admin) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-taken) te vinden. | [FR3.1](#fr31-toevoegen-nieuwe-taak-in-een-project) |
+| Bord | Een bord waar intern voor Bluenotion taken op worden bijgehouden. Zie [lifecycle taken](#lifecycle-taken) voor meer informatie. | [FR3.1](#fr31-toevoegen-nieuwe-taak-in-een-project) |
+| Team | Een representatie van de rollen en beschikbare kennis binnen Bluenotion die worden gebruikt voor het toekennen van de juiste taak aan de juiste werknemers. (UX, FE, BE) | [FR2.8](#functionele-requirements) |
+| Werknemer | Een werknemer van Bluenotion die aan taken werkt en de status hiervan bijhoudt in Productive. | [NFR2](#nonfunctional-requirements) |
+| SLA | Een **klant** heeft een aantal afspraken voor een **project** vaststaan in een Service Level Agreement waar KPI's zijn vastgelegd die leidend zijn in de **prioriteit** en het **type** van een taak. | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
+| Taak type | Het soort taak, afhankelijk van de SLA met de klant. | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
+| Wijzigingsverzoek (Taak type) | Een verzoek tot aanpassen van iets binnen de software. Doorgaans komen deze wijzigingen neer op doorontwikkelingen van de software. | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
+| Incident (Taak type) | Het substantieel niet voldoen van de applicatie aan de overeengekomen specificaties alsmede de situatie waarin sprake is van niet-Beschikbaarheid die niet het gevolg is van onderhoud. | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
+| Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels)   | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
+| Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels)  | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
+| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels) | [FR3.3](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  [FR4.2](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) |
 
 ### Lifecycle taken
 
@@ -366,8 +266,7 @@ Aan de hand van deze prioriteit worden per SLA voor de klant een verwachting ges
 
 ## Requirements
 
-Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan het systeem toegelicht. Binnen dit hoofdstuk staat de requirements tracability matrix waarin requirements van user story tot implementatie door de documentatie gevolgd kan worden.
-
+Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan het systeem toegelicht. Binnen dit hoofdstuk staat de requirements traceability matrix waarin requirements van user story tot implementatie door de documentatie gevolgd kan worden.
 
 ### User stories
 
@@ -375,24 +274,24 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 
 | User story no | Gerelateerde actors  | User story  | Resulterende requirement(s)  |
 |---|---|---|---|
-| US1   | ACT1  | Als PM wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken.  | [FR1.1](#fr11-inzien-projecten) |
-| US2  | ACT2 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | [FR1.2](#fr12-inzien-totaal-geplande-urenkosten) |
-| US3  | ACT2 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | [FR1.2](#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](#fr21-inzien-taken-van-project), [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR2.3](#fr23-inzien-taak-details), [FR2.4](#fr24-tonen-taken-in-gantt-chart) |
-| US4?  | ACT1  | Als PM wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  |  X |
-| US5  | ACT3  | Als Bluenotion medewerker wil ik niet mijn werkwijze aanpassen om een nieuw systeem voor de klant te ondersteunen.  | X  |
-| US6  | ACT2  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](#fr31-toevoegen-nieuwe-taak-in-een-project) |
+| US1   | ACT2  | Als PM wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken.  | [FR1.1](#fr11-inzien-projecten) |
+| US2  | ACT1 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | [FR1.2](#fr12-inzien-totaal-geplande-urenkosten) |
+| US3  | ACT1 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | [FR1.2](#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](#fr21-inzien-taken-van-project), [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR2.3](#fr23-inzien-taak-details), [FR2.4](#fr24-tonen-taken-in-gantt-chart) |
+| US4?  | ACT2  | Als PM wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  |  X |
+| US5  | ACT3  | Als Bluenotion medewerker wil ik niet mijn werkwijze aanpassen om een nieuw systeem voor de klant te ondersteunen.  | [NFR2.1](#nonfunctional-requirements)  |
+| US6  | ACT1  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](#fr31-toevoegen-nieuwe-taak-in-een-project) |
 | US7  | ACT1, ACT2  | Als PM wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | [FR2.6](#fr26-comments-toevoegen-op-lopende-taak), [FR3.2](#fr32-toelichting-geven-op-taak), [FR8.1](#fr81-controleren-aanvraag), [FR8.2](#fr82-op-splitten-taak-naar-team-taken) |
-| US8  | ACT2  | Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
-| US9  | ACT2  | Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR4.1](#fr41-versturen-notificatie) |
-| US10  | ACT1  | Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.  | [FR8.1](#fr81-controleren-aanvraag), [FR8.2](#fr82-op-splitten-taak-naar-team-taken)  |
+| US8  | ACT1  | Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| US9  | ACT1  | Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR4.1](#fr41-versturen-notificatie) |
+| US10  | ACT2  | Als PM wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.  | [FR8.1](#fr81-controleren-aanvraag), [FR8.2](#fr82-op-splitten-taak-naar-team-taken)  |
 | US11  |   | Als ?software developer? wil ik geen data over het netwerk sturen waar de klant geen toegang toe heeft.  |   |
-| US12 | ACT1 | Als PM wil ik dat de klant afbeeldingen kan invoegen om problemen/aanvragen toe te lichten. | [FR3.4](#fr34-toevoegen-bijlagen-bij-taak) |
-| US13 | ACT2 | Als externe klant wil ik alle informatie over mijn te bouwen/gebouwde systeem op één centrale plek bekijken | [FR6.1](FunctioneelOntwerp.md#fr61-inzien-lijst-van-project-dependencies), [FR6.2](FunctioneelOntwerp.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies), [FR7.1](FunctioneelOntwerp.md#fr71-openendownloaden-document), [FR7.2](FunctioneelOntwerp.md#fr72-filteren-documentnaamcategorie) |
-| US14 | ACT? | Als software developer wil ik niet dat mensen toegang krijgen tot data die mogelijk privacy gevoelig is en/of niet bedoeld is voor de betreffende persoon. | [NFR4.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.4](FunctioneelOntwerp.md#nonfunctional-requirements) |
-| US15 | ACT? | Als software developer wil ik dat als er iets niet naar behoren werkt er logs beschikbaar zijn om het probleem te herleiden. | [NFR4.5](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.6](FunctioneelOntwerp.md#nonfunctional-requirements) |
-| US16 | ACT? | Als medewerker van Bluenotion wil ik dat alle klanten van Bluenotion om kunnen gaan met het PMP. | [NFR1.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR6.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR6.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR7.1](FunctioneelOntwerp.md#nonfunctional-requirements) |
-| US17 | ACT2 | Als externe klant wil ik niet beïnvloed worden door andere mensen die tegelijkertijd het PMP gebruiken. | [NFR2.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.2](FunctioneelOntwerp.md#nonfunctional-requirements) |
-| US18 | ACT1 | Als PM wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
+| US12 | ACT2 | Als PM wil ik dat de klant afbeeldingen kan invoegen om problemen/aanvragen toe te lichten. | [FR3.4](#fr34-toevoegen-bijlagen-bij-taak) |
+| US13 | ACT1 | Als externe klant wil ik alle informatie over mijn te bouwen/gebouwde systeem op één centrale plek bekijken | [FR6.1](FunctioneelOntwerp.md#fr61-inzien-lijst-van-project-dependencies), [FR6.2](FunctioneelOntwerp.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies), [FR7.1](FunctioneelOntwerp.md#fr71-openendownloaden-document), [FR7.2](FunctioneelOntwerp.md#fr72-filteren-documentnaamcategorie) |
+| US14 | ACT3 | Als software developer wil ik niet dat mensen toegang krijgen tot data die mogelijk privacy gevoelig is en/of niet bedoeld is voor de betreffende persoon. | [NFR4.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.4](FunctioneelOntwerp.md#nonfunctional-requirements) |
+| US15 | ACT3 | Als software developer wil ik dat als er iets niet naar behoren werkt er logs beschikbaar zijn om het probleem te herleiden. | [NFR4.5](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.6](FunctioneelOntwerp.md#nonfunctional-requirements) |
+| US16 | ACT3 | Als medewerker van Bluenotion wil ik dat alle klanten van Bluenotion om kunnen gaan met het PMP. | [NFR1.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR6.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR6.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR7.1](FunctioneelOntwerp.md#nonfunctional-requirements) |
+| US17 | ACT1 | Als externe klant wil ik niet beïnvloed worden door andere mensen die tegelijkertijd het PMP gebruiken. | [NFR2.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.2](FunctioneelOntwerp.md#nonfunctional-requirements) |
+| US18 | ACT2 | Als PM wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
 
 ### Requirements traceability matrix
 
@@ -410,14 +309,19 @@ left to right direction
 (FR2: Inzien taken) as FR2
 (FR3: Toevoegen taken) as FR3
 (FR4: Versturen notificaties) as FR4
-(FR5: Goedkeuren extern toegevoegde taken) as FR5
+(FR5: Opstellen project) as FR5
+(FR6: Inzien project service statuses) as FR6
+(FR7: Inzien project documentatie) as FR7
+(FR8: Controleren aanvraag) as FR8
 
 KL -DOWN-> FR1
 KL -DOWN-> FR2
 KL -DOWN-> FR3
-
+KL -DOWN-> FR6
+KL -DOWN-> FR7
 
 ADM-DOWN->FR5
+ADM-DOWN->FR8
 Notification-DOWN->FR4
 
 ADM-LEFT-|>KL
@@ -476,9 +380,9 @@ ADM-LEFT-|>KL
 |   | NFR4.2  | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |   | [US14](#user-stories)  |
 |   | NFR4.3  | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |   | [US14](#user-stories)  |
 |   | NFR4.4  | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database |   |   | [US14](#user-stories)  |
-|   | NFR4.5  | Accounting: Loggen write events  | Must œhave?  |   | [US15](#user-stories)  |
+|   | NFR4.5  | Accounting: Loggen write events  | Must have?  |   | [US15](#user-stories)  |
 |   | NFR4.6  | Accounting: Loggen read events?  | Could have?  |   | [US15](#user-stories)  |
-|   | NFR4.7  | Het systeem is AVG/GDPR compliant (TODO: smart uitwerken.)  |   |   |   |
+|   | NFR4.7  | Het systeem is AVG/GDPR compliant (TODO: smart uitwerken?)  |   |   |   |
 | NFR5 | Scalability  |   |   |   |   |
 |   | NFR5.1  | De software komt met 50? gelijktijdige gebruikers niet aan de Productive API rate limits  | Should have  |   | [US17](#user-stories)  |
 |   | NFR5.2  | De software komt ongeacht hoeveelheid gelijktijdige gebruikers niet aan de Productive API rate limits?  | Would have  |   | [US17](#user-stories)  |
@@ -1130,18 +1034,18 @@ https://www.tmaworld.com/2017/10/04/use-case-approach/#:~:text=Fully%20dressed%2
 
 ## Scherm ontwerpen
 
-### FR1 Inzien project plannings informatie
+### Ontwerpen FR1 Inzien project plannings informatie
 
-### FR2 Inzien taken
+### Ontwerpen FR2 Inzien taken
 
-### FR3 Toevoegen taken
+### Ontwerpen FR3 Toevoegen taken
 
-### FR4? Versturen notificaties
+### Ontwerpen FR4? Versturen notificaties
 
-### FR5? Opstellen project
+### Ontwerpen FR5? Opstellen project
 
-### FR6 Inzien project service statuses
+### Ontwerpen FR6 Inzien project service statuses
 
-### FR7 Inzien project documentatie
+### Ontwerpen FR7 Inzien project documentatie
 
-### FR 8 Controleren aanvraag
+### Ontwerpen FR8 Controleren aanvraag
