@@ -126,6 +126,7 @@ rectangle "React front-end"{
 ### PMP API
 
 TODO: lijntjes
+TODO: is de productive sync controller een goed patroon? kan beter?
 
 ```plantuml
 rectangle "PMP API"{
@@ -134,6 +135,7 @@ rectangle "PMP API"{
         rectangle "ProjectController"
         rectangle "TaskController"
         rectangle "CommentController"
+        rectangle "ProductiveSyncController"
     }
     rectangle "Models"{
         rectangle "InputModels"
@@ -154,6 +156,7 @@ rectangle "PMP API"{
 | **ProjectController**  | Verantwoordelijk voor endpoints met betrekking tot Projecten of project management  |
 | **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
+| **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
 | **Models** | De Models zijn de objecten waar daadwerkelijk data voor de gebruiker in zit. |
 | **InputModels**  | De InputModels zijn data objecten die worden gebruikt als input voor de REST controllers.  |
 
@@ -193,6 +196,7 @@ prs --> pes
 | Productive service  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
 
 TODO: rename productive service?
+TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
 
 ### PMP DB
 
@@ -206,7 +210,195 @@ TODO: database model?
 
 ## Code
 
-### Productive API sync unit TODO: sync schrijven
+### Productive API sync
+
+Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk worden een aantal opties voor deze synchronisatie gegeven met de voor en nadelen van de aanpakken.
+
+<table>
+  <tr>
+    <th>Reads</th>
+    <th>Writes</th>
+  </tr>
+  <tr>
+    <td>
+    - Use local db only, db should be synced by way of webhooks
+
+```plantuml
+title getTasks 'local'
+autonumber
+participant TaskController as task
+participant PersistenceService as pers_serv
+' participant ProductiveService as prod_serv
+database PMP_database as pmp_db
+' database Productive_API as prod_api
+
+?-> task : UI request
+task --> pers_serv : getTasks(projectId)
+pers_serv --> pmp_db : SELECT....
+
+```
+
+```plantuml
+title Added task webhook sync
+autonumber
+participant ProductiveSyncController as prod_sync
+' participant TaskController as task
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+' database Productive_API as prod_api
+
+?-> prod_sync : webhook message
+prod_sync --> prod_serv: processSyncRequest(message)
+prod_serv --> pers_serv : addTask(task)
+pers_serv --> pmp_db : insert...
+
+```
+
+</td>
+<td>
+    
+- Write to local db and send to Productive directly
+
+```plantuml
+title Add task from pmp
+autonumber
+participant TaskController as task
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+database Productive_API as prod_api
+
+?-> task : UI request
+task -> prod_serv : addTask(TaskInfo)
+prod_serv -> pers_serv : addTask(TaskInfo)
+pers_serv -> pmp_db : INSERT...
+prod_serv -> prod_api : HTTP POST*
+
+```
+
+*Zie [Productive API](https://developer.productive.io/tasks.html#tasks)
+</td>
+  </tr>
+  <tr>
+    <td>
+    
+- Use productive API call at time of request
+
+```plantuml
+title getTasks 'direct'
+autonumber
+participant TaskController as task
+participant ProductiveService as prod_serv
+database Productive_API as prod_api
+
+?-> task : UI request
+task --> prod_serv : getTasks(projectId)
+prod_serv -->prod_api : http GET*
+
+```
+
+*Zie [Productive API](https://developer.productive.io/tasks.html#tasks)
+</td>
+    <td>
+    - Write to local and sync on timer
+
+```plantuml
+title Add task from pmp
+autonumber
+participant TaskController as task
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+
+
+?-> task : UI request
+task -> prod_serv : addTask(TaskInfo)
+prod_serv -> pers_serv : addTask(TaskInfo)
+pers_serv -> pmp_db : INSERT...
+```
+
+```plantuml
+title Bulk sync tasks
+autonumber
+participant ProductiveSyncController as prod_sync
+participant ProductiveService as prod_serv
+' participant TaskController as task
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+database Productive_API as prod_api
+
+?-> prod_sync : cron job sync
+prod_sync -> prod_serv : syncLocalChanges
+prod_serv -> pers_serv : lc = getLocalChanges
+pers_serv -> pmp_db : select where synced=0
+
+prod_serv -> prod_api : HTTP POST bulk*
+prod_serv -> pers_serv : setToSynced(lc)**
+pers_serv -> pmp_db : UPDATE/DELETE...
+```
+
+*[Bulk post](https://developer.productive.io/index.html#header-content-negotiation) nooit gedaan, moet getest worden of dit überhaupt een optie is
+**Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
+
+TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecombineerd moet worden met A. de productive API data of B. de lokale data verzameld aan de hand van webhooks of REST requests.
+    </td>
+  </tr>
+  <tr>
+  <td></td>
+  <td>
+  - Write to local staging/changes table, mark as synced at notice webhook
+
+```plantuml
+title Bulk sync tasks
+autonumber
+participant ProductiveSyncController as prod_sync
+participant TaskController as task
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+database Productive_API as prod_api
+
+' ?-> prod_sync : cron job sync
+' prod_sync -> prod_serv : syncLocalChanges
+[->task : UI request(TaskInfo)
+task -> prod_serv : addTask(TaskInfo)
+prod_serv -> pers_serv : addTask(TaskInfo)
+pers_serv -> pmp_db : insert into NotSynced
+prod_serv -> prod_api: HTTP POST
+
+[-> prod_sync : webhook message
+prod_sync -> prod_serv : processSyncRequest(message)
+prod_serv -> pers_serv : addTask(TaskInfo) 
+pers_serv -> pmp_db : update Synced
+```
+
+  </td>
+
+  </tr>
+</table>
+
+For reads:
+
+#### 'Lokale' reads
+
+
+
+#### 'Remote' reads
+
+
+For writes:
+
+#### Direct write
+
+
+#### Timed bulk write
+
+
+
+
+
+Can a bad sync happen, how would you notice and how would you solve it?
 
 ## Architectural Decision Records
 
