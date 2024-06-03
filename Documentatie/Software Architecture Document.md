@@ -48,15 +48,18 @@ Omdat de Productive API rate limited is en er mogelijk data over projecten dient
 actor Klant
 actor Admin
 
-rectangle PMP{
-rectangle "React front-end" as PWA
-rectangle "PMP API" as API
-rectangle "PMP DB" as DB
-rectangle "PMP Services" as Service
+rectangle Browser{
+component "React front-end" as PWA
+}
+
+component PMP{
+component "PMP API" as API
+component "PMP Database" as DB
+component "PMP Services" as Service
 }
 
 rectangle "Notification system" as NS
-rectangle "Productive.io API" as PR_API
+database "Productive.io API" as PR_API
 
 Klant --> PWA : HTTP(S)/JSON
 Admin --> PWA : HTTP(S)/JSON
@@ -64,7 +67,8 @@ PWA --> API : HTTP(S)/JSON
 Service --> DB : MS Entity framework
 API-->Service
 Service --> PR_API : HTTP(S)/JSON
-Service --> NS : SMPT?
+PR_API -[norank]-> API : HTTP(S)/JSON via webhooks
+Service --> NS : SMTP?
 
 ```
 
@@ -137,17 +141,17 @@ rectangle "PMP API"{
         rectangle "CommentController"
         rectangle "ProductiveSyncController"
     }
-    rectangle "Models"{
-        rectangle "InputModels"
-    }
-    Controllers --> Models : uses
+    rectangle Models
+
 }
+    rectangle "Services"{
+    }
+    Controllers --> Services : uses
+    Controllers --> Models : uses
 
 ```
 
 #### Toelichting API componenten
-
-
 
 | Component | Uitleg |
 |---|---|
@@ -166,24 +170,33 @@ TODO: Waarom in Api.Bluenotion.NL.Models alleen maar Input models?
 
 ### PMP Services
 
-TODO: interface names?
+TODO: Je hebt sync service toegevoegd maar de rest van het hoofdstuk is nog niet bijgewerkt. Toch ook de repositories in de service laag toevoegen?
 
 ```plantuml
 top to bottom direction
 interface "IPersistence" as if1
 interface "INotification" as if2
 interface "IProductive" as if3
+interface "ISync" as if4
 
 rectangle "PMP Services"{
     rectangle "Persistence service" as pes
     rectangle "Notification service" as ns
-    rectangle "Productive service" as prs
+    rectangle "Productive services" as prs{
+        rectangle AccountService
+        rectangle TaskService
+        rectangle ProjectService
+        rectangle CommentService
+    }
+    rectangle "Sync service" as sync
 }
 
 if1 --> pes
 if2 --> ns
 if3 --> prs
+if4 --> sync
 prs --> pes
+sync --> pes
 
 ```
 
@@ -191,18 +204,83 @@ prs --> pes
 
 | Component | Uitleg |
 |---|---|
-| Persistence service  | Verantwoordelijk voor het afhandelen van database access, dit wordt een laag waarschijnlijk gebaseerd op entity framework TODO: ADR maken |
+| Persistence service  | Verantwoordelijk voor logica betreft het opslaan en opvragen van data. Denk hierbij aan vertaling tussen input/output en database model, autorisatie en filtering. |
 | Notification service  | Verantwoordelijk voor het inlichten van de gebruiker van het systeem bij bijvoorbeeld password resets of ingestelde notificaties TODO: rewrite na confirmatie notificatie ding in FO  |
-| Productive service  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
+| Productive services  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
+
+
+Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden. Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive.
 
 TODO: rename productive service?
 TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
 
-### PMP DB
+### PMP Database & Data models
 
-Een database systeem gebaseerd op MySQL en ms Entity Framework waar data van productive wordt gecached zodat niet voor elke door de gebruiker van het PMP gemaakte request een request naar de Productive API gedaan hoeft te worden.
+De database package is verantwoordelijk voor het low level beheer van de database verbinding en het database model. De verbinding en communicatie met de database wordt afgehandeld aan de hand van MS Entity Framework.
 
-TODO: database model?
+Aangezien er op verschillende plekken van dit document over "het model" gesproken wordt is een kleine toelichting van welke models welke rollen hebben binnen het systeem. In de software zullen binnen de API, Services en Database packages aparte models te vinden zijn:
+
+```plantuml
+
+rectangle API.Models{
+        rectangle AddCustomerModel as cm1
+        rectangle SearchProjectModel as sp1
+        rectangle UpdateTaskListModel as ut1
+        rectangle DeleteTaskModel as dt1
+}
+
+rectangle Services.Models{
+        rectangle CustomerModel as cm2
+        rectangle ProjectModel as sp2
+        rectangle TasklistModel as ut2
+        rectangle TaskModel as dt2
+}
+
+rectangle Database.Models{
+        rectangle Customer as cm3
+        rectangle Project as sp3
+        rectangle Tasklist as ut3
+        rectangle Task as dt3    
+}
+
+note "API input" as n1
+note "API output" as n2
+note "Database model" as n3
+
+API.Models .right. n1
+Services.Models .right. n2
+Database.Models .right. n3
+
+cm1-->cm2
+cm2-->cm3
+
+sp1-->sp2
+sp2-->sp3
+
+ut1-->ut2
+ut2-->ut3
+
+
+dt1-->dt2
+dt2-->dt3
+
+```
+
+#### API.Models
+
+De classes onder API.Models dienen als input [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object) voor de verschillende REST controllers. Binnen deze models wordt aan de hand van [ASP.NET Validatie attributen](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0#validation-attributes) de back-end validatie gedaan om er zeker van te zijn dat er geen vreemde data naar de API wordt gestuurd.
+
+#### Services.Models
+
+De classes onder Services.Models dienen als output [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object) voor de verschillende REST controllers.
+
+TODO: De database models dienen ook als output?...
+
+#### Database.Models
+
+Binnen de classes van het database.Models package wordt aan de hand van annotaties de Entity Framework verbinding op gezet. Hierdoor worden wijzigingen in het datamodel meegenomen met het versiebeheer wat het potentieel terug vinden (of draaien) van problemen eenvoudiger maakt.
+
+TODO: is niet smart
 
 ### Notification system
 
@@ -214,6 +292,16 @@ TODO: database model?
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk worden een aantal opties voor deze synchronisatie gegeven met de voor en nadelen van de aanpakken.
 
+Belangrijke aspecten om rekening mee te houden tijdens de synchronisatie:
+
+- Productive rate limits
+- Reactietijd
+- Correctheid en recentheid van de gelezen data
+- Correctheid geschreven data
+
+TODO: correctheid (en recentheid) vervangen met een beter woord
+TODO: move to ADR file?
+
 <table>
   <tr>
     <th>Reads</th>
@@ -221,7 +309,8 @@ Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is d
   </tr>
   <tr>
     <td>
-    - Use local db only, db should be synced by way of webhooks
+
+Gesynchroniseerde back-end database [ADR001-O2](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks)
 
 ```plantuml
 title getTasks 'local'
@@ -238,116 +327,14 @@ pers_serv --> pmp_db : SELECT....
 
 ```
 
-```plantuml
-title Added task webhook sync
-autonumber
-participant ProductiveSyncController as prod_sync
-' participant TaskController as task
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-' database Productive_API as prod_api
-
-?-> prod_sync : webhook message
-prod_sync --> prod_serv: processSyncRequest(message)
-prod_serv --> pers_serv : addTask(task)
-pers_serv --> pmp_db : insert...
-
-```
-
 </td>
 <td>
-    
+
 - Write to local db and send to Productive directly
 
-```plantuml
-title Add task from pmp
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-database Productive_API as prod_api
+- Write to local staging/changes table, mark as synced at notice webhook
 
-?-> task : UI request
-task -> prod_serv : addTask(TaskInfo)
-prod_serv -> pers_serv : addTask(TaskInfo)
-pers_serv -> pmp_db : INSERT...
-prod_serv -> prod_api : HTTP POST*
-
-```
-
-*Zie [Productive API](https://developer.productive.io/tasks.html#tasks)
-</td>
-  </tr>
-  <tr>
-    <td>
-    
-- Use productive API call at time of request
-
-```plantuml
-title getTasks 'direct'
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-database Productive_API as prod_api
-
-?-> task : UI request
-task --> prod_serv : getTasks(projectId)
-prod_serv -->prod_api : http GET*
-
-```
-
-*Zie [Productive API](https://developer.productive.io/tasks.html#tasks)
-</td>
-    <td>
-    - Write to local and sync on timer
-
-```plantuml
-title Add task from pmp
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-
-
-?-> task : UI request
-task -> prod_serv : addTask(TaskInfo)
-prod_serv -> pers_serv : addTask(TaskInfo)
-pers_serv -> pmp_db : INSERT...
-```
-
-```plantuml
-title Bulk sync tasks
-autonumber
-participant ProductiveSyncController as prod_sync
-participant ProductiveService as prod_serv
-' participant TaskController as task
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-database Productive_API as prod_api
-
-?-> prod_sync : cron job sync
-prod_sync -> prod_serv : syncLocalChanges
-prod_serv -> pers_serv : lc = getLocalChanges
-pers_serv -> pmp_db : select where synced=0
-
-prod_serv -> prod_api : HTTP POST bulk*
-prod_serv -> pers_serv : setToSynced(lc)**
-pers_serv -> pmp_db : UPDATE/DELETE...
-```
-
-*[Bulk post](https://developer.productive.io/index.html#header-content-negotiation) nooit gedaan, moet getest worden of dit überhaupt een optie is
-**Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
-
-TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecombineerd moet worden met A. de productive API data of B. de lokale data verzameld aan de hand van webhooks of REST requests.
-    </td>
-  </tr>
-  <tr>
-  <td></td>
-  <td>
-  - Write to local staging/changes table, mark as synced at notice webhook
+Gesynchroniseerde back-end database [ADR001-O2](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks)
 
 ```plantuml
 title Bulk sync tasks
@@ -373,30 +360,71 @@ prod_serv -> pers_serv : addTask(TaskInfo)
 pers_serv -> pmp_db : update Synced
 ```
 
-  </td>
+</td>
+</tr>
+<tr>
+<td>
 
-  </tr>
+Directe communicatie met productive [ADR001-O1](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive-zonder-caching)
+
+```plantuml
+title getTasks 'direct'
+autonumber
+participant TaskController as task
+participant ProductiveService as prod_serv
+database Productive_API as prod_api
+
+?-> task : UI request
+task --> prod_serv : getTasks(projectId)
+prod_serv -->prod_api : http GET
+
+```
+
+</td>
+<td>
+
+Timed data synchronisatie [ADR001-O3](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o3-timed-data-synchronisatie)
+
+```plantuml
+title Add task from pmp
+autonumber
+participant TaskController as task
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+
+
+?-> task : UI request
+task -> prod_serv : addTask(TaskInfo)
+prod_serv -> pers_serv : addTask(TaskInfo)
+pers_serv -> pmp_db : INSERT...
+```
+
+```plantuml
+title Bulk sync tasks
+autonumber
+participant ProductiveSyncController as prod_sync
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+database Productive_API as prod_api
+
+?-> prod_sync : cron job sync
+prod_sync -> prod_serv : syncLocalChanges
+prod_serv -> pers_serv : lc = getLocalChanges
+pers_serv -> pmp_db : select where synced=0
+
+prod_serv -> prod_api : HTTP POST bulk*
+prod_serv -> pers_serv : setToSynced(lc)**
+pers_serv -> pmp_db : UPDATE/DELETE...
+```
+
+*[Bulk post](https://developer.productive.io/index.html#header-content-negotiation) nooit gedaan, moet getest worden of dit überhaupt een optie is
+**Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
+
+TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecombineerd moet worden met A. de productive API data of B. de lokale data verzameld aan de hand van webhooks of REST requests.
+</td>
 </table>
-
-For reads:
-
-#### 'Lokale' reads
-
-
-
-#### 'Remote' reads
-
-
-For writes:
-
-#### Direct write
-
-
-#### Timed bulk write
-
-
-
-
 
 Can a bad sync happen, how would you notice and how would you solve it?
 
@@ -419,132 +447,3 @@ legend left
 endlegend
 
 ```
-
-### ADR001-Communicatie met de Productive API
-
-**Status:** Proposed
-
-**Context:**
-
-Voor de development teams wordt Productive gebruikt voor het project beheer, het Project Management Portal biedt de klant en de PM inzicht in en communicatie met deze Productive omgeving. Voor de development teams dient het werkproces niet aangepast te worden.
-
-**Decision:** O2-Continu synchroniserende backend database aan de hand van Webhooks
-
-Om de meest recente data te tonen uit productive terwijl de schaalbaarheid wordt behouden is gekozen gebruik te maken van de [Productive.io webhooks](https://developer.productive.io/webhooks.html#webhooks). Hiermee zou data automatisch gesynchroniseerd kunnen worden naar de back-end database vanuit waar (zonder verdere rate limits) de data verspreid kan worden naar verschillende gebruikers van het PMP.
-
-**Consequences:**
-
-- Door de back-end aan de hand van webhooks te synchroniseren ben je afhankelijk van de update rate van de webhooks. Dit is nog niet getest maar het zou kunnen dat hier een delay op zit die groter is dan een "handmatige" request bij een REST endpoint.
-
-- Mocht de PMP back-end om wat voor reden niet dan ook geen OK status code terug sturen naar de webhook worden er door Productive nog 11 keer (over 12 uur) een poging gedaan de data te sturen. In het geval dat het PMP in deze tijd niet reageert zou er data in Productive staan die niet in het PMP aanwezig is en dus gesynchroniseerd moet worden.
-
-- Webhooks zijn rate limited met 1000 requests per 5 min.
-
-**Alternatives:**
-
-- ADR001-O1: Continu synchroniserende backend database aan de hand van REST calls
-
-Om de meest recente data te garanderen is het mogelijk bij elke aanvraag die gedaan wordt bij het PMP een synchronisatie request te sturen naar Productive.
-
-- ADR001-O3: Data synchronisatie on request
-
-Productive biedt de mogelijkheid [bulk requests](https://developer.productive.io/index.html#header-content-negotiation) te doen. Dit zou gebruikt kunnen worden om op aanvraag de back-end database te synchroniseren met de informatie zoals beschikbaar op Productive.
-
-- ADR001-O4: Directe communicatie met productive zonder caching
-
-Technisch gezien is voor de data over projecten en taken geen back end database nodig als de data direct van Productive's API gehaald wordt. Hiermee is het PMP [gelimiteerd aan 100 requests per 10 seconden](https://developer.productive.io/index.html#header-rate-limits) en dit biedt weinig flexibiliteit in data transformatie of implementatie van niet productive gerelateerde functionaliteit als het toevoegen van documentatie ([FR7](./FunctioneelOntwerp.md#fr71-openendownloaden-document)) of een service overview ([FR6](FunctioneelOntwerp.md#fr61-inzien-lijst-van-project-dependencies) ) in een project.
-
-### ADR002-Front end framework
-
-**Status:** Proposed
-
-**Context:**
-
-Voor het presenteren van de data aan de gebruiker is een front end nodig.
-
-**Decision:** O1-React native
-
-Om de ontwikkeling van de front end te vereenvoudigen is gekozen voor React Native.
-
-**Consequences:**
-
-Door React native te gebruiken wordt de applicatie gebouwd met standaarden en inhouse kennis van Bluenotion.
-
-### ADR003-Back end framework
-
-**Status:** Proposed
-
-**Context:**
-Om data aan te leveren aan de frontend dienen (REST?) API endpoints opgezet te worden.
-
-**Decision:** O1-asp.net core
-
-Binnen Bluenotion wordt hiervoor doorgaans een implementatie aan de hand van ASP.NET core voor aangeleverd.
-
-**Consequences:**
-
-Door de back end API te bouwen aan de hand van ASP.NET core wordt de applicatie gebouwd met standaarden en inhouse kennis van Bluenotion.
-
-### ADR004-Database system
-
-**Status:** Proposed
-
-**Context:**
-
-Er zijn verschillende database systemen beschikbaar om data voor het PMP op te slaan.
-
-**Decision:** O1-SQL
-
-**Consequences:**
-
-Door een reguliere MySQL database te gebruiken kan eenvoudig gebruik gemaakt worden van Entity Framework als ORM.
-
-**Alternatives:**
-
-- O2-NoSQL
-- O3-Graph
-
-### ADR005-Database-ORM
-
-<!-- Niet echt architectural significant -->
-
-**Status:** Proposed
-
-**Context:**
-
-Om interacties met de database te vereenvoudigen kan een ORM gebruikt worden.
-
-**Decision:**
-
-**Consequences:**
-
-### ADR006-Frontend backend Communicatie
-
-<!-- Ook niet echt een ASR... -->
-
-**Status:** Proposed
-
-**Context:**
-Om de communicatie tussen de front en backend te faciliteren wordt gebruik gemaakt van de OpenAPI client generators.
-
-**Decision:**
-
-**Consequences:**
-
-### ADR007-MVC Design pattern
-
-<!-- En deze is wel een ASR maar heeft een slechte reden om te bestaan. -->
-
-**Status:** Proposed
-
-**Context:**
-
-Het PMP dient zo opgezet te worden dat de software onderhoudbaar is en zodat collega's er in de toekomst op verder kunnen bouwen. Hiervoor dient een standaard design pattern gebruikt te worden.
-
-**Decision:**
-
-Om de code onderhoudbaar te houden wordt gebruik gemaakt van het [MVC pattern](https://www.geeksforgeeks.org/mvc-design-pattern/).
-
-**Consequences:**
-
-- Code wordt gescheiden naar data, UI en logica (Separation of Concerns)
