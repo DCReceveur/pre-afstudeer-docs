@@ -125,12 +125,11 @@ rectangle "React front-end"{
 | **Admin** | Om meer zekerheid te bieden dat de klant niet "per ongeluk" in de admin omgeving terecht komt worden er aparte views aangemaakt met de functionaliteiten voor de Bluenotion Administrator (ACT2) |
 | **Customer** | Binnen de Customer views worden de functionaliteiten voor de externe klant (ACT1) met betrekking tot het tonen van data geïmplementeerd. |
 | **Partials** | Binnen de components worden generieke views gemaakt die onafhankelijk zijn van de gebruiker of die door de betreffende customer of admin views worden aangevuld. |
-| **Generated API** | De generated API is de OpenAPI representatie van de back-end. Deze wordt automatisch gegenereerd en is functioneel gelijk aan de [PMP API](#pmp-api) |
+| **Generated API** | De generated API is de OpenAPI representatie van de back-end. Deze wordt [automatisch gegenereerd](https://openapi-generator.tech/) en is functioneel gelijk aan de [PMP API](#pmp-api) |
 
 ### PMP API
 
-TODO: lijntjes
-TODO: is de productive sync controller een goed patroon? kan beter?
+Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
 ```plantuml
 rectangle "PMP API"{
@@ -142,7 +141,6 @@ rectangle "PMP API"{
         rectangle "ProductiveSyncController"
     }
     rectangle Models
-
 }
     rectangle "Services"{
     }
@@ -161,16 +159,17 @@ rectangle "PMP API"{
 | **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
 | **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
-| **Models** | De Models zijn de objecten waar daadwerkelijk data voor de gebruiker in zit. |
-| **InputModels**  | De InputModels zijn data objecten die worden gebruikt als input voor de REST controllers.  |
+| **Models**  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#pmp-database--data-models) gegeven op de models.  |
 
 TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.
 
-TODO: Waarom in Api.Bluenotion.NL.Models alleen maar Input models?
-
 ### PMP Services
 
+De service laag is verantwoordelijk voor de business logica, [transformeren van input naar database models](#databasemodels) en het coördineren van "externe" verbindingen.
+
 TODO: Je hebt sync service toegevoegd maar de rest van het hoofdstuk is nog niet bijgewerkt. Toch ook de repositories in de service laag toevoegen?
+
+TODO: afhankelijk van de input van de webhooks zou de sync service gebruik kunnen maken van de productive services.
 
 ```plantuml
 top to bottom direction
@@ -207,9 +206,17 @@ sync --> pes
 | Persistence service  | Verantwoordelijk voor logica betreft het opslaan en opvragen van data. Denk hierbij aan vertaling tussen input/output en database model, autorisatie en filtering. |
 | Notification service  | Verantwoordelijk voor het inlichten van de gebruiker van het systeem bij bijvoorbeeld password resets of ingestelde notificaties TODO: rewrite na confirmatie notificatie ding in FO  |
 | Productive services  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
+| Sync service | Deze service is verantwoordelijk voor het opzetten van de Productive webhooks en het uitvoeren van de "clean sync" |
 
+##### Regular sync
 
-Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden. Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive.
+Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden.
+
+##### Clean sync
+
+Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP, first time setup of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive. Aangezien deze actie veel data nodig heeft van productive zal deze procedure waarschijnlijk dermate veel tijd en requests kosten dat hij enkel als nood oplossing uitgevoerd dient te worden.
+
+Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](./Decisions/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
 
 TODO: rename productive service?
 TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
@@ -230,7 +237,7 @@ rectangle API.Models{
 }
 
 rectangle Services.Models{
-        rectangle CustomerModel as cm2
+        rectangle CustomerModel as cm2ß
         rectangle ProjectModel as sp2
         rectangle TasklistModel as ut2
         rectangle TaskModel as dt2
@@ -266,6 +273,15 @@ dt2-->dt3
 
 ```
 
+Gevraag:
+
+Welke models heb je nodig?
+
+Endpoint input models
+Endpoint output models
+Database model
+Productive input model?
+
 #### API.Models
 
 De classes onder API.Models dienen als input [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object) voor de verschillende REST controllers. Binnen deze models wordt aan de hand van [ASP.NET Validatie attributen](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0#validation-attributes) de back-end validatie gedaan om er zeker van te zijn dat er geen vreemde data naar de API wordt gestuurd.
@@ -282,6 +298,8 @@ Binnen de classes van het database.Models package wordt aan de hand van annotati
 
 TODO: is niet smart
 
+Navragen: in het template project hebben de controllers een dependency op database.models om de database classes te gebruiken als return type. Na gesprek met Niels is me verteld dat er doorgaans geen dependency is tussen de controller en de database models maar al deze communicatie via de services loopt. Zou het netter zijn deze dependency te verwijderen en enkel Services.Models te gebruiken als output?
+
 ### Notification system
 
 ### Productive API
@@ -291,140 +309,6 @@ TODO: is niet smart
 ### Productive API sync
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk worden een aantal opties voor deze synchronisatie gegeven met de voor en nadelen van de aanpakken.
-
-Belangrijke aspecten om rekening mee te houden tijdens de synchronisatie:
-
-- Productive rate limits
-- Reactietijd
-- Correctheid en recentheid van de gelezen data
-- Correctheid geschreven data
-
-TODO: correctheid (en recentheid) vervangen met een beter woord
-TODO: move to ADR file?
-
-<table>
-  <tr>
-    <th>Reads</th>
-    <th>Writes</th>
-  </tr>
-  <tr>
-    <td>
-
-Gesynchroniseerde back-end database [ADR001-O2](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks)
-
-```plantuml
-title getTasks 'local'
-autonumber
-participant TaskController as task
-participant PersistenceService as pers_serv
-' participant ProductiveService as prod_serv
-database PMP_database as pmp_db
-' database Productive_API as prod_api
-
-?-> task : UI request
-task --> pers_serv : getTasks(projectId)
-pers_serv --> pmp_db : SELECT....
-
-```
-
-</td>
-<td>
-
-- Write to local db and send to Productive directly
-
-- Write to local staging/changes table, mark as synced at notice webhook
-
-Gesynchroniseerde back-end database [ADR001-O2](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks)
-
-```plantuml
-title Bulk sync tasks
-autonumber
-participant ProductiveSyncController as prod_sync
-participant TaskController as task
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-database Productive_API as prod_api
-
-' ?-> prod_sync : cron job sync
-' prod_sync -> prod_serv : syncLocalChanges
-[->task : UI request(TaskInfo)
-task -> prod_serv : addTask(TaskInfo)
-prod_serv -> pers_serv : addTask(TaskInfo)
-pers_serv -> pmp_db : insert into NotSynced
-prod_serv -> prod_api: HTTP POST
-
-[-> prod_sync : webhook message
-prod_sync -> prod_serv : processSyncRequest(message)
-prod_serv -> pers_serv : addTask(TaskInfo) 
-pers_serv -> pmp_db : update Synced
-```
-
-</td>
-</tr>
-<tr>
-<td>
-
-Directe communicatie met productive [ADR001-O1](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive-zonder-caching)
-
-```plantuml
-title getTasks 'direct'
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-database Productive_API as prod_api
-
-?-> task : UI request
-task --> prod_serv : getTasks(projectId)
-prod_serv -->prod_api : http GET
-
-```
-
-</td>
-<td>
-
-Timed data synchronisatie [ADR001-O3](./Decisions/ADR001-Communicatie_met_de_Productive_API.md#o3-timed-data-synchronisatie)
-
-```plantuml
-title Add task from pmp
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-
-
-?-> task : UI request
-task -> prod_serv : addTask(TaskInfo)
-prod_serv -> pers_serv : addTask(TaskInfo)
-pers_serv -> pmp_db : INSERT...
-```
-
-```plantuml
-title Bulk sync tasks
-autonumber
-participant ProductiveSyncController as prod_sync
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-database Productive_API as prod_api
-
-?-> prod_sync : cron job sync
-prod_sync -> prod_serv : syncLocalChanges
-prod_serv -> pers_serv : lc = getLocalChanges
-pers_serv -> pmp_db : select where synced=0
-
-prod_serv -> prod_api : HTTP POST bulk*
-prod_serv -> pers_serv : setToSynced(lc)**
-pers_serv -> pmp_db : UPDATE/DELETE...
-```
-
-*[Bulk post](https://developer.productive.io/index.html#header-content-negotiation) nooit gedaan, moet getest worden of dit überhaupt een optie is
-**Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
-
-TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecombineerd moet worden met A. de productive API data of B. de lokale data verzameld aan de hand van webhooks of REST requests.
-</td>
-</table>
 
 Can a bad sync happen, how would you notice and how would you solve it?
 

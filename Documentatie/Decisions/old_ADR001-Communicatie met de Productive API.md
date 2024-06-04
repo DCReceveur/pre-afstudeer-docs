@@ -7,19 +7,13 @@ title: ADR001 Communicatie met de Productive API
 # These are optional elements. Feel free to remove any of them.
 status: proposed
 date: 22-05-2024
-# deciders: {list everyone involved in the decision}
-# consulted: {list everyone whose opinions are sought (typically subject-matter experts); and with whom there is a two-way communication}
-# informed: {list everyone who is kept up-to-date on progress; and with whom there is a one-way communication}
 ---
-<!-- we need to disable MD025, because we use the different heading "ADR Template" in the homepage (see above) than it is foreseen in the template -->
-<!-- markdownlint-disable-next-line MD025 -->
 # ADR001 Communicatie met de Productive API
 
 ## Context and Problem Statement
 
 Binnen Bluenotion wordt voor de start van het project Productive gebruikt voor het beheer van wie, wat, wanneer moet doen. Het Project Management Portal dient voornamelijk de klant inzicht te geven in en interactie aan te bieden met het actieve Productive systeem. Er is geen wens vanuit de development teams om over te schakelen naar een nieuw systeem voor project management.
 
-<!-- This is an optional element. Feel free to remove. -->
 ## Decision Drivers
 
 * Rate limit op Productive API
