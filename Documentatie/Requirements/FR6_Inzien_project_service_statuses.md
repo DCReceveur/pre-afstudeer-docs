@@ -4,7 +4,6 @@ Deze functional requirements hebben betrekking tot het inzien van verschillende 
 
 ## FR6.1: Inzien lijst van project dependencies
 
-
 Het zien van welke dependencies een project nodig heeft (databases, proxies, algemene infra)
 
 | FR6.1 | Inzien lijst van project dependencies |
