@@ -1,0 +1,67 @@
+# Controleren aanvraag
+
+Deze functional requirements hebben betrekking op het goed (of af) keuren van aanvragen gedaan door de externe klant en het maken van taken op basis van deze aanvragen.
+
+## FR8.1: Controleren aanvraag
+
+| FR8.1 | Controleren aanvraag|
+|---|---|
+| Prioriteit | Must have  |
+| Primaire Actor | ACT2: Bluenotion admin |
+| Stakeholders | ACT1: Externe klant, ACT3: Software developer |
+| Pre condities | Er is een project waar een klant een aanvraag heeft gedaan.  |
+| Post condities | De klant wordt op de hoogte gebracht dat er om feedback is gevraagd. </br> De taak staat op het "Awaiting customer" bord. |
+| Triggers | Er staan taken in de "Aanvraag" lijst. |
+| Exceptions | In de tijd dat de vraag wordt gecontroleerd is de taak door de klant verwijderd. |
+| Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen of wordt deze alsnog naar de backlog gehaald? |
+
+### FR8.1: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | Geeft aan welke taak open gezet moet worden voor feedback  |   |
+| 2 |   | Geeft de actor de mogelijkheid de taak zelf aan te passen.  |
+| 3 | Geeft aan welke punten ontbreken of onduidelijk zijn.  |   |
+| 4 |   | Zet de taak op "awaiting customer" met de bijbehorende feedback.  |
+
+<!-- TODO: Waar komt feedback? Wordt dit bijgehouden in de comments van de taak? De omschrijving? Apart in het PMP?
+A: feedback in de comments van productive. Aparte "chat" voor tenant level communicatie [FR9](#fr9-tenant-level-chat-voor-directe-communicatie) komt in het PMP -->
+
+### FR8.1: Alternative flow - Taak is zelf aan te vullen
+
+|Stap | Actor | System |
+|---|---|---|
+| 3A | Past de ontbrekende/onduidelijke punten zelf aan |  |
+| 4A |  | Zet de nieuwe versie van de taak op "awaiting customer" zodat de klant goedkeuring kan geven voordat er aan begonnen wordt.  |
+
+## FR8.2: Op splitten taak naar "team" taken
+
+| FR? | Op splitten taak naar "team" taken  |
+|---|---|
+| Prioriteit | Could have  |
+| Primaire Actor | ACT2: Bluenotion admin  |
+| Stakeholders |  |
+| Pre condities | Een klant heeft een taak in de aanvragen toegevoegd. |
+| Post condities | Er zijn verschillende taken aangemaakt voor elk team dat iets met de taak moet doen. |
+| Triggers | De PM merkt op dat verschillende teams aan één taak moeten werken. |
+| Exceptions |  |
+| Open issues | Kunnen dependencies gebruikt worden? Hoofd en subtaken? TODO's? Wanneer is de controle voorbij?  |
+
+### FR8.2: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | De actor geeft aan een aanvraag te willen splitten naar verschillende taken |  |
+| 2 |  | Het systeem geeft een aantal opties (teams) waar binnen dat project taken voor aangemaakt kunnen worden |
+| 3 | De actor geeft aan welke teams aan de taak gaan werken |  |
+| 4 |  | Het systeem maakt verschillende taken aan voor de betreffende teams, zet ze op de "aanvraag" lijst en refereer in de originele taak naar de nieuwe (dependency/sub?) taken |
+| 5 | De actor voert voor de nieuwe taken een estimate in per sub taak |  |
+| 6 |  | Het systeem zet de taken na goedkeuring externe klant op de backlog |
+
+TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard split"
+
+### FR8.2: Alternative flow - flow name
+
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |

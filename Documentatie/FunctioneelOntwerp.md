@@ -282,7 +282,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US1   | ACT2  | Als Bluenotion admin wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken.  | [FR1.1](#fr11-inzien-projecten) |
 | US2  | ACT1 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | [FR1.2](#fr12-inzien-totaal-geplande-urenkosten) |
 | US3  | ACT1 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | [FR1.2](#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](#fr21-inzien-taken-van-project), [FR2.2](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR2.3](#fr23-inzien-taak-details), [FR2.4](#fr24-tonen-taken-in-gantt-chart) |
-| US4?  | ACT2  | Als Bluenotion admin wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  |  X |
+| US4  | ACT2  | Als Bluenotion admin wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  |  X |
 | US5  | ACT3  | Als Bluenotion medewerker wil ik niet mijn werkwijze aanpassen om een nieuw systeem voor de klant te ondersteunen.  | [NFR2.1](#nonfunctional-requirements)  |
 | US6  | ACT1  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](#fr31-toevoegen-nieuwe-taak-in-een-project) |
 | US7  | ACT1, ACT2  | Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | [FR2.6](#fr26-comments-toevoegen-op-lopende-taak), [FR3.2](#fr32-toelichting-geven-op-taak), [FR8.1](#fr81-controleren-aanvraag), [FR8.2](#fr82-op-splitten-taak-naar-team-taken) |
@@ -319,12 +319,14 @@ left to right direction
 (FR6: Inzien project service statuses) as FR6
 (FR7: Inzien project documentatie) as FR7
 (FR8: Controleren aanvraag) as FR8
+(FR9: Tenant level chat voor directe communicatie) as FR9
 
 KL -DOWN-> FR1
 KL -DOWN-> FR2
 KL -DOWN-> FR3
 KL -DOWN-> FR6
 KL -DOWN-> FR7
+KL -DOWN-> FR9
 
 ADM-DOWN->FR5
 ADM-DOWN->FR8
@@ -334,75 +336,76 @@ ADM-LEFT-|>KL
 
 ```
 
-| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references |
-|---|---|---|---|---|---|
-| FR1  | Inzien project plannings informatie |   |   | NFR0.5  |   |
-| FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  | [US1](#user-stories), [US2](#user-stories), [Fully dressed usecase description](#fr11-inzien-projecten)  |
-| FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  | [US3](#user-stories), [Fully dressed usecase description](#fr12-inzien-totaal-geplande-urenkosten)  |
-| FR2  | Inzien taken  |   |   |   |   |
-| FR2.1  |   | Inzien taken van project  | Must have  |   | [US3](#user-stories), [Fully dressed usecase description](#fr21-inzien-taken-van-project)  |
-| FR2.2  |   | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have |  | [US3](#user-stories), [US8](#user-stories), [US9](#user-stories), [Fully dressed usecase description](#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
-| FR2.3  |   | Inzien taak details  | Must have  |   | [US3](#user-stories), [Fully dressed usecase description](#fr23-inzien-taak-details)  |
-| FR2.4  |   | Tonen taken in Gantt chart?  | Could have |  | [US3](#user-stories), [Fully dressed usecase description](#fr24-tonen-taken-in-gantt-chart) |
-| FR2.5  |   | Aanpassen taak prioriteit| Could have |  |[Fully dressed usecase description](#fr25-aanpassen-taak-prioriteit)  |
-| FR2.6  |   | Comments toevoegen op aanvraag/taak  |  Could have  |  |  [US7](#user-stories), [Fully dressed usecase description](#fr26-comments-toevoegen-op-lopende-taak)  |
-| FR2.7  |   | Filteren taken op: incident of doorontwikkeling  | Should have  |   |   |
-| FR3 | Toevoegen aanvraag |  |  |  |  |
-| FR3.1  |   | Toevoegen nieuwe taak | Must have  |   | [US6](#user-stories), [Fully dressed usecase description](#fr31-toevoegen-nieuwe-taak-in-een-project)  |
-| FR3.2  |   | Toelichting geven op taak (extern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](#fr32-toelichting-geven-op-taak)  |
-| FR3.3  |   | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | FR1.4 | [Fully dressed usecase description](#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) |
-| FR3.4 |   | Toevoegen bijlagen bij taak | Must have |  | [US12](#user-stories), [Fully dressed usecase description](#fr34-toevoegen-bijlagen-bij-taak) |
-| FR4?  | Versturen notificaties  |   |   |   |   |
-| FR4.1  |   | Inlichten klant wanneer een taak wacht op input van de klant  | Should have  |   | [US9](#user-stories), [Fully dressed usecase description](#fr41-versturen-notificatie)  |
-| FR4.2  |   | Inlichten Bluenotion bij blockers/criticals  | Could have  |   |   |
-| FR5? | Opstellen project |  |  |  |  |
-| FR5.1  |   | Afhandelen project setup binnen PMP  | Could have  |   | [US19](#user-stories)  |
-| FR6  | Inzien project service statuses  |   |   |   |   |
-| FR6.1  |   | Inzien lijst van project dependencies  | Could have  |   | [US13](#user-stories)  |
-| FR6.2  |   | Inzien huidige status (online/offline) project dependencies | Could have  |   | [US13](#user-stories)  |
-| FR6.3  |   | Beheren project services  | Could have  |   |   |
-| FR7  | Inzien project documentatie |  |  |  |  |
-| FR7.1  |   | Openen/downloaden document  | Could have  |   | [US13](#user-stories)  |
-| FR7.2  |   | Filteren documentnaam/categorie?  | Could have  |   | [US13](#user-stories)  |
-| FR7.3  |   | Beheren project documentatie  | Could have  |   |   |
-| FR8 | Controleren aanvraag |  |  |  |  |
-| FR8.1  |   | Controleren aanvraag (intern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](#fr81-controleren-aanvraag), [US10](#user-stories)  |
-| FR8.2  |   | Op splitten taak naar "team" taken | Could have |   | [US7](#user-stories), [Fully dressed usecase description](#fr82-op-splitten-taak-naar-team-taken), [US10](#user-stories)  |
-| FR9  | Tenant level chat voor directe communicatie  |   | Could have  |   |   |
+| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references | Status |
+|---|---|---|---|---|---|---|
+| FR1  | Inzien project plannings informatie |   |   | NFR0.5  | [Requirement overzicht](./Requirements/FR1_Inzien_project_plannings_informatie.md)  | UX |
+| FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  | [US1](#user-stories), [US2](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-alternative-flow---no-projects-for-customer)  | UX |
+| FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten)  | UX |
+| FR2  | Inzien taken  |   |   |   | [Requirement overzicht](./Requirements/FR2_Inzien_taken.md)  |
+| FR2.1  |   | Inzien taken van project  | Must have  |   | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project)  | UX |
+| FR2.2  |   | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have |  | [US3](#user-stories), [US8](#user-stories), [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | UX |
+| FR2.3  |   | Inzien taak details  | Must have  |   | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details)  | UX |
+| FR2.4  |   | Tonen taken in Gantt chart?  | Could have | FR2.1 | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr24-main-flow) | UX |
+| FR2.7  |   | Filteren taken op: incident of doorontwikkeling  | Should have  |   |  | Afstemming |
+| FR3 | Toevoegen aanvraag |  |  |  | [Requirement overzicht](./Requirements/FR3_Toevoegen_aanvraag.md) |
+| FR3.1  |   | Toevoegen nieuwe taak | Must have  |   | [US6](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project)  | UX |
+| FR3.2  |   | Toelichting geven op taak (extern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak)  | UX |
+| FR3.3  |   | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | FR1.4 | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | Afstemming |
+| FR3.4 |   | Toevoegen bijlagen bij taak | Must have |  | [US12](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | UX |
+| FR3.5  |   | Aanpassen taak prioriteit| Could have | FR3.3 |[Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit)  | Afstemming |
+| FR4  | Versturen notificaties  |   |   |   | [Requirement overzicht](./Requirements/FR4_Versturen_notificaties.md)  ||
+| FR4.1  |   | Inlichten klant wanneer een taak wacht op input van de klant  | Should have  |   | [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant)  | UX |
+| FR4.2  |   | Inlichten Bluenotion bij blockers/criticals  | Could have  |   | [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)  | UX |
+| FR5? | Opstellen project |  |  |  |  | Afstemming |
+| FR5.1  |   | Afhandelen project setup binnen PMP  | Could have  |   | [US19](#user-stories), [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)   | Afstemming |
+| FR6  | Inzien project service statuses  |   |   |   | [Requirement overzicht](./Requirements/FR6_Inzien_project_service_statuses.md)  ||
+| FR6.1  |   | Inzien lijst van project dependencies  | Could have  |   | [US13](#user-stories), [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies)  | Afstemming |
+| FR6.2  |   | Inzien huidige status (online/offline) project dependencies | Could have  | FR6.1  | [US13](#user-stories),[Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies)  | Afstemming |
+| FR6.3  |   | Beheren project services  | Could have  | FR6.1  | [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services)  | Afstemming |
+| FR7  | Inzien project documentatie |  |  |  | [Requirement overzicht](./Requirements/FR7_Inzien_project_documentatie.md) ||
+| FR7.1  |   | Openen/downloaden document  | Could have  |   | [US13](#user-stories), [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document)  | UX |
+| FR7.2  |   | Filteren documentnaam/categorie?  | Could have  | FR7.1  | [US13](#user-stories), [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie)  | UX |
+| FR7.3  |   | Beheren project documentatie  | Could have  | FR7.1  | [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie)  | UX |
+| FR8 | Controleren aanvraag |  |  |  | [Requirement overzicht](./Requirements/FR8_Controleren_aanvraag.md) ||
+| FR8.1  |   | Controleren aanvraag (intern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](#user-stories)  | UX |
+| FR8.2  |   | Op splitten taak naar "team" taken | Could have |   | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](#user-stories)  | UX |
+| FR9  | Tenant level chat voor directe communicatie  |   | Could have  |   | [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md) | Afstemming |
+
+<!-- | FR2.6  |   | Comments toevoegen op aanvraag/taak  |  Could have  |  |  [US7](#user-stories), [Fully dressed usecase description](#fr26-comments-toevoegen-op-lopende-taak)  | -->
 
 #### Nonfunctional requirements
 
-| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references |
-|---|---|---|---|---|---|
-| NFR1  | Usability  |   |   |   |   |
-|   | NFR1.1  | Het systeem dient beschikbaar te zijn in Nederlands en Engels, met optie tot uitbreiding.  | Should have  |   | [US16](#user-stories)  |
-| NFR2 | Reliability  |   |   |   |   |
-|   | NFR2.1  | Informatie over projecten en taken komen altijd overeen met de informatie op Productive.  | Must have  |   |   |
-|   | NFR2.2  | Het systeem geeft bij 95% van de requests in een maand antwoord zoals beschreven in dit document.  | Must have  |   | [US17](#user-stories)   |
-| NFR3 | Performance  |   |   |   |   |
-|   | NFR3.1  | Onder normale omstandigheden wordt data die niet afkomstig is van de Productive API binnen 1? seconde na aanvraag getoond aan de gebruiker.  | Should have  |   | [US17](#user-stories)   |
-|   | NFR3.2  | Onder normale omstandigheden wordt data die afkomstig is van de Productive API binnen 3? seconden na aanvraag getoond aan de gebruiker. | Should have  |   | [US17](#user-stories)  |
-| NFR4 | Security |  |  |  |  |
-|   | NFR4.1  | Authenticatie: Uitnodigen nieuwe gebruikers via e-mail | Must have |  | [US14](#user-stories) |
-|   | NFR4.2  | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |   | [US14](#user-stories)  |
-|   | NFR4.3  | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |   | [US14](#user-stories)  |
-|   | NFR4.4  | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database | Should have  |   | [US14](#user-stories)  |
-|   | NFR4.5  | Accounting: Loggen write events  | Must have?  |   | [US15](#user-stories)  |
-|   | NFR4.6  | Accounting: Loggen read events?  | Could have?  |   | [US15](#user-stories)  |
-|   | NFR4.7  | Het systeem is AVG/GDPR compliant  | Must have  |   |   |
-| NFR5 | Scalability  |   |   |   |   |
-|   | NFR5.1  | De software komt met 50? gelijktijdige gebruikers niet aan de Productive API rate limits  | Should have  |   | [US17](#user-stories)  |
-|   | NFR5.2  | De software komt ongeacht hoeveelheid gelijktijdige gebruikers niet aan de Productive API rate limits?  | Would have  |   | [US17](#user-stories)  |
-| NFR6 | Portability  |  |   |   |   |
-|   | NFR6.1  | Het systeem schaalt "netjes"? op alle Windows en MAC versies van de afgelopen 3? jaar  | Should have  |   | [US16](#user-stories)  |
-|   | NFR6.2  | Het systeem is platform onafhankelijk (zou implementaties kunnen hebben met bijvoorbeeld Jira, GitLab, Trello)  | Would have  |   |   |
-|   | NFR6.3  | Het systeem werkt in alle FireFox, Chrome, Edge en Safari versies van de afgelopen 3? jaar.  | Must have  |   | [US16](#user-stories)  |
-| NFR7 | Compatibility  |   |   |   |   |
-|   | NFR7.1  | Het systeem werkt op alle Windows en MAC versies van de afgelopen 3? jaar  | Must have  |   | [US16](#user-stories)  |
-| NFR8 | Maintainability  |   |   |   |   |
-|   | NFR8.1  | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  | Could have  |   | [US18](#user-stories)  |
-|   | NFR8.2  |  Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |  | [US18](#user-stories)  |
-|   | NFR8.3  | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  | Must have  |   | [US18](#user-stories)  |
+| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) |  Document references |
+|---|---|---|---|---|
+| NFR1  | Usability  |      |   |   |
+|   | NFR1.1  | Het systeem dient beschikbaar te zijn in Nederlands en Engels, met optie tot uitbreiding.  | Should have     | [US16](#user-stories)  |
+| NFR2 | Reliability  |      |   |   |
+|   | NFR2.1  | Informatie over projecten en taken komen altijd overeen met de informatie op Productive.  | Must have  |      |
+|   | NFR2.2  | Het systeem geeft bij 95% van de requests in een maand antwoord zoals beschreven in dit document.  | Must have  |    [US17](#user-stories)   |
+| NFR3 | Performance  |   |   |      |
+|   | NFR3.1  | Onder normale omstandigheden wordt data die niet afkomstig is van de Productive API binnen 1? seconde na aanvraag getoond aan de gebruiker.  | Should have  |    [US17](#user-stories)   |
+|   | NFR3.2  | Onder normale omstandigheden wordt data die afkomstig is van de Productive API binnen 3? seconden na aanvraag getoond aan de gebruiker. | Should have  |    [US17](#user-stories)  |
+| NFR4 | Security |  |  |    |
+|   | NFR4.1  | Authenticatie: Uitnodigen nieuwe gebruikers via e-mail | Must have |   [US14](#user-stories) |
+|   | NFR4.2  | Authenticatie: Aanmelden met e-mail en wachtwoord  | Must have  |    [US14](#user-stories)  |
+|   | NFR4.3  | Autorisatie: Afschermen ongerelateerde project/taak info  | Must have  |    [US14](#user-stories)  |
+|   | NFR4.4  | Autorisatie: Autorisatie gebeurt volledig binnen de back-end en database | Should have  |    [US14](#user-stories)  |
+|   | NFR4.5  | Accounting: Loggen write events  | Must have?  |    [US15](#user-stories)  |
+|   | NFR4.6  | Accounting: Loggen read events?  | Could have?  |    [US15](#user-stories)  |
+|   | NFR4.7  | Het systeem is AVG/GDPR compliant  | Must have  |      |
+| NFR5 | Scalability  |   |   |      |
+|   | NFR5.1  | De software komt met 50? gelijktijdige gebruikers niet aan de Productive API rate limits  | Should have  |    [US17](#user-stories)  |
+|   | NFR5.2  | De software komt ongeacht hoeveelheid gelijktijdige gebruikers niet aan de Productive API rate limits?  | Would have     | [US17](#user-stories)  |
+| NFR6 | Portability  |  |   |      |
+|   | NFR6.1  | Het systeem schaalt "netjes"? op alle Windows en MAC versies van de afgelopen 3? jaar  | Should have  |    [US16](#user-stories)  |
+|   | NFR6.2  | Het systeem is platform onafhankelijk (zou implementaties kunnen hebben met bijvoorbeeld Jira, GitLab, Trello)  | Would have     |   |
+|   | NFR6.3  | Het systeem werkt in alle FireFox, Chrome, Edge en Safari versies van de afgelopen 3? jaar.  | Must have  |    [US16](#user-stories)  |
+| NFR7 | Compatibility  |   |   |      |
+|   | NFR7.1  | Het systeem werkt op alle Windows en MAC versies van de afgelopen 3? jaar  | Must have  |    [US16](#user-stories)  |
+| NFR8 | Maintainability  |   |   |      |
+|   | NFR8.1  | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  | Could have  |    [US18](#user-stories)  |
+|   | NFR8.2  |  Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |   [US18](#user-stories)  |
+|   | NFR8.3  | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  | Must have  |    [US18](#user-stories)  |
 
 ### unsorted
 
@@ -410,648 +413,49 @@ ADM-LEFT-|>KL
 |---|---|---|---|---|---|
 | FR1.3  |   | Toekennen overige project uren  | Could have  | FR1.2  |   |
 | FR1.4  |   | Toekennen SLA KPI's | Could have  | FR1.1  |   |
-<!-- | NFR0  | Opzetten technische infrastructuur  |   | Must have  |   |   |
-| NFR0.1  |   | Opzetten initial Front-end  | Must have  |   |   |
-| NFR0.2  |   | Opzetten initial Back-end  | Must have  |   |   |
-| NFR0.3  |   | Opzetten initial database  | Must have  |   |   |
-| NFR0.4  |   | Opzetten test infrastructuur  | Must have  |   |   |
-| NFR0.5  |   | Opzetten verbinding Productive.io API | Must have  |  |  |
-| NFR0.6  |   | Opzetten mailing system  | Must have  |   |   |
-| NFR0.7  |   | Opzetten internationalisatie infrastructuur | Should have |  |  |
-|   |   |   |   |   |   | -->
-
-<!-- 
-Notes on functional requirements:
-FR4.2 inlichten bluenotion bij critical/blocker zou aan de hand van telefoon kunnen?
-
- -->
 
 <!-- TODO: Sources netjes documenteren maar sources:
 NFR categories: https://www.altexsoft.com/blog/non-functional-requirements/
 https://www.altexsoft.com/blog/software-requirements-specification/
 Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->
 
-### Fully dressed Use Cases
-
-#### FR1.1: Inzien projecten
-
-| FR1.1 | Inzien projecten  |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | PM, TL, SD |
-| Pre condities | De klant kan inloggen in het PMP. |
-| Post condities | De klant heeft een lijst met de voor hem beschikbare projecten. |
-| Triggers | De klant vraagt de lijst met voor hem beschikbare projecten op |
-| Exceptions |  |
-| Open issues | Data verzamelen: Wie is de klant, wat zijn zijn projecten? |
-
-##### FR1.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Vraagt de lijst met alle beschikbare projecten op |  |
-| 2 |  | Toont alle voor de klant beschikbare projecten |
-
-##### FR1.1: Alternative flow - no projects for customer
-
-|Stap| Actor | System |
-|---|---|---|
-| 2A |  | Toont geen projecten omdat er geen projecten aan de klant gekoppeld zijn. |
-
-#### FR1.2: Inzien totaal geplande uren+kosten
-
-| FR1.2 | Inzien totaal geplande uren+kosten  |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders |  |
-| Pre condities | De klant is aangemeld in het PMP </br> De klant heeft op zijn minst één project in het PMP. |
-| Post condities | De klant heeft een overzicht van de op het moment openstaande hoeveelheid uren en de kosten hiervan bij een project.  |
-| Triggers | De klant opent het project overview |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR1.2: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Opent de project overview van een van zijn projecten |  |
-| 2 |  | Toont de actuele tijd en kosten planning |
-
-##### FR1.2: Alternative flow - Geen uren ingepland op het project
-
-|Stap | Actor | System |
-|---|---|---|
-| 2 |  | Toont de actuele tijd en kosten planning als 0 |
-
-#### FR2.1: Inzien taken van project
-
-| FR2.1 | Inzien taken van project |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | PM |
-| Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
-| Post condities | De klant heeft een overzicht van de taken die voor de software developers op de planning staan. [(planning van lifecycle taken)](#lifecycle-taken) |
-| Triggers | De klant vraagt de details voor een project op |
-| Exceptions | Het opgevraagde project bestaat niet |
-| Open issues |  |
-
-##### FR2.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Vraagt voor een project alle bijbehorende taken op |  |
-| 2 |  | Presenteert een aantal lijsten met uit te voeren taken, geplande taken, taken waar de gebruiker feedback op moet geven en afgeronde taken. |
-
-##### FR2.1: Alternative flow - Project heeft geen taken
-
-|Stap | Actor | System |
-|---|---|---|
-| 2A |  | Toont lege takenlijsten |
-
-#### FR2.2: Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed
-
-| FR2.2 | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | PM |
-| Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
-| Post condities | De klant heeft een gefilterd/gesorteerd overzicht van alle voor hem relevante taken. |
-| Triggers | De klant vraagt de details voor een project op |
-| Exceptions | Het opgevraagde project bestaat niet |
-| Open issues |  |
-
-##### FR2.2: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Vraagt voor een project alle bijbehorende taken op |  |
-| 2 |  | Presenteert een aantal lijsten met uit te voeren taken, geplande taken, taken waar de gebruiker feedback op moet geven en afgeronde taken. |
-
-##### FR2.2: Alternative flow - Project heeft geen taken
-
-|Stap | Actor | System |
-|---|---|---|
-| 2A |  | Toont lege takenlijsten |
-
-#### FR2.3: Inzien taak details
-
-| FR2.3 | Inzien taak details |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | PM |
-| Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion met op zijn minst één bijbehorende taak. |
-| Post condities | De klant heeft een overzicht van de voor hem relevante informatie over een taak zoals de status, geplande uren/kosten, due date, priority en type. (heeft een klant toegang tot de comments van een taak?) |
-| Triggers | De klant vraagt de details voor een taak |
-| Exceptions | De opgevraagde taak bestaat niet |
-| Open issues |  |
-
-##### FR2.3: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Vraagt voor een specifieke taak de taak details op |  |
-| 2 |  | Toont de naam, status, geplande uren/kosten, due date, prioriteit en type van de geselecteerde taak. |
-
-#### FR2.4: Tonen taken in Gantt chart
-
-| FR? | Tonen taken in Gantt chart |
-|---|---|
-| Prioriteit | Could have |
-| Primaire Actor | ACT1: Externe klant  |
-| Stakeholders |  |
-| Pre condities | Er zijn taken ingepland voor een project van de klant |
-| Post condities | De gebruiker krijgt een overzicht van wanneer welke taken gepland staan. |
-| Triggers | De klant geeft aan een visueel overzicht te willen van wanneer welke taken af zijn. |
-| Exceptions |  |
-| Open issues | Is dit wel een wens?</br>Timeline vs GANTT chart |
-
-TODO: open issues navragen
-
-##### FR2.4: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Aanvraag |  |
-| 2 |  | Resultaat |
-
-##### FR2.4: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR2.5: Aanpassen taak prioriteit
-
-TODO: verder uitwerken.
-Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotion
-
-| FR2.5 | Aanpassen taak prioriteit |
-|---|---|
-| Prioriteit | ?  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | PM |
-| Pre condities | Taak is een incident |
-| Post condities | Escalatie naar het juiste niveau. |
-| Triggers | De klant is het niet eens met de toegekende prioriteit (punt 9.3 SLA) |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR2.5: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Geeft aan het niet eens te zijn met de toegekende prioriteit |  |
-| 2 |  | Geeft de optie de prioriteit aan te passen? |
-| 3 | Past de impact of urgentie aan |  |
-| 4 |  | Berekent de nieuwe prioriteit voor de taak, toont deze en slaat hem op bij de taak. |
-| 2 |  | Geeft aan contact op te moeten nemen met de servicedesk? |
-| 2 |  | ? |
-
-##### FR2.5: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-| 4A |  | Geeft aan dat de nieuwe prioriteit 1 of 2 is en daarmee direct contact op genomen dient te worden met Bluenotion. |
-
-#### FR2.6: Comments toevoegen op lopende taak?
-
-TODO: het zou me niets verbazen als deze FR niet bestaat.
-
-| FR2.6 | Comments toevoegen op lopende taak? |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?:  |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR2.6: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-
-##### FR2.6: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR3.1: Toevoegen nieuwe aanvraag in een project
-
-| FR3.1 | Toevoegen nieuwe aanvraag in een project |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | PM |
-| Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland of lopend project bij Bluenotion. |
-| Post condities | Er is binnen Productive een nieuwe taak toegevoegd aan de aanvragen lijst. |
-| Triggers | De klant geeft aan werk gedaan te willen hebben. |
-| Exceptions | Het opgevraagde project bestaat niet. |
-| Open issues | Maakt de PM/TL hier ook gebruik van of is dit specifiek voor de klant? </br> Kunnen projecten permanent gesloten/gearchiveerd zijn en dus niet meer bijgevuld worden? |
-
-##### FR3.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Geeft aan een aanvraag te hebben voor een bestaand project |  |
-| 2 |  | Presenteert de gebruiker met een aantal invoer velden om informatie te verzamelen op de taak. |
-| 3 | Vult de gepresenteerde velden in met informatie over de taak. |  |
-| 4 |   | Toont de ingevoerde informatie nogmaals en vraagt de gebruiker of de informatie correct is.  |
-| 5 | Controleert de ingevulde informatie en geeft aan dat de informatie correct is. |  |
-| 6 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. </br> TODO: navragen, tonen verwachte reactie tijd/opvolg instructies? Dit zou afhankelijk zijn van het SLA dus deel van FR3.3? |
-
-*Schatting van de door de actor aan te leveren informatie:
-
-Titel, korte omschrijving, Screenshot (urgentie & impact zie FR3.3)
-
-##### FR3.1: Alternative flow - Hoge prioriteit taak
-
-A: Doorgeven hoge prioriteit
-
-B: Aanpassen naar lage prioriteit
-
-|Stap | Actor | System |
-|---|---|---|
-| 4A |  | De taak heeft een prioriteit van 1 of 2 (zie [toelichting prioriteit taken](FunctioneelOntwerp.md#taak-impact-urgentie-en-prioriteit-levels)) |
-| 5A   |   | Geeft aan dat de taak critical is en vraagt om critical taken telefonisch door te geven. |
-| 6A | De klant geeft de taak telefonisch door | |
-| 6B | De klant past de urgentie of impact aan zodat de taak een prioriteit boven de 3 krijgt |  |
-| 7B |  | Resume main flow at 4 |
-
-##### FR3.1: Alternative flow - Incomplete invoer
-
-A: Aanvullen missende informatie
-
-|Stap | Actor | System |
-|---|---|---|
-| 3A  | Vult vereiste informatie niet in in de invoervelden  |   |
-| 4A  |  | Geeft aan welke velden informatie missen  |
-| 5A  | Vult de informatie aan |  |
-| 6A  |   |  Resume main flow at 4 |
-
-#### FR3.2: Toelichting geven op taak
-
-| FR3.2 | Toelichting geven op taak |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant  |
-| Stakeholders | ACT2: Bluenotion admin |
-| Pre condities | De actor heeft een taak bij een project waar vraag naar feedback voor is gedaan. |
-| Post condities | De feedback staat bij de taak in productive. </br> De taak staat niet meer geregistreerd als "waiting for feedback" |
-| Triggers | De PM of TL heeft één of meer vragen gesteld bij een taak |
-| Exceptions |  |
-| Open issues | Wat als de gebruiker de functionaliteit na nader bespreking niet meer hoeft? |
-
-##### FR3.2: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Navigeert naar de aanvraag details in het PMP  |   |
-| 2 |   | Toont de vragen zoals gesteld door de PM/TL  |
-| 3 | Vult de aanvraag waar nodig aan met de gevraagde informatie |   |
-| 4 |   | Zet de nieuwe versie van de aanvraag in productive in de lijst met aanvragen.  |
-
-##### FR3.2: Alternative flow - Annulering aanvraag
-
-A: Gebruiker annuleert de aanvraag.
-
-|Stap | Actor | System |
-|---|---|---|
-| 3A | De gebruiker kiest er voor de aanvraag te annuleren |  |
-| 3A |  | Registreer de aanvraag als closed in productive |
-
-TODO: is het wel closed of een andere status? Moet ik hier iets zeggen over logging?
-
-
-#### FR3.3: Toevoegen taken past zich aan aan de klant zijn SLA
-
-| FR3.3 | Toevoegen taken past zich aan aan de klant zijn SLA |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders |  |
-| Pre condities | De klant heeft een project waarvan de SLA in het PMP systeem is ingeladen. |
-| Post condities | Taak prioriteit, incident reactie en response tijd worden aan de hand van de SLA berekend. |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR3.3: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 |   |   |
-| 2 |   |   |
-
-##### FR3.3: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR3.4: Toevoegen bijlagen bij taak
-
-| FR3.4 | Toevoegen bijlagen bij taak |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders |  |
-| Pre condities | De klant zit op de taak detail pagina of is een aanvraag aan het doen. |
-| Post condities | Er zijn bijlages toegevoegd aan de aanvraag |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR3.4: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | De actor kiest er voor een bijlage toe te voegen |  |
-| 2 |  | Het systeem presenteert een manier om de bijlage te selecteren |
-| 3 | De actor kiest één of meerdere bestanden om als bijlage toe te voegen. |  |
-| 4 |  | Het systeem upload de bestanden en refereert bij de taak naar deze bestanden. |
-
-##### FR3.4: Alternative flow - Upload fails
-
-|Stap | Actor | System |
-|---|---|---|
-| 4 |  | Het systeem geeft aan dat bestanden niet geüpload kunnen worden |
-| 5 | Slaat de taak op zonder bijlage. |  |
-
-#### FR4.1: Inlichten klant wanneer een taak wacht op input van de klant
-
-| FR4.1 | Empty FDUC |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?:  |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR4.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-
-##### FR4.1: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR4.2: Inlichten Bluenotion bij blockers/criticals
-
-| FR5.1 | Inlichten Bluenotion bij blockers/criticals |
-|---|---|
-| Prioriteit | Could have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | ACT2: Bluenotion admin |
-| Pre condities | Er is een PM en TL aangewezen aan het project |
-| Post condities | De PM en TL zijn via de mail ingelicht van het issue |
-| Triggers | Er wordt een issue toegevoegd met een prioriteit van 1 of 2 |
-| Exceptions |  |
-| Open issues |  |
-
-#### FR5.1: Afhandelen project setup
-
-| FR5.1 | Afhandelen project setup |
-|---|---|
-| Prioriteit | Could have  |
-| Primaire Actor | ACT1: Externe klant |
-| Stakeholders | ACT2: Bluenotion admin |
-| Pre condities | Beiden actoren hebben inlog gegevens voor het PMP |
-| Post condities | Een project is gestart met initiële scope |
-| Triggers | Op aanvraag van Externe klant |
-| Exceptions |  |
-| Open issues | Procedure vast leggen |
-
-##### FR5.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-
-##### FR5.1: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR6.1: Inzien lijst van project dependencies
-
-TODO: fully dressed versie uitwerken.
-
-| FR6.1 | Inzien lijst van project dependencies |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?:  |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-#### FR6.2: Inzien huidige status (online/offline) project dependencies
-
-TODO: fully dressed versie uitwerken.
-
-| FR6.2 | Inzien huidige status (online/offline) project dependencies |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?:  |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-#### FR6.3: Beheren project services
-
-TODO: fully dressed versie uitwerken.
-
-| FR6.3 | Beheren project services |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?:  |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-#### FR7.1: Openen/downloaden document
-
-TODO: fully dressed versie uitwerken.
-
-| FR7.1 | Openen/downloaden document |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?: |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR7.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-
-##### FR7.1: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR7.2: Filteren documentnaam/categorie
-
-TODO: fully dressed versie uitwerken.
-
-| FR7.2 | Filteren documentnaam/categorie |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?: |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-#### FR7.3: Beheren project documentatie
-
-TODO: fully dressed versie uitwerken.
-
-| FR7.3 | Beheren project documentatie |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?: |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-#### FR8.1: Controleren aanvraag
-
-| FR8.1 | Controleren aanvraag|
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT2: Bluenotion admin |
-| Stakeholders | ACT1: Externe klant, ACT3: Software developer |
-| Pre condities | Er is een project waar een klant een aanvraag heeft gedaan.  |
-| Post condities | De klant wordt op de hoogte gebracht dat er om feedback is gevraagd. </br> De taak staat op het "Awaiting customer" bord. |
-| Triggers | Er staan taken in de "Aanvraag" lijst. |
-| Exceptions | In de tijd dat de vraag wordt gecontroleerd is de taak door de klant verwijderd. |
-| Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen of wordt deze alsnog naar de backlog gehaald? |
-
-##### FR8.1: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | Geeft aan welke taak open gezet moet worden voor feedback  |   |
-| 2 |   | Geeft de actor de mogelijkheid de taak zelf aan te passen.  |
-| 3 | Geeft aan welke punten ontbreken of onduidelijk zijn.  |   |
-| 4 |   | Zet de taak op "awaiting customer" met de bijbehorende feedback.  |
-
-TODO: Waar komt feedback? Wordt dit bijgehouden in de comments van de taak? De omschrijving? Apart in het PMP?
-
-##### FR8.1: Alternative flow - Taak is zelf aan te vullen
-
-|Stap | Actor | System |
-|---|---|---|
-| 3A | Past de ontbrekende/onduidelijke punten zelf aan |  |
-| 4A |  | Zet de nieuwe versie van de taak op "awaiting customer" zodat de klant goedkeuring kan geven voordat er aan begonnen wordt.  |
-
-#### FR8.2: Op splitten taak naar "team" taken
-
-| FR? | Op splitten taak naar "team" taken  |
-|---|---|
-| Prioriteit | Could have  |
-| Primaire Actor | ACT2: Bluenotion admin  |
-| Stakeholders |  |
-| Pre condities | Een klant heeft een taak in de aanvragen toegevoegd. |
-| Post condities | Er zijn verschillende taken aangemaakt voor elk team dat iets met de taak moet doen. |
-| Triggers | De PM merkt op dat verschillende teams aan één taak moeten werken. |
-| Exceptions |  |
-| Open issues | Kunnen dependencies gebruikt worden? Hoofd en subtaken? TODO's? Wanneer is de controle voorbij?  |
-
-##### FR8.2: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-| 1 | De actor geeft aan een aanvraag te willen splitten naar verschillende taken |  |
-| 2 |  | Het systeem geeft een aantal opties (teams) waar binnen dat project taken voor aangemaakt kunnen worden |
-| 3 | De actor geeft aan welke teams aan de taak gaan werken |  |
-| 4 |  | Het systeem maakt verschillende taken aan voor de betreffende teams, zet ze op de "aanvraag" lijst en refereer in de originele taak naar de nieuwe (dependency/sub?) taken |
-| 5 | De actor voert voor de nieuwe taken een estimate in per sub taak |  |
-| 6 |  | Het systeem zet de taken na goedkeuring externe klant op de backlog |
-
-TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard split"
-
-##### FR8.2: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-
-#### FR?: Empty FDUC
-
-| FR? | Empty FDUC |
-|---|---|
-| Prioriteit |   |
-| Primaire Actor | ACT?:  |
-| Stakeholders |  |
-| Pre condities |  |
-| Post condities |  |
-| Triggers |  |
-| Exceptions |  |
-| Open issues |  |
-
-##### FR?: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-
-##### FR?: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-<!-- 
-https://www.studocu.com/row/document/riphah-international-university/computer-sciences/fully-dressed-use-case-example-pdf/19676384
-
-https://www.tmaworld.com/2017/10/04/use-case-approach/#:~:text=Fully%20dressed%20use%20case%3A%20A,goals%2C%20tasks%2C%20and%20requirements.
-
- -->
-
 ## Scherm ontwerpen
+
+Naar vraag van Roel Dekkers, de inhouse UX designer zijn de bovengenoemde functionaliteiten ingedeeld ingedeeld per omgeving. Om groeperingen van de functionaliteiten binnen het programma en de interacties tussen de verschillende omgevingen zijn ze per 'pagina' gegroepeerd. Dit hoeven geen pagina's te zijn in de uiteindelijk te bouwen applicatie maar dienen als ondersteuning bij het UX ontwerp.
+
+Algemeen:
+
+| Pagina  | Doel  | Oorsprong  |
+|---|---|---|
+| Registreren  | Het registreren van een nieuwe gebruiker in het PMP.  | [NFR4](#nonfunctional-requirements)  |
+| Aanmelden  | Het aanmelden van een bestaande gebruiker in het PMP  | [NFR4](#nonfunctional-requirements)  |
+| Wachtwoord vergeten  | Het resetten van een wachtwoord van een bestaande gebruiker in het PMP  | [NFR4](#nonfunctional-requirements)  |
+| Over ons  | Een pagina met een korte omschrijving van Bluenotion en wat we doen  |   |
+| Contact  | Contact informatie hoe mensen ons naast het PMP kunnen bereiken  |   |
+
+Klant:
+
+| Pagina  | Doel(en)  |
+|---|---|
+| Mijn projecten pagina | - Een globaal overzicht geven van de voor de klant beschikbare projecten. [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten)</br>- Project status en details tonen [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) </br>- Om het extra duidelijk te maken voor de klant wanneer er iets van de klant wordt verwacht hier ook het lijstje met de "waiting for customer" lijst? [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| Project detail pagina  | - Een globaal overzicht geven van het door de klant geselecteerde project met snelle overzichten van de filters/lijstjes als beschreven in [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) </br>-Overzicht van de voor het project relevante dependencies en services zoals beschreven in [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) en [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies).</br>- Een overzicht van de geplande uren/kosten [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) </br>- Optie voor een timeline of Gantt chart view? [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) |
+| Taken lijst pagina  | - De taken lijstjes van de project detail pagina met extra informatie als wanneer er voor het laatst aan de taak is gewerkt, de datum waarop verwacht wordt dat de taak klaar is, tijd/kosten inschatting & status? [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) & [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| Taak detail pagina  | - De pagina waar alle beschikbare informatie voor een taak te vinden is inclusief de aan de taak gekoppelde bijlages en comments. [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) </br>- De gebruiker dient ook comments toe te kunnen voegen [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak) |
+| Toevoegen aanvraag pop-up/pagina/stappen&vragen  | - Invoervelden waar de gebruiker een aanvraag kan doen. Invoer bestaat uit: naam, omschrijving, screenshot/bijlages, type (doorontwikkeling of issue), urgentie en impact (in geval van issue) [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project), [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla), [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
+| Aanpassen taak/aanvraag  | - Het aanpassen van een al toegevoegde taak of aanvraag. Zelfde invoer velden als Toevoegen aanvraag maar met ingevulde gegevens en de comments zoals op de taak detail pagina. [FR3.5](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit)  |
+| Documentatie pagina  | - Een pagina waar de gebruiker voor het project beschikbaar gestelde documenten en tutorials kan bekijken/downloaden. [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document)</br> - Een zoek functie voor de documenten [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) |
+
+Admin:
+
+| Pagina  | Doel(en)  |
+|---|---|
+| Projecten pagina  | - Zelfde pagina als "Mijn projecten pagina" van de klant maar zonder filter op project eigenaar. [US4](#user-stories) |
+| Tenant pagina | - Tonen tenant informatie en een lijst van alle projecten van deze tenant. </br> Tonen chat/communicatie met de tenant [FR9](./Requirements/FR9_Tenant_level_chat.md) |
+| Project setup pagina  | - Het afhandelen van het proces dat met de klant wordt aangegaan voordat aan een project wordt begonnen. Nog niet verder uitgewerkt. [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  |
+| Project dependencies pagina | - Het toevoegen, verwijderen of wijzigen van de dependencies/services van een project [FR6.3](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) |
+| Project documentatie pagina  | - Het toevoegen, verwijderen of wijzigen van aan een project gekoppelde documentatie en tutorials [FR7.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie)   |
+| Taak detail pagina  | - Controleren van een aanvraag met de mogelijkheid feedback te geven aan de klant (Zou voor de front-end kunnen via de zelfde pagina als die van de klant?)(FR8.1) </br> - Knop met accepteren/taak splitsen [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
+
 
 ### Ontwerpen FR1 Inzien project plannings informatie
 

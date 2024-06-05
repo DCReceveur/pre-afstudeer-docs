@@ -179,7 +179,12 @@ interface "IProductive" as if3
 interface "ISync" as if4
 
 rectangle "PMP Services"{
-    rectangle "Persistence service" as pes
+    rectangle "Repositories" as pes{
+        rectangle AccountRepository
+        rectangle TaskRepository
+        rectangle ProjectRepository
+        rectangle CommentRepository
+    }
     rectangle "Notification service" as ns
     rectangle "Productive services" as prs{
         rectangle AccountService
@@ -203,14 +208,32 @@ sync --> pes
 
 | Component | Uitleg |
 |---|---|
-| Persistence service  | Verantwoordelijk voor logica betreft het opslaan en opvragen van data. Denk hierbij aan vertaling tussen input/output en database model, autorisatie en filtering. |
+| Repositories  | Verantwoordelijk voor logica betreft het opslaan en opvragen van data. Denk hierbij aan vertaling tussen input/output en database model, autorisatie en filtering. |
 | Notification service  | Verantwoordelijk voor het inlichten van de gebruiker van het systeem bij bijvoorbeeld password resets of ingestelde notificaties TODO: rewrite na confirmatie notificatie ding in FO  |
 | Productive services  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
 | Sync service | Deze service is verantwoordelijk voor het opzetten van de Productive webhooks en het uitvoeren van de "clean sync" |
 
+#### Repositories
+
+De persistence service is verantwoordelijk voor het bijhouden van de database context, filtering op basis van request en op basis van context (zoals de rol van een gebruiker).
+
+#### Notification service
+
+
+
+#### Productive service
+
+
+
+#### Sync service
+
+De sync service is verantwoordelijk voor het opzetten en verwerken van de productive synchronisatie data. Synchronisatie gebeurt aan de hand van twee verschillende methodes:
+
 ##### Regular sync
 
 Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden.
+
+TODO: setup webhooks toevoegen!
 
 ##### Clean sync
 
@@ -237,7 +260,7 @@ rectangle API.Models{
 }
 
 rectangle Services.Models{
-        rectangle CustomerModel as cm2ß
+        rectangle CustomerModel as cm2
         rectangle ProjectModel as sp2
         rectangle TasklistModel as ut2
         rectangle TaskModel as dt2
@@ -308,7 +331,9 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 ### Productive API sync
 
-Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk worden een aantal opties voor deze synchronisatie gegeven met de voor en nadelen van de aanpakken.
+Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](./Decisions/ADR001-Communicatie_met_de_Productive_API.md).
+
+Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks. De
 
 Can a bad sync happen, how would you notice and how would you solve it?
 
