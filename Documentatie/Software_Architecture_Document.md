@@ -76,13 +76,13 @@ Service --> NS : SMTP?
 
 ### React front-end
 
-TODO: Lijntjes fixen
-
 TODO: De echte views hier in zetten.
 
 ```plantuml
 top to bottom direction
 skinparam linetype ortho
+skinparam nodesep 10
+skinparam ranksep 10
 
 rectangle "React front-end"{
     rectangle "View" as view{
@@ -140,7 +140,7 @@ rectangle "PMP API"{
         rectangle "CommentController"
         rectangle "ProductiveSyncController"
     }
-    rectangle Models
+    rectangle "Models"
 }
     rectangle "Services"{
     }
@@ -161,13 +161,9 @@ rectangle "PMP API"{
 | **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
 | **Models**  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#pmp-database--data-models) gegeven op de models.  |
 
-TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.
-
 ### PMP Services
 
 De service laag is verantwoordelijk voor de business logica, [transformeren van input naar database models](#databasemodels) en het coördineren van "externe" verbindingen.
-
-TODO: afhankelijk van de input van de webhooks zou de sync service gebruik kunnen maken van de productive services.
 
 ```plantuml
 top to bottom direction
@@ -265,13 +261,13 @@ CommentRepository -->BaseRepository
 
 *Sync zou ook een state kunnen ontvangen en deze vergelijken met de interne state in plaats van de veranderingen van een state.
 
-##### Packages*
+##### Namespaces*
 
-*TODO: heet geen package
+*TODO: beter benoemen dan namespaces
 
 Het Services pakket is opgesplitst in drie componenten:
 
-| Packages | Uitleg |
+| Namespace | Uitleg |
 |---|---|
 | Repositories | Een groep classes die als enige communicatie kanaal dienen met de database. [repository pattern*](https://www.geeksforgeeks.org/repository-design-pattern/)  |
 | PMP services  | De PMP services zijn een groepering aan services die niet te maken hebben met informatie uit Productive maar enkel informatie aanwezig in het PMP.   |
@@ -406,6 +402,22 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 ### Productive API sync
 
+De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.
+
+| object  |   |
+|---|---|
+| Task |  |
+| Invoice |  |
+| deal|  |
+| budget |  |
+| project |  |
+| time entry |  |
+| booking |  |
+| expense |  |
+| person |  |
+| company |  |
+| payment |  |
+
 Aparte endpoints:
 
 ```plantuml
@@ -432,9 +444,31 @@ note over ProductiveService
     nogmaals terug sturen naar Productive.
 end note 
 ITaskService-->Repository:add(obj)
+```
+
+```plantuml
+title Sync from FE endpoints without local save but with logging?
+
+TaskController-->ITaskService:addTask(task)
+ITaskService-->"TaskRepository":asyncAddPmpTaskEvent(task)
+ITaskService-->"Productive REST API":async POST task
+ITaskService<--"Productive REST API":HTTP201
+ITaskService-->"TaskRepository":asyncAddTask(task)
+ITaskService-->"TaskRepository":asyncMarkTaskEventHandled(task?)
+ITaskService-->TaskController:HTTP201
 
 ```
 
+TODO: Is het hele tmp task event verhaal nodig?
+
+```plantuml
+title hooked sync
+
+TaskController --> ITaskService:addTask(task)
+ITaskService --> TaskRepository:asyncAddTask(task)
+
+
+```
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](./Decisions/ADR001-Communicatie_met_de_Productive_API.md).
 
@@ -450,6 +484,9 @@ rectangle "ADR001-O2-Continu synchroniserende backend database aan de hand van W
 rectangle "ADR002-O1-React native" as ADR002 #Green
 rectangle "ADR003-O1-asp.net core" as ADR003 #Green
 rectangle "ADR004-Database system-O1-SQL" as ADR004 #Orange
+rectangle "ADR005-Database-ORM"
+rectangle "ADR006-Frontend backend Communicatie"
+rectangle "ADR007-MVC Design pattern"
 
 legend left
     | Color | Status |
@@ -465,5 +502,9 @@ endlegend
 Verantwoordingen toe te voegen:
 
 - Keuze mail server
-- Keuze synchronisatie op service, repository of database niveau.
-- 
+- Keuze synchronisatie op service, repository of database niveau. (database is het consistentste, service het meest flexibel. Waarom waar?)
+- Keuze gescheiden houden van productive input controllers en user input controllers. (mocht één van de twee wijzigen mag de ander er geen last van hebben)
+
+Is dit wel een ADR?
+
+- TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.
