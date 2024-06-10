@@ -167,81 +167,156 @@ TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en 
 
 De service laag is verantwoordelijk voor de business logica, [transformeren van input naar database models](#databasemodels) en het coördineren van "externe" verbindingen.
 
-TODO: Je hebt sync service toegevoegd maar de rest van het hoofdstuk is nog niet bijgewerkt. Toch ook de repositories in de service laag toevoegen?
-
 TODO: afhankelijk van de input van de webhooks zou de sync service gebruik kunnen maken van de productive services.
 
 ```plantuml
 top to bottom direction
-interface "IPersistence" as if1
-interface "INotification" as if2
-interface "IProductive" as if3
-interface "ISync" as if4
+skinparam linetype ortho
 
-rectangle "PMP Services"{
-    rectangle "Repositories" as pes{
+interface "INotification" as INotification
+interface "IAccountService"
+interface "ITaskService"
+interface "IProjectService"
+interface "ICommentService"
+
+' Main Services functionality
+rectangle "Services"{
+    rectangle "Repositories" as Repositories{
+        rectangle "BaseRepository<T>" as BaseRepository
         rectangle AccountRepository
         rectangle TaskRepository
         rectangle ProjectRepository
         rectangle CommentRepository
     }
-    rectangle "Notification service" as ns
-    rectangle "Productive services" as prs{
-        rectangle AccountService
+    rectangle "PMP Services"{
+    rectangle "Notification service" as NotificationService
+    rectangle AccountService
+    }
+    rectangle "BaseService"
+    rectangle "Productive services" as ProductiveServices{
         rectangle TaskService
         rectangle ProjectService
         rectangle CommentService
+    rectangle "BaseProductiveService<T>" as ProductiveService
     }
-    rectangle "Sync service" as sync
+    rectangle Models
+}
+' Others
+interface dbContext
+interface "Mail*" as Mail
+interface "Productive REST API" as PRA
+rectangle "Other components"{
+    rectangle "Productive API" as productive
+    rectangle "Mail server" as mail
+    rectangle Database as db
 }
 
-if1 --> pes
-if2 --> ns
-if3 --> prs
-if4 --> sync
-prs --> pes
-sync --> pes
+' Relations to servicebases
+ProductiveService-->BaseService
+AccountService-[norank]->BaseService
+NotificationService-[norank]->BaseService
+TaskService-->ProductiveService
+ProjectService-->ProductiveService
+CommentService-->ProductiveService
+
+' Interfaces to services
+IAccountService-->AccountService
+ITaskService-->TaskService
+IProjectService-->ProjectService
+ICommentService-->CommentService
+INotification --> NotificationService
+
+' Externals
+BaseService --> Repositories
+ProductiveService --> PRA
+Repositories-->dbContext
+NotificationService-->Mail
+
+PRA-->productive
+dbContext-->db
+Mail-->mail
+
+' Relations to repository
+AccountRepository -->BaseRepository
+TaskRepository -->BaseRepository
+ProjectRepository -->BaseRepository
+CommentRepository -->BaseRepository
 
 ```
 
+*TODO: interface naar de mailserver is nog niet uitgewerkt
+
 #### Toelichting Service componenten
+
+<!-- | ISyncProductive  | addTasks(<InputTaskModel[]>), modifyTasks(<InputTaskModel[]>), removeTasks(<InputTaskModel[]>) (*)  | -->
+
+##### Interfaces
+
+| Interface | Example signatures |
+|---|---|
+| ITaskService  | addTask(InputTaskModel), editTask(InputTaskModel), deleteTask(taskId)  |
+| IProjectService  | add, edit, delete  |
+| ICommentService  | add, edit, delete  |
+| INotification  | processNotificationSendRequest(NotificationSendRequest)  |
+| IAccountService  | signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)  |
+| dbContext | De interface die gebruikt wordt met de database te communiceren, meer hier over in [het hoofdstuk over de database en verschillende models](./Software_Architecture_Document.md#pmp-database--data-models) |
+| Productive REST API | De officiële [Productive API](https://developer.productive.io/) die gebruikt wordt voor synchronisatie tussen het PMP en Productive. |
+| Mail | De interface die wordt gebruikt om de klant op de hoogte te brengen wanneer hij/zij zich niet in het PMP bevindt is voor nu nog niet gekozen.  |
+
+*Sync zou ook een state kunnen ontvangen en deze vergelijken met de interne state in plaats van de veranderingen van een state.
+
+##### Packages*
+
+*TODO: heet geen package
+
+Het Services pakket is opgesplitst in drie componenten:
+
+| Packages | Uitleg |
+|---|---|
+| Repositories | Een groep classes die als enige communicatie kanaal dienen met de database. [repository pattern*](https://www.geeksforgeeks.org/repository-design-pattern/)  |
+| PMP services  | De PMP services zijn een groepering aan services die niet te maken hebben met informatie uit Productive maar enkel informatie aanwezig in het PMP.   |
+| Productive services | De Productive services zijn een groepering aan services de informatie nodig hebben van of informatie moet opslaan op de externe productive omgeving.  |
+
+*TODO: Repo pattern beter toelichten & Read operaties gebruiken nu de repository binnen de controller class terwijl voor create update en delete de verschillende services worden gebruikt. Wat is netter en waarom?
+
+##### Componenten
+
+De verschillende componenten in de bovenstaande afbeelding zijn niet compleet maar dienen als uitleg op het soort componenten aanwezig in de applicatie en de rol die ze vervullen. Belangrijke componenten die mogelijk extra toelichting nodig hebben zijn:
 
 | Component | Uitleg |
 |---|---|
-| Repositories  | Verantwoordelijk voor logica betreft het opslaan en opvragen van data. Denk hierbij aan vertaling tussen input/output en database model, autorisatie en filtering. |
-| Notification service  | Verantwoordelijk voor het inlichten van de gebruiker van het systeem bij bijvoorbeeld password resets of ingestelde notificaties TODO: rewrite na confirmatie notificatie ding in FO  |
-| Productive services  | Deze service is verantwoordelijk voor het synchroniseren van de lokale database met productive en anders om.  |
-| Sync service | Deze service is verantwoordelijk voor het opzetten van de Productive webhooks en het uitvoeren van de "clean sync" |
+| BaseService  | Dient als basis class voor de andere service classes. beheert de referentie naar de database context en rechten van de huidige gebruiker.  |
+| BaseProductiveService\<T\>  | Dient als basis class voor service classes die moeten synchroniseren met Productive. Doet REST calls naar de Productive API wanneer er data wordt weggeschreven naar de database context.  |
+| BaseRepository\<T\>  | Dient als basis voor elke repository. Biedt standaard CRUD functionaliteiten aan.  |
+| NotificationService  | Biedt communicatie met de mailserver (of andere communicatie tool) aan. Moet weten wie, wat, wanneer in welke taal gestuurd moet krijgen.  |
+| AccountService  | Verantwoordelijk voor het afvangen van alle inlog gerelateerde taken.  |
 
-#### Repositories
+TODO: beantwoorden sync ding
 
-De persistence service is verantwoordelijk voor het bijhouden van de database context, filtering op basis van request en op basis van context (zoals de rol van een gebruiker).
+- Komen de syncs binnen op de zelfde endpoints als de berichten van de front-end? (Afhankelijk van de uitwisselbaarheid van pmp domein model in vergelijking met productive model)
+- Hoe wordt onderscheid gemaakt tussen de wat wel en niet gesynchroniseerd hoort te worden (A. Verschillende controllers B. flag in controller)
+- Hoe kom je er achter wanneer data fout is/niet overeenkomt met productive? (A. Wanneer een gebruiker iets probeert te updaten/verwijderen dat niet bestaat)
+- Voor het synchroniseren naar productive van via de FE binnen gekomen data (Heeft repositories een koppeling met Productive API zodat wanneer insert of update dit direct wordt doorgestuurd)
+- Productive kan ook gewoon een repository zijn?
 
-#### Notification service
-
-
-
-#### Productive service
-
-
-
-#### Sync service
+##### Sync service
 
 De sync service is verantwoordelijk voor het opzetten en verwerken van de productive synchronisatie data. Synchronisatie gebeurt aan de hand van twee verschillende methodes:
 
-##### Regular sync
+###### Regular sync
 
 Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden.
 
 TODO: setup webhooks toevoegen!
 
-##### Clean sync
+###### Clean sync
 
 Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP, first time setup of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive. Aangezien deze actie veel data nodig heeft van productive zal deze procedure waarschijnlijk dermate veel tijd en requests kosten dat hij enkel als nood oplossing uitgevoerd dient te worden.
 
 Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](./Decisions/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
 
 TODO: rename productive service?
+
 TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
 
 ### PMP Database & Data models
@@ -323,13 +398,43 @@ TODO: is niet smart
 
 Navragen: in het template project hebben de controllers een dependency op database.models om de database classes te gebruiken als return type. Na gesprek met Niels is me verteld dat er doorgaans geen dependency is tussen de controller en de database models maar al deze communicatie via de services loopt. Zou het netter zijn deze dependency te verwijderen en enkel Services.Models te gebruiken als output?
 
-### Notification system
+<!-- ### Notification system
 
-### Productive API
+### Productive API -->
 
 ## Code
 
 ### Productive API sync
+
+Aparte endpoints:
+
+```plantuml
+title sync from productive sync controller
+ProductiveSyncController-->ISyncProductive : result = processSyncRequest(obj)
+ISyncProductive-->Repository: result = add(obj)
+Repository-->Database: result = commit()
+' Database-->Repository
+' Repository-->ISyncProductive
+' ISyncProductive-->ProductiveSyncController
+
+```
+
+Samengevoegde endpoints:
+
+```plantuml
+title sync from FE endpoints
+TaskController-->ITaskService:addTask(obj)
+
+ITaskService-->ProductiveService:add(obj)
+note over ProductiveService
+    Uitdaging bij hergebruik controllers: 
+    Niet data afkomstig van Productive 
+    nogmaals terug sturen naar Productive.
+end note 
+ITaskService-->Repository:add(obj)
+
+```
+
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](./Decisions/ADR001-Communicatie_met_de_Productive_API.md).
 
@@ -356,3 +461,9 @@ legend left
 endlegend
 
 ```
+
+Verantwoordingen toe te voegen:
+
+- Keuze mail server
+- Keuze synchronisatie op service, repository of database niveau.
+- 
