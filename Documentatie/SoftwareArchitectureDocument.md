@@ -187,6 +187,7 @@ rectangle "Services"{
     rectangle "PMP Services"{
     rectangle "Notification service" as NotificationService
     rectangle AccountService
+    rectangle ProductiveSyncService
     }
     rectangle "BaseService"
     rectangle "Productive services" as ProductiveServices{
@@ -255,7 +256,7 @@ CommentRepository -->BaseRepository
 | ICommentService  | add, edit, delete  |
 | INotification  | processNotificationSendRequest(NotificationSendRequest)  |
 | IAccountService  | signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)  |
-| dbContext | De interface die gebruikt wordt met de database te communiceren, meer hier over in [het hoofdstuk over de database en verschillende models](./Software_Architecture_Document.md#pmp-database--data-models) |
+| dbContext | De interface die gebruikt wordt met de database te communiceren, meer hier over in [het hoofdstuk over de database en verschillende models](./SoftwareArchitectureDocument.md#pmp-database--data-models) |
 | Productive REST API | De officiële [Productive API](https://developer.productive.io/) die gebruikt wordt voor synchronisatie tussen het PMP en Productive. |
 | Mail | De interface die wordt gebruikt om de klant op de hoogte te brengen wanneer hij/zij zich niet in het PMP bevindt is voor nu nog niet gekozen.  |
 
@@ -504,6 +505,11 @@ Verantwoordingen toe te voegen:
 - Keuze mail server
 - Keuze synchronisatie op service, repository of database niveau. (database is het consistentste, service het meest flexibel. Waarom waar?)
 - Keuze gescheiden houden van productive input controllers en user input controllers. (mocht één van de twee wijzigen mag de ander er geen last van hebben)
+- Productive webhook endpoints, per "object" of event? <https://developer.productive.io/webhooks.html#webhooks>
+- Basis tests met webhooks: als applicatie uit staat en aan de hand van de webhooks data naar het PMP wordt gestuurd wordt er vanuit productive automatisch een (aantal) nieuwe poging(en) gedaan om de data nogmaals te versturen. Als in de tussentijd het PMP weer draait kan het zijn dat updates over de zelfde taak in de verkeerde volgorde aankomen. Het is van belang dat er hierom gekeken wordt naar wanneer welke wijziging is gemaakt (welke timestamp?) voordat ze worden doorgevoerd.
+- In het geval dat het PMP geen directe reactie krijgt van productive bij bijvoorbeeld het aanmaken van een taak dienen de taken A. niet aangemaakt te worden met een foutmelding? B. aangemaakt te worden en op een later moment gesynchroniseerd te worden?
+ 
+
 
 Is dit wel een ADR?
 
