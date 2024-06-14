@@ -30,9 +30,11 @@ Deze functional requirements betreffen het inzien van de globale informatie over
 
 ## FR1.2: Inzien totaal geplande uren+kosten
 
+FR1.2 wordt niet geïmplementeerd na beslissing zoals vastgelegd in [FDR001](../Decisions/Functional/FDR001-Tijd-en-kosten-niet-tonen.md)
+
 | FR1.2 | Inzien totaal geplande uren+kosten  |
 |---|---|
-| Prioriteit | Must have  |
+| Prioriteit | Won't have [FDR002](../Decisions/Functional/FDR002-Tenant-level-chat.md)  |
 | Primaire Actor | ACT1: Externe klant |
 | Stakeholders |  |
 | Pre condities | De klant is aangemeld in het PMP </br> De klant heeft op zijn minst één project in het PMP. |

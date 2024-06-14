@@ -64,6 +64,11 @@ Huidig proces:
 
 Doelen nieuwe project:
 
+### ACT5: Externe klant (read)
+
+Op basis van gesprek 11-06-2024:
+Er werd gesproken over een admin en medewerkers account voor de externe klant. Voor zo ver ik heb begrepen is dit voornamelijk zodat niet voor iedereen die in het PMP komt tickets mag inschieten. Heeft het medewerkers account voor de externe klant leesrechten op alle functionaliteiten die ACT1 heeft of enkel een subset?
+
 ## Domein
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het Productive systeem direct vastgelegd.
@@ -81,11 +86,12 @@ rectangle "Project management portal"{
   rectangle Team
   rectangle SLA
   rectangle Prioriteit
-  rectangle Type
+  ' rectangle "Aanvraag categorie" as Taak_type
   rectangle Incident
   rectangle Doorontwikkeling
   rectangle Impact
   rectangle Urgentie
+  rectangle Servicevraag
 }
 
 rectangle "Productive"{
@@ -93,22 +99,27 @@ rectangle "Productive"{
   rectangle Board
   rectangle Taak
   rectangle Werknemer
+  rectangle Status
 
 }
 ' Klant aanvraag
 Klant "1..*" -- "0..*" Project : > Eigenaar van
 Klant "1"--"0..*" Aanvraag :> Doet een
-Aanvraag "1"--"1..*" Taak :> Resulteert in
+Doorontwikkeling "1"--"1..*" Taak :> Resulteert in
+Incident "1"--"1..*" Taak :> Resulteert in
 Project "0..*"--"1" SLA :> Valt onder
 
 
 ' Priority part
-Incident --|> Type
-Doorontwikkeling --|> Type
-Aanvraag "0..*"--"1" Type : > Ingediend als
-Impact "1"-r-"1" Prioriteit : < berekend met
-Urgentie "1"-l-"1" Prioriteit : < berekend met
-Prioriteit "1"--"0..*" Incident : < Ingediend als
+Incident --|> Aanvraag
+Doorontwikkeling --|> Aanvraag
+Servicevraag --|> Aanvraag
+
+Impact "1"--"0-..*" Incident : > Ingediend met
+Urgentie "1"--"0..*" Incident : > Ingediend met
+Prioriteit "1"--"1" Impact : < Bepalend voor
+Prioriteit "1"--"1" Urgentie : < Bepalend voor
+
 SLA "1"--"0..*" Aanvraag : > bepaalt tijdslimieten voor
 
 ' Productive task board part
@@ -117,7 +128,7 @@ Taak "0..*"--"1" Board: > Opgenomen in
 Werknemer "0..*"--"0..*" Taak :> Werkt aan
 Werknemer "0..*"--"0..*" Team :> Onderdeel van
 Taak "1"--"1" Team :> beschrijft werkzaamheden voor
-
+Taak "0..*"--"1" Status :> werkstatus voor 
 ```
 
 ### Toelichting domeinmodel
@@ -128,24 +139,88 @@ Taak "1"--"1" Team :> beschrijft werkzaamheden voor
 | Project management portal (groepering) | De entiteiten binnen de PMP groepering zijn gebaseerd op de Bluenotion workflow en de bijbehorende service level agreements. Deze entiteiten hebben geen al bestaande data in de Productive omgeving.  | Bovenstaand diagram  |
 | Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) |
 | Klant  | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) |
-| Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
-| Taak | Een **Aanvraag** waar een [PM of TL](FunctioneelOntwerp.md#act2-bluenotion-admin) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-taken) te vinden. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
-| Bord | Een bord waar intern voor Bluenotion taken op worden bijgehouden. Zie [lifecycle taken](#lifecycle-taken) voor meer informatie. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
+| Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. Dit is meestal een **doorontwikkeling**, **incident** of **servicevraag**. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
+| Taak | Een **Aanvraag** waar een [PM of TL](FunctioneelOntwerp.md#act2-bluenotion-admin) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-aanvragen) te vinden. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
+| Bord | Een bord waar intern voor Bluenotion taken op worden bijgehouden. Zie [lifecycle taken](#lifecycle-aanvragen) voor meer informatie. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
 | Team | Een representatie van de rollen en beschikbare kennis binnen Bluenotion die worden gebruikt voor het toekennen van de juiste taak aan de juiste werknemers. (UX, FE, BE) | [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) |
 | Werknemer | Een werknemer van Bluenotion die aan taken werkt en de status hiervan bijhoudt in Productive. | [NFR2](#nonfunctional-requirements) |
 | SLA | Een **klant** heeft een aantal afspraken voor een **project** vaststaan in een Service Level Agreement waar KPI's zijn vastgelegd die leidend zijn in de **prioriteit** en het **type** van een taak. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
 | Taak type | Het soort taak, afhankelijk van de SLA met de klant. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
-| Wijzigingsverzoek (Taak type) | Een verzoek tot aanpassen van iets binnen de software. Doorgaans komen deze wijzigingen neer op doorontwikkelingen van de software. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
+| Doorontwikkeling (Taak type) | Een verzoek tot aanpassen van iets binnen de software. Doorgaans komen deze wijzigingen neer op doorontwikkelingen van de software. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
+| Servicevraag (Taak type)  | Een vraag die een **klant** heeft over de software waar geen verdere ontwikkeling voor nodig is.  |   |
 | Incident (Taak type) | Het substantieel niet voldoen van de applicatie aan de overeengekomen specificaties alsmede de situatie waarin sprake is van niet-Beschikbaarheid die niet het gevolg is van onderhoud. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
 | Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels)   | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
 | Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels)  | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
 | Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](#incident-impact-urgentie-en-prioriteit-levels) | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) |
+| Status (Taak)  | De status van een taak geeft aan in welk deel van het development proces een taak zich bevindt. Voorbeelden zijn Not started, Open en Closed.  |   |
 
-### Lifecycle taken
+### Lifecycle aanvragen
 
-Aangezien het beheren van de workflow van taken een groot aspect zijn van het PMP is een korte toelichting gemaakt op de levensloop van een typische taak. Dit proces kan per project verschillen met details als of klanten zelf toegang hebben tot Productive of toevoeging/weglaten van sommige task lists maar het blijft in grove lijnen over de meeste projecten het zelfde.
+Aangezien een van de primaire doelen van het PMP het inzichtelijk maken van het aangevraagde, uitvoerende en uitgevoerde werk is volgt in dit hoofdstuk een toelichting op de lifecycle van een typische aanvraag/taak binnen Bluenotion. Dit proces kan per project verschillen met details als of klanten zelf toegang hebben tot Productive of toevoeging/weglaten van sommige task lists maar het blijft in grove lijnen over de meeste projecten het zelfde. Ter verheldering is de aanvraag/taak structuur uit het domeinmodel hier apart toegelicht.
 
 Als een klant iets wil in zijn/haar project doen ze hier een aanvraag voor. Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier taken van. Deze taken worden over de loop van tijd op verschillende borden gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak. Hier onder volgt een generalisatie van hoe de workflow van de meeste projecten loopt.
+
+#### Taak structuur
+
+Belangrijk is om toe te lichten hoe Bluenotion om gaat met verschillende soorten aanvragen. Zoals in het schema te zien is wordt niet elke aanvraag een taak en wordt er op verschillende manieren met incidenten omgegaan dan met een doorontwikkeling. Verdere toelichting over hoe incidenten worden behandeld in vergelijking met doorontwikkelingen is te vinden in [de toelichting over incidenten](#incident-impact-urgentie-en-prioriteit-levels).
+
+```plantuml
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle "Klant " {
+  rectangle Klant
+  rectangle Aanvraag
+}
+
+rectangle "PM/TL " {
+  rectangle Taak
+  rectangle Doorontwikkeling
+  rectangle Servicevraag
+  rectangle Status
+  rectangle Board
+  rectangle "Bij incident" {
+    rectangle Incident
+    rectangle Impact
+    rectangle Urgentie
+    rectangle Prioriteit
+  }
+}
+
+' Klant aanvraag
+Klant "1"--"0..*" Aanvraag :> Doet een
+Doorontwikkeling "1"-RIGHT-"1..*" Taak :> Resulteert in
+Incident "1"--"1..*" Taak :> Resulteert in
+
+
+' Priority part
+Incident --|> Aanvraag
+Doorontwikkeling --|> Aanvraag
+Servicevraag -LEFT-|> Aanvraag
+Taak "0..*"--"1" Status : > werkstatus voor 
+Taak "0..*"--"1" Board : > Wordt bijgehouden op
+
+' Incident part
+Impact "1"--"0-..*" Incident : < Ingediend met
+Urgentie "1"--"0..*" Incident : < Ingediend met
+Prioriteit "1"--"1" Impact : < Bepalend voor
+Prioriteit "1"--"1" Urgentie : < Bepalend voor
+
+
+```
+
+**Servicevragen**: Servicevragen komen over het algemeen niet in Productive terecht maar worden doorgaans via de mail of telefoon direct beantwoord.*
+
+**Doorontwikkeling**: Extra functionaliteiten aangevraagd door de klant worden zonder prioriteit, in een scope in productive gezet.
+
+**Incident**: Een incident wordt net als een doorontwikkeling in een scope in productive gezet maar deze heeft een impact en urgentie die de prioriteit bepaald.
+
+*Bluenotion heeft enkel een 2e lijns servicedesk, bereikbaar door de 1e lijn van de klant maar niet door eindgebruikers.
+
+#### Bord structuur
+
+Zodra voor een doorontwikkeling of incident een taak is aangemaakt komt deze op een bord terecht in productive. Aan de hand van deze borden houdt Bluenotion bij hoe veel werk nog open staat voor elk project en wie verantwoordelijk is voor de volgende stap voor de betreffende taken.
 
 ```plantuml
 title Boards and statuses
@@ -159,17 +234,25 @@ skinparam groupInheritance 3
 (backlog) #orange
 (in progress) as in_progress  #orange
 (in review) as in_review #orange 
-(development) #orange
-(staging) #orange
+(development) #99FF00
+(staging) #99FF00
 (live) #green
-(wishlist) #red
-(aanvragen) #red
-(awaiting customer) as awaiting_customer #red
+(wishlist) #Orange
+(aanvragen) #Orange
+' (awaiting customer) as awaiting_customer #red
 actor "Externe klant" as EK
 
+note "Input nodig van klant" as customernotifynote #Purple
+note "input nodig van Bluenotion" as bluenote #Lightblue
+
+customernotifynote .[norank]. wishlist
+customernotifynote .[norank]. staging
+customernotifynote .[norank]. aanvragen
+bluenote .[norank]. aanvragen
+bluenote .[norank]. wishlist
 
 aanvragen -DOWN-> backlog : ✓
-wishlist -[norank]-> in_progress : ✓
+wishlist -[norank]-> backlog : ✓
 backlog -DOWN-> in_progress : ✓
 in_progress -DOWN-> in_review : ✓
 in_review -DOWN-> development : ✓
@@ -181,51 +264,74 @@ aanvragen -[norank]-> aanvragen : Denied by PM/TL
 development -[norank]-> backlog : Denied by customer
 staging -[norank]-> backlog : Denied by customer
 in_progress -[norank]-> wishlist : Functionality is nice to have but outside of scope
-EK --> aanvragen
-aanvragen -[norank]-> awaiting_customer : \t Denied by PM/TL
-awaiting_customer -[norank]->aanvragen : Added feedback \t
+EK --> aanvragen : Voorgestelde situatie
+EK -[norank]-> backlog : Oude situatie
+
 
 legend left
     | Color | Status |
-    |<#Red>| Not started |
-    |<#Orange>| Started/Open |
-    |<#Green>| Finished/closed |
+    |<#Orange>| Open |
+    |<#99FF00>| Done |
+    |<#Green>| Closed |
+    |<#Purple> | Waiting for review customer |
+    |<#LightBlue>  | Waiting for review Bluenotion |
     | ✓ | Accepted |
 endlegend
 
 ```
 
+<!-- | Awaiting customer (new)  | Taken die incorrect of incompleet zijn ingevuld door de klant worden door de PM of TL op dit bord neergezet met een vraag voor extra feedback van de klant.  | ACT1: Externe klant | -->
 Toelichting borden:
+| Bord | Doel | Verantwoordelijke partij |
+|---|---|---|
+| Aanvragen (new) | Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de aanvragen lijst terecht.  | ACT2: Bluenotion admin|
+| Wishlist  | Taken die tijdens ontwikkeling naar boven zijn gekomen als "Nice to haves" en worden opgepakt als er tijd over is.  | ACT1: Externe klant |
+| Backlog  | De backlog is waar geaccepteerde taken terecht komen. Vanaf de backlog pakken de aangewezen teams de taken op.  | ACT3: Bluenotion medewerker |
+| In progress  | Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.  | ACT3: Bluenotion medewerker |
+| In review  | Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.  | ACT3: Bluenotion medewerker |
+| Development  | Functionaliteit is gebouwd maar staat nog niet op de test versie. | ACT2: Bluenotion admin |
+| Staging  | Functionaliteit is gebouwd en staat op de test versie  | ACT1: Externe klant |
+| Live  | Alle afgeronde taken die draaien op de productie omgeving.  | N/A |
 
-- **Aanvragen**</br>Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de aanvragen lijst terecht.
-- **Awaiting customer** (new)</br> Taken die incorrect of incompleet zijn ingevuld door de klant worden door de PM of TL op dit bord neergezet met een vraag voor extra feedback van de klant.
-- **Wishlist**</br>Taken die tijdens ontwikkeling naar boven zijn gekomen als "Nice to haves" en worden opgepakt als er tijd over is.
-- **Backlog**</br>De backlog is waar geaccepteerde taken terecht komen. Vanaf de backlog pakken de aangewezen teams de taken op.
-- **In progress**</br>Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.
-- **In review**</br>Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.
-- **Development**</br>Alle afgeronde taken die draaien in de dev omgeving?
-- **Staging**</br>Alle afgeronde taken die draaien in de test omgeving tot.... sprint review?
-- **Live**</br>Alle afgeronde taken die draaien op de klant omgeving.
+#### Status structuur
 
-Toelichting statussen:
+Huidige situatie:
 
-De klant is geïnteresseerd in delen van dit proces en zou ingelicht moeten worden als er voor hem relevante wijzigingen zijn in taken.
+Zoals te zien in het vorige hoofdstuk over de [verschillende borden](#bord-structuur) die worden gebruikt binnen Bluenotion zijn er verschillende momenten waarop input van de klant nodig of gewenst is om een taak voort te zetten. Op het moment komt feedback van de klant voornamelijk op twee manieren binnen:
 
-- **Not started** </br> Een taak die nog niet gestart is. Dit kan meerdere redenen hebben die naar de klant gecommuniceerd dienen te worden.
-  - **Waiting for reply PM/TL** </br> Een taak die binnen is gekomen via de klant waar nog geen goedkeuring op is gegeven door een PM/TL.
-  - **Waiting for reply customer** </br> Een taak die is gecontroleerd door de PM/TL en met vraag voor extra verduidelijking terug wordt gestuurd naar de opdrachtgever.
-  - **Nice to have, outside current scope** </br> Een taak die tijdens het ontwikkelen van een door de klant aangevraagde functionaliteit door het Bluenotion team is geregistreerd als een verbetering op de software maar waarover nog geen afstemming is voor verdere ontwikkeling.
-- **Started/Open** </br> Een taak die is goedgekeurd door een PM/TL waar verschillende medewerkers van Bluenotion aan (gaan) werken.
-- **Finished/Closed** </br> Een taak die is afgerond en op de live omgeving staat. Deze taken dienen als archief van geleverd werk.
+- Directe communicatie
+
+Directe communicatie met de klant wordt vaak gebruikt als er iets onduidelijk blijkt in de aanvraag. Dit loopt doorgaans via de mail of telefoon.
+
+- Sprint review
+
+Tijdens de sprint review hebben beide partijen de mogelijkheid aan de hand van een demo input te leveren voor het project. Taken die hier worden besproken staan doorgaans op "staging".
+
+Om de klant mee te nemen in het ontwerp proces dient hij op de hoogte te zijn van de status van zijn project. Wel is aan de klanten die toegang hebben tot de Productive omgeving opgevallen dat een overvloed aan informatie ook weer voor onduidelijkheid kan zorgen. Om deze reden is het belangrijk de klant te informeren wanneer wat van hem verwacht wordt zonder een overvloed van informatie.
+
+Voorgestelde situatie:
+
+Bluenotion werkt bij start van het project per taak met een status die aangeeft of een taak "Open", "Done", "Vakantie/Vrij" of "Closed" is. Het hele proces van aanvraag tm implementatie bevindt zich in de "Open" status. Door naast Open twee extra statuses toe te voegen voor wanneer een taak wacht op feedback van de klant of wacht op feedback van Bluenotion is het mogelijk binnen Productive zonder een taak van bord te wisselen een taak "open te zetten voor review". Zo kan er bijvoorbeeld een taak met onduidelijke beschrijving uit de aanvragen opengezet worden voor verduidelijking en een taak uit staging klaargezet voor review in de applicatie.
+
+| Status  | Uitleg  | [Workflow stage](https://help.productive.io/en/articles/5813154-creating-and-managing-workflows)  |
+|---|---|---|
+| Waiting for review customer  | Geeft aan dat een taak aan het wachten is op feedback van de klant.  | Not started  |
+| Waiting for review Bluenotion | Geeft aan dat een taak aan het wachten is op feedback van Bluenotion. | Not started |
+| Open  | Geeft aan dat Bluenotion actief aan het werk is aan een taak.  | Started  |
+| Done  | Geeft aan dat Bluenotion aan een taak heeft gewerkt en deze klaar is voor review.  | Started  |
+| Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
 
 #### Incident Impact, Urgentie en Prioriteit levels
 
 Incident:
-Een incident is een aanvraag die te maken heeft met het niet goed functioneren van de huidige applicatie op de manier zoals wel uitdrukkelijk overeengekomen.
+Een incident is een aanvraag die te maken heeft met het niet goed functioneren van de huidige applicatie op de manier zoals wel uitdrukkelijk overeengekomen. De prioriteit van een incident wordt bepaald aan de hand van de verwachte impact en urgentie.
 
-Impact:
+<Table>
 
-De impact van een incident geeft aan hoe veel of weinig mensen last hebben van het incident. Urgentie wordt vastgelegd met de onderstaande tabel.
+<tr><th>Impact</th><th>Urgentie</th></tr>
+<tr>
+<td>
+De impact van een incident geeft aan hoe veel of weinig mensen last hebben van het incident.
 
 | Categorie  | Omschrijving  |
 |---|---|
@@ -233,8 +339,8 @@ De impact van een incident geeft aan hoe veel of weinig mensen last hebben van h
 | Middel (M)  | - Een beperkte groep van de werknemers van Opdrachtgever wordt geraakt  </br> - Een beperkte groep Eindgebruikers wordt geraakt </br> - Het ontstaan van enige reputatieschade is aannemelijk  |
 | Laag (L)  | - Slechts een klein aantal werknemers van Opdrachtgever wordt geraakt </br> - Slechts een klein aantal Eindgebruikers wordt geraakt </br>  - Er is slechts een kleine kans op reputatieschade  |
 
-Urgentie:
-
+</td>
+<td>
 De spoedeisendheid van een Incident voor de opdrachtgever.
 
 | Categorie  | Omschrijving  |
@@ -242,6 +348,11 @@ De spoedeisendheid van een Incident voor de opdrachtgever.
 | Hoog (H)  | - de schade van het Incident neemt snel toe </br> - de verstoorde processen zijn sterk aan tijd gebonden </br> - snel ingrijpen kan voorkomen dat het Incident ernstiger wordt  |
 | Middel (M)  | - de schade van het Incident zal aanzienlijk toenemen gedurende de tijd </br> - de verstoorde processen kunnen enige tijd worden uitgesteld   |
 | Laag (L)  | - de schade van het Incident zal weinig toenemen gedurende de tijd </br> - de verstoorde processen zijn niet of nauwelijks aan tijd gebonden  |
+
+</td>
+</tr>
+
+</Table>
 
 Prioriteit:
 
@@ -292,6 +403,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US17 | ACT1 | Als externe klant wil ik niet beïnvloed worden door andere mensen die tegelijkertijd het PMP gebruiken. | [NFR2.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.2](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US18 | ACT2 | Als Bluenotion admin wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
+| US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
 
 ### Requirements traceability matrix
 
@@ -332,7 +444,7 @@ ADM-LEFT-|>KL
 |---|---|---|---|---|---|---|
 | FR1  | Inzien project plannings informatie |   |   | NFR0.5  | [Requirement overzicht](./Requirements/FR1_Inzien_project_plannings_informatie.md)  | UX |
 | FR1.1  |   | Inzien projecten  | Must have  | NFR0.5  | [US1](#user-stories), [US2](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-alternative-flow---no-projects-for-customer)  | UX |
-| FR1.2  |   | Inzien totaal geplande uren+kosten  | Must have  | FR1.1  | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten)  | UX |
+| FR1.2  |   | Inzien totaal geplande uren+kosten  | Won't have [FDR001](../Decisions/Functional/FDR001-Tijd-en-kosten-niet-tonen.md)  | FR1.1  | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten)  | UX |
 | FR2  | Inzien taken  |   |   |   | [Requirement overzicht](./Requirements/FR2_Inzien_taken.md)  |  |
 | FR2.1  |   | Inzien taken van project  | Must have  |   | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project)  | UX |
 | FR2.2  |   | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have |  | [US3](#user-stories), [US8](#user-stories), [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | UX |
@@ -344,7 +456,7 @@ ADM-LEFT-|>KL
 | FR3.2  |   | Toelichting geven op taak (extern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak)  | UX |
 | FR3.3  |   | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | FR1.4 | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | Afstemming |
 | FR3.4 |   | Toevoegen bijlagen bij taak | Must have |  | [US12](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | UX |
-| FR3.5  |   | Aanpassen taak prioriteit| Could have | FR3.3 |[Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit)  | Afstemming |
+| FR3.5  |   | Aanpassen taak prioriteit| Could have | FR3.3 |[Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit)  | UX |
 | FR4  | Versturen notificaties  |   |   |   | [Requirement overzicht](./Requirements/FR4_Versturen_notificaties.md)  ||
 | FR4.1  |   | Inlichten klant wanneer een taak wacht op input van de klant  | Should have  |   | [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant)  | UX |
 | FR4.2  |   | Inlichten Bluenotion bij blockers/criticals  | Could have  |   | [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)  | UX |
@@ -361,7 +473,12 @@ ADM-LEFT-|>KL
 | FR8 | Controleren aanvraag |  |  |  | [Requirement overzicht](./Requirements/FR8_Controleren_aanvraag.md) ||
 | FR8.1  |   | Controleren aanvraag (intern)  | Must have  |   | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](#user-stories)  | UX |
 | FR8.2  |   | Op splitten taak naar "team" taken | Could have |   | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](#user-stories)  | UX |
-| FR9  | Tenant level chat voor directe communicatie  |   | Could have  |   | [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md) | Afstemming |
+| FR9  | Chat met tenants  |   | Won't have [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |   | [Requirement overzicht](./Requirements/FR9_Tenant_level_chat.md) | Rejected |
+| FR9.1 | | Starten nieuwe chat  | Won't have [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |   | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat)  | Rejected  |
+| FR9.2 | | Bericht sturen niet afgesloten chat  | Won't have [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |   | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat)  | Rejected  |
+| FR9.3 | | Hervatten afgesloten chat  | Won't have [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |   | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat)  | Rejected  |
+| FR9.4 | | Sluiten chat  | Won't have [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |   | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr94-sluiten-chat)  | Rejected  |
+
 
 <!-- | FR2.6  |   | Comments toevoegen op aanvraag/taak  |  Could have  |  |  [US7](#user-stories), [Fully dressed usecase description](#fr26-comments-toevoegen-op-lopende-taak)  | -->
 
@@ -436,6 +553,9 @@ Klant:
 | Toevoegen aanvraag pop-up/pagina/stappen&vragen  | - Invoervelden waar de gebruiker een aanvraag kan doen. Invoer bestaat uit: naam, omschrijving, screenshot/bijlages, type (doorontwikkeling of issue), urgentie en impact (in geval van issue) [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project), [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla), [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
 | Aanpassen taak/aanvraag  | - Het aanpassen van een al toegevoegde taak of aanvraag. Zelfde invoer velden als Toevoegen aanvraag maar met ingevulde gegevens en de comments zoals op de taak detail pagina. [FR3.5](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit)  |
 | Documentatie pagina  | - Een pagina waar de gebruiker voor het project beschikbaar gestelde documenten en tutorials kan bekijken/downloaden. [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document)</br> - Een zoek functie voor de documenten [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) |
+| Chat venster  | - Een plek waar de gebruiker zijn* meest recente open en gesloten chats kan zien. </br> - Een plek waar de gebruiker berichten kan sturen naar Bluenotion medewerkers. |
+
+*Klopt het dat de gebruiker zijn chats moet kunnen zien of alle chats van zijn tenant? Klinkt privacy gevoelig.
 
 Admin:
 
@@ -447,19 +567,41 @@ Admin:
 | Project dependencies pagina | - Het toevoegen, verwijderen of wijzigen van de dependencies/services van een project [FR6.3](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) |
 | Project documentatie pagina  | - Het toevoegen, verwijderen of wijzigen van aan een project gekoppelde documentatie en tutorials [FR7.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie)   |
 | Taak detail pagina  | - Controleren van een aanvraag met de mogelijkheid feedback te geven aan de klant (Zou voor de front-end kunnen via de zelfde pagina als die van de klant?)(FR8.1) </br> - Knop met accepteren/taak splitsen [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
+| Chat venster | - Een plek waar de gebruiker kan reageren op vragen gesteld door een klant. |
+| Chat historie | - Een overzicht van alle gesloten en open chats van alle klanten? |
 
 ### Ontwerpen FR1 Inzien project plannings informatie
 
+#### Klant: Projecten pagina
+
+#### Admin: Projecten pagina
+
 ### Ontwerpen FR2 Inzien taken
+
+#### Klant: Taken lijst
+
+#### Klant: Taken detail
+
+#### Admin: Taken lijst
+
+#### Admin: Taken detail
 
 ### Ontwerpen FR3 Toevoegen taken
 
-### Ontwerpen FR4? Versturen notificaties
+#### Klant: Toevoegen aanvraag
 
-### Ontwerpen FR5? Opstellen project
+### Ontwerpen FR4 Versturen notificaties
+
+### Ontwerpen FR5 Opstellen project
+
+waarschijnlijk buiten scope
 
 ### Ontwerpen FR6 Inzien project service statuses
 
+waarschijnlijk buiten scope
+
 ### Ontwerpen FR7 Inzien project documentatie
+
+waarschijnlijk buiten scope
 
 ### Ontwerpen FR8 Controleren aanvraag
