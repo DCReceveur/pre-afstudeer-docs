@@ -51,7 +51,6 @@ prod_serv -> pers_serv : addTask(TaskInfo)
 pers_serv -> pmp_db : update Synced
 ```
 
-
 ## **Consequences:**
 
 Belangrijke aspecten om rekening mee te houden tijdens de synchronisatie:
@@ -137,12 +136,48 @@ prod_sync -> prod_serv : syncLocalChanges
 prod_serv -> pers_serv : lc = getLocalChanges
 pers_serv -> pmp_db : select where synced=0
 
-prod_serv -> prod_api : HTTP GET bulk*
+prod_serv -> prod_api : HTTP GET 
 prod_serv -> pers_serv : setToSynced(lc)**
 pers_serv -> pmp_db : UPDATE/DELETE...
 ```
 
-*[Bulk post](https://developer.productive.io/index.html#header-content-negotiation) nooit gedaan, moet getest worden of dit überhaupt een optie is
 **Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
 
 TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecombineerd moet worden met A. de productive API data of B. de lokale data verzameld aan de hand van webhooks of REST requests.
+
+### O4: Change based polling
+
+Productive biedt een "[Activities](https://developer.productive.io/activities.html#activities)" endpoint aan waar wijzigingen in het Model van productive opgevraagd kunnen worden op basis van taak, project of bedrijf met ingebouwde filters evenementen voor of na een bepaalde datum. Door wanneer data over een bepaald project nodig is zou in de lokale database gekeken kunnen worden wanneer hier de laatste activiteit in is geweest. Deze activiteit is weg te schrijven in de lokale database en kan getoond worden aan de gebruiker.
+
+```plantuml
+
+start
+:get relevant project from local db;
+if (Project found) then (no)
+    :get project from productive;
+    if(Productive contains project data)then (yes)
+        :get all activities from productive*;
+    else (no)
+    :Show project not found;
+    endif
+else (yes) 
+    :get Activities from productive since last local update;
+
+    if(Activities>0) then (yes)
+    :Write changes to local db;
+    else (no)
+    endif
+endif
+
+:show data to user;
+stop
+
+```
+
+Aan de hand van deze procedure stuur je per pagina op zijn minst één request naar de productive Activities endpoint en één request naar de PMP database. Als aan de hand van de activities alle data ingeladen kan worden is met één request naar de PMP database en twee naar productive (met één enkel naar Activities zie je het verschil tussen geen activity en geen project niet) gegarandeerd worden dat je werkt met de meest recente versie van een project en de bijbehorende taken.
+
+Uitdagingen:
+
+- Het toevoegen van bijlages lijkt niet terug te komen in de activities maar wel de last activity van het project.
+- Activities omzetten naar objecten als projecten en taken zou uitdagend kunnen zijn
+- Het is mogelijk dat enkel de meest recent geüpdatet data in de activities lijst komen en dus alsnog naderhand data opgehaald moet worden van productive om alle informatie aan de gebruiker te kunnen tonen.

@@ -81,7 +81,7 @@ rectangle "Productive"{
   entity Comment{
     *Id
     --
-    Created_at
+    *Created_at
     Updated_at
   }
 
@@ -171,3 +171,23 @@ Company ||..|{Project :> Owner of
 Task ||..||WorkflowStatus
 
 ```
+
+## Productive endpoints per scherm
+
+| Scherm | /projects | /tasks | /people | /company | /attachments | /comments | /activities |
+|--|--|--|--|--|--|--|--|
+| Klant: Projecten pagina | x | x | x |  |  |  |  |
+| Admin: Projecten pagina | x |  | x | x |  |  |  |
+| Klant: Taken lijst |  | x | x |  |  |  |  |
+| Klant: Project overzicht | x | x |  |  |  |  |  |
+| Klant: Taken lijst |  | x | x |  |  |  |  |
+| Klant: Taken detail |  | x | x |  | x | x | x |
+| Admin: Taken lijst |  | x | x |  |  |  |  |
+| Admin: Taken detail |  | x | x |  |  x | x | x |
+| Klant: Documentatie pagina* |  |  |  |  |  |  |  |
+| Admin: Toevoegen documentatie* |  |  |  |  |  |  |  |
+| Admin: Controleren aanvraag |  | x | x |  | x | x | x |
+
+*Waar slaan we documenten op?
+
+Voor het uitlezen van data voor één pagina zouden bij sommige pagina's 5 verschillende Productive endpoints benaderd worden. Als volgens [NFR5.1](./FunctioneelOntwerp.md#nonfunctional-requirements) 50 gebruikers gelijktijdig bijvoorbeeld de details van een taak bekijken zou dit resulteren in 250 requests naar de Productive API. Er van uit gaande dat een pagina informatie nodig heeft van gemiddeld 3 a 4 endpoints zou de meest basale implementatie gebaseerd op directe communicatie met productive zich limiteren tot rond de 30 gelijktijdige gebruikers. (100/3.5=28.5)

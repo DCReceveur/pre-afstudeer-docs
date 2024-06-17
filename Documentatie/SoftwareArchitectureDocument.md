@@ -488,6 +488,7 @@ rectangle "ADR004-Database system-O1-SQL" as ADR004 #Orange
 rectangle "ADR005-Database-ORM"
 rectangle "ADR006-Frontend backend Communicatie"
 rectangle "ADR007-MVC Design pattern"
+rectangle "ADR008-Taak Mijlpalen"
 
 legend left
     | Color | Status |
