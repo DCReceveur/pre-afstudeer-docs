@@ -546,13 +546,13 @@ Klant:
 
 | Pagina  | Doel(en)  |
 |---|---|
-| Mijn projecten pagina | - Een globaal overzicht geven van de voor de klant beschikbare projecten. [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten)</br>- Project status en details tonen [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) </br>- Om het extra duidelijk te maken voor de klant wanneer er iets van de klant wordt verwacht hier ook het lijstje met de "waiting for customer" lijst? [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| [Mijn projecten pagina](#klant-projecten-pagina) | - Een globaal overzicht geven van de voor de klant beschikbare projecten. [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten)</br>- Project status en details tonen [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) </br>- Om het extra duidelijk te maken voor de klant wanneer er iets van de klant wordt verwacht hier ook het lijstje met de "waiting for customer" lijst? [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
 | Project detail pagina  | - Een globaal overzicht geven van het door de klant geselecteerde project met snelle overzichten van de filters/lijstjes als beschreven in [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) </br>-Overzicht van de voor het project relevante dependencies en services zoals beschreven in [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) en [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies).</br>- Een overzicht van de geplande uren/kosten [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) </br>- Optie voor een timeline of Gantt chart view? [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) |
-| Taken lijst pagina  | - De taken lijstjes van de project detail pagina met extra informatie als wanneer er voor het laatst aan de taak is gewerkt, de datum waarop verwacht wordt dat de taak klaar is, tijd/kosten inschatting & status? [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) & [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
-| Taak detail pagina  | - De pagina waar alle beschikbare informatie voor een taak te vinden is inclusief de aan de taak gekoppelde bijlages en comments. [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) </br>- De gebruiker dient ook comments toe te kunnen voegen [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak) |
-| Toevoegen aanvraag pop-up/pagina/stappen&vragen  | - Invoervelden waar de gebruiker een aanvraag kan doen. Invoer bestaat uit: naam, omschrijving, screenshot/bijlages, type (doorontwikkeling of issue), urgentie en impact (in geval van issue) [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project), [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla), [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
+| [Taken lijst pagina](#klant-taken-lijst)  | - De taken lijstjes van de project detail pagina met extra informatie als wanneer er voor het laatst aan de taak is gewerkt, de datum waarop verwacht wordt dat de taak klaar is, tijd/kosten inschatting & status? [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) & [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| [Taak detail pagina](#klant-taken-detail)  | - De pagina waar alle beschikbare informatie voor een taak te vinden is inclusief de aan de taak gekoppelde bijlages en comments. [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) </br>- De gebruiker dient ook comments toe te kunnen voegen [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak) |
+| [Toevoegen aanvraag pop-up/pagina/stappen&vragen](#klant-toevoegen-aanvraag)  | - Invoervelden waar de gebruiker een aanvraag kan doen. Invoer bestaat uit: naam, omschrijving, screenshot/bijlages, type (doorontwikkeling of issue), urgentie en impact (in geval van issue) [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project), [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla), [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
 | Aanpassen taak/aanvraag  | - Het aanpassen van een al toegevoegde taak of aanvraag. Zelfde invoer velden als Toevoegen aanvraag maar met ingevulde gegevens en de comments zoals op de taak detail pagina. [FR3.5](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit)  |
-| Documentatie pagina  | - Een pagina waar de gebruiker voor het project beschikbaar gestelde documenten en tutorials kan bekijken/downloaden. [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document)</br> - Een zoek functie voor de documenten [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) |
+| [Documentatie pagina](#ontwerpen-fr7-inzien-project-documentatie)  | - Een pagina waar de gebruiker voor het project beschikbaar gestelde documenten en tutorials kan bekijken/downloaden. [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document)</br> - Een zoek functie voor de documenten [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) |
 | Chat venster  | - Een plek waar de gebruiker zijn* meest recente open en gesloten chats kan zien. </br> - Een plek waar de gebruiker berichten kan sturen naar Bluenotion medewerkers. |
 
 *Klopt het dat de gebruiker zijn chats moet kunnen zien of alle chats van zijn tenant? Klinkt privacy gevoelig.
@@ -561,12 +561,12 @@ Admin:
 
 | Pagina  | Doel(en)  |
 |---|---|
-| Projecten pagina  | - Zelfde pagina als "Mijn projecten pagina" van de klant maar zonder filter op project eigenaar. [US4](#user-stories) |
+| [Projecten pagina](#admin-projecten-pagina)  | - Zelfde pagina als "Mijn projecten pagina" van de klant maar zonder filter op project eigenaar. [US4](#user-stories) |
 | Tenant pagina | - Tonen tenant informatie en een lijst van alle projecten van deze tenant. </br> Tonen chat/communicatie met de tenant [FR9](./Requirements/FR9_Tenant_level_chat.md) |
 | Project setup pagina  | - Het afhandelen van het proces dat met de klant wordt aangegaan voordat aan een project wordt begonnen. Nog niet verder uitgewerkt. [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  |
 | Project dependencies pagina | - Het toevoegen, verwijderen of wijzigen van de dependencies/services van een project [FR6.3](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) |
-| Project documentatie pagina  | - Het toevoegen, verwijderen of wijzigen van aan een project gekoppelde documentatie en tutorials [FR7.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie)   |
-| Taak detail pagina  | - Controleren van een aanvraag met de mogelijkheid feedback te geven aan de klant (Zou voor de front-end kunnen via de zelfde pagina als die van de klant?)(FR8.1) </br> - Knop met accepteren/taak splitsen [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
+| [Project documentatie pagina](#ontwerpen-fr7-inzien-project-documentatie)  | - Het toevoegen, verwijderen of wijzigen van aan een project gekoppelde documentatie en tutorials [FR7.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie)   |
+| [Taak detail pagina](#admin-taken-detail)  | - Controleren van een aanvraag met de mogelijkheid feedback te geven aan de klant (Zou voor de front-end kunnen via de zelfde pagina als die van de klant?)(FR8.1) </br> - Knop met accepteren/taak splitsen [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
 | Chat venster | - Een plek waar de gebruiker kan reageren op vragen gesteld door een klant. |
 | Chat historie | - Een overzicht van alle gesloten en open chats van alle klanten? |
 
@@ -574,34 +574,123 @@ Admin:
 
 #### Klant: Projecten pagina
 
+![Scherm ontwerp voor het overzicht van alle projecten voor een klant](./Images/FunctioneelOntwerp/projectenpage.png)
+
+##### Eigenlijk TO:
+
+projecId, naam, startdatum, update: projects endpoint
+
+Project manager: People endpoint
+
+Aantal taken: Tasks endpoint, grouped by project
+
+Vereiste input: Tasks filter status
+
+Prioriteit: ?
+
 #### Admin: Projecten pagina
+
+![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](./Images/FunctioneelOntwerp/admin_projectenpage.png)
+
+Projectnaam, begindatum, einddatum, status: projects endpoint
+
+Klantnaam: Company endpoint
+
+Contactpersoon: People endpoint
+
+budget, kosten, uren & uren: taken?
 
 ### Ontwerpen FR2 Inzien taken
 
+![Scherm ontwerp voor het project overzicht met snel zicht op taken en project informatie](./Images/FunctioneelOntwerp/ProjectOverzicht.png)
+
+Taak id, type, onderwerp, beschrijving, datum, status, prio: Tasks endpoint
+
+Totaal, open, gesloten, input vereist: Tasks endpoint filter on project & status
+
+projectinformatie tab: projects endpoint
+
 #### Klant: Taken lijst
+
+![Scherm ontwerp voor de takenlijst van het project overzicht met alle taken van dat project](./Images/FunctioneelOntwerp/ProjectOverzichtTakenlijst.png)
+
+Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, laatste update: tasks endpoint
+
+totaal taken, open taken gesloten taken, input vereist: tasks endpoint group by status
+
+Toegekend: Persons endpoint
+
+Prio hoog, prio middel, prio laag: tasks endpoint group by custom field*
 
 #### Klant: Taken detail
 
+Mijlpalen:
+
+![Scherm ontwerp voor de detail pagina van één taak](./Images/FunctioneelOntwerp/TaakDetailPage.png)
+
+Mijlpalen is een keuze in te maken. De data over "mijlpalen" staat op het moment voor een taak en de workflow wordt bijgehouden door de PM. Zie [ADR008 Taak mijlpalen](./Decisions/Architecture/ADR008-Taak-Mijlpalen.md)
+
+Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
+
+Toegekend: Persons
+
+Bijlagen: Attachments
+
+Opmerkingen: Comments
+
+Log: Activities
+
 #### Admin: Taken lijst
 
+Geen extra informatie in vergelijking met [klant](./FunctioneelOntwerp.md#klant-taken-detail).
+
 #### Admin: Taken detail
+
+Geen extra informatie in vergelijking met [klant](./FunctioneelOntwerp.md#klant-taken-detail).
 
 ### Ontwerpen FR3 Toevoegen taken
 
 #### Klant: Toevoegen aanvraag
 
+![Schermontwerp voor het aanmaken van een nieuwe taak](./Images/FunctioneelOntwerp/Nieuwe_taak1.png)
+
+![Schermontwerp voor het aanmaken van een incident](./Images/FunctioneelOntwerp/Nieuwe_taak_incident.png)
+
+![Schermontwerp voor het aanmaken van een doorontwikkeling](./Images/FunctioneelOntwerp/Nieuwe_taak_doorontwikkeling.png)
+
+![Schermontwerp met het bericht dat de taak is aangemaakt](./Images/FunctioneelOntwerp/Nieuwe_taak_success.png)
+
+Voor deze ontwerpen is weinig tot geen informatie nodig van Productive.
+
 ### Ontwerpen FR4 Versturen notificaties
+
 
 ### Ontwerpen FR5 Opstellen project
 
-waarschijnlijk buiten scope
+<!-- waarschijnlijk buiten scope -->
 
 ### Ontwerpen FR6 Inzien project service statuses
 
-waarschijnlijk buiten scope
+<!-- waarschijnlijk buiten scope -->
 
 ### Ontwerpen FR7 Inzien project documentatie
 
-waarschijnlijk buiten scope
+![Schermontwerp voor het overzicht van documentatie binnen een project](./Images/FunctioneelOntwerp/DocumentatieOverzicht.png)
+
+![Schermontwerp voor het toevoegen van een nieuw document](./Images/FunctioneelOntwerp/DocumentatieToevoegen.png)
+
+<!-- waarschijnlijk buiten scope -->
 
 ### Ontwerpen FR8 Controleren aanvraag
+
+![Schermontwerp voor de admin taak detail pagina met knoppen voor het accepteren, weigeren of opsplitsen van een taak](./Images/FunctioneelOntwerp/admin_TaakDetailPage.png)
+
+Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
+
+Toegekend: Persons
+
+Bijlagen: Attachments
+
+Opmerkingen: Comments
+
+Log: Activities
