@@ -37,6 +37,23 @@ A. Er dient tijdens de ontwikkeling van de front-end rekening gehouden te worden
 
 B. De synchronisatie met productive dient losgekoppeld te worden van de front-end zodat Bluenotion zelf controle heeft over het aantal requests dat de front-end mag doen.
 
+## Kwaliteit eisen
+
+Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en Productive worden binnen dit document voor de opties als beschreven in [ADR001](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) een aantal test opstellingen opgezet. Aan de hand van deze testopstellingen zullen de opties op de volgende eisen getest worden:
+
+| Eis | O1 | O2 | O3 | O4 | O5 |
+|--|--|--|--|--|--|
+| NFR5.1 & NFR5.2: Kan 50 gelijktijdige gebruikers ondersteunen |  |  |  |  |  |
+| NFR2.1 & NFR8.3Delay tussen wijziging in Productive en sync in het PMP |  |  |  |  |  |
+| NFR3.2: Aantal requests naar Productive API |  |  |  |  |  |
+| NFR3.1:Aantal requests naar eigen API/db |  |  |  |  |  |
+| NFR2.1: Betrouwbaarheid gesynchroniseerde data |  |  |  |  |  |
+| NFR2.1: Compleetheid gesynchroniseerde data |  |  |  |  |  |
+| NFR8.*: Opties voor catastrophisch herstel |  |  |  |  |  |
+| Implementatie complexiteit |  |  |  |  |  |
+
+Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](./FunctioneelOntwerp.md#nonfunctional-requirements).
+
 ## Polling ADR001-O1
 
 Er zou direct vanuit de front-end of back-end on demand data uit productive opgevraagd kunnen worden. Productive biedt endpoints met standaard [filter](https://developer.productive.io/#header-filtering) en [sorting](https://developer.productive.io/#header-sorting) opties die deze optie zouden kunnen faciliteren.
@@ -88,27 +105,24 @@ Het grote nadeel van deze aanpak is dat je als gebruiker niet weet of de data up
 
 ## Change based polling ADR001-O4
 
-In plaats van een directe afhankelijkheid op de Productive API is het ook mogelijk de data van Productive in een eigen database bij te houden. Hierdoor zou het mogelijk zijn de PMP applicatie los te koppelen van de Productive rate limits en reactie tijden.
-
-Om zekerheid te kunnen bieden over dat de gewenste data met webhooks correct gesynchroniseerd wordt dient er in een vroeg stadium een prototype opgezet te worden die een aantal belangrijke vragen beantwoord:
-
-- Is er een initiële dataset nodig en zo ja, hoe kan deze binnengehaald worden?
+Eén optie om up to date te blijven met productive is door bij elke data request voor een project of taak de lokale data van de entiteit te vergelijken met de data zoals beschikbaar op Productive. Als het "last_activity_at" date time veld in het PMP lager is dan die van Productive weet je dat de lokale data bijgewerkt moet worden. Dit kan vervolgens gedaan worden aan de hand van het /activities endpoint of de endpoint van de bijbehorende entiteit. Onder volgt een stroomschema van dit proces.
 
 ```plantuml
 
 start
-' :get relevant project from Productive;
 :get relevant project from local db;
 if (Project found) then (no)
     :get project from productive;
+    note right: Request to Productive API
     if(Productive contains project data) then (yes)
         :get all activities from productive*;
+            note left: Request to Productive API as n1
     else (no)
     :Show project not found;
     endif
 else (yes) 
     :get Activities from productive since last local update;
-
+    note left: Request to Productive API
     if(Activities>0) then (yes)
     :Write changes to local db;
     else (no)
@@ -120,20 +134,40 @@ stop
 
 ```
 
-*Get all activities zou ook een all tasks van project kunnen zijn? Historische activities doen er in dit geval niet zo toe.
+Als aan de hand van de Activities endpoint alle relevante data binnengehaald kan worden zou het PMP met deze oplossing na maximaal* 2 requests naar productive altijd zekerheid kunnen bieden dat de aangeboden data compleet en correct is.
 
+*Deze uitspraak is technisch gezien niet correct. Als de activity data meer dan 200 items bevat zouden er meer dan 2 requests naar Productive gestuurd moeten worden om alle data binnen te halen. TODO: corrigeren?
+
+Het nadeel van deze optie zit hem echter ook in de twee requests naar Productive. Omdat de data van het eerste request als input dient voor de tweede request om de activities op te halen kunnen deze enkel sequentieel uitgevoerd worden.
+
+## Gecombineerd webhooks en change based polling ADR001-O5
+
+Door webhooks de standaard data synchronisatie te laten afhandelen zou het scenario dat het PMP twee sequentiele minder vaak voorkomen. Om er voor te zorgen dat data wanneer de gebruiker er om vraagt zeker up to date is kan gebruik gemaakt worden van het proces zoals beschreven bij [ADR001-O4](#change-based-polling-adr001-o4).*
+
+TODO:
+*De last activity geeft me geen garantie dat alle data tot dat punt is weggeschreven, alleen dat de activity van dat moment is weggeschreven. Kan ik iets zeggen over de activities die er voor kwamen en de garantie dat deze ook in de lokale database voorkomen?
+
+
+
+<!-- In plaats van een directe afhankelijkheid op de Productive API is het ook mogelijk de data van Productive in een eigen database bij te houden. Hierdoor zou het mogelijk zijn de PMP applicatie los te koppelen van de Productive rate limits en reactie tijden.
+
+Om zekerheid te kunnen bieden over dat de gewenste data met webhooks correct gesynchroniseerd wordt dient er in een vroeg stadium een prototype opgezet te worden die een aantal belangrijke vragen beantwoord:
+
+- Is er een initiële dataset nodig en zo ja, hoe kan deze binnengehaald worden?
+
+*Get all activities zou ook een all tasks van project kunnen zijn? Historische activities doen er in dit geval niet zo toe. -->
 
 <!-- Activities op een project sinds inputdatum.
 
 https://api.productive.io/api/v2/activities?page[size]=200&filter[project_id]=485803&filter[after]=16-06-2024 -->
-
+<!-- 
 - Hoe kan incorrecte data ontdekt worden?
 
 iets met project last changed verandert maar data niet doorgekomen?
 
 - Hoe kan incorrecte data gecorrigeerd worden?
 
-- Hoe betrouwbaar zijn de webhooks met betrekking tot delays en retries?
+- Hoe betrouwbaar zijn de webhooks met betrekking tot delays en retries? -->
 
 
 <!-- 

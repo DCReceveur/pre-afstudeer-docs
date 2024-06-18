@@ -405,20 +405,6 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.
 
-| object  |   |
-|---|---|
-| Task |  |
-| Invoice |  |
-| deal|  |
-| budget |  |
-| project |  |
-| time entry |  |
-| booking |  |
-| expense |  |
-| person |  |
-| company |  |
-| payment |  |
-
 Aparte endpoints:
 
 ```plantuml
