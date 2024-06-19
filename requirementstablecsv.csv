@@ -1,0 +1,125 @@
+﻿Ref no;Main requirement;Sub requirement;Prioriteit (MoSCoW);Primary actor;Document references;Status
+FR1;Inzien project plannings informatie;;;ACT5 Externe klant Medewerker;Requirement overzicht;
+FR1.1;;Inzien projecten;Must have;ACT5 Externe klant Medewerker;US1, US2, Fully dressed usecase description;[x] Define
+;;;;;;[x] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR1.2;;Inzien totaal geplande uren+kosten;Won't have FDR001;ACT5 Externe klant Medewerker;US3, Fully dressed usecase description;[x] Rejected
+FR2;Inzien taken;;;ACT5 Externe klant Medewerker;Requirement overzicht;
+FR2.1;;Inzien taken van project;Must have;ACT5 Externe klant Medewerker;US3, Fully dressed usecase description;[x] Define
+;;;;;;[x] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR2.2;;Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed;Must have;ACT1: Externe klant;US3, US8, US9, Fully dressed usecase description;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR2.3;;Inzien taak details;Must have;ACT1: Externe klant;US3, Fully dressed usecase description;[x] Define
+;;;;;;[x] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR2.4;;Tonen taken in Gantt chart;Could have;ACT1: Externe klant;US3, Fully dressed usecase description;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR2.7;;Filteren taken op: incident of doorontwikkeling;Should have;ACT1: Externe klant;;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR3;Toevoegen aanvraag;;;ACT1: Externe klant;Requirement overzicht;
+FR3.1;;Toevoegen nieuwe taak;Must have;ACT1: Externe klant;US6, Fully dressed usecase description;[x] Define
+;;;;;;[x] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR3.2;;Toelichting geven op aanvraag (extern);Must have;ACT1: Externe klant;US7, Fully dressed usecase description;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR3.3;;Toevoegen taken past zich aan aan de klant zijn SLA;Could have;ACT1: Externe klant;Fully dressed usecase description;[ ] Define
+;;;;;;[x] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR3.4;;Toevoegen bijlagen bij taak;Must have;ACT1: Externe klant;US12, Fully dressed usecase description;[x] Define
+;;;;;;[x] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR3.5;;Aanpassen taak prioriteit;Could have;ACT1: Externe klant;Fully dressed usecase description;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR4;Versturen notificaties;;;ACT4: Notificatie manager;Requirement overzicht;
+FR4.1;;Inlichten klant wanneer een taak wacht op input van de klant;Should have;ACT4: Notificatie manager;US9, Fully dressed usecase description;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR4.2;;Inlichten Bluenotion bij blockers/criticals;Could have;ACT4: Notificatie manager;Fully dressed usecase description;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR5;Opstellen project;;;ACT2: Bluenotion Admin;;
+FR5.1;;Afhandelen project setup binnen PMP;Could have;ACT2: Bluenotion Admin;US19, Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR6;Inzien project service statuses;;;ACT5 Externe klant Medewerker;Requirement overzicht;
+FR6.1;;Inzien lijst van project dependencies;Could have;ACT5 Externe klant Medewerker;US13, Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR6.2;;Inzien huidige status (online/offline) project dependencies;Could have;ACT5 Externe klant Medewerker;US13,Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR6.3;;Beheren project services;Could have;ACT2: Bluenotion Admin;Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR7;Inzien project documentatie;;;ACT5 Externe klant Medewerker;Requirement overzicht;
+FR7.1;;Openen/downloaden document;Could have;ACT5 Externe klant Medewerker;US13, Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR7.2;;Filteren documentnaam/categorie;Could have;ACT5 Externe klant Medewerker;US13, Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR7.3;;Beheren project documentatie;Could have;ACT2: Bluenotion Admin;Fully dressed usecase description;[ ] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR8;Controleren aanvraag;;;ACT2: Bluenotion Admin;Requirement overzicht;
+FR8.1;;Controleren aanvraag (intern);Must have;ACT2: Bluenotion Admin;US7, Fully dressed usecase description, US10;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR8.2;;Op splitten taak naar team taken;Could have;ACT2: Bluenotion Admin;US7, Fully dressed usecase description, US10;[x] Define
+;;;;;;[ ] UX
+;;;;;;[ ] UI
+;;;;;;[ ] BE
+;;;;;;[ ] Testing
+FR9;Chat met tenants;;Won't have FDR002;ACT5 Externe klant Medewerker;Requirement overzicht;[x] Rejected
+FR9.1;;Starten nieuwe chat;Won't have FDR002;ACT5 Externe klant Medewerker;US20, Fully dressed usecase description;[x] Rejected
+FR9.2;;Bericht sturen niet afgesloten chat;Won't have FDR002;ACT5 Externe klant Medewerker;US20, Fully dressed usecase description;[x] Rejected
+FR9.3;;Hervatten afgesloten chat;Won't have FDR002;ACT5 Externe klant Medewerker;US20, Fully dressed usecase description;[x] Rejected
+FR9.4;;Sluiten chat;Won't have FDR002;ACT5 Externe klant Medewerker;US20, Fully dressed usecase description;[x] Rejected
