@@ -55,16 +55,16 @@ A: Aanvullen missende informatie
 | 5A  | Vult de informatie aan |  |
 | 6A  |   |  Resume main flow at 4 |
 
-## FR3.2: Toelichting geven op taak
+## FR3.2: Toelichting geven op aanvraag
 
-| FR3.2 | Toelichting geven op taak |
+| FR3.2 | Toelichting geven op aanvraag |
 |---|---|
 | Prioriteit | Must have  |
 | Primaire Actor | ACT1: Externe klant  |
 | Stakeholders | ACT2: Bluenotion admin |
-| Pre condities | De actor heeft een taak bij een project waar vraag naar feedback voor is gedaan. |
-| Post condities | De feedback staat bij de taak in productive. </br> De taak staat niet meer geregistreerd als "waiting for feedback" |
-| Triggers | De PM of TL heeft één of meer vragen gesteld bij een taak |
+| Pre condities | De actor heeft een aanvraag bij een project waar vraag naar feedback voor is gedaan. |
+| Post condities | De feedback staat bij de aanvraag in productive. </br> De aanvraag staat niet meer geregistreerd als "waiting for feedback" |
+| Triggers | De PM of TL heeft één of meer vragen gesteld bij een aanvraag |
 | Exceptions |  |
 | Open issues | Wat als de gebruiker de functionaliteit na nader bespreking niet meer hoeft? |
 

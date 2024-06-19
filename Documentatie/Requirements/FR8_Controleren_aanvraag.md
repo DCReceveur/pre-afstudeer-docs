@@ -17,8 +17,28 @@ Deze functional requirements hebben betrekking op het goed (of af) keuren van aa
 
 ### FR8.1: Main flow
 
-|Stap | Actor | System |
+| Stap | Actor | System |
 |---|---|---|
+| 1 | Geeft aan een ingediende aanvraag te willen controleren |  |
+| 2 |  | Toont alle in het PMP en Productive beschikbare informatie over de taak zoals naam, omschrijving, eventuele time estimate en comments. |
+| 3 | Geeft aan dat de taak duidelijk is omschreven en geeft een schatting van hoe veel tijd Bluenotion kwijt is met het implementeren van de functionaliteit als beschreven in de taak. |  |
+| 4 |  | Zet de aanvraag open voor feedback van de klant voor goedkeuring van de time estimate |
+
+### FR8.1: Alternative flow - Taak is onduidelijk omschreven
+
+| Stap | Actor | System |
+|--|--|--|
+| 3A | Geeft aan dat de aanvraag niet duidelijk genoeg is omschreven om een taak van te maken met een notitie voor de gebruiker wat er aangepast/verduidelijkt moet worden |  |
+| 4A |  | Stelt "ACT1: Externe klant" op de hoogte van de vraag om verduidelijking voor het toelichting geven op de taak ([FR3.2](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak)). |
+
+### FR8.1 Alternative flow - Aanvraag bevat omschrijving voor meerdere taken
+
+| Stap | Actor | System |
+|--|--|--|
+| 3B | Geeft aan dat de aanvraag eigenlijk over meer dan één taak gaat. |  |
+| 4B |  |  |
+
+
 | 1 | Geeft aan welke taak open gezet moet worden voor feedback  |   |
 | 2 |   | Geeft de actor de mogelijkheid de taak zelf aan te passen.  |
 | 3 | Geeft aan welke punten ontbreken of onduidelijk zijn.  |   |
