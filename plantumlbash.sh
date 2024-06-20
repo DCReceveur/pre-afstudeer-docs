@@ -4,7 +4,7 @@
 CSV_FILE="requirementstablecsv.csv"
 
 #Output
-OUTPUT_FILE="usecase_diagram.puml"
+OUTPUT_FILE="usecase_diagram.md"
 
 #Should be locals
 CURRENT_MAIN_REQUIREMENT_ID=""
@@ -162,8 +162,8 @@ add_status_symbol(){
 generate_usecase_diagram() {
   print_puml_header
   print_puml_actor_hirarchy
-
   while IFS=";" read -r ref_no main_req sub_req priority primary_actor doc_references status; do
+  generate_markdowntable_fromcsv
     # Replace . with _
     refno_with_underscore=$(echo -n $ref_no | tr . _)    
     # Check if it is a main requirement
@@ -210,10 +210,35 @@ generate_usecase_diagram() {
   echo "$RELATION_BUFFER" >> $OUTPUT_FILE
   print_puml_legend
   print_puml_footer
+  # MD_TABLE_BUFFER=$(echo -n $MD_TABLE_BUFFER | grep -o '\n(?= *\|*)*\[' )  
+  echo "$MD_TABLE_BUFFER" >> $OUTPUT_FILE
+}
+
+MD_TABLE_BUFFER=""
+MD_TABLE_ROW_BUFFER=""
+
+add_table_headers(){
+  MD_TABLE_BUFFER="$MD_TABLE_BUFFER 
+| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Document references | Status |
+|---|---|---|---|---|---|
+"
+}
+
+generate_markdowntable_fromcsv(){
+    status_no_newlines="${status//$'[\r\n]'/}"
+    if [[ -n "$main_req" || -n "$sub_req" ]]; then
+    MD_TABLE_BUFFER="$MD_TABLE_BUFFER| $ref_no | $main_req | $sub_req | $priority | $doc_references | $status_no_newlines |
+"
+    elif [[ -n "$status" ]]; then
+      MD_TABLE_BUFFER=${MD_TABLE_BUFFER%\|*}
+      MD_TABLE_BUFFER="$MD_TABLE_BUFFER </br> $status_no_newlines |
+"
+    fi
 }
 
 
 # Run the function to generate the diagram
+add_table_headers
 generate_usecase_diagram
 
 echo "PlantUML use case diagram generated in $OUTPUT_FILE"
