@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Input
-CSV_FILE="requirementstablecsv.csv"
+CSV_FILE="../Source/requirementstablecsv.csv"
 
 #Output
 OUTPUT_FILE="usecase_diagram.md"
@@ -59,13 +59,12 @@ ACT3-LEFT-|>ACT5'>>$OUTPUT_FILE
 print_puml_legend(){
   echo "legend left
    | **Done** | **Planned** | **Milestone** |
-   | <color:$DEFINE_COLOR>●</color> | <color:$DEFINE_COLOR>○</color>| $DEFINE_NAME |
-   | <color:$UX_COLOR>●</color> | <color:$UX_COLOR>○</color>| $UX_NAME |
-   | <color:$UI_COLOR>●</color> | <color:$UI_COLOR>○</color>| $UI_NAME |
-   | <color:$FE_COLOR>●</color> | <color:$FE_COLOR>○</color>| $FE_NAME |
-   | <color:$BE_COLOR>●</color> | <color:$BE_COLOR>○</color>| $BE_NAME |
-   | <color:$TESTING_COLOR>●</color> | <color:$TESTING_COLOR>○</color>| $TESTING_NAME |
-   | <color:$DENIED_COLOR>●</color> | <color:$DENIED_COLOR>○</color>| $DENIED_NAME |
+   | <color:$DEFINE_COLOR><size:20>●</size></color> | <color:$DEFINE_COLOR><size:20>○</size></color>| $DEFINE_NAME |
+   | <color:$UX_COLOR><size:20>●</size></color> | <color:$UX_COLOR><size:20>○</size></color>| $UX_NAME |
+   | <color:$FE_COLOR><size:20>●</size></color> | <color:$FE_COLOR><size:20>○</size></color>| $FE_NAME |
+   | <color:$BE_COLOR><size:20>●</size></color> | <color:$BE_COLOR><size:20>○</size></color>| $BE_NAME |
+   | <color:$TESTING_COLOR><size:20>●</size></color> | <color:$TESTING_COLOR><size:20>○</size></color>| $TESTING_NAME |
+   | <color:$DENIED_COLOR><size:20>●</size></color> | <color:$DENIED_COLOR><size:20>○</size></color>| $DENIED_NAME |
 
   | **Task color** | **Priority** |
   | <$MUST_COLOR> | Must have |
@@ -153,9 +152,9 @@ add_status(){
 
 add_status_symbol(){
       if [[ $status == *$STATUS_FINISHED* ]]; then
-        CURRENT_SUB_DESCRIPTION="$CURRENT_SUB_DESCRIPTION ●</color>"
+        CURRENT_SUB_DESCRIPTION="$CURRENT_SUB_DESCRIPTION <size:20>●</size></color>"
       elif [[ $status == *$STATUS_UNFINISHED* ]]; then
-        CURRENT_SUB_DESCRIPTION="$CURRENT_SUB_DESCRIPTION ○</color>"
+        CURRENT_SUB_DESCRIPTION="$CURRENT_SUB_DESCRIPTION <size:20>○</size></color>"
       fi
 }
 
