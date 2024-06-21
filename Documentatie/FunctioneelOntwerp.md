@@ -647,7 +647,6 @@ legend left
 | FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
 | FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
 
-
 #### Nonfunctional requirements
 
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) |  Document references |
@@ -739,8 +738,6 @@ Admin:
 #### Klant: Projecten pagina
 
 ![Scherm ontwerp voor het overzicht van alle projecten voor een klant](./Images/FunctioneelOntwerp/projectenpage.png)
-
-##### Eigenlijk TO:
 
 projecId, naam, startdatum, update: projects endpoint
 
