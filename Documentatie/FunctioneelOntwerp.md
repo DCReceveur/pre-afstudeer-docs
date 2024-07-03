@@ -386,7 +386,76 @@ Door in de workflow twee statuses toe te voegen die aangeven dat één van de pa
 | Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
 <!-- | Not started | TODO: is deze status nodig? Hiermee zou een taak niet in progress zijn zonder dat er op een van de partijen op feedback wordt gewacht. Mogelijk relevant voor de wishlist? Extra statuses kunnen er wel voor zorgen dat het overzicht wordt verloren. | Not started | -->
 
+Omdat niet elk project bij Bluenotion niet de zelfde Productive structuur volgt qua taak borden en statussen is voor een koppeling tussen het PMP en Productive de volgende informatie nodig:
+
+- Welk bord (mogen) aanvragen staan?
+- Welk bord wordt gebruikt als backlog?
+- Welk bord wordt gebruikt als laatste controle van de klant? (development/staging)
+- *Welk bord wordt gebruikt als wishlist?
+
+- Bij welke status moet de klant 'iets' met de taak? (Waiting for review customer)
+- Bij welke status moet Bluenotion 'iets' met de taak? (Waiting for review Bluenotion)*
+- status open
+- status done
+- status closed
+
+*Status wordt op het moment gebruikt in sommige projecten, om tijdens de transitie van klanten in Productive naar het PMP geen functionaliteit kwijt te raken waar de klant gewend aan is, is het misschien beter om te kijken of tags gebruikt kunnen worden als notificatie flag.
+
+*Is wishlist deel van V1?
+Is done/closed nodig of wordt status gebruikt?
+
+
+wishlist?
+
+benodigde statussen:
+
+Not started
+Open
+Done
+Closed
+
 TODO: Wordt vakantie/vrij gebruikt?
+
+Aan de hand van deze informatie kan het PMP de volgende beslissingen maken:
+
+| Status | Bord | Betekenis | Actie |
+|--|--|--|--|
+| Waiting for review Bluenotion | Aanvragen | De aanvraag is ingediend en wacht op goedkeuring van Bluenotion | Informeer de PM aan de hand van PMP of e-mail. |
+| Waiting for review customer | Aanvragen | De aanvraag heeft meer feedback nodig van de klant | Informeer de klant aan de hand van het PMP of e-mail. |
+| Open | Aanvragen | De aanvraag is goedgekeurd, taken zijn aangemaakt en zijn in behandeling bij Bluenotion | nvt |
+| Done | Aanvragen | Alle taken waarin de aanvraag was geresulteerd zijn klaar voor review voor de klant | Informeer de klant aan de hand van het PMP of e-mail. |
+| Closed | Aanvragen | Alle taken waarin de aanvraag was geresulteerd zijn klaar voor review voor de klant | nvt |
+
+| Status | Bord | Betekenis | Actie |
+|--|--|--|--|
+| Waiting for review customer | Backlog | Tijdens het ontwikkelen bleek meer informatie nodig te zijn. | Informeer de klant aan de hand van PMP of e-mail. |
+| Waiting for review Bluenotion | Backlog | De klant heeft reactie gegeven op de informatievraag. | Informeer de PM (of dev?) aan de hand van PMP of e-mail. |
+| Open | Backlog | De taak is in behandeling | nvt |
+| Not started | Backlog | Er is iets mis? | nvt* |
+| Done | Backlog | Er is iets mis? | nvt* |
+| Closed | Backlog | Er is iets mis? | nvt* |
+
+*Iets verzinnen voor deze "verloren" taken? Staan normaal op productive maar zouden mogelijk niet netjes in een PMP groepering gegooid worden.
+
+| Status | Bord | Betekenis | Actie |
+|--|--|--|--|
+| Waiting for review customer  | Staging | De taak is afgerond en de klant kan de functionaliteit controleren. |  |
+| Waiting for review Bluenotion  | Staging | De klant heeft reactie gegeven op de taak maar de taak niet goedgekeurd. |  |
+| Open  | Staging |  |  |
+| Done | Staging |  |  |
+| Closed | Staging |  |  |
+
+
+Kun je een taak hebben in de aanvragen?
+Maakt de PM taken aan op de backlog?
+
+|  | backlog |  |  |
+|  | staging |  |  |
+|  | Aanvragen |  |  |
+|  | Aanvragen |  |  |
+|  | Aanvragen |  |  |
+|  | Aanvragen |  |  |
+
 
 ### Incident Impact, Urgentie en Prioriteit levels
 
@@ -473,6 +542,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US18 | ACT2 | Als Bluenotion admin wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
 | US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
+| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | FR5.2 |
 
 ### Use case diagram
 
@@ -631,6 +701,7 @@ legend left
 | FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5 | Opstellen project |  |  |  |  |
 | FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](/Documentatie/FunctioneelOntwerp.md#user-stories) [FR5.2](/Documentatie/Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards--taak-status) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR6 | Inzien project service statuses |  |  | [Requirement overzicht](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md)  |  |
 | FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](/Documentatie/FunctioneelOntwerp.md#user-stories),[Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
@@ -732,6 +803,20 @@ Admin:
 | [Taak detail pagina](#admin-taken-detail)  | - Controleren van een aanvraag met de mogelijkheid feedback te geven aan de klant (Zou voor de front-end kunnen via de zelfde pagina als die van de klant?)(FR8.1) </br> - Knop met accepteren/taak splitsen [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
 | Chat venster | - Een plek waar de gebruiker kan reageren op vragen gesteld door een klant. |
 | Chat historie | - Een overzicht van alle gesloten en open chats van alle klanten? |
+
+### Unsorted
+
+#### Klant: Dashboard
+
+![Scherm ontwerp voor het globale overzicht van een klant](./Images/FunctioneelOntwerp/Klant_dashboard.png)
+
+projecId, naam, startdatum, update: projects endpoint
+
+Project manager: People endpoint
+
+Aantal taken: Tasks endpoint, grouped by project
+
+Vereiste input: Tasks filter status
 
 ### Ontwerpen FR1 Inzien project plannings informatie
 

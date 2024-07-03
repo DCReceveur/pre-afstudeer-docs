@@ -208,6 +208,10 @@ Controllers worden per entiteit aangemaakt en volgen allemaal grofweg de zelfde 
 
 TODO?: Een redenatie toevoegen over patch vs put?
 
+optie:
+
+endpoints ontwerpenzoals de repositories zodat filtering op de endpoints zelf toegepast kan worden.
+
 #### filtering pagination & sorting
 
 TODO: Vastleggen zodra ADR001 Decided is.
@@ -238,68 +242,78 @@ De servicelaag biedt een aantal interfaces aan om met domein entiteiten te werke
 
 Aangezien de services de domein logica afhandelen zullen verschillende service interfaces ook verschillende signatures krijgen. De basis van de services blijft wel over de meeste services gelijk. Om de scheiding tussen tussen de front-end en database in stand te houden krijgt entity service een Find, GetAll, Add, Update en Delete endpoint. Die vanuit verschillen de andere controllers en services aangeroepen kunnen worden.
 
-Een voorbeeld van de signatures van ITaskService zou er als volgt uit zien:
+<!-- Een voorbeeld van de signatures van ITaskService zou er als volgt uit zien:
 public async Task<ActionResult<TaskModel>> Find(int taskId)
 public async Task<ActionResult<TasksModel>> GetAll()
 public async Task<ActionResult<TaskModel>> AddTask(AddTaskModel model)
 public async Task<ActionResult<TaskModel>> UpdateTask(UpdateTaskModel model)
-public async Task<ActionResult<boolean>> DeleteTask(int taskId)
+public async Task<ActionResult<boolean>> DeleteTask(int taskId) -->
 
 ```plantuml
-
+' top to bottom direction
+ left to right direction
+package api{
+  package Controllers{
+    class "ProjectController" as Project_Controller
+    class "TaskController" as Task_Controller
+    class "AccountController" as Account_Controller
+  }
 package Interfaces{
-  interface "INotification" as IN
-  interface "IAccountService" as IA
-  interface "ITaskService" as IT
-  interface "IProjectService" as IP
-  interface "ICommentService" as IC
+  interface "IAccountService" as IAccount_Service
+  interface "ITaskService" as ITask_Service
+  interface "IProjectService" as IProject_Service
+  interface "ICommentService" as IComment_Service
+  interface "INotificationService" as INotification_Service
+  interface "IBijlageService" as IBijlage_Service
 }
+}
+
 
 package Services{
+
+  package Interfaces{
+  interface "IAccountRepository" as IAccount_Repository
+  interface "ITaskRepository" as ITask_Repository
+  interface "IProjectRepository" as IProject_Repository
+  interface "ICommentRepository" as IComment_Repository
+  interface "ILogRepository" as ILog_Repository
+}
   class TaskService{
-    -TaskRepository
-    +Find(int Id)
-    +GetAll()
-    +Add(AddTaskModel)
-    +Update(UpdateTaskModel)
-    +Delete(int TaskId)
+    -ITask_Repository
+    addTaskToProject(TaskInputModel, ProjectId)
+    ChangeTaskStatus(TaskInputModel)
+
   }
   class NotificationService{
-    -LogRepository
+    -ILogRepository
+    +SendEmailNotification(Template, data)
   }
+
   class AccountService{
-    -AccountRepository
-    +Find(int Id)
-    +GetAll()
-    +Add(AddAccountModel)
-    +Update(UpdateAccountModel)
-    +Delete(int AccountId)
+    -IAccount_Repository
   }
   class ProjectService{
-    -ProjectRepository
-    +Find(int Id)
-    +GetAll()
-    +Add(AddProjectModel)
-    +Update(UpdateProjectModel)
-    +Delete(int ProjectId)
+    -IProject_Repository
   }
   class CommentService{
-    -CommentRepository
-    +Find(int Id)
-    +GetAll()
-    +Add(AddCommentModel)
-    +Update(UpdateCommentModel)
-    +Delete(int CommentId)
+    -IComment_Repository
+    +AddComment()
+    +ModifyComment()
+    +DeleteComment()
   }
-  
+  class BijlageService{
+    -ITask_Repository
+    -IComment_Repository
+  }
 }
 
+
 package Repositories{
-  class AccountRepository
-  class TaskRepository
-  class ProjectRepository
-  class CommentRepository
-  class LogRepository
+  class AccountRepository<Account>
+  class TaskRepository<Task>
+  class ProjectRepository<Project>
+  class CommentRepository<Comment>
+  class LogRepository<Log>
   class "BaseRepository<T>" as BaseRepository{
     Get(int Id)
     GetAll()
@@ -315,11 +329,49 @@ package ExchangeServer{
 }
 
 
-IN<|--NotificationService
-IA<|--AccountService
-IT<|--TaskService
-IP<|--ProjectService
-IC<|--CommentService
+' Services.interfaces ordening
+IAccount_Repository -[hidden]- ITask_Repository
+ITask_Repository -[hidden]- IProject_Repository
+IProject_Repository -[hidden]- IComment_Repository
+IComment_Repository -[hidden]- ILog_Repository
+
+' API.Interfaces ordening
+IAccount_Service -[hidden]- ITask_Service
+ITask_Service -[hidden]- IProject_Service
+IProject_Service -[hidden]- IComment_Service
+IComment_Service -[hidden]- INotification_Service
+INotification_Service -[hidden]- IBijlage_Service
+
+' Controller.Interfaces ordening
+
+CommentService -[hidden]- NotificationService
+
+Project_Controller -[hidden]- Task_Controller
+Task_Controller -[hidden]- Account_Controller
+
+' Repositories ordening
+AccountRepository -[hidden]- TaskRepository
+TaskRepository -[hidden]- ProjectRepository
+ProjectRepository -[hidden]- CommentRepository
+CommentRepository -[hidden]- LogRepository
+
+
+' Service inheritance 
+
+IAccount_Service<|--AccountService
+ITask_Service<|--TaskService
+IProject_Service<|--ProjectService
+IComment_Service<|--CommentService
+INotification_Service<|--NotificationService
+IBijlage_Service<|--CommentService
+
+' Repositories inheritance 
+
+IAccount_Repository<|--AccountRepository
+ITask_Repository<|--TaskRepository
+IProject_Repository<|--ProjectRepository
+IComment_Repository<|--CommentRepository
+ILog_Repository<|-- LogRepository
 
 AccountRepository--|>BaseRepository
 TaskRepository--|>BaseRepository
@@ -327,12 +379,27 @@ ProjectRepository--|>BaseRepository
 CommentRepository--|>BaseRepository
 LogRepository--|>BaseRepository
 
-AccountService-->AccountRepository
-TaskService-->TaskRepository
-ProjectService-->ProjectRepository
-CommentService-->CommentRepository
-NotificationService-->MailClient
-NotificationService-->LogRepository : *TODO: Betere logging procedure opzetten
+' Service dependencies
+
+IAccount_Repository<--AccountService
+ITask_Repository<--TaskService
+IProject_Repository<--ProjectService
+IComment_Repository<--CommentService
+ILog_Repository<--NotificationService
+ITask_Repository<--BijlageService
+IComment_Repository<--BijlageService
+
+' Controller dependencies
+
+Project_Controller --> IAccount_Service
+Task_Controller --> ITask_Service
+Project_Controller --> IProject_Service
+Task_Controller --> IComment_Service
+Account_Controller --> IAccount_Service
+
+
+
+
 
 ```
 
