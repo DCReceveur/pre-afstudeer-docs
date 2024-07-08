@@ -171,8 +171,41 @@ Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotio
 | 2 |  | Geeft aan contact op te moeten nemen met de servicedesk? |
 | 2 |  | ? |
 
-### FR3.5: Alternative flow - flow name
+### FR3.5: Alternative flow - nieuwe prioriteit is blocker of critical
 
 |Stap | Actor | System |
 |---|---|---|
 | 4A |  | Geeft aan dat de nieuwe prioriteit 1 of 2 is en daarmee direct contact op genomen dient te worden met Bluenotion. |
+
+## FR3.6: Annuleren aanvraag
+
+| FR3.6 | Annuleren aanvraag |
+|---|---|
+| Prioriteit | Should have  |
+| Primaire Actor | ACT1: Externe klant |
+| Stakeholders | ACT2: Bluenotion admin |
+| Pre condities | Er is een aanvraag ingediend door de klant |
+| Post condities | De aanvraag wordt (A: verwijderd) (B: closed met een tag)* |
+| Triggers | De klant bedenkt na het aanmaken van een aanvraag dat de aanvraag niet relevant is. |
+| Exceptions |  |
+| Open issues |  |
+
+*Hoort de aanvraag verwijderd te worden of sluiten we de aanvraag alsof de functionaliteit is gemaakt maar met extra tag oid om aan te geven dat de taak geannuleerd is door de klant? 
+Kan de klant een goedgekeurde taak of een taak die in progress is annuleren?
+
+### FR3.6: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 |  |  |
+| 2 |  |  |
+| 3 |  |  |
+| 4 |  |  |
+| 2 |  |  |
+| 2 |  |  |
+
+### FR3.6: Alternative flow - flow name
+
+|Stap | Actor | System |
+|---|---|---|
+|  |  |  |

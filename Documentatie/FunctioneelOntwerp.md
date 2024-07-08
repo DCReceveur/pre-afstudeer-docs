@@ -388,10 +388,14 @@ Door in de workflow twee statuses toe te voegen die aangeven dat één van de pa
 
 Omdat niet elk project bij Bluenotion niet de zelfde Productive structuur volgt qua taak borden en statussen is voor een koppeling tussen het PMP en Productive de volgende informatie nodig:
 
+Bord:
+
 - Welk bord (mogen) aanvragen staan?
 - Welk bord wordt gebruikt als backlog?
 - Welk bord wordt gebruikt als laatste controle van de klant? (development/staging)
 - *Welk bord wordt gebruikt als wishlist?
+
+Status:
 
 - Bij welke status moet de klant 'iets' met de taak? (Waiting for review customer)
 - Bij welke status moet Bluenotion 'iets' met de taak? (Waiting for review Bluenotion)*
@@ -403,7 +407,6 @@ Omdat niet elk project bij Bluenotion niet de zelfde Productive structuur volgt 
 
 *Is wishlist deel van V1?
 Is done/closed nodig of wordt status gebruikt?
-
 
 wishlist?
 
@@ -445,10 +448,19 @@ Aan de hand van deze informatie kan het PMP de volgende beslissingen maken:
 | Done | Staging |  |  |
 | Closed | Staging |  |  |
 
+| Status | Bord | Betekenis | Actie |
+|--|--|--|--|
+| Waiting for review customer  | Live |  |  |
+| Waiting for review Bluenotion  | Live |  |  |
+| Open  | Live |  |  |
+| Done | Live |  |  |
+| Closed | Live |  |  |
 
 Kun je een taak hebben in de aanvragen?
 Maakt de PM taken aan op de backlog?
 
+|  |  |  |  |
+|--|--|--|--|
 |  | backlog |  |  |
 |  | staging |  |  |
 |  | Aanvragen |  |  |
@@ -520,7 +532,7 @@ Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan 
 
 Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user story.
 
-| User story no | Gerelateerde actors  | User story  | Resulterende requirement(s)  |
+| User story no | Gerelateerde actors  | Omschrijving  | Resulterende requirement(s)  |
 |---|---|---|---|
 | US1   | ACT2  | Als Bluenotion admin wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken.  | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) |
 | US2  | ACT1 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) |
@@ -543,6 +555,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
 | US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
 | US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | FR5.2 |
+| US22 | ACT1 | Als externe klant wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
 
 ### Use case diagram
 
@@ -696,6 +709,7 @@ legend left
 | FR3.3 |  | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [ ] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR3.4 |  | Toevoegen bijlagen bij taak | Must have | [US12](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR3.5 |  | Aanpassen taak prioriteit | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.6 |  | Annuleren aanvraag | Should have | [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) |  [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing  |
 | FR4 | Versturen notificaties |  |  | [Requirement overzicht](/Documentatie/Requirements/FR4_Versturen_notificaties.md) |  |
 | FR4.1 |  | Inlichten klant wanneer een taak wacht op input van de klant | Should have | [US9](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
