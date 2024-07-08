@@ -13,7 +13,7 @@ Deze functional requirements hebben betrekking op het toevoegen, toelichten of w
 | Post condities | Er is binnen Productive een nieuwe taak toegevoegd aan de aanvragen lijst. |
 | Triggers | De klant geeft aan werk gedaan te willen hebben. |
 | Exceptions | Het opgevraagde project bestaat niet. |
-| Open issues | Maakt de PM/TL hier ook gebruik van of is dit specifiek voor de klant? </br> Kunnen projecten permanent gesloten/gearchiveerd zijn en dus niet meer bijgevuld worden? |
+| Open issues | Kunnen projecten permanent gesloten/gearchiveerd zijn en dus niet meer bijgevuld worden? |
 
 ### FR3.1: Main flow
 
@@ -188,10 +188,7 @@ Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotio
 | Post condities | De aanvraag wordt (A: verwijderd) (B: closed met een tag)* |
 | Triggers | De klant bedenkt na het aanmaken van een aanvraag dat de aanvraag niet relevant is. |
 | Exceptions |  |
-| Open issues |  |
-
-*Hoort de aanvraag verwijderd te worden of sluiten we de aanvraag alsof de functionaliteit is gemaakt maar met extra tag oid om aan te geven dat de taak geannuleerd is door de klant? 
-Kan de klant een goedgekeurde taak of een taak die in progress is annuleren?
+| Open issues | *Hoort de aanvraag verwijderd te worden of sluiten we de aanvraag alsof de functionaliteit is gemaakt maar met extra tag oid om aan te geven dat de taak geannuleerd is door de klant? </br> Kan de klant een goedgekeurde taak of een taak die in progress is annuleren? |
 
 ### FR3.6: Main flow
 

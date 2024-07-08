@@ -108,6 +108,19 @@ Is een klant geïnteresseerd in de verschillende mijlpaal taken?
 - [x] Dient het beheer van projecten aan de Bluenotion kant te lopen via het project management portal of binnen Productive? (Denk aan toevoegen van een nieuwe klant of project)
 - A: Het liefst alles op 1 plek. Dingen als welke omgevingen beschikbaar zijn bij een project of welke SLA een klant heeft worden echter niet in productive bijgehouden. Als er tijdens het aanmaken van een klant of project in beiden het PMP en en Productive dingen ingesteld moeten worden is dat onhandig maar geen dealbreaker. Het belangrijkste is dat de door de klant uit te voeren handelingen zo eenvoudig mogelijk zijn.
 
+## Open issues
+
+Deze open issues komen uit de fully dressed use case descriptions.
+
+- [ ] FR1.1: Hoe weet ik wie eigenaar is van een project?
+- [ ] FR3.1: Kunnen projecten permanent gesloten/gearchiveerd zijn en dus niet meer bijgevuld worden?
+- [ ] FR3.2: Wat als de gebruiker de functionaliteit na nader bespreking niet meer hoeft? FR3.6?
+- [ ] FR3.6: *Hoort de aanvraag verwijderd te worden of sluiten we de aanvraag alsof de functionaliteit is gemaakt maar met extra tag oid om aan te geven dat de taak geannuleerd is door de klant?
+- [ ] FR3.6: 0Kan de klant een goedgekeurde taak of een taak die in progress is annuleren?
+- [ ] FR6.1: Hoe het overzicht van dependencies wordt weergegeven is nog niet vastgesteld. Voor de basis implementatie wordt gewerkt met een lijst van service namen (xyz database, xyz webserver, xyz proxy....)
+- [ ] FR8.1: Een klant kan meerdere reprosenatoren hebben. Wie moet op de hoogte gebracht worden van wanneer een taak open gezet is voor feedback? (Alleen de eigenaar van het project? Alle klanten die zijn toegevoegd aan het project? Op project of taak niveau een optie om te abonneren )
+- [ ] FR8.1: Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen, wordt deze alsnog naar de backlog gehaald of wordt deze taak geannuleerd?
+
 ## Oud oud
 
 - [ ] Devs werken voor dagelijks gebruik gewoon in productive?

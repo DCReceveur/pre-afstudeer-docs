@@ -1,4 +1,4 @@
-# Controleren aanvraag
+# FR8 Controleren aanvraag
 
 Deze functional requirements hebben betrekking op het goed (of af) keuren van aanvragen gedaan door de externe klant en het maken van taken op basis van deze aanvragen.
 
@@ -13,7 +13,9 @@ Deze functional requirements hebben betrekking op het goed (of af) keuren van aa
 | Post condities | De klant wordt op de hoogte gebracht dat er om feedback is gevraagd. </br> De taak staat op het "Awaiting customer" bord. |
 | Triggers | Er staan taken in de "Aanvraag" lijst. |
 | Exceptions | In de tijd dat de vraag wordt gecontroleerd is de taak door de klant verwijderd. |
-| Open issues | Heeft een klant één of meerdere representatieoren? Als meer, een selectie wie je op de hoogte brengt of broadcast naar iedereen die feedback mag geven? </br> Hoe willen we klanten op de hoogte stellen? aan de hand van mail/sms? enkel het portaal? </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen of wordt deze alsnog naar de backlog gehaald? |
+| Open issues | Een klant kan meerdere reprosenatoren hebben. Wie moet op de hoogte gebracht worden van wanneer een taak open gezet is voor feedback? (Alleen de eigenaar van het project? Alle klanten die zijn toegevoegd aan het project? Op project of taak niveau een optie om te abonneren ) </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen, wordt deze alsnog naar de backlog gehaald of wordt deze taak geannuleerd? |
+
+
 
 ### FR8.1: Main flow
 
@@ -38,11 +40,10 @@ Deze functional requirements hebben betrekking op het goed (of af) keuren van aa
 | 3B | Geeft aan dat de aanvraag eigenlijk over meer dan één taak gaat. |  |
 | 4B |  |  |
 
-
-| 1 | Geeft aan welke taak open gezet moet worden voor feedback  |   |
+<!-- | 1 | Geeft aan welke taak open gezet moet worden voor feedback  |   |
 | 2 |   | Geeft de actor de mogelijkheid de taak zelf aan te passen.  |
 | 3 | Geeft aan welke punten ontbreken of onduidelijk zijn.  |   |
-| 4 |   | Zet de taak op "awaiting customer" met de bijbehorende feedback.  |
+| 4 |   | Zet de taak op "awaiting customer" met de bijbehorende feedback.  | -->
 
 <!-- TODO: Waar komt feedback? Wordt dit bijgehouden in de comments van de taak? De omschrijving? Apart in het PMP?
 A: feedback in de comments van productive. Aparte "chat" voor tenant level communicatie [FR9](#fr9-tenant-level-chat-voor-directe-communicatie) komt in het PMP -->
@@ -75,9 +76,10 @@ A: feedback in de comments van productive. Aparte "chat" voor tenant level commu
 | 2 |  | Het systeem geeft een aantal opties (teams) waar binnen dat project taken voor aangemaakt kunnen worden |
 | 3 | De actor geeft aan welke teams aan de taak gaan werken |  |
 | 4 |  | Het systeem maakt verschillende taken aan voor de betreffende teams, zet ze op de "aanvraag" lijst en refereer in de originele taak naar de nieuwe (dependency/sub?) taken |
-| 5 | De actor voert voor de nieuwe taken een estimate in per sub taak |  |
+| 5 | De actor voert voor de nieuwe taken een estimate in per sub taak* |  |
 | 6 |  | Het systeem zet de taken na goedkeuring externe klant op de backlog |
 
+*Standaard wordt de tijd opgedeeld aan de hand van de standaard split met optie tot aanpassing.
 TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard split"
 
 ### FR8.2: Alternative flow - flow name

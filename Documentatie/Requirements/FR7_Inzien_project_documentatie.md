@@ -1,4 +1,6 @@
-#### FR7.1: Openen/downloaden document
+# FR7 Inzien project documentatie
+
+## FR7.1: Openen/downloaden document
 
 TODO: fully dressed versie uitwerken.
 
@@ -15,20 +17,20 @@ Support documentatie en tutorials in het PMP
 | Exceptions |  |
 | Open issues |  |
 
-##### FR7.1: Main flow
+### FR7.1: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
 |  |  |  |
 
-##### FR7.1: Alternative flow - flow name
+### FR7.1: Alternative flow - flow name
 
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
 
-#### FR7.2: Filteren documentnaam/categorie
+## FR7.2: Filteren documentnaam/categorie
 
 TODO: fully dressed versie uitwerken.
 
@@ -45,7 +47,7 @@ Filters op de support documentatie
 | Exceptions |  |
 | Open issues |  |
 
-#### FR7.3: Beheren project documentatie
+## FR7.3: Beheren project documentatie
 
 TODO: fully dressed versie uitwerken.
 
