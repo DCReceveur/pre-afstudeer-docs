@@ -72,8 +72,63 @@ Er werd gesproken over een admin en medewerkers account voor de externe klant. V
 ## Domein
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het Productive systeem direct vastgelegd.
-
 ```plantuml
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle "Project management portal"{
+  class Klant
+  class Aanvraag
+  class Doorontwikkeling
+  class Incident
+  class Impact
+  class Urgentie
+  class Prioriteit
+  class SLA{
+    reactietijd
+    oplostijd
+  }
+}
+rectangle "Productive"{
+  class Project
+  class Taak
+  class Board
+  class Status
+}
+
+SLA--Project :> Toegekend aan
+SLA--Prioriteit :> Bevat tijden voor
+
+' Klant beheert project
+Klant -- Project :> Eigenaar van
+Klant -- Project :> Beheerder van
+
+' Klant aanvraag
+Klant "1"--"0..*" Aanvraag :> Doet een
+Aanvraag "1"--"1..*" Taak :> Resulteert in
+
+' aanvraag is een...
+Incident --|> Aanvraag : < Ingediend als
+Doorontwikkeling --|> Aanvraag : < Ingediend als
+
+
+' Incident priority
+Impact "1"--"0-..*" Incident : < Ingediend met
+Urgentie "1"--"0..*" Incident : < Ingediend met
+Prioriteit .. (Impact, Urgentie)  
+
+Taak--Board : > Weggeschreven op
+Taak--Prioriteit :< Van
+Taak--Status :< Van
+
+Board -- Project :> Voor
+
+
+
+```
+
+<!-- ```plantuml
 skinparam linetype ortho
 skinparam nodesep 130
 skinparam ranksep 120
@@ -129,7 +184,7 @@ Werknemer "0..*"--"0..*" Taak :> Werkt aan
 Werknemer "0..*"--"0..*" Team :> Onderdeel van
 Taak "1"--"1" Team :> beschrijft werkzaamheden voor
 Taak "0..*"--"1" Status :> werkstatus voor 
-```
+``` -->
 
 ### Toelichting domeinmodel
 
@@ -163,32 +218,30 @@ skinparam linetype ortho
 skinparam nodesep 130
 skinparam ranksep 120
 
-  actor Klant
-  rectangle Aanvraag
-  rectangle Taak
-  rectangle Doorontwikkeling
-    rectangle Incident
-    rectangle Impact
-    rectangle Urgentie
-    rectangle Prioriteit
+  class Klant
+  class Aanvraag
+  class Taak
+  class Doorontwikkeling
+  class Incident
+  class Impact
+  class Urgentie
+  class Prioriteit
 
 
 ' Klant aanvraag
 Klant "1"--"0..*" Aanvraag :> Doet een
-Doorontwikkeling "1"-DOWN-"1..*" Taak :> Resulteert in
-Incident "1"-DOWN-"1..*" Taak :> Resulteert in
+Aanvraag "1"--"1..*" Taak :> Resulteert in
 
 
 ' Priority part
-Incident -UP-|> Aanvraag
-Doorontwikkeling -UP-|> Aanvraag
+Incident --|> Aanvraag : < Ingediend als
+Doorontwikkeling --|> Aanvraag : < Ingediend als
 
 
 ' Incident part
 Impact "1"--"0-..*" Incident : < Ingediend met
 Urgentie "1"--"0..*" Incident : < Ingediend met
-Prioriteit "1"--"1" Impact : < Bepalend voor
-Prioriteit "1"--"1" Urgentie : < Bepalend voor
+Prioriteit .. (Impact, Urgentie)  
 ```
 
 | Entiteit | Uitleg |
@@ -554,7 +607,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US18 | ACT2 | Als Bluenotion admin wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
 | US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
-| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | FR5.2 |
+| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](/Documentatie/Requirements/FR5_Opstellen_project.md) |
 | US22 | ACT1 | Als externe klant wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
 
 ### Use case diagram
@@ -779,6 +832,62 @@ https://www.altexsoft.com/blog/software-requirements-specification/
 Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->
 
 ## Scherm ontwerpen
+
+### Componenten
+
+Taken tellers
+
+![component met een tellertje voor totaal taken, open taken, gesloten taken en input vereist](/Documentatie/Images/FunctioneelOntwerp/TaskCounters.png)
+
+Taken lijst
+
+![component met een aantal tickets](/Documentatie/Images/FunctioneelOntwerp/takenlijst.png)
+
+Feed
+
+![alt text](/Documentatie/Images/FunctioneelOntwerp/feed.png)
+
+Project informatie
+
+![alt text](/Documentatie/Images/FunctioneelOntwerp/projectinfo.png)
+
+### Schermen
+
+
+<!-- FR to component
+
+| Functionality V / component > | Taken tellers | Taken lijst | Feed | Project informatie |
+|--|--|--|--|--|
+| FR1.1 |  |  |  |  |
+| FR1.2 |  |  |  |  |
+| FR2.1 |  |  |  |  |
+| FR2.2 |  | x |  |  |
+| FR2.3 |  | x |  |  |
+| FR2.4 |  |  |  |  |
+| FR2.7 |  | x |  |  |
+| FR3.1 |  |  |  |  |
+| FR3.2 |  |  |  |  |
+| FR3.3 |  |  |  |  |
+| FR3.4 |  |  |  |  |
+| FR3.5 |  |  |  |  |
+| FR4.1 |  |  |  |  |
+| FR4.2 |  |  |  |  |
+| FR5.1 |  |  |  |  |
+| FR5.2 |  |  |  |  |
+| FR6.1 |  |  |  |  |
+| FR6.2 |  |  |  |  |
+| FR6.3 |  |  |  |  |
+| FR7.1 |  |  |  |  |
+| FR7.2 |  |  |  |  |
+| FR7.3 |  |  |  |  |
+| FR8.1 |  |  |  |  |
+| FR8.2 |  |  |  |  |
+| FR9.1 |  |  |  |  |
+| FR9.2 |  |  |  |  |
+| FR9.3 |  |  |  |  |
+| FR |  |  |  |  |
+| FR |  |  |  |  | -->
+
 
 Naar vraag van Roel Dekkers, de inhouse UX designer zijn de bovengenoemde functionaliteiten ingedeeld ingedeeld per omgeving. Om groeperingen van de functionaliteiten binnen het programma en de interacties tussen de verschillende omgevingen zijn ze per 'pagina' gegroepeerd. Dit hoeven geen pagina's te zijn in de uiteindelijk te bouwen applicatie maar dienen als ondersteuning bij het UX ontwerp.
 

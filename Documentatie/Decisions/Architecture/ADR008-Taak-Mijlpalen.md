@@ -1,4 +1,4 @@
-# ADR0008 Taak mijlpalen
+# ADR0008 Taak mijlpalen & scheiding tussen aanvraag en taak
 
 ## **Status: Needs decision**
 
@@ -16,9 +16,49 @@ Binnen Bluenotion heeft een taak een aantal mijlpalen die de meeste taken doorlo
 
 Deze taken worden volgens conventie aangemaakt maar de namen worden niet over alle projecten consistent hetzelfde opgebouwd. Om binnen het PMP een overzicht aan te kunnen bieden van welke mijlpalen voor een specifieke functionaliteit wel/niet behaald zijn dient deze data op een gestandaardiseerde manier geregistreerd te worden in Productive of het PMP.
 
+```plantuml
+rectangle "Aanvragen komen in Productive" as Q1
+rectangle "De link tussen een aanvraag en de resulterende taken komen in Productive" as Q2
+rectangle "ADR0008-O1: Taken worden gekoppeld aan de hand van task dependencies" as Q3
+rectangle "ADR0008-O3: Taken worden gekoppeld aan de hand van tags met het id van de parent taak." as Q4
+rectangle "ADR0008-O2: Taken worden gekoppeld in de PMP database" as Q5
+rectangle "ADR0008-O4: Taken worden gekoppeld in de taak omschrijving" as Q6 
+
+Q1-DOWN-Q2 : Ja
+Q2-DOWN-Q3 
+Q2-DOWN-Q4 
+
+Q1-DOWN-Q5 : Nee
+Q2-DOWN-Q6
+```
+
 ## **Decision: None**
 
+Het liefst zou ik werken aan de hand van TaskDependencies zodat alle informatie over een taak terug te vinden is in Productive. Hiermee voorkom je het splitten van de twee systemen en verklein je dus de kans op moeten werken in twee systemen.
+
 ## **Consequences:**
+
+| Optie | Consequentie |
+|--|--|
+| O1 | Pro: Alle data over mijlpalen is niet alleen in het PMP te vinden maar ook in Productive. |
+| O1 | Pro: Het is mogelijk de status van mijlpalen te automatiseren door naar de status van de verschillende subtaken te kijken. |
+| O1 | Con: Zit niet in het huidige Productive pakket. |
+| O2 | Pro: Past binnen het huidige Productive pakket. |
+| O2 | Pro: Biedt flexibiliteit over het ontwerp en gebruik van de mijlpalen zonder limitaties van Productive. |
+| O2 | Con: Omdat er met twee verschillende datasources gewerkt wordt kan het zijn dat door onvoorziene omstandigheden data tussen deze sources niet het zelfde is. |
+| O3 | Pro: Past binnen het huidige Productive pakket. |
+| O3 | Pro: Het is mogelijk binnen Productive alle taken op te vragen die aan een bepaalde tag zijn gekoppeld. (Beiden in productive dashboard en API) |
+| O3 | Con: Het is niet waar het tag systeem voor is gemaakt. |
+| O3 | Con: Er worden tags aangemaakt die na afloop van een taak nooit meer gebruikt worden. |
+| O3 | Con: De oplossing is navigeerbaar naar 1 kant maar niet beiden kanten |
+| O4 | Pro: Past binnen het huidige Productive pakket |
+| O4 | Pro: Er is binnen Productive te zien welke taken gerelateerd zijn |
+| O4 | Con: Foutgevoelig, mensen kunnen binnen Productive de omschrijving aanpassen met taken die niet bestaan en oude/verwijderde taken worden niet automatisch bijgewerkt |
+| O4 | Con: Het is niet waar het tag systeem voor is gemaakt. |
+| O4 |  |
+| O4 |  |
+| O4 |  |
+
 
 ## **Alternatives:**
 
@@ -40,7 +80,7 @@ Voordeel: Er is geen uitbreiding op het Productive pakket nodig. Data over mijlp
 
 Nadeel: Binnen productive kan niet snel gevonden worden welke taken nog waar op wachten. Bij verlies van de database kan data niet uit productive hersteld worden.
 
-### Optie 3: Namen en tags
+### Optie 3: Tags
 
 De mogelijkheid bestaat de mijlpaal data op te slaan in Productive binnen het huidige pakket. Hiervoor zou gebruik gemaakt kunnen worden van verschillende systemen. Zo zou (zoals het huidige proces) voor taken binnen de naam aangegeven kunnen worden voor welk team een taak is en als taken verder de zelfde naam hebben ze binnen het PMP groeperen als mijlpalen. Een vergelijkbare werkwijze zou gehanteerd kunnen worden aan de hand van [tags](https://developer.productive.io/tags.html#tags).
 
@@ -55,3 +95,4 @@ Als een taak over verschillende teams verdeeld moet worden zou er voor de hoofdt
 Voordeel: Er is geen uitbreiding op het Productive pakket nodig. Data over mijlpalen is beschikbaar op productive.
 
 Nadeel: Binnen productive onschuldig lijkende aanpassingen zoals een omschrijving wijzigen zou invloed kunnen hebben op de PMP task dependencies. De oplossing is vrij foutgevoelig.
+

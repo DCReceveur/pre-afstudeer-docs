@@ -250,7 +250,6 @@ public async Task<ActionResult<TaskModel>> UpdateTask(UpdateTaskModel model)
 public async Task<ActionResult<boolean>> DeleteTask(int taskId) -->
 
 ```plantuml
-' top to bottom direction
  left to right direction
 package api{
   package Controllers{
@@ -278,6 +277,7 @@ package Services{
   interface "ICommentRepository" as IComment_Repository
   interface "ILogRepository" as ILog_Repository
 }
+package service{
   class TaskService{
     -ITask_Repository
     addTaskToProject(TaskInputModel, ProjectId)
@@ -305,6 +305,7 @@ package Services{
     -ITask_Repository
     -IComment_Repository
   }
+}
 }
 
 
@@ -355,6 +356,13 @@ TaskRepository -[hidden]- ProjectRepository
 ProjectRepository -[hidden]- CommentRepository
 CommentRepository -[hidden]- LogRepository
 
+' Service ordening
+' AccountService
+AccountService -[hidden]->TaskService
+TaskService -[hidden]->ProjectService
+ProjectService -[hidden]->CommentService
+CommentService -[hidden]->NotificationService
+NotificationService -[hidden]->BijlageService
 
 ' Service inheritance 
 
@@ -391,11 +399,11 @@ IComment_Repository<--BijlageService
 
 ' Controller dependencies
 
-Project_Controller --> IAccount_Service
-Task_Controller --> ITask_Service
-Project_Controller --> IProject_Service
-Task_Controller --> IComment_Service
-Account_Controller --> IAccount_Service
+Project_Controller -LEFT-> IAccount_Service
+Task_Controller -LEFT-> ITask_Service
+Project_Controller -LEFT-> IProject_Service
+Task_Controller -LEFT-> IComment_Service
+Account_Controller -LEFT-> IAccount_Service
 
 
 

@@ -38,6 +38,8 @@ Ik zou zeggen dat je dashboard een overzicht heeft van alle projecten die een kl
 Het verschil tussen een aanvraag en een taak.
 Is een klant geïnteresseerd in de verschillende mijlpaal taken?
 
+- [ ] Verschillende lijsten in het PMP paginatie geven?
+
 ## Functionele vragen
 
 - [x] Op het moment worden per project verschillende structuren gebruikt qua borden. Dient deze structuur overgenomen te worden per project of zou hier een “versimpelde” structuur getoond moeten worden met bijvoorbeeld alleen todo, doing done of task status open/closed? (productive.io workflows?)
