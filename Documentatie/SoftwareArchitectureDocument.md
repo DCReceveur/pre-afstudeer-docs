@@ -517,22 +517,7 @@ Can a bad sync happen, how would you notice and how would you solve it?
 
 ## Architectural Decision Records
 
-```plantuml
-rectangle "Aanvragen komen in Productive" as Q1
-rectangle "De link tussen een aanvraag en de resulterende taken komen in Productive" as Q2
-rectangle "ADR0008-O1: Taken worden gekoppeld aan de hand van task dependencies" as Q3
-rectangle "ADR0008-O3: Taken worden gekoppeld aan de hand van tags met het id van de parent taak." as Q4
-rectangle "ADR0008-O2: Taken worden gekoppeld in de PMP database" as Q5
-rectangle "ADR0008-O4: Taken worden gekoppeld in de taak omschrijving" as Q6 
 
-
-Q1-DOWN-Q2 : Ja
-Q2-DOWN-Q3 
-Q2-DOWN-Q4 
-
-Q1-DOWN-Q5 : Nee
-Q2-DOWN-Q6
-```
 
 ```plantuml
 

@@ -4,17 +4,17 @@
 
 - [x] Niet besproken met Jesse maar: Voor zo ver ik begrijp werken jullie niet met strikte sprints maar wel met vooraf vastgestelde scopes. Hier komt nog niets van terug in het PMP. Zouden taken/aanvragen gegroepeerd moeten worden in scopes/groepen functionaliteiten of is dit niet nodig?
 
-A: Voorlopig niet, zou mooi zijn in de toekomst periode aan taken te kunnen hangen.
+- A: Voorlopig niet, zou mooi zijn in de toekomst periode aan taken te kunnen hangen.
 
 - [x] Documentatie klankomgeving: heeft een knop voor het toevoegen van een nieuw document. Ik was onder de veronderstelling dat de documentatie waar het hier over ging instructies zijn die van Bluenotion af komen en voor de klant zijn. Moeten wij niet de documenten uploaden?
 
-A: BN upload de documenten
+- A: BN upload de documenten
 
 - [x] Is het interessant om op de tickets pagina, klant pagina of klant project pagina een overzicht te hebben van de tickets die in die context input nodig hebben van de klant of ons? Op het moment staat er 1x input vereist, mij is het onduidelijk of de Bluenotion medewerker deze input moet leveren of de klant
 
 - [x] Voor Jesse: Toewijzen van assignees in productive of pop
 
-A: Productive
+- A: Productive
 
 - [ ] Wat mij betreft mogen de taak detail view en de schermen gebruikt voor het terugkoppelen en goedkeuren van taken gecombineerd worden tot één scherm. Volgens mij zou het ook mogelijk moeten zijn om nadat een taak is “geaccepteerd” aan te geven dat er extra informatie nodig is van de klant.
 
@@ -103,7 +103,7 @@ Is een klant geïnteresseerd in de verschillende mijlpaal taken?
 - A:
 - [ ] Is er wens naar code/path coverage acceptatie criteria?
 - A: Niet besproken, bespreken met Yannic
-- [ ] Wat is de lijst met KPI’s die invloed hebben op de prio van een taak? Is het een kwestie van een x aantal SLA’s aanmaken en deze per project instellen of worden voor verschillende “belangrijkere/minder belangrijke” klanten aparte SLA’s aangeboden?
+- [x] Wat is de lijst met KPI’s die invloed hebben op de prio van een taak? Is het een kwestie van een x aantal SLA’s aanmaken en deze per project instellen of worden voor verschillende “belangrijkere/minder belangrijke” klanten aparte SLA’s aangeboden?
 - A: De drie SLA's die worden aangeboden zijn brons zilver en goud. De KPI's staan in deze SLA's aangegeven.
 - [x] Bestaat er een lijst met welke klant welke SLA heeft of dient dit in het project management portal apart bijgehouden te worden?
 - A: Voordat een project in Productive komt wordt er in een ander programma (Naam navragen) een proces doorlopen waar het contract wordt getekend. Hier worden ook de KPI’s vastgesteld.  
@@ -125,12 +125,12 @@ Deze open issues komen uit de fully dressed use case descriptions.
 
 ## Oud oud
 
-- [ ] Devs werken voor dagelijks gebruik gewoon in productive?
-A: Ja, productive blijft single source of truth
-- [ ] Hebben klanten al een manier waarmee ze inloggen op services van Bluenotion?
-A: Nee, alleen bij productive.
-- [ ] Prio aan de hand van tags konden bepaalde reports niet door uitgedraaid worden?
-A: Tags moeten eerst in een taak gebruikt worden voordat ze in andere taken ook aangegeven kunnen worden. Delete cascade naar andere taken.
+- [x] Devs werken voor dagelijks gebruik gewoon in productive?
+- A: Ja, productive blijft single source of truth
+- [x] Hebben klanten al een manier waarmee ze inloggen op services van Bluenotion?
+- A: Nee, alleen bij productive.
+- [x] Prio aan de hand van tags konden bepaalde reports niet door uitgedraaid worden?
+- A: Tags moeten eerst in een taak gebruikt worden voordat ze in andere taken ook aangegeven kunnen worden. Delete cascade naar andere taken.
 
 ## unsorted
 
@@ -138,4 +138,3 @@ Functionele vragen?
 
 <!-- - [ ] Modelleren doorontwikkeling, bugfix & andere types. Wat is een doorontwikkeling en bug en hoe staat dit in relatie tot de andere types? -->
 <!-- - [ ] 2 borden voor een klant? 1 Wensen, hierin komen enkel wensen. Op basis van deze wensen worden nieuwe taken aangemaakt voor de backlog. Na het afronden van alle gekoppelde taken naar een done board? -->
-

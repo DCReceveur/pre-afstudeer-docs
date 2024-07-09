@@ -521,7 +521,6 @@ Maakt de PM taken aan op de backlog?
 |  | Aanvragen |  |  |
 |  | Aanvragen |  |  |
 
-
 ### Incident Impact, Urgentie en Prioriteit levels
 
 TODO: Heeft dit hoofdstuk toegevoegde waarde?
@@ -841,6 +840,10 @@ Taken tellers
 
 Taken lijst
 
+Raakt:
+- FR2: inzien taken
+- 
+
 ![component met een aantal tickets](/Documentatie/Images/FunctioneelOntwerp/takenlijst.png)
 
 Feed
@@ -930,6 +933,11 @@ Admin:
 ### Unsorted
 
 #### Klant: Dashboard
+
+- Toevoegen project dropdown?
+- Defaults to "All" or "only project"
+- Add pagination, search and filter to tickets component
+- Add banner (zie "Klant>Mijn projecten")
 
 ![Scherm ontwerp voor het globale overzicht van een klant](./Images/FunctioneelOntwerp/Klant_dashboard.png)
 

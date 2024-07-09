@@ -43,14 +43,14 @@ Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en 
 
 | Eis | O1 | O2 | O3 | O4 | O5 |
 |--|--|--|--|--|--|
-| NFR5.1 & NFR5.2: Kan 50 gelijktijdige gebruikers ondersteunen |  |  |  |  |  |
-| NFR2.1 & NFR8.3Delay tussen wijziging in Productive en sync in het PMP |  |  |  |  |  |
-| NFR3.2: Aantal requests naar Productive API |  |  |  |  |  |
-| NFR3.1:Aantal requests naar eigen API/db |  |  |  |  |  |
-| NFR2.1: Betrouwbaarheid gesynchroniseerde data |  |  |  |  |  |
-| NFR2.1: Compleetheid gesynchroniseerde data |  |  |  |  |  |
-| NFR8.*: Opties voor catastrophisch herstel |  |  |  |  |  |
-| Implementatie complexiteit |  |  |  |  |  |
+| NFR5.1 & NFR5.2: Kan 50 gelijktijdige gebruikers ondersteunen | + | ++ | + | - | - |
+| NFR2.1 & NFR8.3Delay tussen wijziging in Productive en sync in het PMP | ++ | + | -- | + | ++ |
+| NFR3.2: Aantal requests naar Productive API | -- | ++ | + | -- | -- |
+| NFR3.1: Aantal requests naar eigen API/db | ++ | + | + | -- | -- |
+| NFR2.1: Compleetheid & Betrouwbaarheid gesynchroniseerde data | ++ | + | -- | ++ | ++ |
+| NFR8.*: Opties voor catastrophisch herstel | ++ | +/- | +/- | +/- | +/- |
+| Implementatie complexiteit | + | - | + | - | - |
+| Totaal: | 8 | 6 | 0 | -1 | -2 |
 
 Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](./FunctioneelOntwerp.md#nonfunctional-requirements).
 
@@ -147,6 +147,110 @@ Door webhooks de standaard data synchronisatie te laten afhandelen zou het scena
 TODO:
 *De last activity geeft me geen garantie dat alle data tot dat punt is weggeschreven, alleen dat de activity van dat moment is weggeschreven. Kan ik iets zeggen over de activities die er voor kwamen en de garantie dat deze ook in de lokale database voorkomen?
 
+## ADR001-O2 Webhooks Proof of Concept
+
+Van de initieel voorgestelde opties [ADR001-O1 tm ADR001-O5](/Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) leek [ADR001-O2](/Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) de meest flexibele en schaalbare optie. Omdat deze optie wegens complexere implementatie toch lager scoorde dan ADR001-O1 is besloten te onderzoeken of deze optie ook in de praktijk naar verwachting functioneert en of het haalbaar is in de opgegeven afstudeer tijd is in drie fases een Proof of Concept prototype opgezet met de volgende eisen:
+
+### Phase 1
+
+De eerste fase van het onderzoek wordt gebruikt om snel potentiële problemen te vinden met de voorgestelde aanpak. Zonder veel werk te stoppen in het programmeren van het systeem wordt gekeken of alle data die nodig is voor een basis implementatie van het PMP via webhooks verkregen kan worden en indien dit niet het geval is wordt gekeken wat potentiële alternatieven zijn. Door vroegtijdig te kijken welke data via deze manier binnengehaald kan worden is de hoop dat mochten er problemen zijn met deze aanpak dat ze vroegtijdig naar boven komen en nagedacht kan worden over een andere keuze voor ADR001.
+
+- Vraag: Hoe dicht in de buurt van de webhook limits komt het dagelijks gebruik van Bluenotion? 1000 per 5 min
+- Vraag: Kan een systeem op basis van webhooks foutieve informatie ontdekken en herstellen?
+- Is er een initiële dataset nodig?
+- Wordt alle informatie die het PMP nodig heeft doorgegeven aan de hand van webhooks? Wat gebeurt er bijvoorbeeld met comments?
+  A: Staan als activity onder het object waar een comment op is achter gelaten.
+
+### Phase 2
+
+Na binnen fase 1 gekeken te hebben naar of alle data technisch gezien beschikbaar is is het doel van fase 2 een kleinschalig prototype op te zetten die voor één project de benodigde data in een lokale database zet. Hierbij is vooral het testen van de compleetheid en accuraatheid van de data belangrijk. Door eerst op kleine schaal data te synchroniseren is de hoop dat potentiële edge cases sneller opvallen en opgelost kunnen worden.
+
+- POC: Worden binnen de webhooks alle identificerende data van objecten meegegeven of kan data uit de Productive API ambigu zijn?
+- POC: Zet een procedure op die bij Productive kijkt of de webhooks actief zijn en indien dit niet het geval is webhooks kan activeren.
+- POC: Zet een procedure op die aan de hand van webhooks één project passief op hoogte houdt met wijzigingen binnen Productive. (create, update delete webhooks on at least task & project)
+- POC: Zet een aantal API endpoints op die (tijdelijke) Project/Taak data accepteren en doorsturen naar Productive via de Productive REST APi
+- POC: (afhankelijk initiële dataset vraag) Zet een procedure op die voor één project alle voor het PMP relevante Project en taak informatie ophaalt.*
+*Dit is een grote. Er zou voor een initiële dataset veel data (boven de api limits) aan Productive gevraagd moeten worden.
+
+Now make it crack.
+
+### Phase 3
+
+Binnen fase 3 wordt het kleinschalige POC uitgebreid naar een "volwaardige" synchronisatie module die zonder verdere input de PMP database synchroniseert met wijzigingen binnen Productive en visa versa. Alle data die niet aan de hand van de webhooks gesynchroniseerd kan worden dient in het FO/TO genoteerd te worden met een potentiële oplossing voor waar de data eventueel vandaan kan komen. Ook worden er binnen fase 3 zo veel mogelijk edge cases getest die er voor moeten zorgen dat de data die in het PMP komt te staan correct en compleet is.
+
+- FO/TO: Verifieer of naast project en taak data andere data nodig is van de webhooks
+- FO/TO: Noteer voor alle data vragen binnen het PMP eventuele resterende REST endpoints.
+- POC: Breidt het POC uit door in plaats van data uit één project te verzamelen data uit alle projecten te verzamelen.
+
+Now make it crack.
+
+- Verifieer dat alle data binnen komt.*
+  - Wat als de PMP server bezig is met het verwerken van een ander bericht?
+  - Wat als de Productive server boven de 12 (max) retries komt?
+  - Wat als wijzigingen over de zelfde data gaan en ongeveer tegelijkertijd gedaan worden?
+  - Wat als data in een onverwachte volgorde binnenkomt/verwerkt wordt?
+  - Hoe gaan we met attachments om? Zelf hosten? Gebruik maken van Productive "hosting"?
+- Meet het gebruik van de webhooks tegenover de schatting van phase 1.
+
+*Is dit concreet testbaar? Mogelijk met integratietests? Zijn dit "HAN deelvragen"? Moet ik überhaupt "HAN deelvragen" hebben?
+
+1. Set up webhook
+2. Post data to productive
+3. Verify webhook trigger
+4. Verify database
+
+## Resultaten
+
+### Fase 1
+
+#### Hoe dicht in de buurt van de webhook limits komt het dagelijks gebruik van Bluenotion?
+
+Om deze vraag te beantwoorden is gebruik gemaakt van de Productive activities endpoint. Deze endpoint geeft de mogelijkheid met filters activiteiten binnen taken, projecten, personen, bedrijven en meer te bekijken. Hiermee is het mogelijk alle productive wijzigingen op te vragen van bijvoorbeeld afgelopen week.
+
+In 1 week, 3 pagina's van +/- 200 items
+
+```https://api.productive.io/api/v2/activities?X-Feature-Flags=includes-overhaul&filter%5Bafter%5D=30-06-2024&filter%5Bbefore%5D=08-07-2024&page%5Bnumber%5D=3&page[size]=200```
+
+Er is geen filter toegepast die enkel projecten, taken en comments dus er staan een aantal andere items in zoals boekingen maar het overgrote deel is data dat binnen het PMP nodig is. Dit houdt in dat binnen een reguliere week rond de 600 creates/updates/deletes zijn gedaan binnen productive op items waar het PMP in geïnteresseerd is. Aangezien webhooks gelimiteerd zijn aan 1000 requests per 5 min zit Bluenotion vooralsnog ver onder de limieten zoals opgelegd door Productive.
+
+#### Kan een systeem op basis van webhooks foutieve informatie ontdekken en herstellen?
+
+#### Is er een initiële dataset nodig?
+
+Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database calls (lokaal en binnen de Productive API) voor één data vraag. Aangezien deze calls relatief dure/langzame operaties zijn zou een procedure waar enkel de "nodige" data uit Productive wordt gehaald resulteren in een tragere applicatie. Aangezien de datum gevonden in de eerste request als input dient voor de rest van de data requests moet de verzameling van deze data sequentieel gebeuren waardoor de snelheid van de applicatie nog verder zou afnemen en mogelijk boven het limiet zoals beschreven in [NFR3.1 en NFR3.2](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements) zou komen.
+
+Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden.
+
+#### Wordt alle informatie die het PMP nodig heeft doorgegeven aan de hand van webhooks
+
+Hoe krijg ik een task_list_id? deze is niet aanwezig in /activities. niet includable vanuit activities, zou wel kunnen dat hij vanaf de webhooks te bereiken is.
+TODO: test* Indien dit niet mogelijk is zou het kunnen dat de "status" zoals beschreven in het [functioneel ontwerp](/Documentatie/FunctioneelOntwerp.md#toelichting-statuses)
+
+### Fase 2
+
+### Fase 3
+
+<!-- Afhankelijk van ADR001-Communicatie met de Productive API heeft de synchronisatie service een aantal verschillende rollen:
+
+- Een manier van verificatie bieden of data gevonden in het PMP overeen komt met data gevonden in het project management systeem.
+
+TODO: Procedure uittekenen
+
+- Handmatige synchronisatie starten waarmee de initiële dataset wordt binnengehaald.
+
+TODO: Procedure uittekenen
+
+- Het opzetten en in stand houden van webhooks die gebruikt kunnen worden om wijzigingen door te geven aan het PMP.
+
+De voorlopige opzet maakt gebruik van een initiële dataset en webhooks om data van Productive over te nemen naar de lokale PMP database. Door de data uit Productive naar een eigen database te halen krijgen we controle over de rate limits en dus schaalbaarheid van de applicatie.*
+
+*Geeft dit een onveiliger systeem ivm meer user input?
+
+Is er een initiële dataset nodig?
+
+Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database calls (lokaal en binnen de Productive API) voor één data vraag. Aangezien deze calls relatief dure/langzame operaties zijn zou een procedure waar enkel de "nodige" data uit Productive wordt gehaald resulteren in een tragere applicatie. Aangezien de datum gevonden in de eerste request als input dient voor de rest van de data requests moet de verzameling van deze data sequentieel gebeuren waardoor de snelheid van de applicatie nog verder zou afnemen en mogelijk boven het limiet zoals beschreven in [NFR3.1 en NFR3.2](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements) zou komen.
+
+Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden. -->
 
 
 <!-- In plaats van een directe afhankelijkheid op de Productive API is het ook mogelijk de data van Productive in een eigen database bij te houden. Hierdoor zou het mogelijk zijn de PMP applicatie los te koppelen van de Productive rate limits en reactie tijden.

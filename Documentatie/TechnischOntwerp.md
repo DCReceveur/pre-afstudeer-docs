@@ -257,14 +257,14 @@ package api{
     class "TaskController" as Task_Controller
     class "AccountController" as Account_Controller
   }
-package Interfaces{
-  interface "IAccountService" as IAccount_Service
-  interface "ITaskService" as ITask_Service
-  interface "IProjectService" as IProject_Service
-  interface "ICommentService" as IComment_Service
-  interface "INotificationService" as INotification_Service
-  interface "IBijlageService" as IBijlage_Service
-}
+  package Interfaces{
+    interface "IAccountService" as IAccount_Service
+    interface "ITaskService" as ITask_Service
+    interface "IProjectService" as IProject_Service
+    interface "ICommentService" as IComment_Service
+    interface "INotificationService" as INotification_Service
+    interface "IBijlageService" as IBijlage_Service
+  }
 }
 
 
@@ -276,36 +276,39 @@ package Services{
   interface "IProjectRepository" as IProject_Repository
   interface "ICommentRepository" as IComment_Repository
   interface "ILogRepository" as ILog_Repository
-}
-package service{
-  class TaskService{
-    -ITask_Repository
-    addTaskToProject(TaskInputModel, ProjectId)
-    ChangeTaskStatus(TaskInputModel)
+  }
+  package service{
+    class TaskService{
+      -ITask_Repository
+      addTaskToProject(TaskInputModel, ProjectId)
+      ChangeTaskStatus(TaskInputModel)
+    }
+    class NotificationService{
+      -ILogRepository
+      +SendEmailNotification(Template, data)
+    }
 
+    class AccountService{
+      -IAccount_Repository
+    }
+    class ProjectService{
+      -IProject_Repository
+    }
+    class CommentService{
+      -IComment_Repository
+      +AddComment()
+      +ModifyComment()
+      +DeleteComment()
+    }
+    class BijlageService{
+      -ITask_Repository
+      -IComment_Repository
+    }
+    class SynchronizationService{
+      +ManualSynchronization()
+      +RunWebhooks()
+    }
   }
-  class NotificationService{
-    -ILogRepository
-    +SendEmailNotification(Template, data)
-  }
-
-  class AccountService{
-    -IAccount_Repository
-  }
-  class ProjectService{
-    -IProject_Repository
-  }
-  class CommentService{
-    -IComment_Repository
-    +AddComment()
-    +ModifyComment()
-    +DeleteComment()
-  }
-  class BijlageService{
-    -ITask_Repository
-    -IComment_Repository
-  }
-}
 }
 
 
@@ -433,4 +436,69 @@ TaskController	Verantwoordelijk voor endpoints met betrekking tot Taken of taak 
 CommentController	Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?).
 ProductiveSyncController	Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. -->
 
-### DB?
+### SynchronizationService
+
+Afhankelijk van ADR001-Communicatie met de Productive API heeft de synchronisatie service een aantal verschillende rollen:
+
+- Een manier van verificatie bieden of data gevonden in het PMP overeen komt met data gevonden in het project management systeem.
+
+TODO: Procedure uittekenen
+
+- Handmatige synchronisatie starten waarmee de initiële dataset wordt binnengehaald.
+
+TODO: Procedure uittekenen
+
+- Het opzetten en in stand houden van webhooks die gebruikt kunnen worden om wijzigingen door te geven aan het PMP.
+
+De voorlopige opzet maakt gebruik van een initiële dataset en webhooks om data van Productive over te nemen naar de lokale PMP database. Door de data uit Productive naar een eigen database te halen krijgen we controle over de rate limits en dus schaalbaarheid van de applicatie.*
+
+*Geeft dit een onveiliger systeem ivm meer user input?
+
+Is er een initiële dataset nodig?
+
+Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database calls (lokaal en binnen de Productive API) voor één data vraag. Aangezien deze calls relatief dure/langzame operaties zijn zou een procedure waar enkel de "nodige" data uit Productive wordt gehaald resulteren in een tragere applicatie. Aangezien de datum gevonden in de eerste request als input dient voor de rest van de data requests moet de verzameling van deze data sequentieel gebeuren waardoor de snelheid van de applicatie nog verder zou afnemen en mogelijk boven het limiet zoals beschreven in [NFR3.1 en NFR3.2](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements) zou komen.
+
+Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden.
+
+Omdat het verzamelen en tonen van accurate data afkomstig uit Productive een van de hoofd functionaliteiten is het van belang dat de synchronisatie module goed functioneert. Om deze reden wordt een prototype opgezet die volgens de voorgestelde oplossing [(ADR001-O2)](/Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) aan de hand van webhooks een lokale database gesynchroniseerd houdt. De volgende eisen zijn opgesteld voor het prototype:
+
+Phase 1:
+
+- Vraag: Hoe dicht in de buurt van de webhook limits komt het dagelijks gebruik van Bluenotion? 1000 per 5 min
+- Vraag: Kan een systeem op basis van webhooks foutieve informatie ontdekken en herstellen?
+- Is er een initiële dataset nodig?
+
+Phase 2:
+
+- POC: Zet een procedure op die bij Productive kijkt of de webhooks actief zijn en indien dit niet het geval is webhooks kan activeren.
+- POC: Zet een procedure op die aan de hand van webhooks één project passief op hoogte houdt met wijzigingen binnen Productive. (create, update delete webhooks on at least task & project)
+- POC: Zet een aantal API endpoints op die (tijdelijke) Project/Taak data accepteren en doorsturen naar Productive via de Productive REST APi
+- POC: (afhankelijk initiële dataset vraag) Zet een procedure op die voor één project alle voor het PMP relevante Project en taak informatie ophaalt.*
+*Dit is een grote. Er zou voor een initiële dataset veel data (boven de api limits) aan Productive gevraagd moeten worden.
+
+Now make it crack.
+
+Phase 3:
+
+- FO/TO: Verifieer of naast project en taak data andere data nodig is van de webhooks
+- FO/TO: Noteer voor alle data vragen binnen het PMP eventuele resterende REST endpoints.
+- POC: Breidt het POC uit door in plaats van data uit één project te verzamelen data uit alle projecten te verzamelen.
+
+Now make it crack.
+
+- Verifieer dat alle data binnen komt.*
+  - Wat als de PMP server bezig is met het verwerken van een ander bericht?
+  - Wat als de Productive server boven de 12 (max) retries komt?
+  - Wat als wijzigingen over de zelfde data gaan en ongeveer tegelijkertijd gedaan worden?
+  - Wat als data in een onverwachte volgorde binnenkomt/verwerkt wordt?
+  - Hoe gaan we met attachments om? Zelf hosten? Gebruik maken van Productive "hosting"?
+- Meet het gebruik van de webhooks tegenover de schatting van phase 1.
+
+*Is dit concreet testbaar? Mogelijk met integratietests?
+
+1. Set up webhook
+2. Post data to productive
+3. Verify webhook trigger
+4. Verify database
+
+### DB
