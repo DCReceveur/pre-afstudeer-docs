@@ -830,6 +830,61 @@ NFR categories: https://www.altexsoft.com/blog/non-functional-requirements/
 https://www.altexsoft.com/blog/software-requirements-specification/
 Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->
 
+### Authenticatie, Autorisatie, Accounting
+
+#### Authenticatie
+
+Authenticatie wordt gedaan aan de hand van PMP interne accounts zoals beschreven in [ADR010-O1](./Documentatie/Decisions/Architecture/ADR010-Authentication.md#o1-intern). Hiermee worden voor klanten van Bluenotion die toegang dienen te krijgen tot het PMP accounts aangemaakt en uitnodigings links verstuurd naar de betreffende gebruiker. De gebruiker is zelf verantwoordelijk voor het aanmaken en periodiek wijzigen van het te gebruiken wachtwoord.
+
+#### Autorisatie
+
+Voor autorisatie wordt gebruik gemaakt van claims die binnen het PMP gekoppeld zijn aan de gebruikers accounts, de voorgestelde claims zijn gebaseerd op de [actors van het systeem](#actors) en zien er als volgt uit:
+
+| Naam | Omschrijving | Oorsprong |
+|---|---|---|
+| Company admin (comp_id) |  Heeft volledige read en write toegang tot alle data gerelateerd aan zijn/haar bedrijf |  [ACT1 Externe klant](#act1-externe-klant) |
+| Organization admin (org_id) | Heeft volledige read en write toegang tot alle data gerelateerd aan zijn/haar organisatie.  | [ACT2 Bluenotion admin](#act2-bluenotion-admin)  |
+| Organization employee (org_id) | Heeft leestoegang tot alle data gerelateerd aan zijn/haar organisatie, de mogelijkheid hier comments aan toe te voegen, taaklijsten en statussen aan te passen.  |  [ACT3 Bluenotion medewerker](#act3-bluenotion-medewerker) |
+| System | Heeft leestoegang en de optie mailtjes te sturen. | [ACT4 Notificatie manager](#act4-notificatie-manager) |
+| Company employee (comp_id) | Heeft lees rechten op alle data gerelateerd aan zijn/haar bedrijf  |  [ACT5 Externe klant read](#act5-externe-klant-read) |
+
+Ter verduidelijking over welke groep bij welke data mag is een deel van de relevante informatie uit het productive data model gehaald:
+
+```plantuml
+
+rectangle Organization as org
+rectangle Company as comp
+rectangle User as usr
+rectangle Project as prj
+rectangle Board as brd
+rectangle Task as tsk
+rectangle "Task list" as tsk_lst
+org -- comp :< customer of
+comp -- prj :< project for
+prj--brd :< board for
+brd--tsk_lst :< list on
+tsk_lst--tsk :< task on
+
+comp -- usr :< works at
+org -- usr :< works at
+
+```
+
+In dit overzicht is te zien dat gebruikers op beiden company niveau en organisatie niveau kunnen zitten. Twee dingen die in dit diagram minder duidelijk zijn aangegeven zijn de "works at" relatie (die zoals in de verschillende rollen aangegeven kunnen bestaan uit een admin functie of een generieke medewerkers functie) en waar comments bestaan in het geheel.
+
+TODO Notes:
+
+- Bluenotion admin, Bluenotion medewerker is niet heel algemeen.
+
+Binnen productive is Bluenotion een organization, deze structuur kan ook binnen het PMP aangehouden worden. Zou het PMP één instantie hebben per organisatie of zou één instantie meerdere organisaties beheren?
+
+Keep in mind dat de Bluenotion api key enkel resultaten van org Bluenotion kent
+
+- 
+
+#### Accounting
+
+
 ## Scherm ontwerpen
 
 ### Componenten
