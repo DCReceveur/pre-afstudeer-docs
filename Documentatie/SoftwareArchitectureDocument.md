@@ -2,6 +2,36 @@
 
 Binnen dit overzicht wordt aan de hand van het c4 model voor software architectuur documentatie een globaal overzicht gegeven van het geplande Project Management Portal.
 
+<!-- TOC -->
+
+- [Software Architecture Document](#software-architecture-document)
+  - [Context](#context)
+  - [Containers](#containers)
+  - [Components](#components)
+    - [React front-end](#react-front-end)
+      - [Toelichting FE componenten](#toelichting-fe-componenten)
+    - [PMP API](#pmp-api)
+      - [Toelichting API componenten](#toelichting-api-componenten)
+    - [PMP Services](#pmp-services)
+      - [Toelichting Service componenten](#toelichting-service-componenten)
+        - [Interfaces](#interfaces)
+        - [Namespaces\*](#namespaces)
+        - [Componenten](#componenten)
+        - [Sync service](#sync-service)
+          - [Regular sync](#regular-sync)
+          - [Clean sync](#clean-sync)
+    - [PMP Database \& Data models](#pmp-database--data-models)
+      - [API.Models](#apimodels)
+      - [Services.Models](#servicesmodels)
+      - [Database.Models](#databasemodels)
+    - [Notification system](#notification-system)
+    - [Productive API](#productive-api)
+  - [Code](#code)
+    - [Productive API sync](#productive-api-sync)
+  - [Architectural Decision Records](#architectural-decision-records)
+
+<!-- /TOC -->
+
 ## Context
 
 Zoals beschreven in het [FO](/Documentatie/FunctioneelOntwerp.md) besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*
@@ -134,7 +164,7 @@ rectangle "React front-end"{
 | **Partials** | Binnen de components worden generieke views gemaakt die onafhankelijk zijn van de gebruiker of die door de betreffende customer of admin views worden aangevuld. |
 | **Generated API** | De generated API is de OpenAPI representatie van de back-end. Deze wordt [automatisch gegenereerd](https://openapi-generator.tech/) en is functioneel gelijk aan de [PMP API](#pmp-api) |
 
-### <a id="Component-PMP-API" /></a> PMP API
+### <a id="Component-PMP-API" /></a>PMP API
 
 Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
@@ -342,7 +372,7 @@ TODO: rename productive service?
 
 TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
 
-### <a id="Component-PMP-DB" /></a> PMP Database & Data models
+### <a id="Component-PMP-DB" /></a>PMP Database & Data models
 
 De database package is verantwoordelijk voor het low level beheer van de database verbinding en het database model. De verbinding en communicatie met de database wordt afgehandeld aan de hand van MS Entity Framework.
 
@@ -425,7 +455,7 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 ### Productive API -->
 
-### <a id="Component-Notification-system" /> Notification system
+### <a id="Component-Notification-system" />Notification system
 
 Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in [FR4.1](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in [FR4.2](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals).
 
@@ -433,7 +463,7 @@ De details van het notificatie systeem zijn nog niet uitgewerkt, er zal een mail
 
 TODO: Details wel uitwerken
 
-### <a id="Component-Productive-API" /> Productive API
+### <a id="Component-Productive-API" />Productive API
 
 De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het [FO](/Documentatie/FunctioneelOntwerp.md#domein) is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:
 
@@ -516,8 +546,6 @@ Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data 
 Can a bad sync happen, how would you notice and how would you solve it?
 
 ## Architectural Decision Records
-
-
 
 ```plantuml
 
