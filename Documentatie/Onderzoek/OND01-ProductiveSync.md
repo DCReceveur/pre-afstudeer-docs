@@ -215,6 +215,66 @@ Er is geen filter toegepast die enkel projecten, taken en comments dus er staan 
 
 #### Kan een systeem op basis van webhooks foutieve informatie ontdekken en herstellen?
 
+Aangezien binnen het PMP (waarschijnlijk*) twee datasources zullen bestaan waar om de druk op de Productive API te verlagen primair gebruik wordt gemaakt van de lokale PMP database is het van belang dat data in deze database compleet en correct is. Om de compleetheid en correctheid te kunnen garanderen dient er gekeken te worden naar verschillende manieren om te detecteren wanneer data fout is en de juiste data te herstellen als het fout is. 
+
+TDOO: waarschijnlijk weghalen? ADR001
+
+##### Optie1: Last edited
+
+Omschrijving:
+
+Productive houdt intern changes aan hun entiteiten bij aan de hand van drie datetime velden genaamd "created_at", "deleted_at" en "updated_at". Deze data wordt niet alleen meegestuurd* met de webhooks maar ook met elke aanvraag naar de reguliere REST API. Aan de hand van deze data zou binnen het PMP in ieder geval gekeken kunnen worden of de laatste edit aan een entiteit is doorgevoerd. Of de data vervolgens 100% overeen komt met de data op Productive is zonder extra requests naar Productive echter lastiger.
+
+TODO: *meegestuurd zin opnieuw schrijven
+
+Pro:
+
+- 
+
+Con:
+
+
+
+##### Optie2: Item counts
+
+Omschrijving:
+
+Nog ruwer dan optie 1.
+
+Pro:
+
+Con:
+
+##### Optie3: Edits gaan automatisch fout in productive
+
+Omschrijving:
+
+Bij deze oplossing zijn we niet zo zeer actief aan het zoeken naar fouten om ze op te lossen maar worden edits "on good faith" naar Productive gestuurd met het idee dat als data fout, out of date of incompleet is Productive niet toegestane edits niet toe laat.
+
+Pro:
+
+Con:
+
+##### Optie4: ADR001-O1
+
+Omschrijving:
+
+Data hoeft niet gesynchroniseerd te worden als er direct met de Productive data gewerkt wordt.
+
+Pro:
+
+Con:
+
+##### Optie5: Iets aan de hand van activities endpoint?
+
+Omschrijving:
+
+Er zou periodisch een call gemaakt kunnen worden naar de /activities endpoint om telkens de nieuwe staat van de database te verifiëren.
+
+Pro:
+
+Con:
+
 #### Is er een initiële dataset nodig?
 
 Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database calls (lokaal en binnen de Productive API) voor één data vraag. Aangezien deze calls relatief dure/langzame operaties zijn zou een procedure waar enkel de "nodige" data uit Productive wordt gehaald resulteren in een tragere applicatie. Aangezien de datum gevonden in de eerste request als input dient voor de rest van de data requests moet de verzameling van deze data sequentieel gebeuren waardoor de snelheid van de applicatie nog verder zou afnemen en mogelijk boven het limiet zoals beschreven in [NFR3.1 en NFR3.2](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements) zou komen.
@@ -225,6 +285,24 @@ Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden
 
 Hoe krijg ik een task_list_id? deze is niet aanwezig in /activities. niet includable vanuit activities, zou wel kunnen dat hij vanaf de webhooks te bereiken is.
 TODO: test* Indien dit niet mogelijk is zou het kunnen dat de "status" zoals beschreven in het [functioneel ontwerp](/Documentatie/FunctioneelOntwerp.md#toelichting-statuses)
+
+#### webhook types
+
+Binnen het vooronderzoek bleek dat Productive twee "types" webhooks biedt, om een geïnformeerde keuze te kunnen maken is gekeken naar de verschillen tussen deze twee types en wat dit betekend voor het PMP project.
+
+##### Type 1: Webhook
+
+Dit zijn reguliere webhooks, in te dienen bij Productive via de REST API met een event en een callback adres. Op het callback adres dient een endpoint beschikbaar te zijn die het HTTP bericht en zijn content verwerkt en een 2xx response code terug dient te sturen.
+
+##### Type 2: Zapier
+
+Om een begrip op te bouwen over wat een Zapier webhook is wordt uitgegaan van [dit artikel](https://caisy.io/blog/webhooks-vs-zapier). Uit dit artikel blijkt dat Zapier automatie tooling is die gebruikt kan worden om zonder code te schrijven simpele taken te automatiseren tussen verschillende applicaties. Hiermee heb je de optie snel simpele procedures op te zetten maar verlies je een stukje flexibiliteit door Zapiers proprietary protocol.
+
+##### Conclusie
+
+De eerste indruk van Zapier is dat de vereenvoudigde automatisering voor kleinere/eenvoudigere projecten nuttig kan zijn, zoals het inlichten van een persoon bij een specifiek soort ticket. Hiervoor zou geen code geschreven hoeven worden en zou puur in de GUI van Zapier kunnen gebeuren.
+
+Aangezien in het PMP de webhooks gebruikt zouden worden om de gehele dataset te synchroniseren en er binnen dit project toch endpoints geschreven moeten worden om data over projecten en taken te verwerken voor de front-end zie ik de voordelen van Zapier binnen het PMP vooralsnog niet opwegen tegen de extra kosten en verlaagde maten van flexibiliteit.
 
 ### Fase 2
 
