@@ -8,25 +8,25 @@ De definition of ready dient als ondersteuning voor verduidelijken van wensen en
 
 Documentatie eisen:
 
-- FO: Bevat userstory met de eis
-- FO: Bevat fully dressed usecase die de eis beschrijft
+- FO: Bevat user story met de eis
+- FO: Bevat fully dressed use case die de eis beschrijft
 - FO: Aangemaakte taken hebben een prioriteit (MoSCoW of nummering?)
-- FO: Er zijn wireframes of mockups gemaakt van de te realiseren functionaliteit.
-- FO: Voor actors, functionele requirements, niet functionele requirements en usecases worden unieke identifiers aangemaakt waar door de rest van de documentatie naar gerefereerd kan worden.
+- FO: Er zijn wire frames of mockups gemaakt van de te realiseren functionaliteit.
+- FO: Voor actors, functionele requirements, niet functionele requirements en use cases worden unieke identifiers aangemaakt waar door de rest van de documentatie naar gerefereerd kan worden.
   - Actors: ACT1, ACT2, ACT3...
   - Functionele requirements: FR1, FR2, FR3...
   - Niet functionele requirements: NFR1, NFR2, NFR3...
-  - Usecases: UC1, UC2, UC3...
-- TR: In iedergeval de happy flow van de use case is opgenomen in het testrapport.
+  - Use cases: UC1, UC2, UC3...
+- TR: In ieder geval de happy flow van de use case is opgenomen in het testrapport.
 - Onderzoek: Er zijn duidelijke hoofd en deelvragen en een methode gekozen waarop deze beantwoord zullen worden.
 - Planning: Er is een taak aangemaakt met tijds inschatting in Productive.
 - Planning: Aangemaakte taken kunnen (indien opgepakt) binnen één dag van Ready naar Done.
 - Alle documentatie: Binnen documenten worden de boven genoemde unieke identifiers gebruikt voor de tracability van verschillende requirements.
-- Alle documentatie: Documentatie is geschreven in het nederlands
+- Alle documentatie: Documentatie is geschreven in het Nederlands
 
 Controle:
 
-- PM/TL heeft de fully dressed usecase goedgekeurd in het Functioneel ontwerp. (of gewoon userstory?)
+- PM/TL heeft de fully dressed use case goedgekeurd in het Functioneel ontwerp. (of gewoon userstory?)
 
 ## Definition of Done
 
