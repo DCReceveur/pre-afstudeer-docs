@@ -2,82 +2,6 @@
 
 Dit document dient als toelichting op de functionele eisen van het Product Management Portal. Na het doornemen van dit document dienen alle betrokken partijen een duidelijk beeld te hebben van precies wat het opgeleverde Project Management Portal functioneel kan.
 
-
-
-<!-- TOC -->
-
-- [Functioneel ontwerp Project Management Portal](#functioneel-ontwerp-project-management-portal)
-  - [Aannames en afhankelijkheden](#aannames-en-afhankelijkheden)
-  - [Actors](#actors)
-    - [ACT1: Externe klant](#act1-externe-klant)
-    - [ACT2: Bluenotion Admin](#act2-bluenotion-admin)
-    - [ACT3: Bluenotion medewerker](#act3-bluenotion-medewerker)
-    - [ACT4: Notificatie manager](#act4-notificatie-manager)
-    - [ACT5: Externe klant (read)](#act5-externe-klant-read)
-  - [Domein](#domein)
-    - [Toelichting domeinmodel](#toelichting-domeinmodel)
-    - [Lifecycle aanvragen](#lifecycle-aanvragen)
-    - [Bord structuur](#bord-structuur)
-      - [Toelichting borden](#toelichting-borden)
-      - [Toelichting statuses](#toelichting-statuses)
-    - [Incident Impact, Urgentie en Prioriteit levels](#incident-impact-urgentie-en-prioriteit-levels)
-  - [Requirements](#requirements)
-    - [User stories](#user-stories)
-    - [Use case diagram](#use-case-diagram)
-    - [Requirements traceability matrix](#requirements-traceability-matrix)
-      - [Nonfunctional requirements](#nonfunctional-requirements)
-    - [Authenticatie, Autorisatie, Accounting](#authenticatie-autorisatie-accounting)
-      - [Authenticatie](#authenticatie)
-      - [Autorisatie](#autorisatie)
-      - [Accounting](#accounting)
-  - [Scherm ontwerpen](#scherm-ontwerpen)
-    - [Functionele requirements die worden aangekaart in de ontwerpen](#functionele-requirements-die-worden-aangekaart-in-de-ontwerpen)
-    - [View1: Dashboard](#view1-dashboard)
-      - [View1: Organization admin](#view1-organization-admin)
-      - [View1: Company admin](#view1-company-admin)
-      - [View1: Organization employee](#view1-organization-employee)
-      - [View1: Company employee](#view1-company-employee)
-    - [View2: Mijn projecten](#view2-mijn-projecten)
-      - [View2: Organization admin](#view2-organization-admin)
-      - [View2: Company admin](#view2-company-admin)
-      - [View2: Organization employee](#view2-organization-employee)
-      - [View2: Company employee](#view2-company-employee)
-    - [View3: Taak detail view](#view3-taak-detail-view)
-      - [View3: Organization admin](#view3-organization-admin)
-      - [View3: Company admin](#view3-company-admin)
-      - [View3: Organization employee](#view3-organization-employee)
-      - [View3: Company employee](#view3-company-employee)
-    - [View4: Toevoegen taak view](#view4-toevoegen-taak-view)
-      - [View4: Organization admin](#view4-organization-admin)
-      - [View4: Company admin](#view4-company-admin)
-      - [View4: Organization employee](#view4-organization-employee)
-      - [View4: Company employee](#view4-company-employee)
-    - [View5: Documentatie view](#view5-documentatie-view)
-      - [View5: Organization admin](#view5-organization-admin)
-      - [View5: Company admin](#view5-company-admin)
-      - [View5: Organization employee](#view5-organization-employee)
-      - [View5: Company employee](#view5-company-employee)
-    - [Unsorted](#unsorted)
-      - [Klant: Dashboard](#klant-dashboard)
-    - [Ontwerpen FR1 Inzien project plannings informatie](#ontwerpen-fr1-inzien-project-plannings-informatie)
-      - [Klant: Projecten pagina](#klant-projecten-pagina)
-      - [Admin: Projecten pagina](#admin-projecten-pagina)
-    - [Ontwerpen FR2 Inzien taken](#ontwerpen-fr2-inzien-taken)
-      - [Klant: Project overzicht](#klant-project-overzicht)
-      - [Klant: Taken lijst](#klant-taken-lijst)
-      - [Klant: Taken detail](#klant-taken-detail)
-      - [Admin: Taken lijst](#admin-taken-lijst)
-      - [Admin: Taken detail](#admin-taken-detail)
-    - [Ontwerpen FR3 Toevoegen taken](#ontwerpen-fr3-toevoegen-taken)
-      - [Klant: Toevoegen aanvraag](#klant-toevoegen-aanvraag)
-    - [Ontwerpen FR4 Versturen notificaties](#ontwerpen-fr4-versturen-notificaties)
-    - [Ontwerpen FR5 Opstellen project](#ontwerpen-fr5-opstellen-project)
-    - [Ontwerpen FR6 Inzien project service statuses](#ontwerpen-fr6-inzien-project-service-statuses)
-    - [Ontwerpen FR7 Inzien project documentatie](#ontwerpen-fr7-inzien-project-documentatie)
-    - [Ontwerpen FR8 Controleren aanvraag](#ontwerpen-fr8-controleren-aanvraag)
-    - [Componenten](#componenten)
-
-<!-- /TOC -->
 ## Aannames en afhankelijkheden
 
 Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Voor het schrijven van dit document zijn wel de volgende technische aannames gedaan:
@@ -148,7 +72,7 @@ Er werd gesproken over een admin en medewerkers account voor de externe klant. V
 ## Domein
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het Productive systeem direct vastgelegd.
-```plantuml
+```puml
 skinparam linetype ortho
 skinparam nodesep 130
 skinparam ranksep 120
@@ -205,7 +129,7 @@ Board "1..*"--"1" Project :> Voor
 
 ```
 
-<!-- ```plantuml
+<!-- ```puml
 skinparam linetype ortho
 skinparam nodesep 130
 skinparam ranksep 120
@@ -290,7 +214,7 @@ Taak "0..*"--"1" Status :> werkstatus voor
 
 Aangezien een van de primaire doelen van het PMP het inzichtelijk maken van het aangevraagde, uitvoerende en uitgevoerde werk is volgt in dit hoofdstuk een toelichting op de lifecycle van een typische aanvraag/taak binnen Bluenotion. Het in dit hoofdstuk beschreven proces gebeurt in de huidige situatie in een combinatie van excel, Productive en email en telefonische communicatie. Aangezien details kwijt kunnen raken in het volledige [domein model](./FunctioneelOntwerp.md#domein) volgt eerst nog een snelle toelichting op het verschil tussen een aanvraag, taak, doorontwikkeling en incident in de context van hoe deze door Bluenotion in Productive gebruikt worden.
 
-```plantuml
+```puml
 skinparam linetype ortho
 skinparam nodesep 130
 skinparam ranksep 120
@@ -344,7 +268,7 @@ Prioriteit .. (Impact, Urgentie)
 Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
 <!-- Hier onder volgt een generalisatie van hoe de workflow van de meeste projecten loopt. -->
 
-```plantuml
+```puml
 | Externe klant |
 start
 repeat
@@ -413,7 +337,7 @@ stop
 
 Zodra voor een doorontwikkeling of incident een taak is aangemaakt komt deze op een bord terecht in productive. Aan de hand van deze borden houdt Bluenotion bij hoe veel werk nog open staat voor elk project en wie verantwoordelijk is voor de volgende stap voor de betreffende taken.
 
-```plantuml
+```puml
 title Boards and statuses
 skinparam nodesep 10
 skinparam ranksep 10
@@ -543,80 +467,7 @@ wishlist?
 
 benodigde statussen:
 
-<!-- TOC -->
-
-- [Functioneel ontwerp Project Management Portal](#functioneel-ontwerp-project-management-portal)
-  - [Aannames en afhankelijkheden](#aannames-en-afhankelijkheden)
-  - [Actors](#actors)
-    - [ACT1: Externe klant](#act1-externe-klant)
-    - [ACT2: Bluenotion Admin](#act2-bluenotion-admin)
-    - [ACT3: Bluenotion medewerker](#act3-bluenotion-medewerker)
-    - [ACT4: Notificatie manager](#act4-notificatie-manager)
-    - [ACT5: Externe klant (read)](#act5-externe-klant-read)
-  - [Domein](#domein)
-    - [Toelichting domeinmodel](#toelichting-domeinmodel)
-    - [Lifecycle aanvragen](#lifecycle-aanvragen)
-    - [Bord structuur](#bord-structuur)
-      - [Toelichting borden](#toelichting-borden)
-      - [Toelichting statuses](#toelichting-statuses)
-    - [Incident Impact, Urgentie en Prioriteit levels](#incident-impact-urgentie-en-prioriteit-levels)
-  - [Requirements](#requirements)
-    - [User stories](#user-stories)
-    - [Use case diagram](#use-case-diagram)
-    - [Requirements traceability matrix](#requirements-traceability-matrix)
-      - [Nonfunctional requirements](#nonfunctional-requirements)
-    - [Authenticatie, Autorisatie, Accounting](#authenticatie-autorisatie-accounting)
-      - [Authenticatie](#authenticatie)
-      - [Autorisatie](#autorisatie)
-      - [Accounting](#accounting)
-  - [Scherm ontwerpen](#scherm-ontwerpen)
-    - [Functionele requirements die worden aangekaart in de ontwerpen](#functionele-requirements-die-worden-aangekaart-in-de-ontwerpen)
-    - [View1: Dashboard](#view1-dashboard)
-      - [View1: Organization admin](#view1-organization-admin)
-      - [View1: Company admin](#view1-company-admin)
-      - [View1: Organization employee](#view1-organization-employee)
-      - [View1: Company employee](#view1-company-employee)
-    - [View2: Mijn projecten](#view2-mijn-projecten)
-      - [View2: Organization admin](#view2-organization-admin)
-      - [View2: Company admin](#view2-company-admin)
-      - [View2: Organization employee](#view2-organization-employee)
-      - [View2: Company employee](#view2-company-employee)
-    - [View3: Taak detail view](#view3-taak-detail-view)
-      - [View3: Organization admin](#view3-organization-admin)
-      - [View3: Company admin](#view3-company-admin)
-      - [View3: Organization employee](#view3-organization-employee)
-      - [View3: Company employee](#view3-company-employee)
-    - [View4: Toevoegen taak view](#view4-toevoegen-taak-view)
-      - [View4: Organization admin](#view4-organization-admin)
-      - [View4: Company admin](#view4-company-admin)
-      - [View4: Organization employee](#view4-organization-employee)
-      - [View4: Company employee](#view4-company-employee)
-    - [View5: Documentatie view](#view5-documentatie-view)
-      - [View5: Organization admin](#view5-organization-admin)
-      - [View5: Company admin](#view5-company-admin)
-      - [View5: Organization employee](#view5-organization-employee)
-      - [View5: Company employee](#view5-company-employee)
-    - [Unsorted](#unsorted)
-      - [Klant: Dashboard](#klant-dashboard)
-    - [Ontwerpen FR1 Inzien project plannings informatie](#ontwerpen-fr1-inzien-project-plannings-informatie)
-      - [Klant: Projecten pagina](#klant-projecten-pagina)
-      - [Admin: Projecten pagina](#admin-projecten-pagina)
-    - [Ontwerpen FR2 Inzien taken](#ontwerpen-fr2-inzien-taken)
-      - [Klant: Project overzicht](#klant-project-overzicht)
-      - [Klant: Taken lijst](#klant-taken-lijst)
-      - [Klant: Taken detail](#klant-taken-detail)
-      - [Admin: Taken lijst](#admin-taken-lijst)
-      - [Admin: Taken detail](#admin-taken-detail)
-    - [Ontwerpen FR3 Toevoegen taken](#ontwerpen-fr3-toevoegen-taken)
-      - [Klant: Toevoegen aanvraag](#klant-toevoegen-aanvraag)
-    - [Ontwerpen FR4 Versturen notificaties](#ontwerpen-fr4-versturen-notificaties)
-    - [Ontwerpen FR5 Opstellen project](#ontwerpen-fr5-opstellen-project)
-    - [Ontwerpen FR6 Inzien project service statuses](#ontwerpen-fr6-inzien-project-service-statuses)
-    - [Ontwerpen FR7 Inzien project documentatie](#ontwerpen-fr7-inzien-project-documentatie)
-    - [Ontwerpen FR8 Controleren aanvraag](#ontwerpen-fr8-controleren-aanvraag)
-    - [Componenten](#componenten)
-
-<!-- /TOC -->Not started
+Not started
 Open
 Done
 Closed
@@ -764,7 +615,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 
 <!-- !!!!!!!!!!!!!!!!!!!Auto generated from requirementstablecsv.csv by way of Usecase_diagram.sh!!!!!!!!!!!!!!!!!!!! -->
 
-```plantuml
+```puml
 left to right direction
 skinparam packageStyle rect
 :ACT1 Externe klant Admin: as ACT1
@@ -900,7 +751,7 @@ legend left
 |---|---|---|---|---|---|
 | FR1 | Inzien project plannings informatie |  |  | [Requirement overzicht](./Requirements/FR1_Inzien_project_plannings_informatie.md) |  |
 | FR1.1 |  | Inzien projecten | Must have | [US1](#user-stories), [US2](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR1.2 |  | Inzien totaal geplande uren+kosten | Won't have FDR001 | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FDR001](./Decisions/Functional/FDR001-Tijd-en-kosten-niet-tonen.md) | [x] Rejected |
+| FR1.2 |  | Inzien totaal geplande uren+kosten | Won't have FDR001 | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FDR001](./FDRs/FDR001-Tijd-en-kosten-niet-tonen.md) | [x] Rejected |
 | FR2 | Inzien taken |  |  | [Requirement overzicht](./Requirements/FR2_Inzien_taken.md) |  |
 | FR2.1 |  | Inzien taken van project | Must have | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR2.2 |  | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have | [US3](#user-stories), [US8](#user-stories), [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
@@ -930,10 +781,10 @@ legend left
 | FR8 | Controleren aanvraag |  |  | [Requirement overzicht](./Requirements/FR8_Controleren_aanvraag.md) |  |
 | FR8.1 |  | Controleren aanvraag (intern) | Must have | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR8.2 |  | Op splitten taak naar team taken | Could have | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR9 | Chat met tenants |  | Won't have | [Requirement overzicht](./Requirements/FR9_Tenant_level_chat.md), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |  |
-| FR9.1 |  | Starten nieuwe chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9 | Chat met tenants |  | Won't have | [Requirement overzicht](./Requirements/FR9_Tenant_level_chat.md), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) |  |
+| FR9.1 |  | Starten nieuwe chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
 
 #### Nonfunctional requirements
 
@@ -985,7 +836,7 @@ Tracability matrix: https://www.researchgate.net/figure/Requirements-traceabilit
 
 #### Authenticatie
 
-Authenticatie wordt gedaan aan de hand van PMP interne accounts zoals beschreven in [ADR010-O1](./Decisions/Architecture/ADR010-Authentication.md#o1-intern). Hiermee worden voor klanten van Bluenotion die toegang dienen te krijgen tot het PMP accounts aangemaakt en uitnodigings links verstuurd naar de betreffende gebruiker. De gebruiker is zelf verantwoordelijk voor het aanmaken en periodiek wijzigen van het te gebruiken wachtwoord.
+Authenticatie wordt gedaan aan de hand van PMP interne accounts zoals beschreven in [ADR010-O1](../Technisch/ADRs/ADR010-Authentication.md#o1-intern). Hiermee worden voor klanten van Bluenotion die toegang dienen te krijgen tot het PMP accounts aangemaakt en uitnodigings links verstuurd naar de betreffende gebruiker. De gebruiker is zelf verantwoordelijk voor het aanmaken en periodiek wijzigen van het te gebruiken wachtwoord.
 
 #### Autorisatie
 
@@ -1001,7 +852,7 @@ Voor autorisatie wordt gebruik gemaakt van claims die binnen het PMP gekoppeld z
 
 Ter verduidelijking over welke groep bij welke data mag is een deel van de relevante informatie uit het productive data model gehaald:
 
-```plantuml
+```puml
 
 rectangle Organization as org
 rectangle Company as comp
@@ -1025,21 +876,14 @@ In dit overzicht is te zien dat gebruikers op beiden company niveau en organisat
 
 Comments kunnen binnen productive op de volgende plekken toegevoegd worden:
 
->Budgets - deal relationship
->
->Companies - company relationship
->
->Deals - deal relationship
->
->Discussions - discussion relationship
->
->Invoices - invoice relationship
->
->People - person relationship
->
->Purchase Orders - purchase_order relationship
->
->Tasks - task relationship
+- Budgets - deal relationship
+- Companies - company relationship
+- Deals - deal relationship
+- Discussions - discussion relationship
+- Invoices - invoice relationship
+- People - person relationship
+- Purchase Orders - purchase_order relationship
+- Tasks - task relationship
 
 Bron: https://developer.productive.io/comments.html#comments
 
@@ -1135,7 +979,7 @@ FR2.7 is een oude fr die is opgenomen in [FR2.1](./Requirements/FR2_Inzien_taken
 - Add pagination, search and filter to tickets component
 - Add banner (zie "Klant>Mijn projecten")
 
-![Scherm ontwerp voor het globale overzicht van een klant](./Images/FunctioneelOntwerp/Klant_dashboard.png)
+![Scherm ontwerp voor het globale overzicht van een klant](../Images/FunctioneelOntwerp/Klant_dashboard.png)
 
 projecId, naam, startdatum, update: projects endpoint
 
@@ -1157,7 +1001,7 @@ Vereiste input: Tasks filter status
 
 #### View2: Organization admin
 
-![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](./Images/FunctioneelOntwerp/admin_projectenpage.png)
+![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](../Images/FunctioneelOntwerp/admin_projectenpage.png)
 
 Projectnaam, begindatum, einddatum, status: projects endpoint
 
@@ -1169,7 +1013,7 @@ Contactpersoon: People endpoint
 
 #### View2: Company admin
 
-![Scherm ontwerp voor het overzicht van alle projecten voor een klant](./Images/FunctioneelOntwerp/projectenpage.png)
+![Scherm ontwerp voor het overzicht van alle projecten voor een klant](../Images/FunctioneelOntwerp/projectenpage.png)
 
 projecId, naam, startdatum, update: projects endpoint
 
@@ -1238,7 +1082,7 @@ Prioriteit: ?
 
 #### Klant: Project overzicht
 
-![Scherm ontwerp voor het project overzicht met snel zicht op taken en project informatie](./Images/FunctioneelOntwerp/ProjectOverzicht.png)
+![Scherm ontwerp voor het project overzicht met snel zicht op taken en project informatie](../Images/FunctioneelOntwerp/ProjectOverzicht.png)
 
 Taak id, type, onderwerp, beschrijving, datum, status, prio: Tasks endpoint
 
@@ -1248,7 +1092,7 @@ projectinformatie tab: projects endpoint
 
 #### Klant: Taken lijst
 
-![Scherm ontwerp voor de takenlijst van het project overzicht met alle taken van dat project](./Images/FunctioneelOntwerp/ProjectOverzichtTakenlijst.png)
+![Scherm ontwerp voor de takenlijst van het project overzicht met alle taken van dat project](../Images/FunctioneelOntwerp/ProjectOverzichtTakenlijst.png)
 
 Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, laatste update: tasks endpoint
 
@@ -1262,9 +1106,9 @@ Prio hoog, prio middel, prio laag: tasks endpoint group by custom field*
 
 Mijlpalen:
 
-![Scherm ontwerp voor de detail pagina van één taak](./Images/FunctioneelOntwerp/TaakDetailPage.png)
+![Scherm ontwerp voor de detail pagina van één taak](../Images/FunctioneelOntwerp/TaakDetailPage.png)
 
-Mijlpalen is een keuze in te maken. De data over "mijlpalen" staat op het moment voor een taak en de workflow wordt bijgehouden door de PM. Zie [ADR008 Taak mijlpalen](./Decisions/Architecture/ADR008-Taak-Mijlpalen.md)
+Mijlpalen is een keuze in te maken. De data over "mijlpalen" staat op het moment voor een taak en de workflow wordt bijgehouden door de PM. Zie [ADR008 Taak mijlpalen](../Technisch/ADRs/ADR008-Taak-Mijlpalen.md)
 
 Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
 
@@ -1288,13 +1132,13 @@ Geen extra informatie in vergelijking met [klant](./FunctioneelOntwerp.md#klant-
 
 #### Klant: Toevoegen aanvraag
 
-![Schermontwerp voor het aanmaken van een nieuwe taak](./Images/FunctioneelOntwerp/Nieuwe_taak1.png)
+![Schermontwerp voor het aanmaken van een nieuwe taak](../Images/FunctioneelOntwerp/Nieuwe_taak1.png)
 
-![Schermontwerp voor het aanmaken van een incident](./Images/FunctioneelOntwerp/Nieuwe_taak_incident.png)
+![Schermontwerp voor het aanmaken van een incident](../Images/FunctioneelOntwerp/Nieuwe_taak_incident.png)
 
-![Schermontwerp voor het aanmaken van een doorontwikkeling](./Images/FunctioneelOntwerp/Nieuwe_taak_doorontwikkeling.png)
+![Schermontwerp voor het aanmaken van een doorontwikkeling](../Images/FunctioneelOntwerp/Nieuwe_taak_doorontwikkeling.png)
 
-![Schermontwerp met het bericht dat de taak is aangemaakt](./Images/FunctioneelOntwerp/Nieuwe_taak_success.png)
+![Schermontwerp met het bericht dat de taak is aangemaakt](../Images/FunctioneelOntwerp/Nieuwe_taak_success.png)
 
 Voor deze ontwerpen is weinig tot geen informatie nodig van Productive.
 
@@ -1311,15 +1155,15 @@ Voor deze ontwerpen is weinig tot geen informatie nodig van Productive.
 
 ### Ontwerpen FR7 Inzien project documentatie
 
-![Schermontwerp voor het overzicht van documentatie binnen een project](./Images/FunctioneelOntwerp/DocumentatieOverzicht.png)
+![Schermontwerp voor het overzicht van documentatie binnen een project](../Images/FunctioneelOntwerp/DocumentatieOverzicht.png)
 
-![Schermontwerp voor het toevoegen van een nieuw document](./Images/FunctioneelOntwerp/DocumentatieToevoegen.png)
+![Schermontwerp voor het toevoegen van een nieuw document](../Images/FunctioneelOntwerp/DocumentatieToevoegen.png)
 
 <!-- waarschijnlijk buiten scope -->
 
 ### Ontwerpen FR8 Controleren aanvraag
 
-![Schermontwerp voor de admin taak detail pagina met knoppen voor het accepteren, weigeren of opsplitsen van een taak](./Images/FunctioneelOntwerp/admin_TaakDetailPage.png)
+![Schermontwerp voor de admin taak detail pagina met knoppen voor het accepteren, weigeren of opsplitsen van een taak](../Images/FunctioneelOntwerp/admin_TaakDetailPage.png)
 
 Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
 
@@ -1336,7 +1180,7 @@ Log: Activities
 
 Taken tellers
 
-![component met een tellertje voor totaal taken, open taken, gesloten taken en input vereist](./Images/FunctioneelOntwerp/TaskCounters.png)
+![component met een tellertje voor totaal taken, open taken, gesloten taken en input vereist](../Images/FunctioneelOntwerp/TaskCounters.png)
 
 Taken lijst
 
@@ -1344,12 +1188,12 @@ Raakt:
 
 - FR2: inzien taken
 
-![component met een aantal tickets](./Images/FunctioneelOntwerp/takenlijst.png)
+![component met een aantal tickets](../Images/FunctioneelOntwerp/takenlijst.png)
 
 Feed
 
-![alt text](./Images/FunctioneelOntwerp/feed.png)
+![alt text](../Images/FunctioneelOntwerp/feed.png)
 
 Project informatie
 
-![alt text](./Images/FunctioneelOntwerp/projectinfo.png)
+![alt text](../Images/FunctioneelOntwerp/projectinfo.png)

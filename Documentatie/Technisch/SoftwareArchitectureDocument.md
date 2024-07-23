@@ -2,40 +2,14 @@
 
 Binnen dit overzicht wordt aan de hand van het c4 model voor software architectuur documentatie een globaal overzicht gegeven van het geplande Project Management Portal.
 
-- [Software Architecture Document](#software-architecture-document)
-  - [Context](#context)
-  - [Containers](#containers)
-  - [Components](#components)
-    - [React front-end](#react-front-end)
-      - [Toelichting FE componenten](#toelichting-fe-componenten)
-    - [PMP API](#pmp-api)
-      - [Toelichting API componenten](#toelichting-api-componenten)
-    - [PMP Services](#pmp-services)
-      - [Toelichting Service componenten](#toelichting-service-componenten)
-        - [Interfaces](#interfaces)
-        - [Namespaces\*](#namespaces)
-        - [Componenten](#componenten)
-        - [Sync service](#sync-service)
-          - [Regular sync](#regular-sync)
-          - [Clean sync](#clean-sync)
-    - [PMP Database and Data models](#pmp-database-and-data-models)
-      - [API.Models](#apimodels)
-      - [Services.Models](#servicesmodels)
-      - [Database.Models](#databasemodels)
-    - [Notification system](#notification-system)
-    - [Productive API](#productive-api)
-  - [Code](#code)
-    - [Productive API sync](#productive-api-sync)
-  - [Architectural Decision Records](#architectural-decision-records)
-
 ## Context
 
-Zoals beschreven in het [FO](./FunctioneelOntwerp.md) besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*
+Zoals beschreven in het [FO](../Functioneel/FunctioneelOntwerp.md) besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*
 
 *TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
 Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem.
 
-```plantuml
+```puml
 
 actor Klant
 actor Admin
@@ -64,7 +38,7 @@ PMP--> DB
 
 ## Containers
 
-```plantuml
+```puml
 
 actor Klant
 actor Admin
@@ -99,8 +73,8 @@ Service --> NS : SMTP?
 | [PMP API](#Component-PMP-API) | Levert endpoints voor de React front-end om data uit de rest van het systeem uit te lezen en op te slaan.  |
 | [PMP Services](#Component-PMP-Services) | Verantwoordelijk voor het afhandelen van domein logica en coördinatie van binnenkomende en uitgaande data naar andere componenten. |
 | [PMP Database](#Component-PMP-DB) | De PMP Database is een MySQL** database waar data die niet opgeslagen kan worden in Productive opgeslagen kan worden. |
-| [Notification system](#Component-Notification-system) | Verantwoordelijk voor het inlichten van de gebruiker bij evenementen waar directe actie voor nodig is zoals het inlichten van Bluenotion bij criticals/blocking issues ([FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)) of het inlichten wanneer een klant extra informatie moet geven op een taak [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant).  |
-| [Productive API](#Component-Productive-API) | De Productive API dient als data source voor alle project gerelateerde informatie binnen Bluenotion. Wijzigingen in Productive dienen (indien opgevraagd door de gebruiker) binnen 3 seconde na aanvraag beschikbaar te zijn voor de gebruiker ([NFR2.1, NFR3.2](./FunctioneelOntwerp.md#nonfunctional-requirements)). Wijzigingen in de door Productive aangeleverde entiteiten zoals projecten en taken dienen zonder verlies doorgezet te worden naar Productive([NFR2.1, NFR8.1](./FunctioneelOntwerp.md#nonfunctional-requirements)). |
+| [Notification system](#Component-Notification-system) | Verantwoordelijk voor het inlichten van de gebruiker bij evenementen waar directe actie voor nodig is zoals het inlichten van Bluenotion bij criticals/blocking issues ([FR4.2](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)) of het inlichten wanneer een klant extra informatie moet geven op een taak [FR4.1](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant).  |
+| [Productive API](#Component-Productive-API) | De Productive API dient als data source voor alle project gerelateerde informatie binnen Bluenotion. Wijzigingen in Productive dienen (indien opgevraagd door de gebruiker) binnen 3 seconde na aanvraag beschikbaar te zijn voor de gebruiker ([NFR2.1, NFR3.2](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements)). Wijzigingen in de door Productive aangeleverde entiteiten zoals projecten en taken dienen zonder verlies doorgezet te worden naar Productive([NFR2.1, NFR8.1](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements)). |
 
 TODO: NFR maken voor hoe lang het mag duren tot het PMP data heeft uit Productive.*
 TODO: Database systeem kiezen.**
@@ -111,7 +85,7 @@ TODO: Database systeem kiezen.**
 
 TODO: De echte views hier in zetten.
 
-```plantuml
+```puml
 top to bottom direction
 skinparam linetype ortho
 skinparam nodesep 10
@@ -164,7 +138,7 @@ rectangle "React front-end"{
 
 Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
-```plantuml
+```puml
 rectangle PMP{
 rectangle "PMP API"{
     rectangle "Controllers"{
@@ -217,7 +191,7 @@ rectangle "PMP API"{
 
 De service laag is verantwoordelijk voor de business logica, [transformeren van input naar database models](#databasemodels) en het coördineren van "externe" verbindingen.
 
-```plantuml
+```puml
 top to bottom direction
 skinparam linetype ortho
 
@@ -362,7 +336,7 @@ TODO: setup webhooks toevoegen!
 
 Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP, first time setup of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive. Aangezien deze actie veel data nodig heeft van productive zal deze procedure waarschijnlijk dermate veel tijd en requests kosten dat hij enkel als nood oplossing uitgevoerd dient te worden.
 
-Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
+Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
 
 TODO: rename productive service?
 
@@ -374,7 +348,7 @@ De database package is verantwoordelijk voor het low level beheer van de databas
 
 Aangezien er op verschillende plekken van dit document over "het model" gesproken wordt is een kleine toelichting van welke models welke rollen hebben binnen het systeem. In de software zullen binnen de API, Services en Database packages aparte models te vinden zijn:
 
-```plantuml
+```puml
 
 rectangle API.Models{
         rectangle AddCustomerModel as cm1
@@ -453,7 +427,7 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 ### <a id="Component-Notification-system" />Notification system
 
-Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals).
+Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in [FR4.1](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in [FR4.2](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals).
 
 De details van het notificatie systeem zijn nog niet uitgewerkt, er zal een mail client opgezet worden die gemachtigd is berichten te sturen naar de klant. Als alternatief zou ook een SMS systeem mogelijk kunnen zijn.
 
@@ -461,7 +435,7 @@ TODO: Details wel uitwerken
 
 ### <a id="Component-Productive-API" />Productive API
 
-De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het [FO](./FunctioneelOntwerp.md#domein) is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:
+De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het [FO](../Functioneel/FunctioneelOntwerp.md#domein) is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:
 
 - De rate limits
 
@@ -485,7 +459,7 @@ De productive API biedt webhooks om voor de volgende objecten een bericht te kri
 
 Aparte endpoints:
 
-```plantuml
+```puml
 title sync from productive sync controller
 ProductiveSyncController-->ISyncProductive : result = processSyncRequest(obj)
 ISyncProductive-->Repository: result = add(obj)
@@ -498,7 +472,7 @@ Repository-->Database: result = commit()
 
 Samengevoegde endpoints:
 
-```plantuml
+```puml
 title sync from FE endpoints
 TaskController-->ITaskService:addTask(obj)
 
@@ -511,7 +485,7 @@ end note
 ITaskService-->Repository:add(obj)
 ```
 
-```plantuml
+```puml
 title Sync from FE endpoints without local save but with logging?
 
 TaskController-->ITaskService:addTask(task)
@@ -526,7 +500,7 @@ ITaskService-->TaskController:HTTP201
 
 TODO: Is het hele tmp task event verhaal nodig?
 
-```plantuml
+```puml
 title hooked sync
 
 TaskController --> ITaskService:addTask(task)
@@ -535,7 +509,7 @@ ITaskService --> TaskRepository:asyncAddTask(task)
 
 ```
 
-Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md).
+Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md).
 
 Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks. De
 
@@ -543,7 +517,7 @@ Can a bad sync happen, how would you notice and how would you solve it?
 
 ## Architectural Decision Records
 
-```plantuml
+```puml
 
 rectangle "ADR001-O2-Continu synchroniserende backend database aan de hand van Webhooks" as ADR001 #Orange
 rectangle "ADR002-O1-React native" as ADR002 #Green

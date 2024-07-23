@@ -34,7 +34,7 @@ WONT_COLOR="#999999"
 
 # Function to print the header for the PlantUML file
 print_puml_header() {
-  echo '```plantuml' > $OUTPUT_FILE
+  echo '```puml' > $OUTPUT_FILE
   echo "left to right direction" >> $OUTPUT_FILE
   echo "skinparam packageStyle rect" >> $OUTPUT_FILE
 }

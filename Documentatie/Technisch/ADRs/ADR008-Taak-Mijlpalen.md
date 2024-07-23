@@ -16,7 +16,7 @@ Binnen Bluenotion heeft een taak een aantal mijlpalen die de meeste taken doorlo
 
 Deze taken worden volgens conventie aangemaakt maar de namen worden niet over alle projecten consistent hetzelfde opgebouwd. Om binnen het PMP een overzicht aan te kunnen bieden van welke mijlpalen voor een specifieke functionaliteit wel/niet behaald zijn dient deze data op een gestandaardiseerde manier geregistreerd te worden in Productive of het PMP.
 
-```plantuml
+```puml
 rectangle "Aanvragen komen in Productive" as Q1
 rectangle "De link tussen een aanvraag en de resulterende taken komen in Productive" as Q2
 rectangle "ADR0008-O1: Taken worden gekoppeld aan de hand van task dependencies" as Q3

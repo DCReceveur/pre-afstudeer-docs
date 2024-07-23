@@ -12,7 +12,7 @@ Voor de development teams wordt Productive gebruikt voor het project beheer, het
 
 Om de meest recente data te tonen uit productive terwijl de schaalbaarheid wordt behouden is gekozen gebruik te maken van de [Productive.io webhooks](https://developer.productive.io/webhooks.html#webhooks). Hiermee zou data automatisch gesynchroniseerd kunnen worden naar de back-end database vanuit waar (zonder verdere rate limits) de data verspreid kan worden naar verschillende gebruikers van het PMP.
 
-```plantuml
+```puml
 title getTasks 'local'
 autonumber
 participant TaskController as task
@@ -27,7 +27,7 @@ pers_serv --> pmp_db : SELECT....
 
 ```
 
-```plantuml
+```puml
 title Sync tasks via webhook
 autonumber
 participant ProductiveSyncController as prod_sync
@@ -86,11 +86,11 @@ Mocht de PMP back-end om wat voor reden niet dan ook geen OK status code terug s
 
 ### O1: Directe communicatie met productive zonder caching
 
-Technisch gezien is voor de data over projecten en taken geen back end database nodig als de data direct van Productive's API gehaald wordt. Hiermee is het PMP [gelimiteerd aan 100 requests per 10 seconden](https://developer.productive.io/index.html#header-rate-limits) en dit biedt weinig flexibiliteit in data transformatie of implementatie van niet productive gerelateerde functionaliteit als het toevoegen van documentatie ([FR7](../../Requirements/FR7_Inzien_project_documentatie.md)) of een service overview ([FR6](../../Requirements/FR6_Inzien_project_service_statuses.md) ) in een project.*
+Technisch gezien is voor de data over projecten en taken geen back end database nodig als de data direct van Productive's API gehaald wordt. Hiermee is het PMP [gelimiteerd aan 100 requests per 10 seconden](https://developer.productive.io/index.html#header-rate-limits) en dit biedt weinig flexibiliteit in data transformatie of implementatie van niet productive gerelateerde functionaliteit als het toevoegen van documentatie ([FR7](../../Functioneel/Requirements/FR7_Inzien_project_documentatie.md)) of een service overview ([FR6](../../Functioneel/Requirements/FR6_Inzien_project_service_statuses.md) ) in een project.*
 
 TODO: Data altijd opvragen en toch wegschrijven in een lokale db zodat opgevraagde data wél altijd beschikbaar is zou een 'alternatief' kunnen zijn maar komt qua voor en nadelen redelijk overeen met O1.
 
-```plantuml
+```puml
 title getTasks 'direct'
 autonumber
 participant TaskController as task
@@ -107,7 +107,7 @@ prod_serv -->prod_api : http GET
 
 Productive biedt de mogelijkheid [bulk requests](https://developer.productive.io/index.html#header-content-negotiation) te doen. Dit zou gebruikt kunnen worden om op aanvraag de back-end database te synchroniseren met de informatie zoals beschikbaar op Productive.
 
-```plantuml
+```puml
 title Add task from pmp
 autonumber
 participant TaskController as task
@@ -122,7 +122,7 @@ prod_serv -> pers_serv : addTask(TaskInfo)
 pers_serv -> pmp_db : INSERT...
 ```
 
-```plantuml
+```puml
 title Bulk sync tasks
 autonumber
 participant ProductiveSyncController as prod_sync
@@ -149,7 +149,7 @@ TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecomb
 
 Productive biedt een "[Activities](https://developer.productive.io/activities.html#activities)" endpoint aan waar wijzigingen in het Model van productive opgevraagd kunnen worden op basis van taak, project of bedrijf met ingebouwde filters evenementen voor of na een bepaalde datum. Door wanneer data over een bepaald project nodig is zou in de lokale database gekeken kunnen worden wanneer hier de laatste activiteit in is geweest. Deze activiteit is weg te schrijven in de lokale database en kan getoond worden aan de gebruiker.
 
-```plantuml
+```puml
 
 start
 :get relevant project from local db;

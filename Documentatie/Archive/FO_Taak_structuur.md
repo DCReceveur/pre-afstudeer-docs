@@ -4,7 +4,7 @@ Verwijderd wegens weinig toegevoegde waarde in vergelijking met domeinmodel.
 
 Belangrijk is om toe te lichten hoe Bluenotion om gaat met verschillende soorten aanvragen. Zoals in het schema te zien is wordt niet elke aanvraag een taak en wordt er op verschillende manieren met incidenten omgegaan dan met een doorontwikkeling. Verdere toelichting over hoe incidenten worden behandeld in vergelijking met doorontwikkelingen is te vinden in [de toelichting over incidenten](#incident-impact-urgentie-en-prioriteit-levels).
 
-```plantuml
+```puml
 skinparam linetype ortho
 skinparam nodesep 130
 skinparam ranksep 120

@@ -1,4 +1,4 @@
-```plantuml
+```puml
 left to right direction
 skinparam packageStyle rect
 :ACT1 Externe klant Admin: as ACT1
