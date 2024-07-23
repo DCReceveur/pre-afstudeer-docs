@@ -1,5 +1,14 @@
 site_name: PMP
+theme:
+  name: material
+  features:
+    - navigation.instant
 docs_dir: Documentatie
-# theme:
-#   features:
-#     - navigation.instant
+exclude_docs: |
+  /Archive/
+  /Notes/
+
+plugins:
+    - plantuml:
+        puml_url: https://www.plantuml.com/plantuml/
+        num_workers: 8
