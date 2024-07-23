@@ -14,6 +14,174 @@ Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Vo
 
 De actors zijn de mensen/rollen die gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
 
+### Rechten tabel
+
+|      | ACT1 | ACT2 | ACT3 | ACT4 | ACT5 |
+|------|------|------|------|------|------|
+| FR1.1 | ✓ | ✓ | ✓ |  | ✓ |
+| FR1.2 |  |  |  |  |  |
+| FR2.1 |  |  |  |  |  |
+| FR2.2 |  |  |  |  |  |
+| FR2.3 |  |  |  |  |  |
+| FR2.4 |  |  |  |  |  |
+| FR3.1 |  |  |  |  |  |
+| FR3.2 |  |  |  |  |  |
+| FR3.3 |  |  |  |  |  |
+| FR3.4 |  |  |  |  |  |
+| FR3.5 |  |  |  |  |  |
+| FR3.6 |  |  |  |  |  |
+| FR4.1 |  |  |  |  |  |
+| FR4.2 |  |  |  |  |  |
+| FR5.1 |  |  |  |  |  |
+| FR5.2 |  |  |  |  |  |
+| FR6.1 |  |  |  |  |  |
+| FR6.2 |  |  |  |  |  |
+| FR6.3 |  |  |  |  |  |
+| FR7.1 |  |  |  |  |  |
+| FR7.2 |  |  |  |  |  |
+| FR7.3 |  |  |  |  |  |
+| FR8.1 |  |  |  |  |  |
+| FR8.2 |  |  |  |  |  |
+| FR9.1 |  |  |  |  |  |
+| FR9.2 |  |  |  |  |  |
+| FR9.3 |  |  |  |  |  |
+
+|      | ACT1 | ACT2 | ACT3 | ACT4 | ACT5 |
+|------|------|------|------|------|------|
+
+Schrijf het uit:
+
+- een organisatie heeft nul of meerdere klanten
+- een klant heeft nul of meerdere projecten
+- een organisatie heeft een of meerdere admins
+- een organisatie heeft nul of meerdere medewerkers
+- een project heeft een klant admin nodig om taken goed te keuren
+- een project heeft een organisatie admin nodig om taken te accepteren
+
+dan:
+
+- een organisatie admin voegt een nieuwe klant toe
+- een organisatie admin voegt gebruikers toe aan de klant
+- een organisatie admin voegt een project toe voor de klant
+- een organisatie admin wijst de project admin aan voor de klant?
+
+Over het hele PMP zijn de zelfde gebruikers accounts aanwezig, mensen hoeven maar één keer uitgenodigd te worden voor het PMP.
+
+Een gebruiker kan toegewezen worden aan een organisatie of klant als werknemer of admin.
+
+Een gebruiker kan toegewezen worden aan een project als werknemer of admin.
+
+Een admin van een organisatie kan projecten beheren
+
+Een admin van een klant kan gebruikers toevoegen aan projecten van de klant.
+
+Een admin van een Project kan taken inschieten en accepteren
+
+|  | Medewerker | Admin |
+|--|--|--|
+| Organisatie | Zelfde rechten als op productive* | Volledig beheer over onderliggende klanten en projecten |
+| Klant | N/A | Toewijzen project admins** & volledig beheer over onderliggende projecten |
+| Project | leesrechten over alle project data | Volledig beheer over het project en onderliggende taken |
+
+*is dit nodig?
+**Zou ook gedaan kunnen worden door de organisatie admin.
+
+```plantuml
+title: toekennen nieuwe gebruikers aan klant/project
+start
+fork
+:Organisatie admin voegt gebruiker toe;
+fork again
+:Organisatie admin voegt klant toe;
+fork again
+:Organisatie admin voegt project toe;
+end fork
+if (gebruiker is beheerder voor de klant) then (yes)
+:Organisatie admin wijst gebruiker aan als klant admin;
+else (no)
+if (gebruiker is beheerder voor een project) then (yes)
+:Organisatie admin wijst gebruiker aan als project admin;
+else(no)
+:Organisatie admin wijst gebruiker aan als medewerker;
+endif
+endif
+
+stop
+
+```
+
+```plantuml
+title: Nieuw project
+
+start
+
+if(Klant bestaat al) then (yes)
+else (no)
+:Organisatie admin voegt nieuwe klant toe;
+:Organisatie admin nodigt klant uit met klant admin rechten;
+endif
+if(Project bestaat al) then (yes)
+else (no)
+:Organisatie admin maakt een nieuw project aan;
+endif
+:Wijs het project toe aan de klant;
+stop
+
+```
+
+Bijna alle data kan uit productive komen. De enige data waarvan ik niet zeker weet of deze in productive kan/ er uit gehaald kan worden is details over accounts. Dit moet uitgezocht worden maar er is een argument te maken het AAA gedeelte van de software in eigen handen te nemen en volledig binnen het PMP af te handelen.
+
+Technisch:
+
+tables:
+
+Users
+
+| (pk) userId|
+
+Organizations
+
+| (pk) orgId |
+
+Customer
+
+| (pk) customerId |
+
+Roles
+
+| (pk) roleId |
+
+UserInOrg
+
+| (pk, fk) userId | (pk, fk) orgId | (pk, fk) roleId |
+
+UserInCustomer
+
+| (pk, fk) userId | (pk, fk) customerId | (pk, fk) roleId |
+
+UserInProject
+
+| (pk, fk) userId | (pk, fk) projectId |  (pk, fk) roleId |
+
+<!-- ```plantuml
+
+rectangle persoon
+rectangle account
+rectangle project
+rectangle klant
+rectangle organization
+
+persoon -- account : > heeft toegang tot
+klant -- project : < aangevraagd door
+organization -- project : < uitgevoerd door
+
+account -- project : > admin van
+account -- klant : > werkt voor
+account -- organization : > admin van
+account -- organization : > werkt voor
+
+``` -->
+
 ### ACT1: Externe klant
 
 Omschrijving: Een externe klant die een project wilt laten uitvoeren door Bluenotion.
