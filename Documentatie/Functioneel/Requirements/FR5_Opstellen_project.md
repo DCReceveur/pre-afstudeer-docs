@@ -1,4 +1,4 @@
-# Opstellen project
+# FR5: Opstellen project
 
 Deze functional requirement betreft het voorbereidend werk dat wordt gedaan voordat een project wordt gestart. Voorbeelden zijn onderhandelen van de initiële scope, afstemmen van het budget/SLA. Deze requirement is nog niet helemaal afgestemd.
 
