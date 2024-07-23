@@ -10,7 +10,7 @@ Deze functional requirements betreffen het inzien van informatie over en gerelat
 | Primaire Actor | ACT1: Externe klant |
 | Stakeholders | PM |
 | Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
-| Post condities | De klant heeft een overzicht van de taken die voor de software developers op de planning staan. [(planning van lifecycle taken)](#lifecycle-taken) |
+| Post condities | De klant heeft een overzicht van de taken die voor de software developers op de planning staan. [(planning van lifecycle taken)](../FunctioneelOntwerp.md#lifecycle-aanvragen) |
 | Triggers | De klant vraagt de details voor een project op |
 | Exceptions | Het opgevraagde project bestaat niet |
 | Open issues |  |

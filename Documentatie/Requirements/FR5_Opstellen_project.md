@@ -28,7 +28,7 @@ Deze functional requirement betreft het voorbereidend werk dat wordt gedaan voor
 |---|---|---|
 |  |  |  |
 
-## FR5.2 Instellen productive boards & taak status
+## FR5.2 Instellen productive boards en taak status
 
 | FR5.1 | Afhandelen project setup |
 |---|---|

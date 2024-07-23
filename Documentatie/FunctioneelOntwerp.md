@@ -26,7 +26,6 @@ Dit document dient als toelichting op de functionele eisen van het Product Manag
     - [Use case diagram](#use-case-diagram)
     - [Requirements traceability matrix](#requirements-traceability-matrix)
       - [Nonfunctional requirements](#nonfunctional-requirements)
-    - [unsorted](#unsorted)
     - [Authenticatie, Autorisatie, Accounting](#authenticatie-autorisatie-accounting)
       - [Authenticatie](#authenticatie)
       - [Autorisatie](#autorisatie)
@@ -58,7 +57,7 @@ Dit document dient als toelichting op de functionele eisen van het Product Manag
       - [View5: Company admin](#view5-company-admin)
       - [View5: Organization employee](#view5-organization-employee)
       - [View5: Company employee](#view5-company-employee)
-    - [Unsorted](#unsorted-1)
+    - [Unsorted](#unsorted)
       - [Klant: Dashboard](#klant-dashboard)
     - [Ontwerpen FR1 Inzien project plannings informatie](#ontwerpen-fr1-inzien-project-plannings-informatie)
       - [Klant: Projecten pagina](#klant-projecten-pagina)
@@ -79,7 +78,6 @@ Dit document dient als toelichting op de functionele eisen van het Product Manag
     - [Componenten](#componenten)
 
 <!-- /TOC -->
-
 ## Aannames en afhankelijkheden
 
 Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Voor het schrijven van dit document zijn wel de volgende technische aannames gedaan:
@@ -545,7 +543,80 @@ wishlist?
 
 benodigde statussen:
 
-Not started
+<!-- TOC -->
+
+- [Functioneel ontwerp Project Management Portal](#functioneel-ontwerp-project-management-portal)
+  - [Aannames en afhankelijkheden](#aannames-en-afhankelijkheden)
+  - [Actors](#actors)
+    - [ACT1: Externe klant](#act1-externe-klant)
+    - [ACT2: Bluenotion Admin](#act2-bluenotion-admin)
+    - [ACT3: Bluenotion medewerker](#act3-bluenotion-medewerker)
+    - [ACT4: Notificatie manager](#act4-notificatie-manager)
+    - [ACT5: Externe klant (read)](#act5-externe-klant-read)
+  - [Domein](#domein)
+    - [Toelichting domeinmodel](#toelichting-domeinmodel)
+    - [Lifecycle aanvragen](#lifecycle-aanvragen)
+    - [Bord structuur](#bord-structuur)
+      - [Toelichting borden](#toelichting-borden)
+      - [Toelichting statuses](#toelichting-statuses)
+    - [Incident Impact, Urgentie en Prioriteit levels](#incident-impact-urgentie-en-prioriteit-levels)
+  - [Requirements](#requirements)
+    - [User stories](#user-stories)
+    - [Use case diagram](#use-case-diagram)
+    - [Requirements traceability matrix](#requirements-traceability-matrix)
+      - [Nonfunctional requirements](#nonfunctional-requirements)
+    - [Authenticatie, Autorisatie, Accounting](#authenticatie-autorisatie-accounting)
+      - [Authenticatie](#authenticatie)
+      - [Autorisatie](#autorisatie)
+      - [Accounting](#accounting)
+  - [Scherm ontwerpen](#scherm-ontwerpen)
+    - [Functionele requirements die worden aangekaart in de ontwerpen](#functionele-requirements-die-worden-aangekaart-in-de-ontwerpen)
+    - [View1: Dashboard](#view1-dashboard)
+      - [View1: Organization admin](#view1-organization-admin)
+      - [View1: Company admin](#view1-company-admin)
+      - [View1: Organization employee](#view1-organization-employee)
+      - [View1: Company employee](#view1-company-employee)
+    - [View2: Mijn projecten](#view2-mijn-projecten)
+      - [View2: Organization admin](#view2-organization-admin)
+      - [View2: Company admin](#view2-company-admin)
+      - [View2: Organization employee](#view2-organization-employee)
+      - [View2: Company employee](#view2-company-employee)
+    - [View3: Taak detail view](#view3-taak-detail-view)
+      - [View3: Organization admin](#view3-organization-admin)
+      - [View3: Company admin](#view3-company-admin)
+      - [View3: Organization employee](#view3-organization-employee)
+      - [View3: Company employee](#view3-company-employee)
+    - [View4: Toevoegen taak view](#view4-toevoegen-taak-view)
+      - [View4: Organization admin](#view4-organization-admin)
+      - [View4: Company admin](#view4-company-admin)
+      - [View4: Organization employee](#view4-organization-employee)
+      - [View4: Company employee](#view4-company-employee)
+    - [View5: Documentatie view](#view5-documentatie-view)
+      - [View5: Organization admin](#view5-organization-admin)
+      - [View5: Company admin](#view5-company-admin)
+      - [View5: Organization employee](#view5-organization-employee)
+      - [View5: Company employee](#view5-company-employee)
+    - [Unsorted](#unsorted)
+      - [Klant: Dashboard](#klant-dashboard)
+    - [Ontwerpen FR1 Inzien project plannings informatie](#ontwerpen-fr1-inzien-project-plannings-informatie)
+      - [Klant: Projecten pagina](#klant-projecten-pagina)
+      - [Admin: Projecten pagina](#admin-projecten-pagina)
+    - [Ontwerpen FR2 Inzien taken](#ontwerpen-fr2-inzien-taken)
+      - [Klant: Project overzicht](#klant-project-overzicht)
+      - [Klant: Taken lijst](#klant-taken-lijst)
+      - [Klant: Taken detail](#klant-taken-detail)
+      - [Admin: Taken lijst](#admin-taken-lijst)
+      - [Admin: Taken detail](#admin-taken-detail)
+    - [Ontwerpen FR3 Toevoegen taken](#ontwerpen-fr3-toevoegen-taken)
+      - [Klant: Toevoegen aanvraag](#klant-toevoegen-aanvraag)
+    - [Ontwerpen FR4 Versturen notificaties](#ontwerpen-fr4-versturen-notificaties)
+    - [Ontwerpen FR5 Opstellen project](#ontwerpen-fr5-opstellen-project)
+    - [Ontwerpen FR6 Inzien project service statuses](#ontwerpen-fr6-inzien-project-service-statuses)
+    - [Ontwerpen FR7 Inzien project documentatie](#ontwerpen-fr7-inzien-project-documentatie)
+    - [Ontwerpen FR8 Controleren aanvraag](#ontwerpen-fr8-controleren-aanvraag)
+    - [Componenten](#componenten)
+
+<!-- /TOC -->Not started
 Open
 Done
 Closed
@@ -671,10 +742,10 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US3  | ACT1 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project), [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details), [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) |
 | US4  | ACT2  | Als Bluenotion admin wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  |  X |
 | US5  | ACT3  | Als Bluenotion medewerker wil ik niet mijn werkwijze aanpassen om een nieuw systeem voor de klant te ondersteunen.  | [NFR2.1](#nonfunctional-requirements)  |
-| US6  | ACT1  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-taak-in-een-project) |
-| US7  | ACT1, ACT2  | Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | [FR2.6](./Requirements/FR2_Inzien_taken.md#fr26-comments-toevoegen-op-lopende-taak), [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag), [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) |
+| US6  | ACT1  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr3-toevoegen-aanvraag) |
+| US7  | ACT1, ACT2  | Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag), [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) |
 | US8  | ACT1  | Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
-| US9  | ACT1  | Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-versturen-notificatie) |
+| US9  | ACT1  | Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) |
 | US10  | ACT2  | Als Bluenotion admin wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.  | [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
 | US11  |   | Als ?software developer? wil ik geen data over het netwerk sturen waar de klant geen toegang toe heeft.  |   |
 | US12 | ACT2 | Als Bluenotion admin wil ik dat de klant afbeeldingen kan invoegen om problemen/aanvragen toe te lichten. | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
@@ -686,7 +757,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US18 | ACT2 | Als Bluenotion admin wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
 | US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
-| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Documentatie/Requirements/FR5_Opstellen_project.md) |
+| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Requirements/FR5_Opstellen_project.md) |
 | US22 | ACT1 | Als externe klant wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
 
 ### Use case diagram
@@ -827,42 +898,42 @@ legend left
 
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Document references | Status |
 |---|---|---|---|---|---|
-| FR1 | Inzien project plannings informatie |  |  | [Requirement overzicht](./Documentatie/Requirements/FR1_Inzien_project_plannings_informatie.md) |  |
-| FR1.1 |  | Inzien projecten | Must have | [US1](#user-stories), [US2](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-alternative-flow---no-projects-for-customer) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR1.2 |  | Inzien totaal geplande uren+kosten | Won't have FDR001 | [US3](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FDR001](../Decisions/Functional/FDR001-Tijd-en-kosten-niet-tonen.md) | [x] Rejected |
-| FR2 | Inzien taken |  |  | [Requirement overzicht](./Documentatie/Requirements/FR2_Inzien_taken.md) |  |
-| FR2.1 |  | Inzien taken van project | Must have | [US3](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR2.2 |  | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have | [US3](#user-stories), [US8](#user-stories), [US9](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR2.3 |  | Inzien taak details | Must have | [US3](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details)  | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR2.4 |  | Tonen taken in Gantt chart | Could have | [US3](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR2_Inzien_taken.md#fr24-main-flow) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3 | Toevoegen aanvraag |  |  | [Requirement overzicht](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md) |  |
-| FR3.1 |  | Toevoegen nieuwe taak | Must have | [US6](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.2 |  | Toelichting geven op aanvraag (extern) | Must have | [US7](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.3 |  | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | [Fully dressed usecase description](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [ ] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.4 |  | Toevoegen bijlagen bij taak | Must have | [US12](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.5 |  | Aanpassen taak prioriteit | Could have | [Fully dressed usecase description](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.6 |  | Annuleren aanvraag | Should have | [Fully dressed usecase description](./Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) |  [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing  |
-| FR4 | Versturen notificaties |  |  | [Requirement overzicht](./Documentatie/Requirements/FR4_Versturen_notificaties.md) |  |
-| FR4.1 |  | Inlichten klant wanneer een taak wacht op input van de klant | Should have | [US9](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](./Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR1 | Inzien project plannings informatie |  |  | [Requirement overzicht](./Requirements/FR1_Inzien_project_plannings_informatie.md) |  |
+| FR1.1 |  | Inzien projecten | Must have | [US1](#user-stories), [US2](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR1.2 |  | Inzien totaal geplande uren+kosten | Won't have FDR001 | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FDR001](./Decisions/Functional/FDR001-Tijd-en-kosten-niet-tonen.md) | [x] Rejected |
+| FR2 | Inzien taken |  |  | [Requirement overzicht](./Requirements/FR2_Inzien_taken.md) |  |
+| FR2.1 |  | Inzien taken van project | Must have | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR2.2 |  | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have | [US3](#user-stories), [US8](#user-stories), [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR2.3 |  | Inzien taak details | Must have | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details)  | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR2.4 |  | Tonen taken in Gantt chart | Could have | [US3](#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr24-main-flow) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3 | Toevoegen aanvraag |  |  | [Requirement overzicht](./Requirements/FR3_Toevoegen_aanvraag.md) |  |
+| FR3.1 |  | Toevoegen nieuwe taak | Must have | [US6](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.2 |  | Toelichting geven op aanvraag (extern) | Must have | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.3 |  | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [ ] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.4 |  | Toevoegen bijlagen bij taak | Must have | [US12](#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.5 |  | Aanpassen taak prioriteit | Could have | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.6 |  | Annuleren aanvraag | Should have | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) |  [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing  |
+| FR4 | Versturen notificaties |  |  | [Requirement overzicht](./Requirements/FR4_Versturen_notificaties.md) |  |
+| FR4.1 |  | Inlichten klant wanneer een taak wacht op input van de klant | Should have | [US9](#user-stories), [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5 | Opstellen project |  |  |  |  |
-| FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](#user-stories) [FR5.2](./Documentatie/Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards--taak-status) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR6 | Inzien project service statuses |  |  | [Requirement overzicht](./Documentatie/Requirements/FR6_Inzien_project_service_statuses.md)  |  |
-| FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](#user-stories),[Fully dressed usecase description](./Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR6.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR7 | Inzien project documentatie |  |  | [Requirement overzicht](./Documentatie/Requirements/FR7_Inzien_project_documentatie.md) |  |
-| FR7.1 |  | Openen/downloaden document | Could have | [US13](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR7.2 |  | Filteren documentnaam/categorie | Could have | [US13](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR7.3 |  | Beheren project documentatie | Could have |  [Fully dressed usecase description](./Documentatie/Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR8 | Controleren aanvraag |  |  | [Requirement overzicht](./Documentatie/Requirements/FR8_Controleren_aanvraag.md) |  |
-| FR8.1 |  | Controleren aanvraag (intern) | Must have | [US7](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR8.2 |  | Op splitten taak naar team taken | Could have | [US7](#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR9 | Chat met tenants |  | Won't have | [Requirement overzicht](./Documentatie/Requirements/FR9_Tenant_level_chat.md), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |  |
-| FR9.1 |  | Starten nieuwe chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Documentatie/Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](#user-stories), [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](#user-stories) [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards-en-taak-status) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR6 | Inzien project service statuses |  |  | [Requirement overzicht](./Requirements/FR6_Inzien_project_service_statuses.md)  |  |
+| FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](#user-stories), [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](#user-stories),[Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR6.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR7 | Inzien project documentatie |  |  | [Requirement overzicht](./Requirements/FR7_Inzien_project_documentatie.md) |  |
+| FR7.1 |  | Openen/downloaden document | Could have | [US13](#user-stories), [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR7.2 |  | Filteren documentnaam/categorie | Could have | [US13](#user-stories), [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR7.3 |  | Beheren project documentatie | Could have |  [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR8 | Controleren aanvraag |  |  | [Requirement overzicht](./Requirements/FR8_Controleren_aanvraag.md) |  |
+| FR8.1 |  | Controleren aanvraag (intern) | Must have | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR8.2 |  | Op splitten taak naar team taken | Could have | [US7](#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR9 | Chat met tenants |  | Won't have | [Requirement overzicht](./Requirements/FR9_Tenant_level_chat.md), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |  |
+| FR9.1 |  | Starten nieuwe chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
 
 #### Nonfunctional requirements
 
@@ -898,7 +969,7 @@ legend left
 |   | NFR8.2  |  Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |   [US18](#user-stories)  |
 |   | NFR8.3  | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  | Must have  |    [US18](#user-stories)  |
 
-### unsorted
+**Unsorted**
 
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Dependencies | Document references |
 |---|---|---|---|---|---|
@@ -914,7 +985,7 @@ Tracability matrix: https://www.researchgate.net/figure/Requirements-traceabilit
 
 #### Authenticatie
 
-Authenticatie wordt gedaan aan de hand van PMP interne accounts zoals beschreven in [ADR010-O1](./Documentatie/Decisions/Architecture/ADR010-Authentication.md#o1-intern). Hiermee worden voor klanten van Bluenotion die toegang dienen te krijgen tot het PMP accounts aangemaakt en uitnodigings links verstuurd naar de betreffende gebruiker. De gebruiker is zelf verantwoordelijk voor het aanmaken en periodiek wijzigen van het te gebruiken wachtwoord.
+Authenticatie wordt gedaan aan de hand van PMP interne accounts zoals beschreven in [ADR010-O1](./Decisions/Architecture/ADR010-Authentication.md#o1-intern). Hiermee worden voor klanten van Bluenotion die toegang dienen te krijgen tot het PMP accounts aangemaakt en uitnodigings links verstuurd naar de betreffende gebruiker. De gebruiker is zelf verantwoordelijk voor het aanmaken en periodiek wijzigen van het te gebruiken wachtwoord.
 
 #### Autorisatie
 
@@ -1028,7 +1099,7 @@ Admin: De omgeving waar een gebruiker zich bevindt als hij/zij is aangemeld als 
 
 Om te bewaken dat alle functionele requirements ook daadwerkelijk in de te maken software komen is een matrix gemaakt welk scherm interactie hebben met of informatie laten zien gerelateerd aan een functionele requirement. Daar waar requirements niet zijn opgenomen in de scherm ontwerpen dient een verantwoording voor opgegeven te worden.
 
-|       | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) | [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-alternative-flow---project-heeft-geen-taken) | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) | [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) | FR2.7 | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [FR3.5](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [FR3.6](./Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) | [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) | [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards--taak-status) | [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [FR6.3](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) | [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [FR7.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag) | [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) | [FR9.1](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat) | [FR9.2](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat) | [FR9.3](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat) |
+|       | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) | [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) | [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) | FR2.7 | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [FR3.5](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [FR3.6](./Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) | [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) | [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards-en-taak-status) | [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [FR6.3](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) | [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [FR7.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag) | [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) | [FR9.1](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat) | [FR9.2](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat) | [FR9.3](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat) |
 |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
 | [Klant: Mijn projecten pagina](#klant-projecten-pagina) |✓|       |       |✓|       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
 | Klant: Project detail pagina |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |       |
@@ -1144,19 +1215,11 @@ Prioriteit: ?
 
 #### View5: Company employee
 
-
 <!-- #### View6: Taken lijst
 
 #### View7: Taken lijst
 
 #### View8: Taken lijst -->
-
-
-
-
-
-
-
 
 ### Unsorted
 

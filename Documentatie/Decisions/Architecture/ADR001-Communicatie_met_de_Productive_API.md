@@ -86,7 +86,7 @@ Mocht de PMP back-end om wat voor reden niet dan ook geen OK status code terug s
 
 ### O1: Directe communicatie met productive zonder caching
 
-Technisch gezien is voor de data over projecten en taken geen back end database nodig als de data direct van Productive's API gehaald wordt. Hiermee is het PMP [gelimiteerd aan 100 requests per 10 seconden](https://developer.productive.io/index.html#header-rate-limits) en dit biedt weinig flexibiliteit in data transformatie of implementatie van niet productive gerelateerde functionaliteit als het toevoegen van documentatie ([FR7](./FunctioneelOntwerp.md#fr71-openendownloaden-document)) of een service overview ([FR6](FunctioneelOntwerp.md#fr61-inzien-lijst-van-project-dependencies) ) in een project.*
+Technisch gezien is voor de data over projecten en taken geen back end database nodig als de data direct van Productive's API gehaald wordt. Hiermee is het PMP [gelimiteerd aan 100 requests per 10 seconden](https://developer.productive.io/index.html#header-rate-limits) en dit biedt weinig flexibiliteit in data transformatie of implementatie van niet productive gerelateerde functionaliteit als het toevoegen van documentatie ([FR7](../../Requirements/FR7_Inzien_project_documentatie.md)) of een service overview ([FR6](../../Requirements/FR6_Inzien_project_service_statuses.md) ) in een project.*
 
 TODO: Data altijd opvragen en toch wegschrijven in een lokale db zodat opgevraagde data wél altijd beschikbaar is zou een 'alternatief' kunnen zijn maar komt qua voor en nadelen redelijk overeen met O1.
 

@@ -4,7 +4,7 @@
 
 **Context:**
 
-Om gebruikers enkel interactie te bieden met onderdelen van het systeem waar ze recht toe hebben is het van belang dat er nagedacht wordt over Authenticatie, Autorisatie en Accounting. Het uitgangspunt is dat onderscheid gemaakt kan worden tussen de verschillende actors zoals genoemd in het [Functioneel Ontwerp](/Documentatie/FunctioneelOntwerp.md#actors). De autorisatie opties om dit voor elkaar te krijgen zijn uit te zetten in twee brede categorieën:
+Om gebruikers enkel interactie te bieden met onderdelen van het systeem waar ze recht toe hebben is het van belang dat er nagedacht wordt over Authenticatie, Autorisatie en Accounting. Het uitgangspunt is dat onderscheid gemaakt kan worden tussen de verschillende actors zoals genoemd in het [Functioneel Ontwerp](../../FunctioneelOntwerp.md#actors). De autorisatie opties om dit voor elkaar te krijgen zijn uit te zetten in twee brede categorieën:
 
 **Decision:**
 

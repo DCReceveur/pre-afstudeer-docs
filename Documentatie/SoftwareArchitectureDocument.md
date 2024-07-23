@@ -2,8 +2,6 @@
 
 Binnen dit overzicht wordt aan de hand van het c4 model voor software architectuur documentatie een globaal overzicht gegeven van het geplande Project Management Portal.
 
-<!-- TOC -->
-
 - [Software Architecture Document](#software-architecture-document)
   - [Context](#context)
   - [Containers](#containers)
@@ -20,7 +18,7 @@ Binnen dit overzicht wordt aan de hand van het c4 model voor software architectu
         - [Sync service](#sync-service)
           - [Regular sync](#regular-sync)
           - [Clean sync](#clean-sync)
-    - [PMP Database \& Data models](#pmp-database--data-models)
+    - [PMP Database and Data models](#pmp-database-and-data-models)
       - [API.Models](#apimodels)
       - [Services.Models](#servicesmodels)
       - [Database.Models](#databasemodels)
@@ -30,11 +28,9 @@ Binnen dit overzicht wordt aan de hand van het c4 model voor software architectu
     - [Productive API sync](#productive-api-sync)
   - [Architectural Decision Records](#architectural-decision-records)
 
-<!-- /TOC -->
-
 ## Context
 
-Zoals beschreven in het [FO](/Documentatie/FunctioneelOntwerp.md) besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*
+Zoals beschreven in het [FO](./FunctioneelOntwerp.md) besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*
 
 *TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
 Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem.
@@ -103,8 +99,8 @@ Service --> NS : SMTP?
 | [PMP API](#Component-PMP-API) | Levert endpoints voor de React front-end om data uit de rest van het systeem uit te lezen en op te slaan.  |
 | [PMP Services](#Component-PMP-Services) | Verantwoordelijk voor het afhandelen van domein logica en coördinatie van binnenkomende en uitgaande data naar andere componenten. |
 | [PMP Database](#Component-PMP-DB) | De PMP Database is een MySQL** database waar data die niet opgeslagen kan worden in Productive opgeslagen kan worden. |
-| [Notification system](#Component-Notification-system) | Verantwoordelijk voor het inlichten van de gebruiker bij evenementen waar directe actie voor nodig is zoals het inlichten van Bluenotion bij criticals/blocking issues ([FR4.2](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)) of het inlichten wanneer een klant extra informatie moet geven op een taak [FR4.1](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant).  |
-| [Productive API](#Component-Productive-API) | De Productive API dient als data source voor alle project gerelateerde informatie binnen Bluenotion. Wijzigingen in Productive dienen (indien opgevraagd door de gebruiker) binnen 3 seconde na aanvraag beschikbaar te zijn voor de gebruiker ([NFR2.1, NFR3.2](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements)). Wijzigingen in de door Productive aangeleverde entiteiten zoals projecten en taken dienen zonder verlies doorgezet te worden naar Productive([NFR2.1, NFR8.1](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements)). |
+| [Notification system](#Component-Notification-system) | Verantwoordelijk voor het inlichten van de gebruiker bij evenementen waar directe actie voor nodig is zoals het inlichten van Bluenotion bij criticals/blocking issues ([FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)) of het inlichten wanneer een klant extra informatie moet geven op een taak [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant).  |
+| [Productive API](#Component-Productive-API) | De Productive API dient als data source voor alle project gerelateerde informatie binnen Bluenotion. Wijzigingen in Productive dienen (indien opgevraagd door de gebruiker) binnen 3 seconde na aanvraag beschikbaar te zijn voor de gebruiker ([NFR2.1, NFR3.2](./FunctioneelOntwerp.md#nonfunctional-requirements)). Wijzigingen in de door Productive aangeleverde entiteiten zoals projecten en taken dienen zonder verlies doorgezet te worden naar Productive([NFR2.1, NFR8.1](./FunctioneelOntwerp.md#nonfunctional-requirements)). |
 
 TODO: NFR maken voor hoe lang het mag duren tot het PMP data heeft uit Productive.*
 TODO: Database systeem kiezen.**
@@ -215,7 +211,7 @@ rectangle "PMP API"{
 | **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
 | **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
-| [**Models**](Component-PMP-DB)  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#Component-PMP-DB) gegeven op de models.  |
+| [**Models**](#Component-PMP-DB)  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#Component-PMP-DB) gegeven op de models.  |
 
 ### <a id="Component-PMP-Services" /></a>PMP Services
 
@@ -312,7 +308,7 @@ CommentRepository -->BaseRepository
 | ICommentService  | add, edit, delete  |
 | INotification  | processNotificationSendRequest(NotificationSendRequest)  |
 | IAccountService  | signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)  |
-| dbContext | De interface die gebruikt wordt met de database te communiceren, meer hier over in [het hoofdstuk over de database en verschillende models](./SoftwareArchitectureDocument.md#pmp-database--data-models) |
+| dbContext | De interface die gebruikt wordt met de database te communiceren, meer hier over in [het hoofdstuk over de database en verschillende models](./SoftwareArchitectureDocument.md#Component-PMP-DB) |
 | [Productive REST API](./SoftwareArchitectureDocument.md#productive-api) | De officiële [Productive API](https://developer.productive.io/) die gebruikt wordt voor synchronisatie tussen het PMP en Productive. |
 | Mail | De interface die wordt gebruikt om de klant op de hoogte te brengen wanneer hij/zij zich niet in het PMP bevindt is voor nu nog niet gekozen.  |
 
@@ -372,7 +368,7 @@ TODO: rename productive service?
 
 TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
 
-### <a id="Component-PMP-DB" /></a>PMP Database & Data models
+### <a id="Component-PMP-DB" /></a>PMP Database and Data models
 
 De database package is verantwoordelijk voor het low level beheer van de database verbinding en het database model. De verbinding en communicatie met de database wordt afgehandeld aan de hand van MS Entity Framework.
 
@@ -457,7 +453,7 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 ### <a id="Component-Notification-system" />Notification system
 
-Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in [FR4.1](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in [FR4.2](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals).
+Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals).
 
 De details van het notificatie systeem zijn nog niet uitgewerkt, er zal een mail client opgezet worden die gemachtigd is berichten te sturen naar de klant. Als alternatief zou ook een SMS systeem mogelijk kunnen zijn.
 
@@ -465,7 +461,7 @@ TODO: Details wel uitwerken
 
 ### <a id="Component-Productive-API" />Productive API
 
-De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het [FO](/Documentatie/FunctioneelOntwerp.md#domein) is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:
+De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het [FO](./FunctioneelOntwerp.md#domein) is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:
 
 - De rate limits
 
@@ -581,7 +577,7 @@ Verantwoordingen toe te voegen:
 - Productive webhook endpoints, per "object" of event? <https://developer.productive.io/webhooks.html#webhooks>
 - Basis tests met webhooks: als applicatie uit staat en aan de hand van de webhooks data naar het PMP wordt gestuurd wordt er vanuit productive automatisch een (aantal) nieuwe poging(en) gedaan om de data nogmaals te versturen. Als in de tussentijd het PMP weer draait kan het zijn dat updates over de zelfde taak in de verkeerde volgorde aankomen. Het is van belang dat er hierom gekeken wordt naar wanneer welke wijziging is gemaakt (welke timestamp?) voordat ze worden doorgevoerd.
 - In het geval dat het PMP geen directe reactie krijgt van productive bij bijvoorbeeld het aanmaken van een taak dienen de taken A. niet aangemaakt te worden met een foutmelding? B. aangemaakt te worden en op een later moment gesynchroniseerd te worden?
-- Filtering pagination & sorting [technisch ontwerp](/Documentatie/TechnischOntwerp.md#filtering-pagination--sorting)
+- Filtering pagination & sorting [technisch ontwerp](./TechnischOntwerp.md#filtering-pagination-and-sorting)
 
 Is dit wel een ADR?
 

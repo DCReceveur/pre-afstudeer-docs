@@ -212,25 +212,25 @@ optie:
 
 endpoints ontwerpenzoals de repositories zodat filtering op de endpoints zelf toegepast kan worden.
 
-#### filtering pagination & sorting
+#### filtering pagination and sorting
 
 TODO: Vastleggen zodra ADR001 Decided is.
 
-Afhankelijk van [ADR001](./Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) zou er voor de PMP API gekeken moeten/kunnen worden naar filtering en pagination voor de RESTful endpoints. Bij de endpoints zoals aangeleverd door de Productive API op alle endpoints beiden filters en paginatie beschikbaar. Hiermee kunnen de hoeveelheid en welke records records die in een keer verstuurd worden beperkt worden en dus kunnen dus de reactiesnelheid en flexibiliteit van de endpoints vergroten. Met het voorlopig besluit van [ADR001-O2](./Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) waar het PMP een eigen database heeft waar de meeste productive data aan de hand van webhooks gesynchroniseerd wordt naar de lokale PMP database zouden filters en paginatie op de endpoints het uiteindelijke dataverkeer sterk verminderen.
+Afhankelijk van [ADR001](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) zou er voor de PMP API gekeken moeten/kunnen worden naar filtering en pagination voor de RESTful endpoints. Bij de endpoints zoals aangeleverd door de Productive API op alle endpoints beiden filters en paginatie beschikbaar. Hiermee kunnen de hoeveelheid en welke records records die in een keer verstuurd worden beperkt worden en dus kunnen dus de reactiesnelheid en flexibiliteit van de endpoints vergroten. Met het voorlopig besluit van [ADR001-O2](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) waar het PMP een eigen database heeft waar de meeste productive data aan de hand van webhooks gesynchroniseerd wordt naar de lokale PMP database zouden filters en paginatie op de endpoints het uiteindelijke dataverkeer sterk verminderen.
 
-Om een grove schatting te maken van hoe nodig het inperken van de endpoint responses kan gekeken worden naar de resultaten van het pollen van endpoints voor een van de (wat grotere) projecten bij Bluenotion als te vinden in [OND01 Productive Sync](./Documentatie/Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1) waar aan één project 845 taken gekoppeld zijn waar voor het opsturen van de data 939ms (voor 1 pagina) nodig was. 
+Om een grove schatting te maken van hoe nodig het inperken van de endpoint responses kan gekeken worden naar de resultaten van het pollen van endpoints voor een van de (wat grotere) projecten bij Bluenotion als te vinden in [OND01 Productive Sync](./Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1) waar aan één project 845 taken gekoppeld zijn waar voor het opsturen van de data 939ms (voor 1 pagina) nodig was. 
 
 Door hier extra filters aan te hangen voor enkel het doorsturen van bijvoorbeeld taken die niet closed zijn of gekoppeld zijn aan een bepaald bord of takenlijst zou de filtertijd mogelijk wel vergroot worden maar de hoeveelheid te versturen data zou verminderen.
 
 | Aanvraag | Resultaat | Uitleg |
 |---|---|---|
-| <https://api.productive.io//api/v2/tasks?page[size]=200&filter[project_id]=102877>  | 5 pagina's met 200 records van +/-438 KB met gemiddelde reactietijd van +/-900ms  | Zo veel mogelijk taken voor een midden groot project zoals gebruikt in [OND01 Productive Sync](./Documentatie/Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1). |
+| <https://api.productive.io//api/v2/tasks?page[size]=200&filter[project_id]=102877>  | 5 pagina's met 200 records van +/-438 KB met gemiddelde reactietijd van +/-900ms  | Zo veel mogelijk taken voor een midden groot project zoals gebruikt in [OND01 Productive Sync](./Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1). |
 | <https://api.productive.io//api/v2/tasks?page[size]=200&filter[project_id]=102877&filter[status]=1> | 1 pagina met 77 records van +/-272 KB met gemiddelde reactietijd van +/-600ms  | Zelfde taken maar met filter die gesloten taken weg laat. |
 | <https://api.productive.io//api/v2/tasks?page[size]=200&filter[project_id]=102877&filter[status]=1&filter[task_list_name]=backlog>  | 1 pagina met 7 records van +/-73KB met gemiddelde reactietijd van +/-350ms   | De zelfde taken maar met filter die gesloten taken weg laat en enkel taken terug geeft die op de backlog staan.  |
 
-Met enkel deze filters zou [FR2.2](./Documentatie/Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) naast de feedback intern+extern al geïmplementeerd kunnen worden. Het filteren van de taken op feedback nodig van Bluenotion of de klant zouden zoals beschreven in het FO bij de [Toelichting statuses](./Documentatie/FunctioneelOntwerp.md#toelichting-statuses) kunnen gebeuren op basis de [workflow_status_id](https://developer.productive.io/tasks.html#header-supported-filter-params) filter kunnen gebeuren.
+Met enkel deze filters zou [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) naast de feedback intern+extern al geïmplementeerd kunnen worden. Het filteren van de taken op feedback nodig van Bluenotion of de klant zouden zoals beschreven in het FO bij de [Toelichting statuses](./FunctioneelOntwerp.md#toelichting-statuses) kunnen gebeuren op basis de [workflow_status_id](https://developer.productive.io/tasks.html#header-supported-filter-params) filter kunnen gebeuren.
 
-Met oog op de [schermontwerpen](./Documentatie/FunctioneelOntwerp.md#scherm-ontwerpen) ligt het maximale aantal van de zelfde items items dat op één pagina in een keer geladen moet worden niet veel hoger dan 15. Als er gebruik gemaakt gaat worden van een lokale database voor de productive data zoals beschreven in [ADR001-O2](./Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) zou sortering, filtering en pagination op API endpoint niveau een waardevolle toevoeging kunnen zijn aan het project.
+Met oog op de [schermontwerpen](./FunctioneelOntwerp.md#scherm-ontwerpen) ligt het maximale aantal van de zelfde items items dat op één pagina in een keer geladen moet worden niet veel hoger dan 15. Als er gebruik gemaakt gaat worden van een lokale database voor de productive data zoals beschreven in [ADR001-O2](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) zou sortering, filtering en pagination op API endpoint niveau een waardevolle toevoeging kunnen zijn aan het project.
 
 
 <!-- https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0 -->
@@ -238,7 +238,7 @@ Met oog op de [schermontwerpen](./Documentatie/FunctioneelOntwerp.md#scherm-ontw
 
 ### Services
 
-De servicelaag biedt een aantal interfaces aan om met domein entiteiten te werken. Binnen de servicelaag wordt een vertaalslag gedaan van input model naar het database model zodat er geen directe koppeling bestaat tussen de database en de front-end (Zie [SAD data modellen hoofdstuk](./Documentatie/SoftwareArchitectureDocument.md#databasemodels)). Verder heeft de servicelaag de verantwoordelijkheid de juiste resources aan te spreken voor bijvoorbeeld het synchroniseren van Productive resources naar de database of aanroepen van de notificatie manager wanneer er een notificatie gestuurd moet worden.
+De servicelaag biedt een aantal interfaces aan om met domein entiteiten te werken. Binnen de servicelaag wordt een vertaalslag gedaan van input model naar het database model zodat er geen directe koppeling bestaat tussen de database en de front-end (Zie [SAD data modellen hoofdstuk](./SoftwareArchitectureDocument.md#databasemodels)). Verder heeft de servicelaag de verantwoordelijkheid de juiste resources aan te spreken voor bijvoorbeeld het synchroniseren van Productive resources naar de database of aanroepen van de notificatie manager wanneer er een notificatie gestuurd moet worden.
 
 Aangezien de services de domein logica afhandelen zullen verschillende service interfaces ook verschillende signatures krijgen. De basis van de services blijft wel over de meeste services gelijk. Om de scheiding tussen tussen de front-end en database in stand te houden krijgt entity service een Find, GetAll, Add, Update en Delete endpoint. Die vanuit verschillen de andere controllers en services aangeroepen kunnen worden.
 
@@ -436,6 +436,6 @@ ProductiveSyncController	Verantwoordelijk voor endpoints met betrekking tot comm
 
 De synchronisatieservice heeft twee verantwoordelijkheden: Het opzetten en onderhouden van de webhooks en het aanbieden van een mogelijkheid om handmatig een synchronisatie procedure te starten voor bijvoorbeeld de initiële setup of disaster recovery.
 
-Aangezien dit een essentieel onderdeel is van het PMP is het totstandkomings proces en ontwerp van de synchronisatieservice vastgelegd in [Onderzoek 1 Productive sync](./Documentatie/Onderzoek/OND01-ProductiveSync.md)
+Aangezien dit een essentieel onderdeel is van het PMP is het totstandkomings proces en ontwerp van de synchronisatieservice vastgelegd in [Onderzoek 1 Productive sync](./Onderzoek/OND01-ProductiveSync.md)
 
 ### DB

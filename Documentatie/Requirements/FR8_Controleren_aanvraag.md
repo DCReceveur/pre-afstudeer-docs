@@ -31,7 +31,7 @@ Deze functional requirements hebben betrekking op het goed (of af) keuren van aa
 | Stap | Actor | System |
 |--|--|--|
 | 3A | Geeft aan dat de aanvraag niet duidelijk genoeg is omschreven om een taak van te maken met een notitie voor de gebruiker wat er aangepast/verduidelijkt moet worden |  |
-| 4A |  | Stelt "ACT1: Externe klant" op de hoogte van de vraag om verduidelijking voor het toelichting geven op de taak ([FR3.2](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-taak)). |
+| 4A |  | Stelt "ACT1: Externe klant" op de hoogte van de vraag om verduidelijking voor het toelichting geven op de taak ([FR3.2](../Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag)). |
 
 ### FR8.1 Alternative flow - Aanvraag bevat omschrijving voor meerdere taken
 

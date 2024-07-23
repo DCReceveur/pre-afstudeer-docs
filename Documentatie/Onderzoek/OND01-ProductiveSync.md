@@ -10,7 +10,9 @@ Aangezien het PMP de klant inzicht dient te geven in de actuele staat van zijn/h
 - Q4: Kan het systeem "oneindig" (los van Productive) schalen?
 - Q5: Moeten er aparte endpoints gemaakt worden binnen het PMP voor de communicatie met Productive of kan er (netjes) gebruik gemaakt worden van de endpoints die de front-end ook gebruikt?
 
-Tijdens het library onderzoek [(1 tm 3)](#gekozen) zijn nog een aantal vragen naar boven gekomen over de voorgestelde oplossingen.
+<!-- TODO: rewrite met externe referenties naar onderzoek methodes. -->
+
+Tijdens het library onderzoek [(1 tm 3)](./Onderzoeksmethodes.md) zijn nog een aantal vragen naar boven gekomen over de voorgestelde oplossingen.
 
 - Q6: Hoe dicht in de buurt van de webhook limits komt het dagelijks gebruik van Bluenotion? 1000 per 5 min
 - Q7: Kan een systeem op basis van webhooks foutieve informatie ontdekken en herstellen?
@@ -19,10 +21,13 @@ Tijdens het library onderzoek [(1 tm 3)](#gekozen) zijn nog een aantal vragen na
   A: Staan als activity onder het object waar een comment op is achter gelaten.
 - Q10: Wat zijn scenario's waarin foutieve informatie in het systeem zou kunnen komen?
 
-Ongesorteerde observatie:
+Ongesorteerde observaties:
 
-Hoe krijg ik een task_list_id? deze is niet aanwezig in /activities. niet includable vanuit activities, zou wel kunnen dat hij vanaf de webhooks te bereiken is.
-TODO: test* Indien dit niet mogelijk is zou het kunnen dat de "status" zoals beschreven in het [functioneel ontwerp](/Documentatie/FunctioneelOntwerp.md#toelichting-statuses)
+- Hoe krijg ik een task_list_id? deze is niet aanwezig in /activities. niet includable vanuit activities, zou wel kunnen dat hij vanaf de webhooks te bereiken is.
+TODO: test* Indien dit niet mogelijk is zou het kunnen dat de "status" zoals beschreven in het [functioneel ontwerp](../FunctioneelOntwerp.md#toelichting-statuses)
+Include werkt wel op taak.
+
+*Waar slaan we documenten op?
 
 <!-- TODO: is Q10 wel een goede onderzoeksvraag of is dit te direct? Technisch gezien is er geen systeem dat foutieve informatie zou kunnen ontvangen op dit punt. -->
 
@@ -75,9 +80,6 @@ De volgende methodes zijn overwogen toe te passen binnen het gekozen onderzoek p
 | 6 | [Prototyping](https://ictresearchmethods.nl/workshop/prototyping/) | Workshop |  Na het vaststellen van de eisen en onderzoeken van de verschillende opties wordt de meest belovende optie uitgewerkt tot een PoC zodat er meer zekerheid is dat de oplossing naar verwachting functioneert. |
 | 7 | [Usability testing](https://ictresearchmethods.nl/lab/usability-testing/) | Lab | Zodra een PoC is gemaakt kunnen er tests uitgevoerd worden die de grenzen van het systeem testen. |
 | 8 | [A/B Testing](https://ictresearchmethods.nl/lab/a-b-testing/) | Lab | Zou gebruikt kunnen worden om twee oplossingen te vergelijken na het maken van één of meerdere PoC's. |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
 
 ### Methodiek: Gekozen
 
@@ -103,28 +105,11 @@ Op basis van de overwegingen uit het vorige hoofdstuk is het onderstaande onderz
 Tijdens het library onderzoek wordt globaal gekeken naar verschillende manieren om data tussen twee data sources te synchroniseren. Hierbij wordt ook gekeken welke data Productive aan de hand van hun API aanbiedt en wat de vastgestelde rate limits zijn.
 
 <!-- TODO: gekke introductie -->
-In dit document wordt in meer detail in gegaan op de verschillende opties voor synchronisatie tussen het PMP en de data uit Productive. Een korte omschrijving van het probleem en de gekozen oplossing is te vinden in [ADR001](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md), dit document dient voor meer diepgang op het onderwerp indien de lezer van ADR001 behoefte heeft aan meer diepgang op de verschillende overwogen opties.
+In dit document wordt in meer detail in gegaan op de verschillende opties voor synchronisatie tussen het PMP en de data uit Productive. Een korte omschrijving van het probleem en de gekozen oplossing is te vinden in [ADR001](../Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md), dit document dient voor meer diepgang op het onderwerp indien de lezer van ADR001 behoefte heeft aan meer diepgang op de verschillende overwogen opties.
 
-Voor het project moet data uit en verstuurd worden naar productive. Deze data moet als single source of truth Productive gebruiken en dient met 50 gebruikers reactietijden te hebben van minder dan 3 sec zoals beschreven in [NFR3](./FunctioneelOntwerp.md#nonfunctional-requirements) en [NFR5](./FunctioneelOntwerp.md#nonfunctional-requirements). Om de haalbaarheid deze NFR's te pijlen is gebruik gemaakt van de [scherm ontwerpen](./FunctioneelOntwerp.md#scherm-ontwerpen) uit het FO. 
+Voor het project moet data uit en verstuurd worden naar productive. Deze data moet als single source of truth Productive gebruiken en dient met 50 gebruikers reactietijden te hebben van minder dan 3 sec zoals beschreven in [NFR3](../FunctioneelOntwerp.md#nonfunctional-requirements) en [NFR5](../FunctioneelOntwerp.md#nonfunctional-requirements). Om de haalbaarheid deze NFR's te pijlen is gebruik gemaakt van de [scherm ontwerpen](../FunctioneelOntwerp.md#scherm-ontwerpen) uit het FO.
 
-<!-- Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie zouden kunnen aanleveren als de front-end direct met productive zou communiceren als bij [ADR001-O1](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive-zonder-caching). De resultaten hiervan zijn opgenomen in de onderstaande tabel:
-
-| Scherm | [/projects](https://developer.productive.io/projects.html#projects) | [/tasks](https://developer.productive.io/tasks.html#tasks) | [/people](https://developer.productive.io/people.html#people) | [/companies](https://developer.productive.io/companies.html#companies) | [/attachments](https://developer.productive.io/attachments.html#attachments) | [/comments](https://developer.productive.io/comments.html#comments) | [/activities](https://developer.productive.io/activities.html#activities) |
-|--|--|--|--|--|--|--|--|
-| [Klant: Projecten pagina](./FunctioneelOntwerp.md#klant-projecten-pagina) | x | x | x |  |  |  |  |
-| [Admin: Projecten pagina](./FunctioneelOntwerp.md#admin-projecten-pagina) | x |  | x | x |  |  |  |
-| [Klant: Taken lijst](./FunctioneelOntwerp.md#klant-taken-lijst) |  | x | x |  |  |  |  |
-| [Klant: Project overzicht](./FunctioneelOntwerp.md#klant-project-overzicht) | x | x |  |  |  |  |  |
-| [Klant: Taken detail](./FunctioneelOntwerp.md#klant-taken-detail) |  | x | x |  | x | x | x |
-| [Admin: Taken lijst](./FunctioneelOntwerp.md#admin-taken-lijst) |  | x | x |  |  |  |  |
-| [Admin: Taken detail](./FunctioneelOntwerp.md#admin-taken-detail) |  | x | x |  |  x | x | x |
-| [Klant: Documentatie pagina](./FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
-| [Admin: Toevoegen documentatie](./FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
-| [Admin: Controleren aanvraag](./FunctioneelOntwerp.md#ontwerpen-fr8-controleren-aanvraag) |  | x | x |  | x | x | x | -->
-
-*Waar slaan we documenten op?
-
-Voor het uitlezen van data voor één pagina zouden bij sommige pagina's 5 verschillende Productive endpoints benaderd worden. Als volgens [NFR5.1](./FunctioneelOntwerp.md#nonfunctional-requirements) 50 gebruikers gelijktijdig bijvoorbeeld de details van een taak bekijken zou dit resulteren in 250 requests naar de Productive API. Er van uit gaande dat een pagina informatie nodig heeft van gemiddeld 3 a 4 endpoints zou de meest basale implementatie gebaseerd op directe communicatie met productive (met een rate limit van 100 requests per 10 sec) zich limiteren tot rond de 30 gelijktijdige gebruikers. (100/3.5=28.5)
+Voor het uitlezen van data voor één pagina zouden bij sommige pagina's 5 verschillende Productive endpoints benaderd worden. Als volgens [NFR5.1](../FunctioneelOntwerp.md#nonfunctional-requirements) 50 gebruikers gelijktijdig bijvoorbeeld de details van een taak bekijken zou dit resulteren in 250 requests naar de Productive API. Er van uit gaande dat een pagina informatie nodig heeft van gemiddeld 3 a 4 endpoints zou de meest basale implementatie gebaseerd op directe communicatie met productive (met een rate limit van 100 requests per 10 sec) zich limiteren tot rond de 30 gelijktijdige gebruikers. (100/3.5=28.5)
 
 Om er voor te zorgen dat de software aan alle eisen voldoet zal er dus één van twee (of beide) dingen moeten gebeuren:
 
@@ -246,7 +231,7 @@ TODO:
 
 ## Workshop
 
-Van de initieel voorgestelde opties [ADR001-O1 tm ADR001-O5](/Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) leek [ADR001-O2](/Documentatie/Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) de meest flexibele en schaalbare optie. Omdat deze optie wegens complexere implementatie toch lager scoorde dan ADR001-O1 is besloten te onderzoeken of deze optie ook in de praktijk naar verwachting functioneert en of het haalbaar is in de opgegeven afstudeer tijd is in twee fases een Proof of Concept prototype opgezet met de volgende eisen:
+Van de initieel voorgestelde opties [ADR001-O1 tm ADR001-O5](../Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) leek [ADR001-O2](../Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) de meest flexibele en schaalbare optie. Omdat deze optie wegens complexere implementatie toch lager scoorde dan ADR001-O1 is besloten te onderzoeken of deze optie ook in de praktijk naar verwachting functioneert en of het haalbaar is in de opgegeven afstudeer tijd is in twee fases een Proof of Concept prototype opgezet met de volgende eisen:
 
 ### Requirements prioritization
 
@@ -258,7 +243,7 @@ Na in het library onderzoek een aantal mogelijke opties verzameld te hebben dien
 
 #### Kwaliteit eisen
 
-Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en Productive worden binnen dit document voor de opties als beschreven in [ADR001](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) een aantal test opstellingen opgezet. Aan de hand van deze testopstellingen zullen de opties op de volgende eisen getest worden:
+Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en Productive worden binnen dit document voor de opties als beschreven in [ADR001](../Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md) een aantal test opstellingen opgezet. Aan de hand van deze testopstellingen zullen de opties op de volgende eisen getest worden:
 
 | Eis | O1 | O2 | O3 | O4 | O5 |
 |--|--|--|--|--|--|
@@ -271,7 +256,7 @@ Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en 
 | Implementatie complexiteit | + | - | + | - | - |
 | Totaal: | 8 | 6 | 0 | -1 | -2 |
 
-Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](./FunctioneelOntwerp.md#nonfunctional-requirements).
+Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](../FunctioneelOntwerp.md#nonfunctional-requirements).
 
 
 ### Proof of Concept
@@ -319,20 +304,20 @@ Now make it crack.
 
 ### Q1: Biedt productive een API aan voor alle data die binnen het FO en schermontwerpen besproken worden?
 
-Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie zouden kunnen aanleveren als de front-end direct met productive zou communiceren als bij [ADR001-O1](./Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive-zonder-caching). De resultaten hiervan zijn opgenomen in de onderstaande tabel:
+Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie zouden kunnen aanleveren als de front-end direct met productive zou communiceren als bij [ADR001-O1](../Decisions/Architecture/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive-zonder-caching). De resultaten hiervan zijn opgenomen in de onderstaande tabel:
 
 | Scherm | [/projects](https://developer.productive.io/projects.html#projects) | [/tasks](https://developer.productive.io/tasks.html#tasks) | [/people](https://developer.productive.io/people.html#people) | [/companies](https://developer.productive.io/companies.html#companies) | [/attachments](https://developer.productive.io/attachments.html#attachments) | [/comments](https://developer.productive.io/comments.html#comments) | [/activities](https://developer.productive.io/activities.html#activities) |
 |--|--|--|--|--|--|--|--|
-| [Klant: Projecten pagina](./FunctioneelOntwerp.md#klant-projecten-pagina) | x | x | x |  |  |  |  |
-| [Admin: Projecten pagina](./FunctioneelOntwerp.md#admin-projecten-pagina) | x |  | x | x |  |  |  |
-| [Klant: Taken lijst](./FunctioneelOntwerp.md#klant-taken-lijst) |  | x | x |  |  |  |  |
-| [Klant: Project overzicht](./FunctioneelOntwerp.md#klant-project-overzicht) | x | x |  |  |  |  |  |
-| [Klant: Taken detail](./FunctioneelOntwerp.md#klant-taken-detail) |  | x | x |  | x | x | x |
-| [Admin: Taken lijst](./FunctioneelOntwerp.md#admin-taken-lijst) |  | x | x |  |  |  |  |
-| [Admin: Taken detail](./FunctioneelOntwerp.md#admin-taken-detail) |  | x | x |  |  x | x | x |
-| [Klant: Documentatie pagina](./FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
-| [Admin: Toevoegen documentatie](./FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
-| [Admin: Controleren aanvraag](./FunctioneelOntwerp.md#ontwerpen-fr8-controleren-aanvraag) |  | x | x |  | x | x | x |
+| [Klant: Projecten pagina](../FunctioneelOntwerp.md#klant-projecten-pagina) | x | x | x |  |  |  |  |
+| [Admin: Projecten pagina](../FunctioneelOntwerp.md#admin-projecten-pagina) | x |  | x | x |  |  |  |
+| [Klant: Taken lijst](../FunctioneelOntwerp.md#klant-taken-lijst) |  | x | x |  |  |  |  |
+| [Klant: Project overzicht](../FunctioneelOntwerp.md#klant-project-overzicht) | x | x |  |  |  |  |  |
+| [Klant: Taken detail](../FunctioneelOntwerp.md#klant-taken-detail) |  | x | x |  | x | x | x |
+| [Admin: Taken lijst](../FunctioneelOntwerp.md#admin-taken-lijst) |  | x | x |  |  |  |  |
+| [Admin: Taken detail](../FunctioneelOntwerp.md#admin-taken-detail) |  | x | x |  |  x | x | x |
+| [Klant: Documentatie pagina](../FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
+| [Admin: Toevoegen documentatie](../FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
+| [Admin: Controleren aanvraag](../FunctioneelOntwerp.md#ontwerpen-fr8-controleren-aanvraag) |  | x | x |  | x | x | x |
 
 
 ### Q2: Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?
@@ -425,7 +410,7 @@ Con:
 
 ### Q8: Is er een initiële dataset nodig?
 
-Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database calls (lokaal en binnen de Productive API) voor één data vraag. Aangezien deze calls relatief dure/langzame operaties zijn zou een procedure waar enkel de "nodige" data uit Productive wordt gehaald resulteren in een tragere applicatie. Aangezien de datum gevonden in de eerste request als input dient voor de rest van de data requests moet de verzameling van deze data sequentieel gebeuren waardoor de snelheid van de applicatie nog verder zou afnemen en mogelijk boven het limiet zoals beschreven in [NFR3.1 en NFR3.2](/Documentatie/FunctioneelOntwerp.md#nonfunctional-requirements) zou komen.
+Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database calls (lokaal en binnen de Productive API) voor één data vraag. Aangezien deze calls relatief dure/langzame operaties zijn zou een procedure waar enkel de "nodige" data uit Productive wordt gehaald resulteren in een tragere applicatie. Aangezien de datum gevonden in de eerste request als input dient voor de rest van de data requests moet de verzameling van deze data sequentieel gebeuren waardoor de snelheid van de applicatie nog verder zou afnemen en mogelijk boven het limiet zoals beschreven in [NFR3.1 en NFR3.2](../FunctioneelOntwerp.md#nonfunctional-requirements) zou komen.
 
 Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden.
 
