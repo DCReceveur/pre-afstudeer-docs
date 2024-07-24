@@ -1,0 +1,2221 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../PVA/kwaliteitseisen/">
+      
+      
+        <link rel="next" href="../TechnischOntwerp/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>Software Architecture Document - PMP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#software-architecture-document" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PMP" class="md-header__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PMP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Software Architecture Document
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PMP" class="md-nav__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    PMP
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management Portal documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Functioneel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Functioneel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FunctioneelOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functioneel ontwerp Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Schermontwerpen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scherm ontwerpen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    FDRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            FDRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR001-Tijd-en-kosten-niet-tonen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR001 Tijd en kosten niet tonen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR002-Tenant-level-chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR002 Tenant level chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Requirements
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR1_Inzien_project_plannings_informatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR1: Inzien project plannings informatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR2_Inzien_taken/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR2: Inzien taken
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR3_Toevoegen_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR3: Toevoegen aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR4_Versturen_notificaties/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR4: Versturen notificaties
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR5_Opstellen_project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR5: Beheren project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR6_Inzien_project_service_statuses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR6: Inzien project service statuses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR7_Inzien_project_documentatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR7 Inzien project documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR8_Controleren_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR8 Controleren aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR9_Tenant_level_chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR9: Tenant chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FRX_FDUC_Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR?: Empty FDUC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Onderzoek
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Onderzoek
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Onderzoek/OND01-ProductiveSync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicatie met productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Onderzoek/Onderzoeksmethodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Onderzoek methodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            PVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PVA/PlanVanAanpak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plan van aanpak Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PVA/Planning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Planning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PVA/kwaliteitseisen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kwaliteitseisen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Technisch
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Technisch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Software Architecture Document
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture Document
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Containers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#react-front-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      React front-end
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="React front-end">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toelichting-fe-componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toelichting FE componenten
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmp-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMP API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PMP API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toelichting-api-componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toelichting API componenten
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmp-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMP Services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PMP Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toelichting-service-componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toelichting Service componenten
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Toelichting Service componenten">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespaces*
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Componenten
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sync service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regular-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regular sync
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean sync
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmp-database-and-data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMP Database and Data models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PMP Database and Data models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apimodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      API.Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicesmodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Services.Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#databasemodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database.Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification system
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#productive-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Productive API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#productive-api-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Productive API sync
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-decision-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architectural Decision Records
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TechnischOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technisch ontwerp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ADRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            ADRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR001-Communicatie_met_de_Productive_API/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR001-Communicatie met de Productive API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR002-Front%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR002-Front end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR003-Back%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR003-Back end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR004-Database%20system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR004-Database system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR005-Database-ORM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR005-Database-ORM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR006-Frontend%20backend%20Communicatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR006-Frontend backend Communicatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR007-MVC%20Design%20pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR007 MVC Design pattern
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR008-Taak-Mijlpalen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR009-ProductiveData/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0009 Productive Data Details
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/ADR010-Authentication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR010 Authentication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/LADR%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR000
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADRs/scheiding%20tussen%20aanvraag%20en%20taak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR00? Aanvragen in Productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Containers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#react-front-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      React front-end
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="React front-end">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toelichting-fe-componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toelichting FE componenten
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmp-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMP API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PMP API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toelichting-api-componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toelichting API componenten
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmp-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMP Services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PMP Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toelichting-service-componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toelichting Service componenten
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Toelichting Service componenten">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespaces*
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componenten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Componenten
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sync service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regular-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regular sync
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean sync
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pmp-database-and-data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      PMP Database and Data models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PMP Database and Data models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apimodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      API.Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicesmodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Services.Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#databasemodels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database.Models
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification system
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#productive-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Productive API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#productive-api-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Productive API sync
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architectural-decision-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architectural Decision Records
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="software-architecture-document">Software Architecture Document</h1>
+<p>Binnen dit overzicht wordt aan de hand van het c4 model voor software architectuur documentatie een globaal overzicht gegeven van het geplande Project Management Portal.</p>
+<h2 id="context">Context</h2>
+<p>Zoals beschreven in het <a href="../../Functioneel/FunctioneelOntwerp/">FO</a> besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*</p>
+<p>*TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
+Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem.</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="314px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 577 314" width="577px" zoomAndPan="magnify"><defs/><g><g id="elem_Klant"><ellipse cx="152.0059" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M152.0059,22 L152.0059,49 M139.0059,30 L165.0059,30 M152.0059,49 L139.0059,64 M152.0059,49 L165.0059,64 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36.0117" x="134" y="78.4951">Klant</text></g><g id="elem_Admin"><ellipse cx="436.0121" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M436.0121,22 L436.0121,49 M423.0121,30 L449.0121,30 M436.0121,49 L423.0121,64 M436.0121,49 L449.0121,64 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44.8643" x="413.58" y="78.4951">Admin</text></g><g id="elem_productive"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="132.0205" x="7" y="272.09"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.0205" x="17" y="295.0851">Productive (API)</text></g><g id="elem_message"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="149.459" x="219.28" y="272.09"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129.459" x="229.28" y="295.0851">Messaging system</text></g><g id="elem_PMP"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="210.2988" x="188.86" y="158.8"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="190.2988" x="198.86" y="181.7951">Project Management Portal</text></g><g id="elem_DB"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="120.2148" x="418.9" y="272.09"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100.2148" x="428.9" y="295.0851">PMP Database</text></g><g id="link_Klant_PMP"><path d="M141.1,82 C138.76,97.79 139.39,115.55 149.01,128.8 C158.97,142.5 167.5428,149.8281 183.0028,156.8181 " fill="none" id="Klant-to-PMP" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="188.47,159.29,181.9172,151.9374,183.914,157.2301,178.6213,159.2269,188.47,159.29" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="130.7046" x="150.01" y="124.8669">Manages projects in</text></g><g id="link_Admin_PMP"><path d="M425.17,82.07 C419.02,98.06 409.91,115.96 397.01,128.8 C384.19,141.56 372.7788,148.8393 356.3788,155.9993 " fill="none" id="Admin-to-PMP" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="350.88,158.4,360.7286,158.4648,355.4623,156.3994,357.5277,151.1331,350.88,158.4" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="114.4229" x="410.01" y="124.8669">Validates tasks in</text></g><g id="link_PMP_productive"><path d="M188.48,186.35 C157.92,193.14 126.29,204.91 102.01,225.09 C87.82,236.89 81.7932,251.284 77.9932,265.864 " fill="none" id="PMP-to-productive" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="76.48,271.67,82.6205,263.9698,77.741,266.8316,74.8792,261.9521,76.48,271.67" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179.1689" x="103.01" y="238.1569">Retrieves project data from</text></g><g id="link_PMP_message"><path d="M292.46,195.36 C291.49,208.26 290.51,226.27 291.01,242.09 C291.32,251.93 291.5754,256.925 292.2054,265.805 " fill="none" id="PMP-to-message" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="292.63,271.79,295.9831,262.5295,292.2762,266.8025,288.0031,263.0956,292.63,271.79" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="160.7544" x="292.01" y="238.1569">Informs customers using</text></g><g id="link_PMP_DB"><path d="M399.24,192.47 C420.4,199.5 441.01,209.86 457.01,225.09 C469.8,237.27 474.225,251.2717 476.475,265.6917 " fill="none" id="PMP-to-DB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="477.4,271.62,479.9647,262.1109,476.6292,266.6798,472.0603,263.3443,477.4,271.62" style="stroke:#181818;stroke-width:1.0;"/></g></g></svg></div>
+
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#components">Project Management Portal</a></td>
+<td>Levert op vraag informatie aan de gebruikers over de projecten en taken zoals beschikbaar op de productive.io API.</td>
+</tr>
+<tr>
+<td>Productive (API)</td>
+<td>Productive houdt de huidige staat van binnen Bluenotion uitgevoerde projecten bij. Deze API en de achter liggende database dient als de single point of truth van het PMP systeem.</td>
+</tr>
+<tr>
+<td>Messaging system</td>
+<td>Verantwoordelijk voor het op de hoogte stellen van gebruikers als er acties ondernomen moeten worden. Voorbeelden zijn:</br>- Een taak die gereviewd moet worden</br>- Een critical of blocking issue</td>
+</tr>
+<tr>
+<td>PMP Database</td>
+<td>Omdat de Productive API rate limited is en er mogelijk data over projecten dient opgeslagen te worden die niet binnen productive beschikbaar is wordt gebruik gemaakt van een (voor de API) lokale database om opgevraagde data te cachen en overige data op te slaan.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="containers">Containers</h2>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="624px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 609 624" width="609px" zoomAndPan="magnify"><defs/><g><g id="cluster_Browser"><rect fill="none" height="97.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="182" x="38" y="144.79"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="64.8594" x="96.5703" y="159.7851">Browser</text></g><g id="cluster_PMP"><rect fill="none" height="327.89" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="204" x="7" y="291.09"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:1.0;" width="15" x="191" y="296.09"/><rect fill="none" height="2" style="stroke:#181818;stroke-width:1.0;" width="4" x="189" y="298.09"/><rect fill="none" height="2" style="stroke:#181818;stroke-width:1.0;" width="4" x="189" y="302.09"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="34.4531" x="91.7734" y="317.0851">PMP</text></g><g id="elem_PWA"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="149.5938" x="54.2" y="179.79"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="183.7938" y="184.79"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="181.7938" y="186.79"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="181.7938" y="190.79"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109.5938" x="69.2" y="212.7851">React front-end</text></g><g id="elem_API"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="95.5625" x="81.22" y="326.09"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="156.7825" y="331.09"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="154.7825" y="333.09"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="154.7825" y="337.09"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55.5625" x="96.22" y="359.0851">PMP API</text></g><g id="elem_DB"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140.2148" x="22.89" y="556.68"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="143.1048" y="561.68"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="141.1048" y="563.68"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="141.1048" y="567.68"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100.2148" x="37.89" y="589.6751">PMP Database</text></g><g id="elem_Service"><rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="132.4492" x="62.78" y="433.39"/><rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="175.2292" y="438.39"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="173.2292" y="440.39"/><rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="173.2292" y="444.39"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92.4492" x="77.78" y="466.3851">PMP Services</text></g><g id="elem_Klant"><ellipse cx="63.9959" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M63.9959,22 L63.9959,49 M50.9959,30 L76.9959,30 M63.9959,49 L50.9959,64 M63.9959,49 L76.9959,64 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36.0117" x="45.99" y="78.4951">Klant</text></g><g id="elem_Admin"><ellipse cx="194.0021" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M194.0021,22 L194.0021,49 M181.0021,30 L207.0021,30 M194.0021,49 L181.0021,64 M194.0021,49 L207.0021,64 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44.8643" x="171.57" y="78.4951">Admin</text></g><g id="elem_NS"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="155.3926" x="227.3" y="561.68"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135.3926" x="237.3" y="584.6751">Notification system</text></g><g id="elem_PR_API"><path d="M418,567.18 C418,557.18 487.001,557.18 487.001,557.18 C487.001,557.18 556.002,557.18 556.002,567.18 L556.002,592.4769 C556.002,602.4769 487.001,602.4769 487.001,602.4769 C487.001,602.4769 418,602.4769 418,592.4769 L418,567.18 " fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/><path d="M418,567.18 C418,577.18 487.001,577.18 487.001,577.18 C487.001,577.18 556.002,577.18 556.002,567.18 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118.002" x="428" y="594.1751">Productive.io API</text></g><g id="link_Klant_PWA"><path d="M56.32,82.18 C54.86,97.15 55.28,114.23 61,128.79 C68.8,148.64 80.3285,162.2993 94.8585,175.2993 " fill="none" id="Klant-to-PWA" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="99.33,179.3,95.2898,170.318,95.6037,175.9661,89.9556,176.28,99.33,179.3" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88.3149" x="62" y="124.8569">HTTP(S)/JSON</text></g><g id="link_Admin_PWA"><path d="M178.6,81.92 C166.06,112.26 151.0606,148.5445 140.5606,173.9645 " fill="none" id="Admin-to-PWA" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="138.27,179.51,145.403,172.7188,140.1789,174.8887,138.0089,169.6646,138.27,179.51" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88.3149" x="167" y="124.8569">HTTP(S)/JSON</text></g><g id="link_PWA_API"><path d="M129,226.49 C129,253.6 129,292.81 129,319.85 " fill="none" id="PWA-to-API" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="129,325.85,133,316.85,129,320.85,125,316.85,129,325.85" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88.3149" x="130" y="271.1569">HTTP(S)/JSON</text></g><g id="link_Service_DB"><path d="M122.31,480.07 C115.85,501.85 107.819,528.9285 101.359,550.6685 " fill="none" id="Service-to-DB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="99.65,556.42,106.0479,548.9322,101.0742,551.6271,98.3792,546.6535,99.65,556.42" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="135.6938" x="115" y="522.7469">MS Entity framework</text></g><g id="link_API_Service"><path d="M129,372.83 C129,390.59 129,409.23 129,426.98 " fill="none" id="API-to-Service" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="129,432.98,133,423.98,129,427.98,125,423.98,129,432.98" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_Service_PR_API"><path d="M195.39,472.53 C233.94,481.88 283.19,494.91 326,509.68 C365.4,523.28 403.2875,539.616 435.0575,554.206 " fill="none" id="Service-to-PR_API" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="440.51,556.71,434.0006,549.319,435.9662,554.6233,430.6619,556.589,440.51,556.71" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88.3149" x="372" y="522.7469">HTTP(S)/JSON</text></g><g id="link_PR_API_API"><path d="M486.03,556.69 C484.32,541.91 479.94,522.85 469,509.68 C448.89,485.49 271.3971,409.4609 182.5271,372.3709 " fill="none" id="PR_API-to-API" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="176.99,370.06,183.7551,377.2178,181.6043,371.9858,186.8363,369.835,176.99,370.06" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="181.1812" x="420" y="461.0969">HTTP(S)/JSON via webhooks</text></g><g id="link_Service_NS"><path d="M195.64,475.55 C217.36,483.6 240.6,494.73 259,509.68 C276.23,523.69 286.6926,540.5055 294.4326,555.9555 " fill="none" id="Service-to-NS" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="297.12,561.32,296.6651,551.4817,294.8805,556.8496,289.5125,555.0649,297.12,561.32" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="42.1484" x="275" y="522.7469">SMTP?</text></g></g></svg></div>
+
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Toelichting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#Component-FE">React front-end</a></td>
+<td>Levert mogelijkheden tot interactie met de rest van het PMP systeem aan de hand van REST API calls naar de PMP API.</td>
+</tr>
+<tr>
+<td><a href="#Component-PMP-API">PMP API</a></td>
+<td>Levert endpoints voor de React front-end om data uit de rest van het systeem uit te lezen en op te slaan.</td>
+</tr>
+<tr>
+<td><a href="#Component-PMP-Services">PMP Services</a></td>
+<td>Verantwoordelijk voor het afhandelen van domein logica en coördinatie van binnenkomende en uitgaande data naar andere componenten.</td>
+</tr>
+<tr>
+<td><a href="#Component-PMP-DB">PMP Database</a></td>
+<td>De PMP Database is een MySQL** database waar data die niet opgeslagen kan worden in Productive opgeslagen kan worden.</td>
+</tr>
+<tr>
+<td><a href="#Component-Notification-system">Notification system</a></td>
+<td>Verantwoordelijk voor het inlichten van de gebruiker bij evenementen waar directe actie voor nodig is zoals het inlichten van Bluenotion bij criticals/blocking issues (<a href="../../Functioneel/Requirements/FR4_Versturen_notificaties/#fr42-inlichten-bluenotion-bij-blockerscriticals">FR4.2</a>) of het inlichten wanneer een klant extra informatie moet geven op een taak <a href="../../Functioneel/Requirements/FR4_Versturen_notificaties/#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant">FR4.1</a>.</td>
+</tr>
+<tr>
+<td><a href="#Component-Productive-API">Productive API</a></td>
+<td>De Productive API dient als data source voor alle project gerelateerde informatie binnen Bluenotion. Wijzigingen in Productive dienen (indien opgevraagd door de gebruiker) binnen 3 seconde na aanvraag beschikbaar te zijn voor de gebruiker (<a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR2.1, NFR3.2</a>). Wijzigingen in de door Productive aangeleverde entiteiten zoals projecten en taken dienen zonder verlies doorgezet te worden naar Productive(<a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR2.1, NFR8.1</a>).</td>
+</tr>
+</tbody>
+</table>
+<p>TODO: NFR maken voor hoe lang het mag duren tot het PMP data heeft uit Productive.<em>
+TODO: Database systeem kiezen.</em>*</p>
+<h2 id="components">Components</h2>
+<h3 id="react-front-end"><a id="Component-FE" /></a>React front-end</h3>
+<p>TODO: De echte views hier in zetten.</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="591px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1506 591" width="1506px" zoomAndPan="magnify"><defs/><g><g id="cluster_React front-end"><rect fill="none" height="578.19" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="1493" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="124.1543" x="691.4229" y="21.9951">React front-end</text></g><g id="cluster_view"><rect fill="none" height="495.19" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="999" x="39" y="58"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="38.0625" x="519.4688" y="72.9951">View</text></g><g id="cluster_Admin"><rect fill="none" height="206.6" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="412" x="79" y="117"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="50.21" x="259.895" y="131.9951">Admin</text></g><g id="cluster_Customer"><rect fill="none" height="206.6" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="459" x="531" y="117"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="75.8721" x="722.564" y="131.9951">Customer</text></g><g id="cluster_Partials"><rect fill="none" height="149.59" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="348" x="144" y="363.6"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="60.6826" x="287.6587" y="378.5951">Partials</text></g><g id="cluster_GeneratedAPI"><rect fill="none" height="103.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="390" x="1078" y="220.3"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="114.1875" x="1215.9063" y="235.2951">Generated API</text></g><g id="elem_AdminProjectView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="146.8477" x="114.58" y="160"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126.8477" x="124.58" y="182.9951">AdminProjectView</text></g><g id="elem_AdminProjectDetailView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="188.0889" x="270.96" y="160"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168.0889" x="280.96" y="182.9951">AdminProjectDetailView</text></g><g id="elem_AdminTaskDetailView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="172.168" x="102.92" y="263.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152.168" x="112.92" y="286.2951">AdminTaskDetailView</text></g><g id="elem_AdminCommentsView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="174.2803" x="284.86" y="263.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="154.2803" x="294.86" y="286.2951">AdminCommentsView</text></g><g id="elem_CustomerProjectView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="169.9873" x="555.01" y="160"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149.9873" x="565.01" y="182.9951">CustomerProjectView</text></g><g id="elem_CustomerProjectDetailView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="211.2285" x="735.39" y="160"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191.2285" x="745.39" y="182.9951">CustomerProjectDetailView</text></g><g id="elem_CustomerTaskDetailView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="195.3076" x="555.35" y="263.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="175.3076" x="565.35" y="286.2951">CustomerTaskDetailView</text></g><g id="elem_CustomerCommentsView"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="197.4199" x="760.29" y="263.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177.4199" x="770.29" y="286.2951">CustomerCommentsView</text></g><g id="elem_ProjectsPartial"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="120.3721" x="167.81" y="406.6"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100.3721" x="177.81" y="429.5951">ProjectsPartial</text></g><g id="elem_ProjectDetailsPartial"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="161.6133" x="298.19" y="406.6"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141.6133" x="308.19" y="429.5951">ProjectDetailsPartial</text></g><g id="elem_TaskDetailPartial"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="138.3984" x="167.8" y="452.89"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118.3984" x="177.8" y="475.8851">TaskDetailPartial</text></g><g id="elem_CommentsPartial"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140.5107" x="315.74" y="452.89"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120.5107" x="325.74" y="475.8851">CommentsPartial</text></g><g id="elem_Generated Controllers"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="175.1895" x="1102.41" y="263.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="155.1895" x="1112.41" y="286.2951">Generated Controllers</text></g><g id="elem_Generated Models"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="148.0508" x="1287.97" y="263.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128.0508" x="1297.97" y="286.2951">Generated Models</text></g><g id="link_view_GeneratedAPI"><path d="M1038.6886,178.19 C1042.7479,178.19 1048.1385,178.19 1054.6647,178.19 C1067.7173,178.19 1085.3127,178.19 1105.8866,178.19 C1147.0344,178.19 1200.0963,178.19 1252.5575,178.19 C1357.48,178.19 1460,178.19 1460,178.19 C1460,178.19 1460,184.0525 1460,192.9838 C1460,197.4494 1460,202.6822 1460,208.333 C1460,211.1584 1460,214.0882 1460,217.079 C1460,217.8266 1460,218.5781 1460,219.3327 C1460,219.5214 1460,213.7102 1460,213.8993 " fill="none" id="view-to-GeneratedAPI" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1460,219.8993,1464,210.8993,1460,214.8993,1456,210.8993,1460,219.8993" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_Admin_Partials"><path d="M483.5,324.6217 C483.5,325.5186 483.5,326.4137 483.5,327.3069 C483.5,329.0934 483.5,330.8723 483.5,332.642 C483.5,336.1815 483.5,339.6842 483.5,343.1375 C483.5,350.0441 483.5,356.7528 483.5,363.1618 C483.5,363.2619 483.5,357.362 483.5,357.462 " fill="none" id="Admin-to-Partials" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="483.5,363.462,487.5,354.462,483.5,358.462,479.5,354.462,483.5,363.462" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="29.7832" x="453.5" y="314.3769">uses</text></g><g id="link_Customer_Partials"><path d="M982,324.1754 C982,326.0172 982,327.8521 982,329.6784 C982,336.9835 982,344.1507 982,351.0703 C982,364.9093 982,377.7579 982,388.7386 C982,410.7 982,425.19 982,425.19 C982,425.19 861.36,425.19 738.835,425.19 C677.5725,425.19 615.8388,425.19 568.4781,425.19 C544.7978,425.19 524.7108,425.19 510.0726,425.19 C502.7535,425.19 502.7966,425.19 498.4338,425.19 " fill="none" id="Customer-to-Partials" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="492.4338,425.19,501.4338,429.19,497.4338,425.19,501.4338,421.19,492.4338,425.19" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="29.7832" x="826.35" y="421.2569">uses</text></g></g></svg></div>
+
+<h4 id="toelichting-fe-componenten">Toelichting FE componenten</h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Uitleg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>View</strong></td>
+<td>In de front-end zijn de views van MVC hetgeen dat data (uit de models) laat zien en interactie aanbiedt met de rest van het systeem (via de controllers)</td>
+</tr>
+<tr>
+<td><strong>Admin</strong></td>
+<td>Om meer zekerheid te bieden dat de klant niet "per ongeluk" in de admin omgeving terecht komt worden er aparte views aangemaakt met de functionaliteiten voor de Bluenotion Administrator (ACT2)</td>
+</tr>
+<tr>
+<td><strong>Customer</strong></td>
+<td>Binnen de Customer views worden de functionaliteiten voor de externe klant (ACT1) met betrekking tot het tonen van data geïmplementeerd.</td>
+</tr>
+<tr>
+<td><strong>Partials</strong></td>
+<td>Binnen de components worden generieke views gemaakt die onafhankelijk zijn van de gebruiker of die door de betreffende customer of admin views worden aangevuld.</td>
+</tr>
+<tr>
+<td><strong>Generated API</strong></td>
+<td>De generated API is de OpenAPI representatie van de back-end. Deze wordt <a href="https://openapi-generator.tech/">automatisch gegenereerd</a> en is functioneel gelijk aan de <a href="#pmp-api">PMP API</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="pmp-api"><a id="Component-PMP-API" /></a>PMP API</h3>
+<p>Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="527px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1210 527" width="1210px" zoomAndPan="magnify"><defs/><g><g id="cluster_PMP"><rect fill="none" height="514.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="1197" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="34.4531" x="588.2734" y="21.9951">PMP</text></g><g id="cluster_PMP API"><rect fill="none" height="186.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="1149" x="31" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="65.6318" x="572.6841" y="64.9951">PMP API</text></g><g id="cluster_Controllers"><rect fill="none" height="103.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="969" x="63" y="101"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87.4043" x="503.7979" y="115.9951">Controllers</text></g><g id="cluster_Services"><rect fill="none" height="228" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="629" x="199" y="269.3"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="66.5342" x="480.2329" y="284.2951">Services</text></g><g id="elem_Models"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="69.3281" x="1094.34" y="144"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49.3281" x="1104.34" y="166.9951">Models</text></g><g id="elem_AccountController"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="145.9453" x="244.03" y="144"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="125.9453" x="254.03" y="166.9951">AccountController</text></g><g id="elem_ProjectController"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="137.626" x="851.19" y="144"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117.626" x="861.19" y="166.9951">ProjectController</text></g><g id="elem_TaskController"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121.7051" x="87.15" y="144"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="97.15" y="166.9951">TaskController</text></g><g id="elem_CommentController"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="157.7646" x="658.12" y="144"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="137.7646" x="668.12" y="166.9951">CommentController</text></g><g id="elem_ProductiveSyncController"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="197.4131" x="425.29" y="144"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177.4131" x="435.29" y="166.9951">ProductiveSyncController</text></g><g id="elem_INotification"><ellipse cx="509" cy="452.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84.458" x="466.771" y="482.2951">INotification</text></g><g id="elem_IAccountService"><ellipse cx="418" cy="333.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.6426" x="361.6787" y="363.2951">IAccountService</text></g><g id="elem_ITaskService"><ellipse cx="267" cy="333.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="222.7988" y="363.2951">ITaskService</text></g><g id="elem_IProjectService"><ellipse cx="752" cy="333.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.3232" x="699.8384" y="363.2951">IProjectService</text></g><g id="elem_ICommentService"><ellipse cx="587" cy="333.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124.4619" x="524.769" y="363.2951">ICommentService</text></g><g id="link_Controllers_Models"><path d="M1032.1305,162.15 C1032.6561,162.15 1033.2034,162.15 1033.7711,162.15 C1038.3128,162.15 1044.1644,162.15 1050.7312,162.15 C1063.865,162.15 1073.86,162.15 1087.96,162.15 " fill="none" id="Controllers-to-Models" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1093.96,162.15,1084.96,158.15,1088.96,162.15,1084.96,166.15,1093.96,162.15" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="29.7832" x="1044.85" y="155.2169">uses</text></g><g id="link_AccountController_IAccountService"><path d="M327.43,180.62 C349,216.74 394.7239,293.3185 410.1539,319.1585 " fill="none" id="AccountController-to-IAccountService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="413.23,324.31,412.0501,314.5321,410.6666,320.0171,405.1815,318.6336,413.23,324.31" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_TaskController_ITaskService"><path d="M160.29,180.62 C185.7,216.74 239.7475,293.5628 257.9275,319.4028 " fill="none" id="TaskController-to-ITaskService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="261.38,324.31,259.4727,314.6476,258.5029,320.2207,252.9298,319.2509,261.38,324.31" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProjectController_IProjectService"><path d="M902.65,180.62 C866.77,216.74 789.8278,294.2126 764.1678,320.0526 " fill="none" id="ProjectController-to-IProjectService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="759.94,324.31,769.12,320.7424,763.4632,320.7621,763.4434,315.1053,759.94,324.31" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_CommentController_ICommentService"><path d="M721.51,180.62 C689.48,216.74 620.9805,293.9805 598.0705,319.8205 " fill="none" id="CommentController-to-ICommentService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="594.09,324.31,603.0537,320.2293,597.4071,320.5687,597.0677,314.9221,594.09,324.31" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ITaskService_INotification"><path d="M275.9,338.6 C313.85,356.95 456.5182,425.9284 494.6182,444.3484 " fill="none" id="ITaskService-to-INotification" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="500.02,446.96,493.6583,439.4414,495.5185,444.7837,490.1762,446.6438,500.02,446.96" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_IProjectService_INotification"><path d="M743.06,338.6 C704.87,356.99 561.0162,426.2576 523.1662,444.4776 " fill="none" id="IProjectService-to-INotification" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="517.76,447.08,527.6043,446.7805,522.2652,444.9113,524.1344,439.5722,517.76,447.08" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProductiveSyncController_IProjectService"><path d="M547.1,180.64 C570.24,197.81 607.19,224.26 641,244.3 C655.53,252.91 661.1,251.7 675,261.3 C703.43,280.93 728.0014,306.1202 740.8814,320.0802 " fill="none" id="ProductiveSyncController-to-IProjectService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="744.95,324.49,741.7869,315.1629,741.5595,320.8152,735.9072,320.5877,744.95,324.49" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProductiveSyncController_ITaskService"><path d="M503.86,180.62 C481.6,199.05 443.98,227.68 407,244.3 C377.8,257.42 364.86,245.52 337,261.3 C307.78,277.85 286.1365,305.2069 275.6765,319.8569 " fill="none" id="ProductiveSyncController-to-ITaskService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="272.19,324.74,280.6751,319.7397,275.0954,320.6708,274.1643,315.0911,272.19,324.74" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProductiveSyncController_ICommentService"><path d="M530.5,180.62 C543.96,216.74 572.3066,292.847 581.9266,318.687 " fill="none" id="ProductiveSyncController-to-ICommentService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="584.02,324.31,584.6286,314.48,582.2755,319.6242,577.1313,317.2711,584.02,324.31" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProductiveSyncController_IAccountService"><path d="M513.06,180.62 C490.42,216.74 442.3857,293.3856 426.1957,319.2256 " fill="none" id="ProductiveSyncController-to-IAccountService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="423.01,324.31,431.1781,318.8071,425.6647,320.073,424.3988,314.5596,423.01,324.31" style="stroke:#181818;stroke-width:1.0;"/></g></g></svg></div>
+
+<h4 id="toelichting-api-componenten">Toelichting API componenten</h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Uitleg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Controllers</strong></td>
+<td>De controllers zijn verantwoordelijk voor het beschikbaar stellen van de juiste RESTful endpoints en het op basis van deze endpoints aanspreken van de juiste services om een antwoord terug te kunnen geven.</td>
+</tr>
+<tr>
+<td><strong>AccountController</strong></td>
+<td>Verantwoordelijk voor endpoints met betrekking tot inloggen of account management</td>
+</tr>
+<tr>
+<td><strong>ProjectController</strong></td>
+<td>Verantwoordelijk voor endpoints met betrekking tot Projecten of project management</td>
+</tr>
+<tr>
+<td><strong>TaskController</strong></td>
+<td>Verantwoordelijk voor endpoints met betrekking tot Taken of taak management</td>
+</tr>
+<tr>
+<td><strong>CommentController</strong></td>
+<td>Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?).</td>
+</tr>
+<tr>
+<td><strong>ProductiveSyncController</strong></td>
+<td>Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks.</td>
+</tr>
+<tr>
+<td><a href="#Component-PMP-DB"><strong>Models</strong></a></td>
+<td>De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt <a href="#Component-PMP-DB">per laag toelichting</a> gegeven op de models.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pmp-services"><a id="Component-PMP-Services" /></a>PMP Services</h3>
+<p>De service laag is verantwoordelijk voor de business logica, <a href="#databasemodels">transformeren van input naar database models</a> en het coördineren van "externe" verbindingen.</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="793px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1610 793" width="1610px" zoomAndPan="magnify"><defs/><g><g id="cluster_Services"><rect fill="none" height="616.74" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="1231" x="7" y="59"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="66.5342" x="589.2329" y="73.9951">Services</text></g><g id="cluster_Repositories"><rect fill="none" height="210.44" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="760" x="242" y="433.3"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="98.8887" x="572.5557" y="448.2951">Repositories</text></g><g id="cluster_PMP Services"><rect fill="none" height="87.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="565" x="568" y="102"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="105.8613" x="797.5693" y="116.9951">PMP Services</text></g><g id="cluster_ProductiveServices"><rect fill="none" height="194.45" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="466" x="78" y="102"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="154.8408" x="233.5796" y="116.9951">Productive services</text></g><g id="cluster_Other components"><rect fill="none" height="87.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="407" x="1197" y="699.74"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="146.4326" x="1327.2837" y="714.7351">Other components</text></g><g id="elem_BaseService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="105.832" x="655.08" y="362.15"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.832" x="665.08" y="385.1451">BaseService</text></g><g id="elem_Models"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="69.3281" x="1152.34" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49.3281" x="1162.34" y="159.9951">Models</text></g><g id="elem_BaseRepository"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="161.1758" x="521.41" y="583.45"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141.1758" x="531.41" y="606.4451">BaseRepository&lt;T&gt;</text></g><g id="elem_AccountRepository"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="151.8447" x="266.08" y="476.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="131.8447" x="276.08" y="499.2951">AccountRepository</text></g><g id="elem_TaskRepository"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="127.6045" x="453.2" y="476.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.6045" x="463.2" y="499.2951">TaskRepository</text></g><g id="elem_ProjectRepository"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="143.5254" x="616.24" y="476.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="123.5254" x="626.24" y="499.2951">ProjectRepository</text></g><g id="elem_CommentRepository"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="163.6641" x="795.17" y="476.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="143.6641" x="805.17" y="499.2951">CommentRepository</text></g><g id="elem_NotificationService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="154.9277" x="583.54" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="134.9277" x="593.54" y="159.9951">Notification service</text></g><g id="elem_AccountService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="128.5137" x="773.74" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108.5137" x="783.74" y="159.9951">AccountService</text></g><g id="elem_ProductiveSyncService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="179.9814" x="937.01" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159.9814" x="947.01" y="159.9951">ProductiveSyncService</text></g><g id="elem_TaskService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="104.2734" x="93.86" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84.2734" x="103.86" y="159.9951">TaskService</text></g><g id="elem_ProjectService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="120.1943" x="232.9" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100.1943" x="242.9" y="159.9951">ProjectService</text></g><g id="elem_CommentService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140.333" x="387.83" y="137"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120.333" x="397.83" y="159.9951">CommentService</text></g><g id="elem_ProductiveService"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212.3428" x="315.83" y="244.15"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="192.3428" x="325.83" y="267.1451">BaseProductiveService&lt;T&gt;</text></g><g id="elem_productive"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121.0967" x="1334.45" y="734.74"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.0967" x="1344.45" y="757.7351">Productive API</text></g><g id="elem_mail"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="97.2051" x="1490.4" y="734.74"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77.2051" x="1500.4" y="757.7351">Mail server</text></g><g id="elem_db"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="86.8008" x="1212.6" y="734.74"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.8008" x="1222.6" y="757.7351">Database</text></g><g id="elem_INotification"><ellipse cx="661" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84.458" x="618.771" y="43.9951">INotification</text></g><g id="elem_IAccountService"><ellipse cx="838" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.6426" x="781.6787" y="43.9951">IAccountService</text></g><g id="elem_ITaskService"><ellipse cx="146" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="101.7988" y="43.9951">ITaskService</text></g><g id="elem_IProjectService"><ellipse cx="293" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.3232" x="240.8384" y="43.9951">IProjectService</text></g><g id="elem_ICommentService"><ellipse cx="458" cy="14" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124.4619" x="395.769" y="43.9951">ICommentService</text></g><g id="elem_dbContext"><ellipse cx="1298" cy="601.59" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72.8643" x="1261.5679" y="631.5851">dbContext</text></g><g id="elem_Mail"><ellipse cx="1410" cy="262.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35.4375" x="1392.2813" y="292.2951">Mail*</text></g><g id="elem_PRA"><ellipse cx="1364" cy="380.3" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141.5586" x="1293.2207" y="410.2951">Productive REST API</text></g><g id="link_ProductiveService_BaseService"><path d="M478.19,280.85 C478.19,314.25 478.19,381.04 478.19,381.04 C478.19,381.04 580.81,381.04 648.7,381.04 " fill="none" id="ProductiveService-to-BaseService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="654.7,381.04,645.7,377.04,649.7,381.04,645.7,385.04,654.7,381.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_AccountService_BaseService"><path d="M784.46,173.52 C784.46,226.37 784.46,375.04 784.46,375.04 C784.46,375.04 780.15,375.04 767.1,375.04 " fill="none" id="AccountService-to-BaseService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="761.1,375.04,770.1,379.04,766.1,375.04,770.1,371.04,761.1,375.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_NotificationService_BaseService"><path d="M682.88,173.57 C682.88,215.9 682.88,313.67 682.88,355.93 " fill="none" id="NotificationService-to-BaseService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="682.88,361.93,686.88,352.93,682.88,356.93,678.88,352.93,682.88,361.93" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_TaskService_ProductiveService"><path d="M146,173.45 C146,204.23 146,263.04 146,263.04 C146,263.04 231.94,263.04 309.69,263.04 " fill="none" id="TaskService-to-ProductiveService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="315.69,263.04,306.69,259.04,310.69,263.04,306.69,267.04,315.69,263.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProjectService_ProductiveService"><path d="M334.46,173.33 C334.46,192.91 334.46,217.92 334.46,237.67 " fill="none" id="ProjectService-to-ProductiveService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="334.46,243.67,338.46,234.67,334.46,238.67,330.46,234.67,334.46,243.67" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_CommentService_ProductiveService"><path d="M458,173.33 C458,192.91 458,217.92 458,237.67 " fill="none" id="CommentService-to-ProductiveService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="458,243.67,462,234.67,458,238.67,454,234.67,458,243.67" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_IAccountService_AccountService"><path d="M838,22.83 C838,45.52 838,100.25 838,130.9 " fill="none" id="IAccountService-to-AccountService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="838,136.9,842,127.9,838,131.9,834,127.9,838,136.9" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ITaskService_TaskService"><path d="M146,22.83 C146,45.52 146,100.25 146,130.9 " fill="none" id="ITaskService-to-TaskService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="146,136.9,150,127.9,146,131.9,142,127.9,146,136.9" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_IProjectService_ProjectService"><path d="M293,22.83 C293,45.52 293,100.25 293,130.9 " fill="none" id="IProjectService-to-ProjectService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="293,136.9,297,127.9,293,131.9,289,127.9,293,136.9" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ICommentService_CommentService"><path d="M458,22.83 C458,45.52 458,100.25 458,130.9 " fill="none" id="ICommentService-to-CommentService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="458,136.9,462,127.9,458,131.9,454,127.9,458,136.9" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_INotification_NotificationService"><path d="M661,22.83 C661,45.52 661,100.25 661,130.9 " fill="none" id="INotification-to-NotificationService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="661,136.9,665,127.9,661,131.9,657,127.9,661,136.9" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_BaseService_Repositories"><path d="M761.12,387.04 C843.83,387.04 994,387.04 994,387.04 C994,387.04 994,393.1381 994,402.4283 C994,407.0734 994,412.5164 994,418.3943 C994,421.3332 994,424.3808 994,427.4917 C994,429.0471 994,430.6184 994,432.1998 C994,432.3975 994,426.5953 994,426.7933 " fill="none" id="BaseService-to-Repositories" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="994,432.7933,998,423.7933,994,427.7933,990,423.7933,994,432.7933" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProductiveService_PRA"><path d="M503.18,280.57 C503.18,308.1 503.18,357.04 503.18,357.04 C503.18,357.04 1344.6,357.04 1357.84,357.04 " fill="none" id="ProductiveService-to-PRA" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1363.84,357.04,1354.84,353.04,1358.84,357.04,1354.84,361.04,1363.84,357.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_Repositories_dbContext"><path d="M1002.0091,578.04 C1002.2153,578.04 1002.4252,578.04 1002.6387,578.04 C1003.0658,578.04 1003.5074,578.04 1003.9634,578.04 C1004.8752,578.04 1005.8443,578.04 1006.8684,578.04 C1015.0607,578.04 1026.7691,578.04 1040.8339,578.04 C1068.9634,578.04 1106.5181,578.04 1144.2188,578.04 C1219.62,578.04 1289.605,578.04 1291.94,578.04 " fill="none" id="Repositories-to-dbContext" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1297.94,578.04,1288.94,574.04,1292.94,578.04,1288.94,582.04,1297.94,578.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_NotificationService_Mail"><path d="M710.67,173.77 C710.67,198.48 710.67,239.04 710.67,239.04 C710.67,239.04 1393.12,239.04 1403.87,239.04 " fill="none" id="NotificationService-to-Mail" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1409.87,239.04,1400.87,235.04,1404.87,239.04,1400.87,243.04,1409.87,239.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_PRA_productive"><path d="M1392,380.37 C1392,385.32 1392,653.97 1392,728.44 " fill="none" id="PRA-to-productive" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1392,734.44,1396,725.44,1392,729.44,1388,725.44,1392,734.44" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_dbContext_db"><path d="M1276.7,601.7 C1276.7,605.27 1276.7,688.65 1276.7,728.27 " fill="none" id="dbContext-to-db" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1276.7,734.27,1280.7,725.27,1276.7,729.27,1272.7,725.27,1276.7,734.27" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_Mail_mail"><path d="M1418.87,263.04 C1448.01,263.04 1539,263.04 1539,263.04 C1539,263.04 1539,638.81 1539,728.29 " fill="none" id="Mail-to-mail" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1539,734.29,1543,725.29,1539,729.29,1535,725.29,1539,734.29" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_AccountRepository_BaseRepository"><path d="M342,512.7 C342,543.4 342,602.04 342,602.04 C342,602.04 438.84,602.04 515.16,602.04 " fill="none" id="AccountRepository-to-BaseRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="521.16,602.04,512.16,598.04,516.16,602.04,512.16,606.04,521.16,602.04" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_TaskRepository_BaseRepository"><path d="M551.11,512.62 C551.11,532.21 551.11,557.21 551.11,576.97 " fill="none" id="TaskRepository-to-BaseRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="551.11,582.97,555.11,573.97,551.11,577.97,547.11,573.97,551.11,582.97" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ProjectRepository_BaseRepository"><path d="M649.41,512.62 C649.41,532.21 649.41,557.21 649.41,576.97 " fill="none" id="ProjectRepository-to-BaseRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="649.41,582.97,653.41,573.97,649.41,577.97,645.41,573.97,649.41,582.97" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_CommentRepository_BaseRepository"><path d="M877,512.7 C877,543.4 877,602.04 877,602.04 C877,602.04 770.14,602.04 689.02,602.04 " fill="none" id="CommentRepository-to-BaseRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="683.02,602.04,692.02,606.04,688.02,602.04,692.02,598.04,683.02,602.04" style="stroke:#181818;stroke-width:1.0;"/></g></g></svg></div>
+
+<p>*TODO: interface naar de mailserver is nog niet uitgewerkt</p>
+<h4 id="toelichting-service-componenten">Toelichting Service componenten</h4>
+<!-- | ISyncProductive  | addTasks(<InputTaskModel[]>), modifyTasks(<InputTaskModel[]>), removeTasks(<InputTaskModel[]>) (*)  | -->
+
+<h5 id="interfaces">Interfaces</h5>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Example signatures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ITaskService</td>
+<td>addTask(InputTaskModel), editTask(InputTaskModel), deleteTask(taskId)</td>
+</tr>
+<tr>
+<td>IProjectService</td>
+<td>add, edit, delete</td>
+</tr>
+<tr>
+<td>ICommentService</td>
+<td>add, edit, delete</td>
+</tr>
+<tr>
+<td>INotification</td>
+<td>processNotificationSendRequest(NotificationSendRequest)</td>
+</tr>
+<tr>
+<td>IAccountService</td>
+<td>signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)</td>
+</tr>
+<tr>
+<td>dbContext</td>
+<td>De interface die gebruikt wordt met de database te communiceren, meer hier over in <a href="./#Component-PMP-DB">het hoofdstuk over de database en verschillende models</a></td>
+</tr>
+<tr>
+<td><a href="./#productive-api">Productive REST API</a></td>
+<td>De officiële <a href="https://developer.productive.io/">Productive API</a> die gebruikt wordt voor synchronisatie tussen het PMP en Productive.</td>
+</tr>
+<tr>
+<td>Mail</td>
+<td>De interface die wordt gebruikt om de klant op de hoogte te brengen wanneer hij/zij zich niet in het PMP bevindt is voor nu nog niet gekozen.</td>
+</tr>
+</tbody>
+</table>
+<p>*Sync zou ook een state kunnen ontvangen en deze vergelijken met de interne state in plaats van de veranderingen van een state.</p>
+<h5 id="namespaces">Namespaces*</h5>
+<p>*TODO: beter benoemen dan namespaces</p>
+<p>Het Services pakket is opgesplitst in drie componenten:</p>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Uitleg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repositories</td>
+<td>Een groep classes die als enige communicatie kanaal dienen met de database. <a href="https://www.geeksforgeeks.org/repository-design-pattern/">repository pattern*</a></td>
+</tr>
+<tr>
+<td>PMP services</td>
+<td>De PMP services zijn een groepering aan services die niet te maken hebben met informatie uit Productive maar enkel informatie aanwezig in het PMP.</td>
+</tr>
+<tr>
+<td>Productive services</td>
+<td>De Productive services zijn een groepering aan services de informatie nodig hebben van of informatie moet opslaan op de externe productive omgeving.</td>
+</tr>
+</tbody>
+</table>
+<p>*TODO: Repo pattern beter toelichten &amp; Read operaties gebruiken nu de repository binnen de controller class terwijl voor create update en delete de verschillende services worden gebruikt. Wat is netter en waarom?</p>
+<h5 id="componenten">Componenten</h5>
+<p>De verschillende componenten in de bovenstaande afbeelding zijn niet compleet maar dienen als uitleg op het soort componenten aanwezig in de applicatie en de rol die ze vervullen. Belangrijke componenten die mogelijk extra toelichting nodig hebben zijn:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Uitleg</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BaseService</td>
+<td>Dient als basis class voor de andere service classes. beheert de referentie naar de database context en rechten van de huidige gebruiker.</td>
+</tr>
+<tr>
+<td>BaseProductiveService\&lt;T&gt;</td>
+<td>Dient als basis class voor service classes die moeten synchroniseren met Productive. Doet REST calls naar de Productive API wanneer er data wordt weggeschreven naar de database context.</td>
+</tr>
+<tr>
+<td>BaseRepository\&lt;T&gt;</td>
+<td>Dient als basis voor elke repository. Biedt standaard CRUD functionaliteiten aan.</td>
+</tr>
+<tr>
+<td>NotificationService</td>
+<td>Biedt communicatie met de mailserver (of andere communicatie tool) aan. Moet weten wie, wat, wanneer in welke taal gestuurd moet krijgen.</td>
+</tr>
+<tr>
+<td>AccountService</td>
+<td>Verantwoordelijk voor het afvangen van alle inlog gerelateerde taken.</td>
+</tr>
+</tbody>
+</table>
+<p>TODO: beantwoorden sync ding</p>
+<ul>
+<li>Komen de syncs binnen op de zelfde endpoints als de berichten van de front-end? (Afhankelijk van de uitwisselbaarheid van pmp domein model in vergelijking met productive model)</li>
+<li>Hoe wordt onderscheid gemaakt tussen de wat wel en niet gesynchroniseerd hoort te worden (A. Verschillende controllers B. flag in controller)</li>
+<li>Hoe kom je er achter wanneer data fout is/niet overeenkomt met productive? (A. Wanneer een gebruiker iets probeert te updaten/verwijderen dat niet bestaat)</li>
+<li>Voor het synchroniseren naar productive van via de FE binnen gekomen data (Heeft repositories een koppeling met Productive API zodat wanneer insert of update dit direct wordt doorgestuurd)</li>
+<li>Productive kan ook gewoon een repository zijn?</li>
+</ul>
+<h5 id="sync-service">Sync service</h5>
+<p>De sync service is verantwoordelijk voor het opzetten en verwerken van de productive synchronisatie data. Synchronisatie gebeurt aan de hand van twee verschillende methodes:</p>
+<h6 id="regular-sync">Regular sync</h6>
+<p>Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals <a href="#productive-api-sync">hier</a> toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de <a href="#toelichting-api-componenten">hier boven genoemde 'ProductiveSyncController'</a>. Deze webhooks dienen door de sync service opgezet te worden.</p>
+<p>TODO: setup webhooks toevoegen!</p>
+<h6 id="clean-sync">Clean sync</h6>
+<p>Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP, first time setup of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive. Aangezien deze actie veel data nodig heeft van productive zal deze procedure waarschijnlijk dermate veel tijd en requests kosten dat hij enkel als nood oplossing uitgevoerd dient te worden.</p>
+<p>Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het <a href="https://developer.productive.io/tasks.html#tasks">tasks endpoint</a>. Met een maximale <a href="https://developer.productive.io/index.html#header-pagination">pagina grootte</a> van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in <a href="../ADRs/ADR001-Communicatie_met_de_Productive_API/">ADR001</a> van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.</p>
+<p>TODO: rename productive service?</p>
+<p>TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".</p>
+<h3 id="pmp-database-and-data-models"><a id="Component-PMP-DB" /></a>PMP Database and Data models</h3>
+<p>De database package is verantwoordelijk voor het low level beheer van de database verbinding en het database model. De verbinding en communicatie met de database wordt afgehandeld aan de hand van MS Entity Framework.</p>
+<p>Aangezien er op verschillende plekken van dit document over "het model" gesproken wordt is een kleine toelichting van welke models welke rollen hebben binnen het systeem. In de software zullen binnen de API, Services en Database packages aparte models te vinden zijn:</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="402px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 919 402" width="919px" zoomAndPan="magnify"><defs/><g><g id="cluster_API.Models"><rect fill="none" height="103.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="799" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="87.8213" x="362.5894" y="21.9951">API.Models</text></g><g id="cluster_Services.Models"><rect fill="none" height="103.29" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="623" x="84" y="150.3"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="128.0508" x="331.4746" y="165.2951">Services.Models</text></g><g id="cluster_Database.Models"><rect fill="none" height="103.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="455" x="168" y="293.59"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="136.0215" x="327.4893" y="308.5851">Database.Models</text></g><g id="elem_cm1"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="157.3887" x="31.31" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="137.3887" x="41.31" y="72.9951">AddCustomerModel</text></g><g id="elem_sp1"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="158.8926" x="223.55" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="138.8926" x="233.55" y="72.9951">SearchProjectModel</text></g><g id="elem_ut1"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="169.7412" x="417.13" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="149.7412" x="427.13" y="72.9951">UpdateTaskListModel</text></g><g id="elem_dt1"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140.5654" x="621.72" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120.5654" x="631.72" y="72.9951">DeleteTaskModel</text></g><g id="elem_cm2"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="130.0381" x="107.98" y="193.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110.0381" x="117.98" y="216.2951">CustomerModel</text></g><g id="elem_sp2"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="110.4873" x="272.76" y="193.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90.4873" x="282.76" y="216.2951">ProjectModel</text></g><g id="elem_ut2"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.1289" x="418.44" y="193.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95.1289" x="428.44" y="216.2951">TasklistModel</text></g><g id="elem_dt2"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="94.5664" x="568.72" y="193.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="74.5664" x="578.72" y="216.2951">TaskModel</text></g><g id="elem_cm3"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="88.0039" x="192" y="336.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="68.0039" x="202" y="359.5851">Customer</text></g><g id="elem_sp3"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="68.4531" x="314.77" y="336.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48.4531" x="324.77" y="359.5851">Project</text></g><g id="elem_ut3"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="73.0947" x="418.45" y="336.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="53.0947" x="428.45" y="359.5851">Tasklist</text></g><g id="elem_dt3"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="52.5322" x="526.73" y="336.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="32.5322" x="536.73" y="359.5851">Task</text></g><g id="elem_n1"><path d="M833.43,55.58 L833.43,80.7128 L912.5682,80.7128 L912.5682,65.58 L902.5682,55.58 L833.43,55.58 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M902.5682,55.58 L902.5682,65.58 L912.5682,65.58 L902.5682,55.58 " fill="#FEFFDD" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58.1382" x="839.43" y="72.6469">API input</text></g><g id="elem_n2"><path d="M734.71,198.88 L734.71,224.0128 L823.2871,224.0128 L823.2871,208.88 L813.2871,198.88 L734.71,198.88 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M813.2871,198.88 L813.2871,208.88 L823.2871,208.88 L813.2871,198.88 " fill="#FEFFDD" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="67.5771" x="740.71" y="215.9469">API output</text></g><g id="elem_n3"><path d="M650.18,342.18 L650.18,367.3128 L777.8206,367.3128 L777.8206,352.18 L767.8206,342.18 L650.18,342.18 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M767.8206,342.18 L767.8206,352.18 L777.8206,352.18 L767.8206,342.18 " fill="#FEFFDD" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106.6406" x="656.18" y="359.2469">Database model</text></g><g id="link_API.Models_n1"><path d="M806.0214,68.15 C806.0665,68.15 806.1115,68.15 806.1566,68.15 C806.5169,68.15 806.8772,68.15 807.2375,68.15 C810.12,68.15 813.0025,68.15 815.885,68.15 C821.65,68.15 827.415,68.15 833.18,68.15 " fill="none" id="API.Models-n1" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/></g><g id="link_Services.Models_n2"><path d="M707.0836,211.44 C707.1288,211.44 707.174,211.44 707.2193,211.44 C707.5811,211.44 707.943,211.44 708.3048,211.44 C711.1997,211.44 714.0944,211.44 716.9888,211.44 C722.7775,211.44 728.565,211.44 734.35,211.44 " fill="none" id="Services.Models-n2" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/></g><g id="link_Database.Models_n3"><path d="M623.1099,354.74 C623.1544,354.74 623.1989,354.74 623.2434,354.74 C623.5992,354.74 623.955,354.74 624.3108,354.74 C627.1572,354.74 630.0031,354.74 632.8487,354.74 C638.54,354.74 644.23,354.74 649.92,354.74 " fill="none" id="Database.Models-n3" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/></g><g id="link_cm1_cm2"><path d="M117.85,86.76 C129.99,113.98 150.7264,160.4901 162.8064,187.5801 " fill="none" id="cm1-to-cm2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="165.25,193.06,165.2379,183.2111,163.2137,188.4934,157.9314,186.4693,165.25,193.06" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_cm2_cm3"><path d="M180.85,230.05 C192.99,257.28 213.7264,303.7801 225.8064,330.8701 " fill="none" id="cm2-to-cm3" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="228.25,336.35,228.2379,326.5011,226.2137,331.7834,220.9314,329.7593,228.25,336.35" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_sp1_sp2"><path d="M306.12,86.76 C310.93,113.98 319.0853,160.0617 323.8753,187.1517 " fill="none" id="sp1-to-sp2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="324.92,193.06,327.2918,183.501,324.0494,188.1364,319.414,184.8939,324.92,193.06" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_sp2_sp3"><path d="M330.62,230.05 C334.66,257.28 341.5071,303.3253 345.5371,330.4153 " fill="none" id="sp2-to-sp3" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="346.42,336.35,349.0522,326.8594,345.6843,331.4044,341.1392,328.0365,346.42,336.35" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ut1_ut2"><path d="M498.76,86.76 C493.75,113.98 485.2648,160.0689 480.2848,187.1589 " fill="none" id="ut1-to-ut2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="479.2,193.06,484.7613,184.9315,480.104,188.1424,476.8931,183.4851,479.2,193.06" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_ut2_ut3"><path d="M473.38,230.05 C469.34,257.28 462.4929,303.3253 458.4629,330.4153 " fill="none" id="ut2-to-ut3" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="457.58,336.35,462.8608,328.0365,458.3157,331.4044,454.9478,326.8594,457.58,336.35" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_dt1_dt2"><path d="M682.53,86.76 C667.89,113.98 642.762,160.6858 628.192,187.7758 " fill="none" id="dt1-to-dt2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="625.35,193.06,633.1359,187.0284,627.7184,188.6565,626.0903,183.239,625.35,193.06" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_dt2_dt3"><path d="M606.58,229.93 C599.72,242.92 590.38,261.17 583,277.59 C574.09,297.43 567.2093,315.1255 561.4293,330.6855 " fill="none" id="dt2-to-dt3" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="559.34,336.31,566.2236,329.2661,561.0811,331.6229,558.7243,326.4804,559.34,336.31" style="stroke:#181818;stroke-width:1.0;"/></g></g></svg></div>
+
+<p>Gevraag:</p>
+<p>Welke models heb je nodig?</p>
+<p>Endpoint input models
+Endpoint output models
+Database model
+Productive input model?</p>
+<h4 id="apimodels">API.Models</h4>
+<p>De classes onder API.Models dienen als input <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTOs</a> voor de verschillende REST controllers. Binnen deze models wordt aan de hand van <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0#validation-attributes">ASP.NET Validatie attributen</a> de back-end validatie gedaan om er zeker van te zijn dat er geen vreemde data naar de API wordt gestuurd.</p>
+<h4 id="servicesmodels">Services.Models</h4>
+<p>De classes onder Services.Models dienen als output <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTOs</a> voor de verschillende REST controllers.</p>
+<p>TODO: De database models dienen ook als output?...</p>
+<h4 id="databasemodels">Database.Models</h4>
+<p>Binnen de classes van het database.Models package wordt aan de hand van annotaties de Entity Framework verbinding op gezet. Hierdoor worden wijzigingen in het datamodel meegenomen met het versiebeheer wat het potentieel terug vinden (of draaien) van problemen eenvoudiger maakt.</p>
+<p>TODO: is niet smart</p>
+<p>Navragen: in het template project hebben de controllers een dependency op database.models om de database classes te gebruiken als return type. Na gesprek met Niels is me verteld dat er doorgaans geen dependency is tussen de controller en de database models maar al deze communicatie via de services loopt. Zou het netter zijn deze dependency te verwijderen en enkel Services.Models te gebruiken als output?</p>
+<!-- ### Notification system
+
+### Productive API -->
+
+<h3 id="notification-system"><a id="Component-Notification-system" />Notification system</h3>
+<p>Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in <a href="../../Functioneel/Requirements/FR4_Versturen_notificaties/#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant">FR4.1</a> of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in <a href="../../Functioneel/Requirements/FR4_Versturen_notificaties/#fr42-inlichten-bluenotion-bij-blockerscriticals">FR4.2</a>.</p>
+<p>De details van het notificatie systeem zijn nog niet uitgewerkt, er zal een mail client opgezet worden die gemachtigd is berichten te sturen naar de klant. Als alternatief zou ook een SMS systeem mogelijk kunnen zijn.</p>
+<p>TODO: Details wel uitwerken</p>
+<h3 id="productive-api"><a id="Component-Productive-API" />Productive API</h3>
+<p>De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het <a href="../../Functioneel/FunctioneelOntwerp/#domein">FO</a> is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:</p>
+<ul>
+<li>De rate limits</li>
+</ul>
+<p>Productive heeft om misbruik van de API te voorkomen de rate limits ingesteld. Er worden binnen de Productive API drie verschillende rate limits gehanteerd:</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Limiet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reports</td>
+<td><a href="https://developer.productive.io/index.html#header-rate-limits">10 requests in 30 sec</a></td>
+</tr>
+<tr>
+<td>Webhooks</td>
+<td><a href="https://developer.productive.io/webhooks.html#webhooks">Opgezette webhooks sturen maximaal 1000 requests per 5 min</a></td>
+</tr>
+<tr>
+<td>De rest van de endpoints</td>
+<td><a href="https://developer.productive.io/index.html#header-rate-limits">100 requests per 10 sec</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>De beschikbare functionaliteiten</li>
+</ul>
+<p>Welke functionaliteiten binnen Productive beschikbaar zijn is afhankelijk van de <a href="https://developer.productive.io/index.html">aangeboden endpoints</a> en het abonnement dat Bluenotion bij Productive heeft afgesloten. Binnen het aan het begin van het project lopende abonnement zijn sommige functies (zoals meer dan 3 <a href="https://developer.productive.io/working_with_custom_fields.html#working_with_custom_fields">custom fields</a> en <a href="https://developer.productive.io/taskdependency.html#taskdependency">task dependencies</a>) niet beschikbaar. De opdrachtgever geeft aan dat wisselen van abonnement een optie is maar dat dit wegens hoge kosten liever niet gedaan wordt. Er zal dus gekeken moeten worden naar of en hoe alle benodigde data in Productive geplaatst kan worden zonder over deze limieten heen te gaan.</p>
+<h2 id="code">Code</h2>
+<h3 id="productive-api-sync">Productive API sync</h3>
+<p>De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.</p>
+<p>Aparte endpoints:</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="216px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 666 216" width="666px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="290.1855" x="187.1108" y="27.9951">sync from productive sync controller</text><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="100" x2="100" y1="73.5938" y2="180.9922"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="345.668" x2="345.668" y1="73.5938" y2="180.9922"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="479.9688" x2="479.9688" y1="73.5938" y2="180.9922"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="619.6064" x2="619.6064" y1="73.5938" y2="180.9922"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="191.4131" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177.4131" x="12" y="62.292">ProductiveSyncController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="191.4131" x="5" y="179.9922"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177.4131" x="12" y="199.9873">ProductiveSyncController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="126.3691" x="282.668" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.3691" x="289.668" y="62.292">ISyncProductive</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="126.3691" x="282.668" y="179.9922"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112.3691" x="289.668" y="199.9873">ISyncProductive</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="89.0723" x="435.9688" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75.0723" x="442.9688" y="62.292">Repository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="89.0723" x="435.9688" y="179.9922"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75.0723" x="442.9688" y="199.9873">Repository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="80.8008" x="579.6064" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.8008" x="586.6064" y="62.292">Database</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="80.8008" x="579.6064" y="179.9922"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66.8008" x="586.6064" y="199.9873">Database</text><polygon fill="#181818" points="333.8525,100.7266,343.8525,104.7266,333.8525,108.7266,337.8525,104.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="100.7065" x2="339.8525" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="221.146" x="107.7065" y="99.6606">result = processSyncRequest(obj)</text><polygon fill="#181818" points="468.5049,129.8594,478.5049,133.8594,468.5049,137.8594,472.5049,133.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="345.8525" x2="474.5049" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="110.6523" x="352.8525" y="128.7935">result = add(obj)</text><polygon fill="#181818" points="608.0068,158.9922,618.0068,162.9922,608.0068,166.9922,612.0068,162.9922" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="480.5049" x2="614.0068" y1="162.9922" y2="162.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="115.502" x="487.5049" y="157.9263">result = commit()</text></g></svg></div>
+
+<p>Samengevoegde endpoints:</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="281px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 488 281" width="488px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="185.5889" x="150.415" y="27.9951">sync from FE endpoints</text><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="62" x2="62" y1="73.5938" y2="246.3906"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="181.7051" x2="181.7051" y1="73.5938" y2="246.3906"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="313.1074" x2="313.1074" y1="73.5938" y2="246.3906"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="437.3467" x2="437.3467" y1="73.5938" y2="246.3906"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.7051" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="12" y="62.292">TaskController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.7051" x="5" y="245.3906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="12" y="265.3857">TaskController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="102.4023" x="130.7051" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="137.7051" y="62.292">ITaskService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="102.4023" x="130.7051" y="245.3906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="137.7051" y="265.3857">ITaskService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140.2393" x="243.1074" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126.2393" x="250.1074" y="62.292">ProductiveService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="140.2393" x="243.1074" y="245.3906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="126.2393" x="250.1074" y="265.3857">ProductiveService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="89.0723" x="393.3467" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75.0723" x="400.3467" y="62.292">Repository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="89.0723" x="393.3467" y="245.3906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75.0723" x="400.3467" y="265.3857">Repository</text><polygon fill="#181818" points="169.9063,100.7266,179.9063,104.7266,169.9063,108.7266,173.9063,104.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="62.8525" x2="175.9063" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="84.6396" x="69.8525" y="99.6606">addTask(obj)</text><polygon fill="#181818" points="301.2271,129.8594,311.2271,133.8594,301.2271,137.8594,305.2271,133.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="307.2271" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54.4312" x="188.9063" y="128.7935">add(obj)</text><path d="M173,146.8594 L173,201.8594 L453,201.8594 L453,156.8594 L443,146.8594 L173,146.8594 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M443,146.8594 L443,156.8594 L453,156.8594 L443,146.8594 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234.9331" x="179" y="163.9263">Uitdaging bij hergebruik controllers:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="229.7407" x="179" y="179.0591">Niet data afkomstig van Productive</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="259.4033" x="179" y="194.1919">nogmaals terug sturen naar Productive.</text><polygon fill="#181818" points="425.8828,224.3906,435.8828,228.3906,425.8828,232.3906,429.8828,228.3906" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="431.8828" y1="228.3906" y2="228.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="54.4312" x="188.9063" y="223.3247">add(obj)</text></g></svg></div>
+
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="332px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 674 332" width="674px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="479.0557" x="96.5198" y="27.9951">Sync from FE endpoints without local save but with logging?</text><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="62" x2="62" y1="73.5938" y2="297.5234"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="181.7051" x2="181.7051" y1="73.5938" y2="297.5234"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="440.9321" x2="440.9321" y1="73.5938" y2="297.5234"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="589.5366" x2="589.5366" y1="73.5938" y2="297.5234"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.7051" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="12" y="62.292">TaskController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.7051" x="5" y="296.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="12" y="316.5186">TaskController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="102.4023" x="130.7051" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="137.7051" y="62.292">ITaskService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="102.4023" x="130.7051" y="296.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="137.7051" y="316.5186">ITaskService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121.6045" x="380.9321" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.6045" x="387.9321" y="62.292">TaskRepository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121.6045" x="380.9321" y="296.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.6045" x="387.9321" y="316.5186">TaskRepository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="155.5586" x="512.5366" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141.5586" x="519.5366" y="62.292">Productive REST API</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="155.5586" x="512.5366" y="296.5234"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141.5586" x="519.5366" y="316.5186">Productive REST API</text><polygon fill="#181818" points="169.9063,100.7266,179.9063,104.7266,169.9063,108.7266,173.9063,104.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="62.8525" x2="175.9063" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92.187" x="69.8525" y="99.6606">addTask(task)</text><polygon fill="#181818" points="429.7344,129.8594,439.7344,133.8594,429.7344,137.8594,433.7344,133.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="435.7344" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="196.9297" x="188.9063" y="128.7935">asyncAddPmpTaskEvent(task)</text><polygon fill="#181818" points="578.3159,158.9922,588.3159,162.9922,578.3159,166.9922,582.3159,162.9922" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="584.3159" y1="162.9922" y2="162.9922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="107.7134" x="188.9063" y="157.9263">async POST task</text><polygon fill="#181818" points="192.9063,188.125,182.9063,192.125,192.9063,196.125,188.9063,192.125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="186.9063" x2="589.3159" y1="192.125" y2="192.125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58.3096" x="198.9063" y="187.0591">HTTP201</text><polygon fill="#181818" points="429.7344,217.2578,439.7344,221.2578,429.7344,225.2578,433.7344,221.2578" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="435.7344" y1="221.2578" y2="221.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="130.9331" x="188.9063" y="216.1919">asyncAddTask(task)</text><polygon fill="#181818" points="429.7344,246.3906,439.7344,250.3906,429.7344,254.3906,433.7344,250.3906" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="435.7344" y1="250.3906" y2="250.3906"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="235.8281" x="188.9063" y="245.3247">asyncMarkTaskEventHandled(task?)</text><polygon fill="#181818" points="73.8525,275.5234,63.8525,279.5234,73.8525,283.5234,69.8525,279.5234" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="67.8525" x2="180.9063" y1="279.5234" y2="279.5234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="58.3096" x="79.8525" y="274.4575">HTTP201</text></g></svg></div>
+
+<p>TODO: Is het hele tmp task event verhaal nodig?</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="187px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 403 187" width="403px" zoomAndPan="magnify"><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="98.6289" x="151.5063" y="27.9951">hooked sync</text><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="62" x2="62" y1="73.5938" y2="151.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="181.7051" x2="181.7051" y1="73.5938" y2="151.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="336.0371" x2="336.0371" y1="73.5938" y2="151.8594"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.7051" x="5" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="12" y="62.292">TaskController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115.7051" x="5" y="150.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101.7051" x="12" y="170.8545">TaskController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="102.4023" x="130.7051" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="137.7051" y="62.292">ITaskService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="102.4023" x="130.7051" y="150.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="88.4023" x="137.7051" y="170.8545">ITaskService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121.6045" x="276.0371" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.6045" x="283.0371" y="62.292">TaskRepository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121.6045" x="276.0371" y="150.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107.6045" x="283.0371" y="170.8545">TaskRepository</text><polygon fill="#181818" points="169.9063,100.7266,179.9063,104.7266,169.9063,108.7266,173.9063,104.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="62.8525" x2="175.9063" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="92.187" x="69.8525" y="99.6606">addTask(task)</text><polygon fill="#181818" points="324.8394,129.8594,334.8394,133.8594,324.8394,137.8594,328.8394,133.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="181.9063" x2="330.8394" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="130.9331" x="188.9063" y="128.7935">asyncAddTask(task)</text></g></svg></div>
+
+<p>Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in <a href="../ADRs/ADR001-Communicatie_met_de_Productive_API/">ADR001</a>.</p>
+<p>Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks. De</p>
+<p>Can a bad sync happen, how would you notice and how would you solve it?</p>
+<h2 id="architectural-decision-records">Architectural Decision Records</h2>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="402px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1392 402" width="1392px" zoomAndPan="magnify"><defs/><g><g id="elem_ADR001"><rect fill="#FFA500" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="623.3125" x="762.91" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="603.3125" x="772.91" y="29.9951">ADR001-O2-Continu synchroniserende backend database aan de hand van Webhooks</text></g><g id="elem_ADR002"><rect fill="#008000" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="195.123" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="175.123" x="17" y="29.9951">ADR002-O1-React native</text></g><g id="elem_ADR003"><rect fill="#008000" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="194.1045" x="237.51" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174.1045" x="247.51" y="29.9951">ADR003-O1-asp.net core</text></g><g id="elem_ADR004"><rect fill="#FFA500" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="261.459" x="466.83" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="241.459" x="476.83" y="29.9951">ADR004-Database system-O1-SQL</text></g><g id="elem_ADR005-Database-ORM"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="186.5371" x="11.29" y="120.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166.5371" x="21.29" y="143.2951">ADR005-Database-ORM</text></g><g id="elem_ADR006-Frontend backend Communicatie"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="315.0322" x="233.05" y="120.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="295.0322" x="243.05" y="143.2951">ADR006-Frontend backend Communicatie</text></g><g id="elem_ADR007-MVC Design pattern"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="222.2139" x="583.45" y="120.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="202.2139" x="593.45" y="143.2951">ADR007-MVC Design pattern</text></g><g id="elem_ADR008-Taak Mijlpalen"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="182.7158" x="13.2" y="217.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="162.7158" x="23.2" y="240.5851">ADR008-Taak Mijlpalen</text></g><g id="elem_Sorting"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="264.3164" x="942.4" y="120.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="244.3164" x="952.4" y="143.2951">ADR?-filtering pagination &amp; sorting</text></g><g id="link_ADR001_Sorting"><path d="M1074.56,49.54 C1074.56,70.32 1074.56,98.91 1074.56,119.81 " fill="none" id="ADR001-backto-Sorting" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1074.56,43.54,1070.56,52.54,1074.56,48.54,1078.56,52.54,1074.56,43.54" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="77.8477" x="1075.56" y="86.3669">Depends on</text></g><rect fill="#DDDDDD" height="111.7813" id="_legend" rx="7.5" ry="7.5" style="stroke:#000000;stroke-width:1.0;" width="169.2842" x="12" y="270.8869"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36.5518" x="21.4502" y="290.882">Color</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44.6113" x="66.9023" y="290.882">Status</text><rect fill="#FFA500" height="16.2969" style="stroke:none;stroke-width:1.0;" width="45.4521" x="17" y="294.1838"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.4502" x="17" y="307.1789"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65.0098" x="66.9023" y="307.1789">Proposed</text><rect fill="#008000" height="16.2969" style="stroke:none;stroke-width:1.0;" width="45.4521" x="17" y="310.4806"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.4502" x="17" y="323.4757"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="65.4609" x="66.9023" y="323.4757">Accepted</text><rect fill="#FF0000" height="16.2969" style="stroke:none;stroke-width:1.0;" width="45.4521" x="17" y="326.7775"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.4502" x="17" y="339.7726"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61.5303" x="66.9023" y="339.7726">Rejected</text><rect fill="#778899" height="16.2969" style="stroke:none;stroke-width:1.0;" width="45.4521" x="17" y="343.0744"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.4502" x="17" y="356.0695"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81.915" x="66.9023" y="356.0695">Deprecated</text><rect fill="#800000" height="16.2969" style="stroke:none;stroke-width:1.0;" width="45.4521" x="17" y="359.3713"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.4502" x="17" y="372.3664"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104.9316" x="66.9023" y="372.3664">Superseded by</text><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="277.8869" y2="277.8869"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="294.1838" y2="294.1838"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="310.4806" y2="310.4806"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="326.7775" y2="326.7775"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="343.0744" y2="343.0744"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="359.3713" y2="359.3713"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="176.2842" y1="375.6681" y2="375.6681"/><line style="stroke:#000000;stroke-width:1.0;" x1="17" x2="17" y1="277.8869" y2="375.6681"/><line style="stroke:#000000;stroke-width:1.0;" x1="62.4521" x2="62.4521" y1="277.8869" y2="375.6681"/><line style="stroke:#000000;stroke-width:1.0;" x1="176.2842" x2="176.2842" y1="277.8869" y2="375.6681"/></g></svg></div>
+
+<p>Verantwoordingen toe te voegen:</p>
+<ul>
+<li>Keuze mail server</li>
+</ul>
+<!-- - Keuze synchronisatie op service, repository of database niveau. (database is het consistentste, service het meest flexibel. Waarom waar?) -->
+<ul>
+<li>Keuze gescheiden houden van productive input controllers en user input controllers. (mocht één van de twee wijzigen mag de ander er geen last van hebben)</li>
+<li>Productive webhook endpoints, per "object" of event? <a href="https://developer.productive.io/webhooks.html#webhooks">https://developer.productive.io/webhooks.html#webhooks</a></li>
+<li>Basis tests met webhooks: als applicatie uit staat en aan de hand van de webhooks data naar het PMP wordt gestuurd wordt er vanuit productive automatisch een (aantal) nieuwe poging(en) gedaan om de data nogmaals te versturen. Als in de tussentijd het PMP weer draait kan het zijn dat updates over de zelfde taak in de verkeerde volgorde aankomen. Het is van belang dat er hierom gekeken wordt naar wanneer welke wijziging is gemaakt (welke timestamp?) voordat ze worden doorgevoerd.</li>
+<li>In het geval dat het PMP geen directe reactie krijgt van productive bij bijvoorbeeld het aanmaken van een taak dienen de taken A. niet aangemaakt te worden met een foutmelding? B. aangemaakt te worden en op een later moment gesynchroniseerd te worden?</li>
+<li>Filtering pagination &amp; sorting <a href="../TechnischOntwerp/#filtering-pagination-and-sorting">technisch ontwerp</a></li>
+</ul>
+<p>Is dit wel een ADR?</p>
+<ul>
+<li>TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
