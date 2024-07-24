@@ -60,13 +60,13 @@ Het zien van welke dependencies een project nodig heeft (databases, proxies, alg
 | 4 |  | Toont het resultaat van de 'vraag' aan de gebruiker |
 | 5 |  |  |
 
-## FR6.3: Beheren project services
+## FR5.3: Beheren project services
 
 TODO: fully dressed versie uitwerken.
 
 De admin handelingen voor het beheer van de dependencies.
 
-| FR6.3 | Beheren project services |
+| FR5.3 | Beheren project services |
 |---|---|
 | Prioriteit | Could have  |
 | Primaire Actor | ACT2: Bluenotion admin |
@@ -77,7 +77,7 @@ De admin handelingen voor het beheer van de dependencies.
 | Exceptions |  |
 | Open issues | Zie [FR6.1](#fr61-inzien-lijst-van-project-dependencies) |
 
-### FR6.3: Main flow
+### FR5.3: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
@@ -88,7 +88,7 @@ De admin handelingen voor het beheer van de dependencies.
 | 5 | Past gegevens aan en geeft aan wijzigingen door te willen voeren  |   |
 | 6 |  | Slaat de wijzigingen op in de lokale database |
 
-### FR6.3: Alternative flow - service toevoegen
+### FR5.3: Alternative flow - service toevoegen
 
 |Stap | Actor | System |
 |---|---|---|
@@ -97,7 +97,7 @@ De admin handelingen voor het beheer van de dependencies.
 | 5A | Vult de gegevens in en geeft aan wijzigingen door te willen voeren  |   |
 | 6  |  | Resume main flow stap 6 |
 
-### FR6.3: Alternative flow - service verwijderen
+### FR5.3: Alternative flow - service verwijderen
 
 |Stap | Actor | System |
 |---|---|---|

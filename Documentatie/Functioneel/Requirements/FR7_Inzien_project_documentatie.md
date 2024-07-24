@@ -47,11 +47,11 @@ Filters op de support documentatie
 | Exceptions |  |
 | Open issues |  |
 
-## FR7.3: Beheren project documentatie
+## FR5.3: Beheren project documentatie
 
 TODO: fully dressed versie uitwerken.
 
-| FR7.3 | Beheren project documentatie (CRUD) |
+| FR5.3 | Beheren project documentatie (CRUD) |
 |---|---|
 | Prioriteit | Could have  |
 | Primaire Actor | ACT2: Bluenotion admin |
