@@ -34,7 +34,7 @@ WONT_COLOR="#999999"
 
 # Function to print the header for the PlantUML file
 print_puml_header() {
-  echo '```puml' > $OUTPUT_FILE
+  echo '```plantuml' > $OUTPUT_FILE
   echo "left to right direction" >> $OUTPUT_FILE
   echo "skinparam packageStyle rect" >> $OUTPUT_FILE
 }
@@ -45,11 +45,11 @@ print_puml_footer() {
 }
 
 print_puml_actor_hirarchy(){
-  echo ':ACT1 Externe klant Admin: as ACT1
-:ACT2 Bluenotion Admin: as ACT2
-:ACT3 Bluenotion medewerker: as ACT3
+  echo ':ACT1 Externe beheerder: as ACT1
+:ACT2 Interne beheerder: as ACT2
+:ACT3 Interne medewerker: as ACT3
 :ACT4 notification manager: as ACT4
-:ACT5 Externe klant Medewerker: as ACT5
+:ACT5 Externe medewerker: as ACT5
 ACT2-LEFT-|>ACT3
 ACT2-LEFT-|>ACT1
 ACT1-LEFT-|>ACT5
