@@ -10,224 +10,6 @@ Technische aspecten van het systeem zijn vastgelegd in het Technisch ontwerp. Vo
 - Het aantal naar de Productive API gestuurde requests blijft onder 100 per 30 sec.
 <!-- TODO: link naar TO zodra deze bestaat. -->
 
-## Actors
-
-De actors zijn de rollen die mensen aannemen als ze gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
-
-Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Binnen deze groepen wordt onderscheidt gemaakt tussen beheerders en medewerkers. Om de flexibiliteit en veiligheid van het systeem te verbeteren is gekozen (TODO: FDR schrijven) deze rollen op project, bedrijf en corporatie niveau toe te kennen. Technisch gezien heeft het PMP hiermee negen primaire actors:
-
-|  | Actor | Toelichting |
-|--|--|--|
-| 1 | Interne corporatie beheerder | Verantwoordelijk voor globaal project en klant beheer |
-| 2 | Interne bedrijf beheerder | Verantwoordelijk voor intern beheer van projecten voor het aangewezen bedrijf |
-| 3 | Interne project beheerder | Verantwoordelijk voor intern beheer van het aangewezen project |
-| 4 | Interne corporatie medewerker | Gemachtigd alle projecten van alle klanten in te zien |
-| 5 | Interne bedrijf medewerker | Gemachtigd alle projecten van het aangewezen bedrijf in te zien |
-| 6 | Interne project medewerker | Gemachtigd alle informatie over het aangewezen project in te zien |
-| 7 | Externe bedrijf beheerder | Gemachtigd aanvragen te doen en taken te accepteren over alle projecten van het aangewezen bedrijf |
-| 8 | Externe project beheerder | Gemachtigd aanvragen te doen en taken te accepteren voor het aangewezen project |
-| 9 | Externe bedrijf medewerker | Gemachtigd alle projecten van het aangewezen bedrijf in te zien |
-| 10 | Externe project medewerker | Gemachtigd alle informatie over het aangewezen project in te zien |
-
-In deze combinatie zijn nog wat dingen aan te merken:
-
-|  | Actor | Toelichting |
-|--|--|--|
-|  | Externe corporatie medewerker | Een medewerker van de corporatie van het bedrijf die een project uitvoert is een interne medewerker. |
-|  | Externe corporatie beheerder | Een beheerder van de corporatie van het bedrijf die een project uitvoert is een interne beheerder. |
-|  | Intern/Extern medewerker | De interne medewerkers op bedrijf niveau en op project niveau hebben op het moment binnen het PMP geen andere functionaliteiten tot hun beschikking dan de externe medewerkers op het zelfde niveau. Wel hebben de Interne medewerkers vaak toegang tot de projecten in Productive zelf waardoor ze rechten hebben die de externe medewerkers niet hebben en ook niet mogen hebben. Denk hierbij aan het   |
-
-<!-- - 
-- 
-- intern medewerker is praktisch het zelfde als extern maar kan comments achter laten en status veranderen? Wordt niet gebruikt, is dit nodig/prio? Extra FR maken? -->
-
-### Rechten tabel
-<!-- 
-Schrijf het uit:
-
-- een organisatie heeft nul of meerdere klanten
-- een klant heeft nul of meerdere projecten
-- een organisatie heeft een of meerdere admins
-- een organisatie heeft nul of meerdere medewerkers
-- een project heeft een klant admin nodig om taken goed te keuren
-- een project heeft een organisatie admin nodig om taken te accepteren
-
-dan:
-
-- een organisatie admin voegt een nieuwe klant toe
-- een organisatie admin voegt gebruikers toe aan de klant
-- een organisatie admin voegt een project toe voor de klant
-- een organisatie admin wijst de project admin aan voor de klant?
-
-Over het hele PMP zijn de zelfde gebruikers accounts aanwezig, mensen hoeven maar één keer uitgenodigd te worden voor het PMP.
-
-Een gebruiker kan toegewezen worden aan een organisatie of klant als werknemer of admin.
-
-Een gebruiker kan toegewezen worden aan een project als werknemer of admin.
-
-Een admin van een organisatie kan projecten beheren
-
-Een admin van een klant kan gebruikers toevoegen aan projecten van de klant.
-
-Een admin van een Project kan taken inschieten en accepteren
-
-|  | Medewerker | Admin |
-|--|--|--|
-| Organisatie | Zelfde rechten als op productive* | Volledig beheer over onderliggende klanten en projecten |
-| Klant | N/A | Toewijzen project admins** & volledig beheer over onderliggende projecten |
-| Project | leesrechten over alle project data | Volledig beheer over het project en onderliggende taken |
-
-*is dit nodig?
-**Zou ook gedaan kunnen worden door de organisatie admin.
-
-In essentie heeft het PMP 2 account rol types nodig, Beheerder en Medewerker. Een account kan op verschillende niveau's rechten toegewezen krijgen, dit reflecteert de huidige binnen Productive gebruikte structuur met de mogelijkheid verschillende medewerkers bij de zelfde klant verschillende rechten te geven over verschillende projecten.
-
-Moet er nog rekening gehouden worden met intern/extern? Wel als niet alle bn medewerkers niet bij alle projecten zouden mogen. -->
-
-```puml
-rectangle "Beheerder"
-rectangle "Medewerker"
-rectangle "Project"
-rectangle "Bedrijf"
-rectangle "Corporatie"
-
-Beheerder -[hidden]DOWN- Medewerker
-
-Corporatie -- Project :> Voert uit
-Corporatie -- Bedrijf :< Klant van
-Bedrijf -- Project :> Opdrachtgever voor
-
-Beheerder .[norank]. Corporatie :> Werkt bij
-Beheerder .[norank]. Bedrijf
-Beheerder .[norank]. Project
-
-Medewerker .[norank]. Corporatie :> Werkt bij
-Medewerker .[norank]. Bedrijf
-Medewerker .[norank]. Project
-```
-
-|  | Beheerder ext | Medewerker ext | Beheerder int | Medewerker int |
-|--|--|--|--|--|
-| Project | FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR?: Toevoegen gebruiker?* | FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie | FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR8: Controleren aanvraag</br>FR?: Toevoegen admin?* | FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie|
-| Bedrijf | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR?: Toevoegen gebruiker?* | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR5: Beheren project</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR8: Controleren aanvraag</br>FR?: Toevoegen admin?* | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie|
-| Corporatie | N/A | N/A | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR5: Beheren project</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR8: Controleren aanvraag</br>FR?: Toevoegen admin?* | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie|
-
-*TODO: FR? Toevoegen gebruiker/admin
-
-```puml
-title: toekennen nieuwe gebruikers aan klant/project
-start
-:Maak nieuw project aan binnen Productive;
-if (Bedrijf bestaat al binnen Productive en PMP) then (Ja)
-:PMP account van bedrijf beheerder is project beheerder;
-else (Nee)
-:Geef binnen het PMP aan dat er geen beheerder voor het bedrijf is;
-if (Klant wilt project beheren via PMP) then (Ja)
-:Nodig een nieuwe bedrijf beheerder uit binnen het PMP aan de hand van e-mail link;
-else (Nee) 
-end
-endif
-endif
-:Bedrijf beheerder voegt project beheerder(s) toe;
-:Bedrijf beheerder voegt project medewerker(s) toe;
-if (Toegevoegde beheerders/medewerkers niet aanwezig in het PMP) then (Yes)
-:Nodig nieuwe gebruikers uit binnen het PMP aan de hand van e-mail link;
-
-endif
-
-stop
-
-```
-
-Bijna alle data kan uit productive komen. De enige data waarvan ik niet zeker weet of deze in productive kan/ er uit gehaald kan worden is details over accounts. Dit moet uitgezocht worden maar er is een argument te maken het AAA gedeelte van de software in eigen handen te nemen en volledig binnen het PMP af te handelen.
-
-Technisch:
-
-tables:
-
-Users
-
-| (pk) userId|
-
-Organizations
-
-| (pk) orgId |
-
-Customer
-
-| (pk) customerId |
-
-Roles
-
-| (pk) roleId |
-
-UserInOrg
-
-| (pk, fk) userId | (pk, fk) orgId | (pk, fk) roleId |
-
-UserInCustomer
-
-| (pk, fk) userId | (pk, fk) customerId | (pk, fk) roleId |
-
-UserInProject
-
-| (pk, fk) userId | (pk, fk) projectId |  (pk, fk) roleId |
-
-### ACT1: Externe klant
-
-Omschrijving: Een externe klant die een project wilt laten uitvoeren door Bluenotion.
-
-Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een project. Op basis van gesprekken met de PM worden voor het project taken aangemaakt in Productive die door het development team worden opgepakt tot uiteindelijke realisatie van het product. Als de klant over de loop van het project wijzigingen wilt doen in de planning van het project loopt dit via de PM of een guest account met een apart bord in Productive.*
-
-*Sommige klanten hebben direct toegang tot een voor hun aangemaakte productive omgeving om inzicht te kunnen krijgen in het project en al zelf taken in te schieten.
-
-Doelen nieuwe project management portal:
-
-- Inzicht geven in het door Bluenotion te verrichten werk door statussen toe te kennen aan taken.
-- Inzicht geven in de aanvragen/taken die door mij (de externe klant) aangescherpt dienen te worden voor ontwikkeling door Bluenotion kan beginnen.
-- Toevoegen van nieuwe aanvragen/taken voor een project
-- Prioriteren van bestaande taken
-- Aanpassen onduidelijke/incomplete taken
-- Communiceren van impact in de vorm van ureninschattingen
-- Inzicht geven in servicecontract van projecten
-
-Aanspreekpunt: Jesse Bekke
-
-### ACT2: Bluenotion Admin
-
-Omschrijving: De Bluenotion admin is een medewerker van Bluenotion die het recht heeft de planning van projecten aan te passen. Doorgaans zijn dit project managers (PM) en tech leads (TL) maar andere medewerkers zouden ook de rol van Bluenotion Admin op zich kunnen nemen.
-
-Huidig proces: Aan het eind van elke sprint wordt door de PM/TL een demo gegeven aan de klant met de in die sprint geboekte vooruitgang en de planning voor de volgende sprint. Bevindingen in deze review worden door de PM/TL verwerkt in de backlog op Productive. Indien een klant directe toegang heeft tot de Productive omgeving heeft de PM/TL de taak van het controleren en goedkeuren van de door de klant ingeschoten taken. Mochten er onduidelijkheden zijn in een taak of velden verkeerd ingevuld zijn (vaker voorkomend bij priority) is het aan de PM verdere verduidelijking te vragen aan de klant.
-
-Doelen nieuwe project management portal:
-
-- Taken goed of afkeuren voor de backlog op Productive.
-- Taken handmatig aanpassen.
-- Doorgeven aan de klant dat een taak incompleet of onduidelijk is.
-
-Aanspreekpunt: Jesse Bekke
-
-### ACT3: Bluenotion medewerker
-
-Omschrijving: Dit is een medewerker van Bluenotion die meewerkt aan het development proces.
-
-Huidig proces: Krijgt taken toegewezen, werkt aan taken en registreert de staat hiervan in Productive.
-
-Doelen nieuwe project management portal: Zonder aanpassingen in de workflow zijn werk nog kunnen doen.
-
-### ACT4: Notificatie manager
-
-Omschrijving: De service die invitation links stuurt en informeert wanneer actie nodig is?
-
-Huidig proces:
-
-Doelen nieuwe project:
-
-### ACT5: Externe klant (read)
-
-Op basis van gesprek 11-06-2024:
-Er werd gesproken over een admin en medewerkers account voor de externe klant. Voor zo ver ik heb begrepen is dit voornamelijk zodat niet voor iedereen die in het PMP komt tickets mag inschieten. Heeft het medewerkers account voor de externe klant leesrechten op alle functionaliteiten die ACT1 heeft of enkel een subset?
-
 ## Domein
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal draaien als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hiermee worden de afhankelijkheden naar het Productive systeem direct vastgelegd.
@@ -289,64 +71,6 @@ Board "1..*"--"1" Project :> Voor
 
 
 ```
-
-<!-- ```puml
-skinparam linetype ortho
-skinparam nodesep 130
-skinparam ranksep 120
-' top to bottom direction
-
-rectangle "Project management portal"{
-
-  rectangle Klant
-  rectangle Aanvraag
-  rectangle Team
-  rectangle SLA
-  rectangle Prioriteit
-  ' rectangle "Aanvraag categorie" as Taak_type
-  rectangle Incident
-  rectangle Doorontwikkeling
-  rectangle Impact
-  rectangle Urgentie
-  rectangle Servicevraag
-}
-
-rectangle "Productive"{
-  rectangle Project
-  rectangle Board
-  rectangle Taak
-  rectangle Werknemer
-  rectangle Status
-
-}
-' Klant aanvraag
-Klant "1..*" -- "0..*" Project : > Eigenaar van
-Klant "1"--"0..*" Aanvraag :> Doet een
-Doorontwikkeling "1"--"1..*" Taak :> Resulteert in
-Incident "1"--"1..*" Taak :> Resulteert in
-Project "0..*"--"1" SLA :> Valt onder
-
-
-' Priority part
-Incident --|> Aanvraag
-Doorontwikkeling --|> Aanvraag
-Servicevraag --|> Aanvraag
-
-Impact "1"--"0-..*" Incident : > Ingediend met
-Urgentie "1"--"0..*" Incident : > Ingediend met
-Prioriteit "1"--"1" Impact : < Bepalend voor
-Prioriteit "1"--"1" Urgentie : < Bepalend voor
-
-SLA "1"--"0..*" Aanvraag : > bepaalt tijdslimieten voor
-
-' Productive task board part
-Board "1..*"--"1" Project: > Planning voor 
-Taak "0..*"--"1" Board: > Opgenomen in
-Werknemer "0..*"--"0..*" Taak :> Werkt aan
-Werknemer "0..*"--"0..*" Team :> Onderdeel van
-Taak "1"--"1" Team :> beschrijft werkzaamheden voor
-Taak "0..*"--"1" Status :> werkstatus voor 
-``` -->
 
 ### Toelichting domeinmodel
 
@@ -485,8 +209,8 @@ stop
 
 ' legend right
 '     | Color | Status |
-'     |<#Red>| Act1: Externe klant |
-'     |<#LightBlue>| Act2: Bluenotion admin |
+'     |<#Red>| ACT1: Externe beheerder |
+'     |<#LightBlue>| ACT2: Interne beheerder |
 '     |<#Gray>| PMP back-end |
 ' endlegend
 
@@ -559,19 +283,19 @@ endlegend
 
 ```
 
-<!-- | Awaiting customer (new)  | Taken die incorrect of incompleet zijn ingevuld door de klant worden door de PM of TL op dit bord neergezet met een vraag voor extra feedback van de klant.  | ACT1: Externe klant | -->
+<!-- | Awaiting customer (new)  | Taken die incorrect of incompleet zijn ingevuld door de klant worden door de PM of TL op dit bord neergezet met een vraag voor extra feedback van de klant.  | ACT1: Externe beheerder | -->
 
 #### Toelichting borden
 
 | Bord | Doel | Verantwoordelijke partij |
 |---|---|---|
-| Aanvragen (nieuw) | Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de aanvragen lijst terecht.  | ACT2: Bluenotion admin|
-| Wishlist  | Taken die tijdens ontwikkeling naar boven zijn gekomen als "Nice to haves" en worden opgepakt als er tijd over is.  | ACT1: Externe klant |
-| Backlog  | De backlog is waar geaccepteerde taken terecht komen. Vanaf de backlog pakken de aangewezen teams de taken op.  | ACT3: Bluenotion medewerker |
-| In progress  | Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.  | ACT3: Bluenotion medewerker |
-| In review  | Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.  | ACT3: Bluenotion medewerker |
-| Development  | Functionaliteit is gebouwd maar staat nog niet op de test versie. | ACT2: Bluenotion admin |
-| Staging  | Functionaliteit is gebouwd en staat op de test versie  | ACT1: Externe klant |
+| Aanvragen (nieuw) | Taken die door de klant zijn ingeschoten maar nog niet geaccepteerd door de PM en/of TL komen op de aanvragen lijst terecht.  | ACT2: Interne beheerder|
+| Wishlist  | Taken die tijdens ontwikkeling naar boven zijn gekomen als "Nice to haves" en worden opgepakt als er tijd over is.  | ACT1: Externe beheerder |
+| Backlog  | De backlog is waar geaccepteerde taken terecht komen. Vanaf de backlog pakken de aangewezen teams de taken op.  | ACT3: Interne medewerker |
+| In progress  | Zodra een developer een taak op pakt wordt deze als In progress geregistreerd.  | ACT3: Interne medewerker |
+| In review  | Nadat een developer aan een taak heeft gewerkt wordt deze klaar gezet voor review.  | ACT3: Interne medewerker |
+| Development  | Functionaliteit is gebouwd maar staat nog niet op de test versie. | ACT2: Interne beheerder |
+| Staging  | Functionaliteit is gebouwd en staat op de test versie  | ACT1: Externe beheerder |
 | Live  | Alle afgeronde taken die draaien op de productie omgeving.  | N/A |
 
 #### Toelichting statuses
@@ -739,11 +463,152 @@ Aan de hand van deze prioriteit worden per SLA voor de klant een verwachting ges
 | 4 (Laag) | 12 uur | 1 werkdag |
 | 5 (Gering) | 2 werkdagen | 4 werkdagen |
 
-## Requirements
+## Actors & user stories
 
-Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan het systeem toegelicht. Binnen dit hoofdstuk staat de requirements traceability matrix waarin requirements van user story tot implementatie door de documentatie gevolgd kan worden.
+De actors zijn de rollen die mensen aannemen als ze gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
+
+Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Wegens veiligheidsoverwegingen (TODO: schrijven FDR) is er de keuze gemaakt deze gebruikers verder op te delen in een medewerkers en een beheerders groep. Het idee hier achter is dat gebruikers op drie niveau's binnen het systeem rechten kunnen krijgen:
+
+- **Corporatie**
+    - Interne beheerder: Verantwoordelijk voor globaal project en klant beheer.
+    - Interne medewerker: Gemachtigd alle projecten van alle klanten in te zien.
+- **Bedrijf**
+    - Interne beheerder: Verantwoordelijk voor intern beheer van projecten voor het aangewezen bedrijf.
+    - Interne medewerker: Gemachtigd alle projecten van het aangewezen bedrijf in te zien.
+    - Externe beheerder: Gemachtigd aanvragen te doen en taken te accepteren voor het aangewezen project.
+    - Externe medewerker: Gemachtigd alle projecten van het aangewezen bedrijf in te zien.
+- **Project**
+    - Interne beheerder: Verantwoordelijk voor intern beheer van het aangewezen project.
+    - Interne medewerker: Gemachtigd alle informatie over het aangewezen project in te zien.
+    - Externe beheerder: Gemachtigd aanvragen te doen en taken te accepteren voor het aangewezen project.
+    - Externe medewerker: Gemachtigd alle informatie over het aangewezen project in te zien.
+
+Twee aspecten die opvallend zijn aan deze opzet zijn:
+
+- Dat er geen externe beheerders of medewerkers toegevoegd kunnen worden op corporatie niveau. (TODO: FDR?)
+- Dat interne en externe medewerkers de zelfde omschrijving (en toegang hebben tot [de zelfde FR's](#rechten-tabel)) maar hier toch aparte actors van zijn gemaakt. (TODO: FDR?)
+
+Ter simplificatie wordt binnen dit project gesproken over 4 primaire actors in plaats van de bovengenoemde 10. Dit omdat de verschillen tussen verschillende rollen op verschillende niveau's niet zo zeer invloed hebben op welke acties een actor kan/mag uitvoeren maar op welke objecten binnen het systeem deze acties uitgevoerd mogen worden.
+
+### ACT1: Externe beheerder
+
+Omschrijving: Een externe klant die een project wilt laten uitvoeren door Bluenotion.
+
+Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een project. Op basis van gesprekken met de PM worden voor het project taken aangemaakt in Productive die door het development team worden opgepakt tot uiteindelijke realisatie van het product. Als de klant over de loop van het project wijzigingen wilt doen in de planning van het project loopt dit via de PM of een guest account met een apart bord in Productive.*
+
+*Sommige klanten hebben direct toegang tot een voor hun aangemaakte productive omgeving om inzicht te kunnen krijgen in het project en al zelf taken in te schieten.
+
+Doelen nieuwe project management portal:
+
+- Inzicht geven in het door Bluenotion te verrichten werk door statussen toe te kennen aan taken.
+- Inzicht geven in de aanvragen/taken die door mij (de externe klant) aangescherpt dienen te worden voor ontwikkeling door Bluenotion kan beginnen.
+- Toevoegen van nieuwe aanvragen/taken voor een project
+- Prioriteren van bestaande taken
+- Aanpassen onduidelijke/incomplete taken
+- Communiceren van impact in de vorm van ureninschattingen
+- Inzicht geven in servicecontract van projecten
+
+Aanspreekpunt: Jesse Bekke
+
+### ACT2: Interne beheerder
+
+Omschrijving: De Bluenotion admin is een medewerker van Bluenotion die het recht heeft de planning van projecten aan te passen. Doorgaans zijn dit project managers (PM) en tech leads (TL) maar andere medewerkers zouden ook de rol van Bluenotion Admin op zich kunnen nemen.
+
+Huidig proces: Aan het eind van elke sprint wordt door de PM/TL een demo gegeven aan de klant met de in die sprint geboekte vooruitgang en de planning voor de volgende sprint. Bevindingen in deze review worden door de PM/TL verwerkt in de backlog op Productive. Indien een klant directe toegang heeft tot de Productive omgeving heeft de PM/TL de taak van het controleren en goedkeuren van de door de klant ingeschoten taken. Mochten er onduidelijkheden zijn in een taak of velden verkeerd ingevuld zijn (vaker voorkomend bij priority) is het aan de PM verdere verduidelijking te vragen aan de klant.
+
+Doelen nieuwe project management portal:
+
+- Taken goed of afkeuren voor de backlog op Productive.
+- Taken handmatig aanpassen.
+- Doorgeven aan de klant dat een taak incompleet of onduidelijk is.
+
+Aanspreekpunt: Jesse Bekke
+
+### ACT3: Interne medewerker
+
+Omschrijving: Dit is een medewerker van Bluenotion die meewerkt aan het development proces.
+
+Huidig proces: Krijgt taken toegewezen, werkt aan taken en registreert de staat hiervan in Productive.
+
+Doelen nieuwe project management portal: Zonder aanpassingen in de workflow zijn werk nog kunnen doen.
+
+### ACT4: Notificatie manager
+
+Omschrijving: De service die invitation links stuurt en informeert wanneer actie nodig is?
+
+Huidig proces:
+
+Doelen nieuwe project:
+
+### ACT5: Externe medewerker
+
+Op basis van gesprek 11-06-2024:
+Er werd gesproken over een admin en medewerkers account voor de externe klant. Voor zo ver ik heb begrepen is dit voornamelijk zodat niet voor iedereen die in het PMP komt tickets mag inschieten. Heeft het medewerkers account voor de externe klant leesrechten op alle functionaliteiten die ACT1 heeft of enkel een subset?
 
 ### User stories
+
+```puml
+left to right direction
+skinparam packageStyle rect
+
+:ACT1 Externe beheerder: as ACT1
+:ACT2 Interne beheerder: as ACT2
+:ACT3 Interne medewerker: as ACT3
+:ACT5 Externe medewerker: as ACT5
+ACT2-LEFT-|>ACT3
+ACT2-LEFT-|>ACT1
+ACT1-LEFT-|>ACT5
+ACT3-LEFT-|>ACT5
+
+usecase US1
+usecase US2
+usecase US3
+usecase US4
+usecase US5
+usecase US6
+usecase US7
+usecase US8
+usecase US9
+usecase US10
+usecase US12
+usecase US13
+usecase US14
+usecase US15
+usecase US16
+usecase US17
+usecase US18
+usecase US19
+usecase US20
+usecase US21
+usecase US22
+
+ACT2--US1
+ACT1--US2
+ACT1--US3
+ACT2--US4
+ACT3--US5
+ACT1--US6
+ACT1--US7
+ACT2--US7
+
+ACT1--US8
+ACT1--US9
+ACT2--US10
+ACT2--US12
+ACT1--US13
+ACT3--US14
+ACT3--US15
+ACT3--US16
+ACT1--US17
+ACT2--US18
+ACT2--US19
+ACT1--US20
+ACT2--US20
+
+ACT2--US21
+ACT1--US22
+
+```
 
 Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user story.
 
@@ -772,18 +637,23 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Requirements/FR5_Opstellen_project.md) |
 | US22 | ACT1 | Als externe klant wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
 
-### Use case diagram
 
-<!-- !!!!!!!!!!!!!!!!!!!Auto generated from requirementstablecsv.csv by way of Usecase_diagram.sh!!!!!!!!!!!!!!!!!!!! -->
+
+## Requirements
+
+Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan het systeem toegelicht. Binnen dit hoofdstuk staat de requirements traceability matrix waarin requirements van user story tot implementatie door de documentatie gevolgd kan worden.
+
+
+### Use case diagram
 
 ```puml
 left to right direction
 skinparam packageStyle rect
-:ACT1 Externe klant Admin: as ACT1
-:ACT2 Bluenotion Admin: as ACT2
-:ACT3 Bluenotion medewerker: as ACT3
+:ACT1 Externe beheerder: as ACT1
+:ACT2 Interne beheerder: as ACT2
+:ACT3 Interne medewerker: as ACT3
 :ACT4 notification manager: as ACT4
-:ACT5 Externe klant Medewerker: as ACT5
+:ACT5 Externe medewerker: as ACT5
 ACT2-LEFT-|>ACT3
 ACT2-LEFT-|>ACT1
 ACT1-LEFT-|>ACT5
@@ -920,51 +790,82 @@ legend left
   end legend
 ```
 
-### Requirements traceability matrix
 
-<!-- !!!!!!!!!!!!!!!!!!!Auto generated from requirementstablecsv.csv by way of Usecase_diagram.sh!!!!!!!!!!!!!!!!!!!! -->
-<!-- | FR2.7 |  | Filteren taken op: incident of doorontwikkeling | Should have |  | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing | -->
+<!-- *TODO: FR? Toevoegen gebruiker/admin -->
+
+TODO: diagram verplaatsen naar logischere plek. Mogelijk een functionele beslissing aanmaken?
+
+```puml
+title: toekennen nieuwe gebruikers aan klant/project
+start
+:Maak nieuw project aan binnen Productive;
+if (Bedrijf bestaat al binnen Productive en PMP) then (Ja)
+:PMP account van bedrijf beheerder is project beheerder;
+else (Nee)
+:Geef binnen het PMP aan dat er geen beheerder voor het bedrijf is;
+if (Klant wilt project beheren via PMP) then (Ja)
+:Nodig een nieuwe bedrijf beheerder uit binnen het PMP aan de hand van e-mail link;
+else (Nee) 
+end
+endif
+endif
+:Bedrijf beheerder voegt project beheerder(s) toe;
+:Bedrijf beheerder voegt project medewerker(s) toe;
+if (Toegevoegde beheerders/medewerkers niet aanwezig in het PMP) then (Yes)
+:Nodig nieuwe gebruikers uit binnen het PMP aan de hand van e-mail link;
+
+endif
+
+stop
+
+```
+
+Bijna alle data kan uit productive komen. De enige data waarvan ik niet zeker weet of deze in productive kan/ er uit gehaald kan worden is details over accounts. Dit moet uitgezocht worden maar er is een argument te maken het AAA gedeelte van de software in eigen handen te nemen en volledig binnen het PMP af te handelen.
+
+
+
+### Requirements traceability matrix
 
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Document references | Status |
 |---|---|---|---|---|---|
-| FR1 | Inzien project plannings informatie |  |  | [Requirement overzicht](./Requirements/FR1_Inzien_project_plannings_informatie.md) |  |
-| FR1.1 |  | Inzien projecten | Must have | [US1](./FunctioneelOntwerp.md#user-stories), [US2](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR1.2 |  | Inzien totaal geplande uren+kosten | Won't have FDR001 | [US3](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FDR001](./FDRs/FDR001-Tijd-en-kosten-niet-tonen.md) | [x] Rejected |
-| FR2 | Inzien taken |  |  | [Requirement overzicht](./Requirements/FR2_Inzien_taken.md) |  |
-| FR2.1 |  | Inzien taken van project | Must have | [US3](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR2.2 |  | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have | [US3](./FunctioneelOntwerp.md#user-stories), [US8](./FunctioneelOntwerp.md#user-stories), [US9](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR2.3 |  | Inzien taak details | Must have | [US3](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details)  | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR2.4 |  | Tonen taken in Gantt chart | Could have | [US3](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR2_Inzien_taken.md#fr24-main-flow) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3 | Toevoegen aanvraag |  |  | [Requirement overzicht](./Requirements/FR3_Toevoegen_aanvraag.md) |  |
-| FR3.1 |  | Toevoegen nieuwe taak | Must have | [US6](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.2 |  | Toelichting geven op aanvraag (extern) | Must have | [US7](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.3 |  | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [ ] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.4 |  | Toevoegen bijlagen bij taak | Must have | [US12](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR3.5 |  | Aanpassen taak prioriteit | Could have | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR1 | Inzien project plannings informatie |  |  | [Requirement overzicht](/Documentatie/Requirements/FR1_Inzien_project_plannings_informatie.md) |  |
+| FR1.1 |  | Inzien projecten | Must have | [US1](/Documentatie/FunctioneelOntwerp.md#user-stories), [US2](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-alternative-flow---no-projects-for-customer) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR1.2 |  | Inzien totaal geplande uren+kosten | Won't have FDR001 | [US3](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FDR001](../Decisions/Functional/FDR001-Tijd-en-kosten-niet-tonen.md) | [x] Rejected |
+| FR2 | Inzien taken |  |  | [Requirement overzicht](/Documentatie/Requirements/FR2_Inzien_taken.md) |  |
+| FR2.1 |  | Inzien taken van project | Must have | [US3](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR2.2 |  | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed | Must have | [US3](/Documentatie/FunctioneelOntwerp.md#user-stories), [US8](/Documentatie/FunctioneelOntwerp.md#user-stories), [US9](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR2.3 |  | Inzien taak details | Must have | [US3](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details)  | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR2.4 |  | Tonen taken in Gantt chart | Could have | [US3](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR2_Inzien_taken.md#fr24-main-flow) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3 | Toevoegen aanvraag |  |  | [Requirement overzicht](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md) |  |
+| FR3.1 |  | Toevoegen nieuwe taak | Must have | [US6](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.2 |  | Toelichting geven op aanvraag (extern) | Must have | [US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.3 |  | Toevoegen taken past zich aan aan de klant zijn SLA | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [ ] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.4 |  | Toevoegen bijlagen bij taak | Must have | [US12](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [x] Define  </br> [x] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR3.5 |  | Aanpassen taak prioriteit | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR3.6 |  | Annuleren aanvraag | Should have | [Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR4 | Versturen notificaties |  |  | [Requirement overzicht](./Requirements/FR4_Versturen_notificaties.md) |  |
-| FR4.1 |  | Inlichten klant wanneer een taak wacht op input van de klant | Should have | [US9](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR4 | Versturen notificaties |  |  | [Requirement overzicht](/Documentatie/Requirements/FR4_Versturen_notificaties.md) |  |
+| FR4.1 |  | Inlichten klant wanneer een taak wacht op input van de klant | Should have | [US9](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5 | Beheren project |  |  |  |  |
-| FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](#user-stories) [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards-en-taak-status) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR5.3 |  | Beheren project documentatie | Could have |  [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR5.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR6 | Inzien project service statuses |  |  | [Requirement overzicht](./Requirements/FR6_Inzien_project_service_statuses.md)  |  |
-| FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](./FunctioneelOntwerp.md#user-stories),[Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR7 | Inzien project documentatie |  |  | [Requirement overzicht](./Requirements/FR7_Inzien_project_documentatie.md) |  |
-| FR7.1 |  | Openen/downloaden document | Could have | [US13](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR7.2 |  | Filteren documentnaam/categorie | Could have | [US13](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR8 | Controleren aanvraag |  |  | [Requirement overzicht](./Requirements/FR8_Controleren_aanvraag.md) |  |
-| FR8.1 |  | Controleren aanvraag (intern) | Must have | [US7](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](./FunctioneelOntwerp.md#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR8.2 |  | Op splitten taak naar team taken | Could have | [US7](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](./FunctioneelOntwerp.md#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR9 | Chat met tenants |  | Won't have | [Requirement overzicht](./Requirements/FR9_Tenant_level_chat.md), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) |  |
-| FR9.1 |  | Starten nieuwe chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR9.4 |  | Sluiten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR9_Tenant_level_chat.md#fr94-sluiten-chat), [FDR002](./FDRs/FDR002-Tenant-level-chat.md) | [x] Rejected |
-| FR10 | Beheren gebruikers |  |  | [Requirement overzicht](./Requirements/FR8_Controleren_aanvraag.md) |  |
+| FR5.3 |  | Beheren project documentatie | Could have |  [Fully dressed usecase description](/Documentatie/Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.3 |  | Beheren project services | Could have | [Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR6 | Inzien project service statuses |  |  | [Requirement overzicht](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md)  |  |
+| FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](/Documentatie/FunctioneelOntwerp.md#user-stories),[Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR7 | Inzien project documentatie |  |  | [Requirement overzicht](/Documentatie/Requirements/FR7_Inzien_project_documentatie.md) |  |
+| FR7.1 |  | Openen/downloaden document | Could have | [US13](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR7.2 |  | Filteren documentnaam/categorie | Could have | [US13](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR8 | Controleren aanvraag |  |  | [Requirement overzicht](/Documentatie/Requirements/FR8_Controleren_aanvraag.md) |  |
+| FR8.1 |  | Controleren aanvraag (intern) | Must have | [US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](/Documentatie/FunctioneelOntwerp.md#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR8.2 |  | Op splitten taak naar team taken | Could have | [US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](/Documentatie/FunctioneelOntwerp.md#user-stories) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR9 | Chat met tenants |  | Won't have | [Requirement overzicht](/Documentatie/Requirements/FR9_Tenant_level_chat.md), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) |  |
+| FR9.1 |  | Starten nieuwe chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.2 |  | Bericht sturen niet afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.3 |  | Hervatten afgesloten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR9.4 |  | Sluiten chat | Won't have | [US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr94-sluiten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md) | [x] Rejected |
+| FR10 | Beheren gebruikers |  |  | [Requirement overzicht](/Documentatie/Requirements/FR8_Controleren_aanvraag.md) |  |
 | FR10.1 |  | Uitnodigen gebruiker | Must have |  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR10.2 |  | Wijzigen rechten | Must have |  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR10.3 |  | Verwijderen gebruiker | Must have |  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
@@ -1016,6 +917,16 @@ https://www.altexsoft.com/blog/software-requirements-specification/
 Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->
 
 ### Authenticatie, Autorisatie, Accounting
+
+#### Rechten tabel
+
+TODO: Rename rechten tabel naar iets duidelijkers? actor requirement matrix oid?
+
+|  | Beheerder extern | Medewerker extern | Beheerder intern | Medewerker intern |
+|--|--|--|--|--|
+| Project | FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR10: Beheren gebruikers | FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie | FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR8: Controleren aanvraag</br>FR10: Beheren gebruikers | FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie|
+| Bedrijf | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR10: Beheren gebruikers | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR5: Beheren project</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR8: Controleren aanvraag</br>FR10:Beheren gebruikers | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie|
+| Corporatie | N/A | N/A | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR3: Toevoegen aanvraag</br>FR5: Beheren project</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie</br>FR8: Controleren aanvraag</br>FR10: Beheren gebruikers | FR1: Inzien project plannings informatie</br>FR2: Inzien taken</br>FR6: Inzien project service statuses</br>FR7: Inzien project documentatie|
 
 #### Authenticatie
 
