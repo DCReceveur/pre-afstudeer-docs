@@ -40,3 +40,32 @@ Con:
 ## O3-Hybrid
 
 Er kan ook een keuze gemaakt worden een combinatie van de twee systemen te gebruiken. Dit zou betekenen dat gebruikers die geen productive account hebben gebruik kunnen maken van het interne login systeem maar gebruikers die wel een productive account tot hun beschikking hebben gebruik kunnen maken van de al bestaande infrastructuur.
+
+TODO: diagram verplaatsen naar logischere plek. Mogelijk een aparte functionele beslissing aanmaken?
+
+```puml
+title: toekennen nieuwe gebruikers aan klant/project
+start
+:Maak nieuw project aan binnen Productive;
+if (Bedrijf bestaat al binnen Productive en PMP) then (Ja)
+:PMP account van bedrijf beheerder is project beheerder;
+else (Nee)
+:Geef binnen het PMP aan dat er geen beheerder voor het bedrijf is;
+if (Klant wilt project beheren via PMP) then (Ja)
+:Nodig een nieuwe bedrijf beheerder uit binnen het PMP aan de hand van e-mail link;
+else (Nee) 
+end
+endif
+endif
+:Bedrijf beheerder voegt project beheerder(s) toe;
+:Bedrijf beheerder voegt project medewerker(s) toe;
+if (Toegevoegde beheerders/medewerkers niet aanwezig in het PMP) then (Yes)
+:Nodig nieuwe gebruikers uit binnen het PMP aan de hand van e-mail link;
+
+endif
+
+stop
+
+```
+
+Bijna alle data kan uit productive komen. De enige data waarvan ik niet zeker weet of deze in productive kan/ er uit gehaald kan worden is details over accounts. Dit moet uitgezocht worden maar er is een argument te maken het AAA gedeelte van de software in eigen handen te nemen en volledig binnen het PMP af te handelen.
