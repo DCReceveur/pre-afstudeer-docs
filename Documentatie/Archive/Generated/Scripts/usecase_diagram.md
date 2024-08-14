@@ -1,11 +1,11 @@
-```puml
+```plantuml
 left to right direction
 skinparam packageStyle rect
-:ACT1 Externe klant Admin: as ACT1
-:ACT2 Bluenotion Admin: as ACT2
-:ACT3 Bluenotion medewerker: as ACT3
+:ACT1 Externe beheerder: as ACT1
+:ACT2 Interne beheerder: as ACT2
+:ACT3 Interne medewerker: as ACT3
 :ACT4 notification manager: as ACT4
-:ACT5 Externe klant Medewerker: as ACT5
+:ACT5 Externe medewerker: as ACT5
 ACT2-LEFT-|>ACT3
 ACT2-LEFT-|>ACT1
 ACT1-LEFT-|>ACT5
