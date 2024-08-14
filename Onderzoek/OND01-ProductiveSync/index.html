@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
     
     
       
@@ -312,6 +312,27 @@
   
   <span class="md-ellipsis">
     FDR002 Tenant level chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR003-Gebruikers-acties-in-productive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR003 Gebruikers acties in productive
   </span>
   
 
@@ -1616,6 +1637,90 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/Vragen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vragen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2135,7 +2240,7 @@ Include werkt wel op taak.</li>
 <td></td>
 <td><a href="https://ictresearchmethods.nl/field/stakeholder-analysis/">Stakeholder analysis</a></td>
 <td>Field</td>
-<td><a href="../../Functioneel/FunctioneelOntwerp/#actors">Onderdeel FO</a></td>
+<td><a href="../../Functioneel/FunctioneelOntwerp/#actors--user-stories">Onderdeel FO</a></td>
 </tr>
 <tr>
 <td></td>
@@ -2236,7 +2341,7 @@ Include werkt wel op taak.</li>
 <p>Tijdens het library onderzoek wordt globaal gekeken naar verschillende manieren om data tussen twee data sources te synchroniseren. Hierbij wordt ook gekeken welke data Productive aan de hand van hun API aanbiedt en wat de vastgestelde rate limits zijn.</p>
 <!-- TODO: gekke introductie -->
 <p>In dit document wordt in meer detail in gegaan op de verschillende opties voor synchronisatie tussen het PMP en de data uit Productive. Een korte omschrijving van het probleem en de gekozen oplossing is te vinden in <a href="../../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API/">ADR001</a>, dit document dient voor meer diepgang op het onderwerp indien de lezer van ADR001 behoefte heeft aan meer diepgang op de verschillende overwogen opties.</p>
-<p>Voor het project moet data uit en verstuurd worden naar productive. Deze data moet als single source of truth Productive gebruiken en dient met 50 gebruikers reactietijden te hebben van minder dan 3 sec zoals beschreven in <a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR3</a> en <a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR5</a>. Om de haalbaarheid deze NFR's te pijlen is gebruik gemaakt van de <a href="../../Functioneel/FunctioneelOntwerp/#scherm-ontwerpen">scherm ontwerpen</a> uit het FO.</p>
+<p>Voor het project moet data uit en verstuurd worden naar productive. Deze data moet als single source of truth Productive gebruiken en dient met 50 gebruikers reactietijden te hebben van minder dan 3 sec zoals beschreven in <a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR3</a> en <a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR5</a>. Om de haalbaarheid deze NFR's te pijlen is gebruik gemaakt van de <a href="../../Functioneel/Schermontwerpen/">scherm ontwerpen.</a></p>
 <p>Voor het uitlezen van data voor één pagina zouden bij sommige pagina's 5 verschillende Productive endpoints benaderd worden. Als volgens <a href="../../Functioneel/FunctioneelOntwerp/#nonfunctional-requirements">NFR5.1</a> 50 gebruikers gelijktijdig bijvoorbeeld de details van een taak bekijken zou dit resulteren in 250 requests naar de Productive API. Er van uit gaande dat een pagina informatie nodig heeft van gemiddeld 3 a 4 endpoints zou de meest basale implementatie gebaseerd op directe communicatie met productive (met een rate limit van 100 requests per 10 sec) zich limiteren tot rond de 30 gelijktijdige gebruikers. (100/3.5=28.5)</p>
 <p>Om er voor te zorgen dat de software aan alle eisen voldoet zal er dus één van twee (of beide) dingen moeten gebeuren:</p>
 <p>A. Er dient tijdens de ontwikkeling van de front-end rekening gehouden te worden met welke data wanneer wordt getoond om de hoeveelheid requests naar productive te beperken.</p>
@@ -2543,7 +2648,7 @@ Include werkt wel op taak.</li>
 <li>POC: (afhankelijk initiële dataset vraag) Zet een procedure op die voor één project alle voor het PMP relevante Project en taak informatie ophaalt.<em>
 </em>Dit is een grote. Er zou voor een initiële dataset veel data (boven de api limits) aan Productive gevraagd moeten worden.</li>
 </ul>
-<p>Now make it crack.</p>
+<p>Na het opzetten van het proof of concept worden de resultaten van het onderzoek en opgeleverde POC besproken met een techlead van Bluenotion om de haalbaarheid en compleetheid van het opgeleverde product aan de hand van peer review te testen.</p>
 <h3 id="minimal-viable-product">Minimal Viable Product</h3>
 <p>Binnen fase 3 wordt het kleinschalige POC uitgebreid naar een "volwaardige" synchronisatie module die zonder verdere input de PMP database synchroniseert met wijzigingen binnen Productive en visa versa. Alle data die niet aan de hand van de webhooks gesynchroniseerd kan worden dient in het FO/TO genoteerd te worden met een potentiële oplossing voor waar de data eventueel vandaan kan komen. Ook worden er binnen fase 3 zo veel mogelijk edge cases getest die er voor moeten zorgen dat de data die in het PMP komt te staan correct en compleet is.</p>
 <ul>
@@ -2551,7 +2656,7 @@ Include werkt wel op taak.</li>
 <li>FO/TO: Noteer voor alle data vragen binnen het PMP eventuele resterende REST endpoints.</li>
 <li>POC: Breidt het POC uit door in plaats van data uit één project te verzamelen data uit alle projecten te verzamelen.</li>
 </ul>
-<p>Now make it crack.</p>
+<p>Na het opzetten van het minimal viable product worden de resultaten van het onderzoek en opgeleverde MVP besproken met een techlead van Bluenotion om de haalbaarheid en compleetheid van het opgeleverde product aan de hand van peer review te testen.</p>
 <ul>
 <li>Verifieer dat alle data binnen komt.*</li>
 <li>Wat als de PMP server bezig is met het verwerken van een ander bericht?</li>
@@ -2689,8 +2794,10 @@ Include werkt wel op taak.</li>
 </tr>
 </tbody>
 </table>
+<!-- TODO: links in bovenstaande tabel fixen -->
+
 <h3 id="q2-hoe-blijft-het-systeem-up-to-date-met-wijzigingen-gedaan-in-productive">Q2: Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?</h3>
-<p>Aan de hand van webhooks.</p>
+<p>Afhankelijk van ADR001 maar waarschijnlijk aan de hand van webhooks.</p>
 <h3 id="q3-hoe-worden-wijzigingen-gedaan-in-het-pmp-doorgegeven-aan-productive">Q3: Hoe worden wijzigingen gedaan in het PMP doorgegeven aan Productive?</h3>
 <p>Aan de hand van directe API calls.</p>
 <h3 id="q4-kan-het-systeem-oneindig-los-van-productive-schalen">Q4: Kan het systeem "oneindig" (los van Productive) schalen?</h3>
