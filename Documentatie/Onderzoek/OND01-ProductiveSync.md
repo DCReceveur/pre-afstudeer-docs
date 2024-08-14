@@ -258,7 +258,6 @@ Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en 
 
 Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements).
 
-
 ### Proof of Concept
 
 Na in het library onderzoek een aantal verschillende potentiële oplossingen uitgelicht te hebben en ze (voor zo ver mogelijk) op meetbare data gerangschikt te hebben wordt in elk geval de meest veelbelovende oplossing uitgewerkt naar een Proof of Concept prototype. Het doel van dit prototype is op kleine schaal project en taak data van en naar een lokale database te synchroniseren. Door eerst op (relatief) kleine schaal een prototype te maken vallen fouten in de synchronisatie eerder op en mocht de oplossing niet voldoen aan de verwachtingen kan er snel omgeslagen worden naar een andere potentiële oplossing. De eisen voor het PoC prototype zijn als volgt:
@@ -270,7 +269,7 @@ Na in het library onderzoek een aantal verschillende potentiële oplossingen uit
 - POC: (afhankelijk initiële dataset vraag) Zet een procedure op die voor één project alle voor het PMP relevante Project en taak informatie ophaalt.*
 *Dit is een grote. Er zou voor een initiële dataset veel data (boven de api limits) aan Productive gevraagd moeten worden.
 
-Now make it crack.
+Na het opzetten van het proof of concept worden de resultaten van het onderzoek en opgeleverde POC besproken met een techlead van Bluenotion om de haalbaarheid en compleetheid van het opgeleverde product aan de hand van peer review te testen.
 
 ### Minimal Viable Product
 
@@ -280,7 +279,7 @@ Binnen fase 3 wordt het kleinschalige POC uitgebreid naar een "volwaardige" sync
 - FO/TO: Noteer voor alle data vragen binnen het PMP eventuele resterende REST endpoints.
 - POC: Breidt het POC uit door in plaats van data uit één project te verzamelen data uit alle projecten te verzamelen.
 
-Now make it crack.
+Na het opzetten van het minimal viable product worden de resultaten van het onderzoek en opgeleverde MVP besproken met een techlead van Bluenotion om de haalbaarheid en compleetheid van het opgeleverde product aan de hand van peer review te testen.
 
 - Verifieer dat alle data binnen komt.*
   - Wat als de PMP server bezig is met het verwerken van een ander bericht?
@@ -298,7 +297,6 @@ Now make it crack.
 4. Verify database
 
 ## Lab
-
 
 ## Resultaten
 
@@ -323,7 +321,7 @@ Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie z
 
 ### Q2: Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?
 
-Aan de hand van webhooks.
+Afhankelijk van ADR001 maar waarschijnlijk aan de hand van webhooks.
 
 ### Q3: Hoe worden wijzigingen gedaan in het PMP doorgegeven aan Productive?
 
