@@ -16,7 +16,7 @@ Om de meest recente data te tonen uit productive terwijl de schaalbaarheid wordt
 
 In dit geval zou het PMP bij bijvoorbeeld het opvragen van taken die bij een project horen enkel met zijn eigen database communiceren.
 
-```plantuml
+```puml
 title getTasks 'local'
 autonumber
 participant TaskController as task
@@ -38,7 +38,7 @@ TODO: Terminologie opzoeken transparant vs non-transparant layers of iets dergel
 
 Indien via het PMP een wijziging wordt doorgevoerd zoals het toevoegen van een taak of comment of het wijzigen van een status komt dit binnen bij het PMP en wordt de PMP database bijgewerkt.
 
-```plantuml
+```puml
 title Add task via Productive
 autonumber
 participant ProductiveSyncController as prod_sync
@@ -63,7 +63,7 @@ Als via het PMP een wijziging wordt doorgevoerd kan deze direct of op een rustig
 
 *Deze mening is puur gebaseerd op het redundant wegschrijven van data en [NFR2.1](../../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) en [NFR8.2](../../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) zonder verdere uitgebreide redenatie of onderzoek.
 
-```plantuml
+```puml
 title Add task via PMP
 autonumber
 participant TaskController as task_ctrl
