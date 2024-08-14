@@ -1,0 +1,1750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../ADR007-MVC%20Design%20pattern/">
+      
+      
+        <link rel="next" href="../ADR009-ProductiveData/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>ADR0008 Taak mijlpalen & scheiding tussen aanvraag en taak - PMP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adr0008-taak-mijlpalen-scheiding-tussen-aanvraag-en-taak" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="PMP" class="md-header__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PMP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PMP" class="md-nav__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    PMP
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management Portal documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Functioneel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Functioneel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/FunctioneelOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functioneel ontwerp Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Schermontwerpen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scherm ontwerpen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    FDRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            FDRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/FDRs/FDR001-Tijd-en-kosten-niet-tonen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR001 Tijd en kosten niet tonen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/FDRs/FDR002-Tenant-level-chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR002 Tenant level chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/FDRs/FDR003-Gebruikers-acties-in-productive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR003 Gebruikers acties in productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Requirements
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR1_Inzien_project_plannings_informatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR1: Inzien project plannings informatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR2_Inzien_taken/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR2: Inzien taken
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR3_Toevoegen_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR3: Toevoegen aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR4_Versturen_notificaties/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR4: Versturen notificaties
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR5_Opstellen_project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR5: Beheren project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR6_Inzien_project_service_statuses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR6: Inzien project service statuses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR7_Inzien_project_documentatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR7 Inzien project documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR8_Controleren_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR8 Controleren aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FR9_Tenant_level_chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR9: Tenant chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Functioneel/Requirements/FRX_FDUC_Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR?: Empty FDUC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Onderzoek
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Onderzoek
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Onderzoek/OND01-ProductiveSync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Communicatie met productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Onderzoek/Onderzoeksmethodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Onderzoek methodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            PVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PVA/PlanVanAanpak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plan van aanpak Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PVA/Planning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Planning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PVA/kwaliteitseisen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kwaliteitseisen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Technisch
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Technisch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareArchitectureDocument/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture Document
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TechnischOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technisch ontwerp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ADRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            ADRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR001-Communicatie_met_de_Productive_API/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR001-Communicatie met de Productive API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR002-Front%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR002-Front end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR003-Back%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR003-Back end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR004-Database%20system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR004-Database system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR005-Database-ORM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR005-Database-ORM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR006-Frontend%20backend%20Communicatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR006-Frontend backend Communicatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR007-MVC%20Design%20pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR007 MVC Design pattern
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status-needs-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status: Needs decision
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision: None
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consequences:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternatives:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alternatives:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optie-1-taskdependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 1: TaskDependency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optie-2-lokale-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 2: Lokale database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optie-3-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 3: Tags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optie-4-omschrijvingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 4: Omschrijvingen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR009-ProductiveData/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0009 Productive Data Details
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADR010-Authentication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR010 Authentication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LADR%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR000
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scheiding%20tussen%20aanvraag%20en%20taak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR00? Aanvragen in Productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/Vragen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vragen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status-needs-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status: Needs decision
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision: None
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consequences:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternatives:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alternatives:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optie-1-taskdependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 1: TaskDependency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optie-2-lokale-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 2: Lokale database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optie-3-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 3: Tags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optie-4-omschrijvingen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optie 4: Omschrijvingen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="adr0008-taak-mijlpalen-scheiding-tussen-aanvraag-en-taak">ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak</h1>
+<h2 id="status-needs-decision"><strong>Status: Needs decision</strong></h2>
+<h2 id="context"><strong>Context:</strong></h2>
+<p>Binnen Bluenotion heeft een taak een aantal mijlpalen die de meeste taken doorlopen voordat ze als af beschouwd kunnen worden. Deze mijlpalen zijn gebaseerd op bij welke partij het werk voor een taak ligt. Hiervoor worden binnen Productive aparte taken aangemaakt met de naam van de uitvoerende partij in de naam van de taak. Zo zou een vraag voor de functionaliteit "Inzien mijlpalen" drie verschillende taken opleveren:</p>
+<table>
+<thead>
+<tr>
+<th>Mijlpaal naam</th>
+<th>Taak naam</th>
+<th>Mijlpaal doel</th>
+<th>Verantwoordelijke partij</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User experience</td>
+<td>[UX] Inzien mijlpalen</td>
+<td>De taak voor de wire frames/UX design voor de functionaliteit.</td>
+<td>UX designer</td>
+</tr>
+<tr>
+<td>Front-end</td>
+<td>[FE] Inzien mijlpalen</td>
+<td>De taak voor het bouwen van de front-end voor de functionaliteit.</td>
+<td>Front-end developer</td>
+</tr>
+<tr>
+<td>Back-end</td>
+<td>[BE] Inzien mijlpalen</td>
+<td>De taak voor het bouwen van de back-end voor de functionaliteit.</td>
+<td>Back-end developer</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>NVT</td>
+<td>Onduidelijk of dit in_review, development of staging is*</td>
+<td>Bluenotion medewerker</td>
+</tr>
+<tr>
+<td>Livegang</td>
+<td>NVT</td>
+<td>De laatste checks voor de klant voordat een functionaliteit op de live omgeving komt.</td>
+<td>Externe klant</td>
+</tr>
+</tbody>
+</table>
+<p>Deze taken worden volgens conventie aangemaakt maar de namen worden niet over alle projecten consistent hetzelfde opgebouwd. Om binnen het PMP een overzicht aan te kunnen bieden van welke mijlpalen voor een specifieke functionaliteit wel/niet behaald zijn dient deze data op een gestandaardiseerde manier geregistreerd te worden in Productive of het PMP.</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="259px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1776 259" width="1776px" zoomAndPan="magnify"><defs/><g><g id="elem_Q1"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="244.4307" x="1076.46" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="224.4307" x="1086.46" y="29.9951">Aanvragen komen in Productive</text></g><g id="elem_Q2"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="550.7354" x="658.31" y="120.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="530.7354" x="668.31" y="143.2951">De link tussen een aanvraag en de resulterende taken komen in Productive</text></g><g id="elem_Q3"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="555.3564" x="7" y="217.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="535.3564" x="17" y="240.5851">ADR0008-O1: Taken worden gekoppeld aan de hand van task dependencies</text></g><g id="elem_Q4"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="673.2285" x="597.06" y="217.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="653.2285" x="607.06" y="240.5851">ADR0008-O3: Taken worden gekoppeld aan de hand van tags met het id van de parent taak.</text></g><g id="elem_Q5"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="438.8994" x="1244.23" y="120.3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="418.8994" x="1254.23" y="143.2951">ADR0008-O2: Taken worden gekoppeld in de PMP database</text></g><g id="elem_Q6"><rect fill="#F1F1F1" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="465.3203" x="1305.02" y="217.59"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="445.3203" x="1315.02" y="240.5851">ADR0008-O4: Taken worden gekoppeld in de taak omschrijving</text></g><g id="link_Q1_Q2"><path d="M1156.69,43.78 C1107.07,64.62 1025.01,99.09 975.47,119.89 " fill="none" id="Q1-Q2" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="11.8003" x="1083.68" y="86.3669">Ja</text></g><g id="link_Q2_Q3"><path d="M813.51,157.09 C696.99,174.2 521.21,200.01 404.73,217.11 " fill="none" id="Q2-Q3" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_Q2_Q4"><path d="M933.68,156.92 C933.68,174.12 933.68,200.22 933.68,217.37 " fill="none" id="Q2-Q4" style="stroke:#181818;stroke-width:1.0;"/></g><g id="link_Q1_Q5"><path d="M1240.67,43.78 C1290.29,64.62 1372.35,99.09 1421.88,119.89 " fill="none" id="Q1-Q5" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="25.7207" x="1348.68" y="86.3669">Nee</text></g><g id="link_Q2_Q6"><path d="M1045.52,157.09 C1153.96,174.2 1317.55,200.01 1425.95,217.11 " fill="none" id="Q2-Q6" style="stroke:#181818;stroke-width:1.0;"/></g></g></svg></div>
+
+<h2 id="decision-none"><strong>Decision: None</strong></h2>
+<p>Het liefst zou ik werken aan de hand van TaskDependencies zodat alle informatie over een taak terug te vinden is in Productive. Hiermee voorkom je het splitten van de twee systemen en verklein je dus de kans op moeten werken in twee systemen.</p>
+<h2 id="consequences"><strong>Consequences:</strong></h2>
+<table>
+<thead>
+<tr>
+<th>Optie</th>
+<th>Consequentie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>O1</td>
+<td>Pro: Alle data over mijlpalen is niet alleen in het PMP te vinden maar ook in Productive.</td>
+</tr>
+<tr>
+<td>O1</td>
+<td>Pro: Het is mogelijk de status van mijlpalen te automatiseren door naar de status van de verschillende subtaken te kijken.</td>
+</tr>
+<tr>
+<td>O1</td>
+<td>Con: Zit niet in het huidige Productive pakket.</td>
+</tr>
+<tr>
+<td>O2</td>
+<td>Pro: Past binnen het huidige Productive pakket.</td>
+</tr>
+<tr>
+<td>O2</td>
+<td>Pro: Biedt flexibiliteit over het ontwerp en gebruik van de mijlpalen zonder limitaties van Productive.</td>
+</tr>
+<tr>
+<td>O2</td>
+<td>Con: Omdat er met twee verschillende datasources gewerkt wordt kan het zijn dat door onvoorziene omstandigheden data tussen deze sources niet het zelfde is.</td>
+</tr>
+<tr>
+<td>O3</td>
+<td>Pro: Past binnen het huidige Productive pakket.</td>
+</tr>
+<tr>
+<td>O3</td>
+<td>Pro: Het is mogelijk binnen Productive alle taken op te vragen die aan een bepaalde tag zijn gekoppeld. (Beiden in productive dashboard en API)</td>
+</tr>
+<tr>
+<td>O3</td>
+<td>Con: Het is niet waar het tag systeem voor is gemaakt.</td>
+</tr>
+<tr>
+<td>O3</td>
+<td>Con: Er worden tags aangemaakt die na afloop van een taak nooit meer gebruikt worden.</td>
+</tr>
+<tr>
+<td>O3</td>
+<td>Con: De oplossing is navigeerbaar naar 1 kant maar niet beiden kanten</td>
+</tr>
+<tr>
+<td>O4</td>
+<td>Pro: Past binnen het huidige Productive pakket</td>
+</tr>
+<tr>
+<td>O4</td>
+<td>Pro: Er is binnen Productive te zien welke taken gerelateerd zijn</td>
+</tr>
+<tr>
+<td>O4</td>
+<td>Con: Foutgevoelig, mensen kunnen binnen Productive de omschrijving aanpassen met taken die niet bestaan en oude/verwijderde taken worden niet automatisch bijgewerkt</td>
+</tr>
+<tr>
+<td>O4</td>
+<td>Con: Het is niet waar het tag systeem voor is gemaakt.</td>
+</tr>
+<tr>
+<td>O4</td>
+<td></td>
+</tr>
+<tr>
+<td>O4</td>
+<td></td>
+</tr>
+<tr>
+<td>O4</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="alternatives"><strong>Alternatives:</strong></h2>
+<p>Mijlpalen is een keuze in te maken. De data over "mijlpalen" staat op het moment voor een taak en de workflow wordt bijgehouden door de PM.</p>
+<h3 id="optie-1-taskdependency">Optie 1: TaskDependency</h3>
+<p>Er is binnen productive een task_dependencies endpoint die gebruikt kan worden om voor één taak op verschillende borden verschillende taken te linken. Hiermee zou voor een van de klant binnengekomen taak een aantal dependent taken gemaakt kunnen worden voor de benodigde teams/mijlpalen. </p>
+<p>Voordeel: Binnen productive is te zien welke mijlpalen voor een taak behaald zijn. Bij verlies van de database kan de data aan de hand van productive data hersteld worden.</p>
+<p>Nadeel: De grootste reden om hier niet mee te werken echter is dat de task dependencies niet zijn opgenomen in het huidig gebruikte Productive pakket.</p>
+<h3 id="optie-2-lokale-database">Optie 2: Lokale database</h3>
+<p>Het is een optie om de data over mijlpalen per taak enkel op te slaan in de PMP database. Hiermee zou binnen het PMP gezien kunnen worden welke gerelateerde taken gedaan zijn en dus mijlpalen behaald.</p>
+<p>Voordeel: Er is geen uitbreiding op het Productive pakket nodig. Data over mijlpalen wordt volledig beheerd door het PMP in plaats van een extern systeem. Dit geeft controle over de betrouwbaarheid van deze data.</p>
+<p>Nadeel: Binnen productive kan niet snel gevonden worden welke taken nog waar op wachten. Bij verlies van de database kan data niet uit productive hersteld worden.</p>
+<h3 id="optie-3-tags">Optie 3: Tags</h3>
+<p>De mogelijkheid bestaat de mijlpaal data op te slaan in Productive binnen het huidige pakket. Hiervoor zou gebruik gemaakt kunnen worden van verschillende systemen. Zo zou (zoals het huidige proces) voor taken binnen de naam aangegeven kunnen worden voor welk team een taak is en als taken verder de zelfde naam hebben ze binnen het PMP groeperen als mijlpalen. Een vergelijkbare werkwijze zou gehanteerd kunnen worden aan de hand van <a href="https://developer.productive.io/tags.html#tags">tags</a>.</p>
+<p>Voordeel: Er is geen uitbreiding op het Productive pakket nodig. Data over mijlpalen is beschikbaar op productive.</p>
+<p>Nadeel: Binnen productive onschuldig lijkende aanpassingen zoals het aanpassen van een naam wijzigen zou invloed kunnen hebben op de PMP task dependencies. De oplossing is vrij fout gevoelig.</p>
+<h3 id="optie-4-omschrijvingen">Optie 4: Omschrijvingen</h3>
+<p>Als een taak over verschillende teams verdeeld moet worden zou er voor de hoofdtaak een taak aangemaakt kunnen worden waar binnen de beschrijving wordt aangegeven welke taken hier aan gekoppeld zijn. Deze omschrijving kan uitgelezen worden binnen het PMP om hiermee informatie te kunnen verstrekken over de gekoppelde taken.</p>
+<p>Voordeel: Er is geen uitbreiding op het Productive pakket nodig. Data over mijlpalen is beschikbaar op productive.</p>
+<p>Nadeel: Binnen productive onschuldig lijkende aanpassingen zoals een omschrijving wijzigen zou invloed kunnen hebben op de PMP task dependencies. De oplossing is vrij foutgevoelig.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
