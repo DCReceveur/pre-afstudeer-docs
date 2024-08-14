@@ -91,7 +91,7 @@ Is een klant geïnteresseerd in de verschillende mijlpaal taken?
 
 - [x] Is het nodig om voor een project aan te geven welke task lists worden gebruikt voor welke doeleinde? E.g. aangeven welke taaklist de wishlist is, welke de review list ect of wordt dit allemaal op basis van de namen van de lijsten gedaan?
 - A: Zou handig zijn maar ligt op prio should have of could have
-- [x] Kan US3 er helemaal uit? (Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten.) *Kan ook de zodat aanpassen.
+- [x] Kan US3 er helemaal uit? (Als externe beheerder wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten.) *Kan ook de zodat aanpassen.
 - A: Dit overzicht is niet interessant voor de klant en Bluenotion voert deze handelingen uit in Productive
 - [x] DoR staat nu feedback van de PM op fully dressed use cases, dit kan ook feedback op de user story zijn. Hiermee zou de taak later mogelijk meer onduidelijkheid kunnen opleveren maar het scheelt wel tijd in de overleggen.
 - A: Functionele vragen kunnen gewoon gevraagd worden aan PM, UI/UX aan Roel

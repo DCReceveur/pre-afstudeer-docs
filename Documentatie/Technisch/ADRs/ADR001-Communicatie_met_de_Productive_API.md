@@ -32,6 +32,7 @@ pers_serv --> pmp_db : SELECT....
 ```
 
 TODO: Zijn gets nodig om via een service te doen? Is het netter de controller direct met de repositories te laten praten of heeft de service laag hier toch een rol in?
+
 TODO: Terminologie opzoeken transparant vs non-transparant layers of iets dergelijks
 
 #### Data wijzigen binnen productive
@@ -93,7 +94,9 @@ end
 ```
 
 TODO: Procedure voor retries bij error of direct error tonen aan gebruiker?
+
 TODO: Change diagram exception
+
 TODO: bovenstaande procedure is sequentieel, het is beter als het parallel kan. Toch eerst PMP commit en rollback procedure opzetten?
 
 #### Synchronisatie bevestiging

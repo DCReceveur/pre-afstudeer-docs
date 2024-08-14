@@ -4,11 +4,13 @@ Deze functional requirements hebben betrekking op het inlichten van actoren wann
 
 ## FR4.1: Inlichten klant wanneer een taak wacht op input van de klant
 
+User story: Als externe beheerder wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.
+
 | FR4.1 | Inlichten klant wanneer een taak wacht op input van de klant |
 |---|---|
 | Prioriteit | Must have  |
 | Primaire Actor | System?  |
-| Stakeholders | ACT1: Externe klant, ACT2: Bluenotion admin |
+| Stakeholders | ACT1: Externe beheerder, ACT2: Bluenotion admin |
 | Pre condities | Er zijn taken gekoppeld aan een project van de klant |
 | Post condities |  |
 | Triggers | Er wordt door een Bluenotion admin feedback gevraagd op een taak* |
@@ -32,10 +34,12 @@ Deze functional requirements hebben betrekking op het inlichten van actoren wann
 
 ## FR4.2: Inlichten Bluenotion bij blockers/criticals
 
+User story: TODO?
+
 | FR5.1 | Inlichten Bluenotion bij blockers/criticals |
 |---|---|
 | Prioriteit | Could have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | ACT2: Bluenotion admin |
 | Pre condities | Er is een PM en TL aangewezen aan het project |
 | Post condities | De PM en TL zijn via de mail ingelicht van het issue |

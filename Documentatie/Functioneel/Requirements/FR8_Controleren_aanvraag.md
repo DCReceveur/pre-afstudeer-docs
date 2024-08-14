@@ -1,21 +1,21 @@
 # FR8 Controleren aanvraag
 
-Deze functional requirements hebben betrekking op het goed (of af) keuren van aanvragen gedaan door de externe klant en het maken van taken op basis van deze aanvragen.
+Deze functional requirements hebben betrekking op het goed (of af) keuren van aanvragen gedaan door de externe beheerder en het maken van taken op basis van deze aanvragen.
 
 ## FR8.1: Controleren aanvraag
+
+User story: Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.
 
 | FR8.1 | Controleren aanvraag|
 |---|---|
 | Prioriteit | Must have  |
 | Primaire Actor | ACT2: Bluenotion admin |
-| Stakeholders | ACT1: Externe klant, ACT3: Software developer |
+| Stakeholders | ACT1: Externe beheerder, ACT3: Software developer |
 | Pre condities | Er is een project waar een klant een aanvraag heeft gedaan.  |
 | Post condities | De klant wordt op de hoogte gebracht dat er om feedback is gevraagd. </br> De taak staat op het "Awaiting customer" bord. |
 | Triggers | Er staan taken in de "Aanvraag" lijst. |
 | Exceptions | In de tijd dat de vraag wordt gecontroleerd is de taak door de klant verwijderd. |
 | Open issues | Een klant kan meerdere reprosenatoren hebben. Wie moet op de hoogte gebracht worden van wanneer een taak open gezet is voor feedback? (Alleen de eigenaar van het project? Alle klanten die zijn toegevoegd aan het project? Op project of taak niveau een optie om te abonneren ) </br> Wat kan de klant aanpassen in een taak? Wat moet er gebeuren als een klant bijvoorbeeld de cost estimate van een taak voor nu te hoog vindt? Blijft een taak als dit op de aanvragen, wordt deze alsnog naar de backlog gehaald of wordt deze taak geannuleerd? |
-
-
 
 ### FR8.1: Main flow
 
@@ -31,7 +31,7 @@ Deze functional requirements hebben betrekking op het goed (of af) keuren van aa
 | Stap | Actor | System |
 |--|--|--|
 | 3A | Geeft aan dat de aanvraag niet duidelijk genoeg is omschreven om een taak van te maken met een notitie voor de gebruiker wat er aangepast/verduidelijkt moet worden |  |
-| 4A |  | Stelt "ACT1: Externe klant" op de hoogte van de vraag om verduidelijking voor het toelichting geven op de taak ([FR3.2](../Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag)). |
+| 4A |  | Stelt "ACT1: Externe beheerder" op de hoogte van de vraag om verduidelijking voor het toelichting geven op de taak ([FR3.2](../Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag)). |
 
 ### FR8.1 Alternative flow - Aanvraag bevat omschrijving voor meerdere taken
 
@@ -57,6 +57,8 @@ A: feedback in de comments van productive. Aparte "chat" voor tenant level commu
 
 ## FR8.2: Op splitten taak naar "team" taken
 
+User story: Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.
+
 | FR? | Op splitten taak naar "team" taken  |
 |---|---|
 | Prioriteit | Could have  |
@@ -77,7 +79,7 @@ A: feedback in de comments van productive. Aparte "chat" voor tenant level commu
 | 3 | De actor geeft aan welke teams aan de taak gaan werken |  |
 | 4 |  | Het systeem maakt verschillende taken aan voor de betreffende teams, zet ze op de "aanvraag" lijst en refereer in de originele taak naar de nieuwe (dependency/sub?) taken |
 | 5 | De actor voert voor de nieuwe taken een estimate in per sub taak* |  |
-| 6 |  | Het systeem zet de taken na goedkeuring externe klant op de backlog |
+| 6 |  | Het systeem zet de taken na goedkeuring externe beheerder op de backlog |
 
 *Standaard wordt de tijd opgedeeld aan de hand van de standaard split met optie tot aanpassing.
 TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard split"

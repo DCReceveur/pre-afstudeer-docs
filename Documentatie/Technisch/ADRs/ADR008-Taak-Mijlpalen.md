@@ -12,7 +12,7 @@ Binnen Bluenotion heeft een taak een aantal mijlpalen die de meeste taken doorlo
 | Front-end | [FE] Inzien mijlpalen | De taak voor het bouwen van de front-end voor de functionaliteit. | Front-end developer |
 | Back-end | [BE] Inzien mijlpalen | De taak voor het bouwen van de back-end voor de functionaliteit. | Back-end developer |
 | Testing | NVT | Onduidelijk of dit in_review, development of staging is* | Bluenotion medewerker |
-| Livegang | NVT | De laatste checks voor de klant voordat een functionaliteit op de live omgeving komt. | Externe klant |
+| Livegang | NVT | De laatste checks voor de klant voordat een functionaliteit op de live omgeving komt. | Externe beheerder |
 
 Deze taken worden volgens conventie aangemaakt maar de namen worden niet over alle projecten consistent hetzelfde opgebouwd. Om binnen het PMP een overzicht aan te kunnen bieden van welke mijlpalen voor een specifieke functionaliteit wel/niet behaald zijn dient deze data op een gestandaardiseerde manier geregistreerd te worden in Productive of het PMP.
 

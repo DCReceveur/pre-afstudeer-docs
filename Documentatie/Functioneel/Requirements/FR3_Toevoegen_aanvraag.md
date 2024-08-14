@@ -4,10 +4,12 @@ Deze functional requirements hebben betrekking op het toevoegen, toelichten of w
 
 ## FR3.1: Toevoegen nieuwe aanvraag in een project
 
+User story: Als externe beheerder wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.
+
 | FR3.1 | Toevoegen nieuwe aanvraag in een project |
 |---|---|
 | Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | PM |
 | Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland of lopend project bij Bluenotion. |
 | Post condities | Er is binnen Productive een nieuwe taak toegevoegd aan de aanvragen lijst. |
@@ -57,10 +59,12 @@ A: Aanvullen missende informatie
 
 ## FR3.2: Toelichting geven op aanvraag
 
+User story: Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.
+
 | FR3.2 | Toelichting geven op aanvraag |
 |---|---|
 | Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant  |
+| Primaire Actor | ACT1: Externe beheerder  |
 | Stakeholders | ACT2: Bluenotion admin |
 | Pre condities | De actor heeft een aanvraag bij een project waar vraag naar feedback voor is gedaan. |
 | Post condities | De feedback staat bij de aanvraag in productive. </br> De aanvraag staat niet meer geregistreerd als "waiting for feedback" |
@@ -88,13 +92,14 @@ A: Gebruiker annuleert de aanvraag.
 
 TODO: is het wel closed of een andere status? Moet ik hier iets zeggen over logging?
 
-
 ## FR3.3: Toevoegen taken past zich aan aan de klant zijn SLA
+
+User story: TODO?
 
 | FR3.3 | Toevoegen taken past zich aan aan de klant zijn SLA |
 |---|---|
 | Prioriteit | Could have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders |  |
 | Pre condities | De klant heeft een project waarvan de SLA in het PMP systeem is ingeladen. |
 | Post condities | Taak prioriteit, incident reactie en response tijd worden aan de hand van de SLA berekend. |
@@ -117,10 +122,12 @@ TODO: is het wel closed of een andere status? Moet ik hier iets zeggen over logg
 
 ## FR3.4: Toevoegen bijlagen bij taak
 
+User story: Als externe beheerder wil ik screenshots kunnen toevoegen aan mijn tickets en opmerkingen om mijn punten te verduidelijken.
+
 | FR3.4 | Toevoegen bijlagen bij taak |
 |---|---|
 | Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders |  |
 | Pre condities | De klant zit op de taak detail pagina of is een aanvraag aan het doen. |
 | Post condities | Er zijn bijlages toegevoegd aan de aanvraag |
@@ -152,7 +159,7 @@ Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotio
 | FR3.5 | Aanpassen taak prioriteit |
 |---|---|
 | Prioriteit | ?  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | PM |
 | Pre condities | Taak is een incident |
 | Post condities | Escalatie naar het juiste niveau. |
@@ -179,10 +186,12 @@ Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotio
 
 ## FR3.6: Annuleren aanvraag
 
+User story: Als externe beheerder wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt.
+
 | FR3.6 | Annuleren aanvraag |
 |---|---|
 | Prioriteit | Should have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | ACT2: Bluenotion admin |
 | Pre condities | Er is een aanvraag ingediend door de klant |
 | Post condities | De aanvraag wordt (A: verwijderd) (B: closed met een tag)* |

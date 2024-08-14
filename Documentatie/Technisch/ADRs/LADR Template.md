@@ -1,4 +1,4 @@
-# ADR000
+# ADR000: LADR Template
 
 Title: These documents have names that are short noun phrases. For example, "ADR 1: Deployment on Ruby on Rails 3.0.10" or "ADR 9: LDAP for Multitenant Integration"
 

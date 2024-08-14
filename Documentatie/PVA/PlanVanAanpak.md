@@ -52,13 +52,13 @@ Hiervoor dient een centraal portaal gebouwd te worden waar beide de klant en med
 
 ### Concrete resultaten
 
-Een applicatie met een C# back-end (.NET), Typescript front-end (React Native) waar een externe klant of interne PM de huidige staat van projecten zijn/haar kan inzien en/of nieuwe taken kan inschieten.
+Een applicatie met een C# back-end (.NET), Typescript front-end (React Native) waar een externe beheerder of interne PM de huidige staat van projecten zijn/haar kan inzien en/of nieuwe taken kan inschieten.
 
 Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van het project goede argumenten zijn voor het gebruik van andere frameworks en/of talen kan er van af gestapt worden. Aangezien er inhouse veel kennis is en doorgaans gewerkt wordt met .NET back-end en React front-end is voor de onderhoudbaarheid de keuze gemaakt dit ook als uitgangspunt te nemen.
 
 ## Project grenzen
 
-- Het projectmanagement portal wordt niet ontwikkeld als vervanging van Productive.io voor het dev team of de PM/TL. Enkel voor de communicatie met de externe klant. Hiermee hebben alle usecases waar de externe klant geen primaire actor is automatisch een MoSCoW prioriteit van "Should have" of lager.
+- Het projectmanagement portal wordt niet ontwikkeld als vervanging van Productive.io voor het dev team of de PM/TL. Enkel voor de communicatie met de externe beheerder. Hiermee hebben alle usecases waar de externe beheerder geen primaire actor is automatisch een MoSCoW prioriteit van "Should have" of lager.
 - Het project wordt in ieder geval door ontwikkeld tot (TODO: precieze datum eind stage nazoeken)
 
 TODO: Grenzen overleggen

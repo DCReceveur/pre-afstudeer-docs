@@ -76,9 +76,6 @@ Service --> NS : SMTP?
 | [Notification system](#Component-Notification-system) | Verantwoordelijk voor het inlichten van de gebruiker bij evenementen waar directe actie voor nodig is zoals het inlichten van Bluenotion bij criticals/blocking issues ([FR4.2](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals)) of het inlichten wanneer een klant extra informatie moet geven op een taak [FR4.1](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant).  |
 | [Productive API](#Component-Productive-API) | De Productive API dient als data source voor alle project gerelateerde informatie binnen Bluenotion. Wijzigingen in Productive dienen (indien opgevraagd door de gebruiker) binnen 3 seconde na aanvraag beschikbaar te zijn voor de gebruiker ([NFR2.1, NFR3.2](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements)). Wijzigingen in de door Productive aangeleverde entiteiten zoals projecten en taken dienen zonder verlies doorgezet te worden naar Productive([NFR2.1, NFR8.1](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements)). |
 
-TODO: NFR maken voor hoe lang het mag duren tot het PMP data heeft uit Productive.*
-TODO: Database systeem kiezen.**
-
 ## Components
 
 ### <a id="Component-FE" /></a>React front-end
@@ -130,11 +127,13 @@ rectangle "React front-end"{
 |---|---|
 | **View** | In de front-end zijn de views van MVC hetgeen dat data (uit de models) laat zien en interactie aanbiedt met de rest van het systeem (via de controllers) |
 | **Admin** | Om meer zekerheid te bieden dat de klant niet "per ongeluk" in de admin omgeving terecht komt worden er aparte views aangemaakt met de functionaliteiten voor de Bluenotion Administrator (ACT2) |
-| **Customer** | Binnen de Customer views worden de functionaliteiten voor de externe klant (ACT1) met betrekking tot het tonen van data geïmplementeerd. |
+| **Customer** | Binnen de Customer views worden de functionaliteiten voor de externe beheerder (ACT1) met betrekking tot het tonen van data geïmplementeerd. |
 | **Partials** | Binnen de components worden generieke views gemaakt die onafhankelijk zijn van de gebruiker of die door de betreffende customer of admin views worden aangevuld. |
 | **Generated API** | De generated API is de OpenAPI representatie van de back-end. Deze wordt [automatisch gegenereerd](https://openapi-generator.tech/) en is functioneel gelijk aan de [PMP API](#pmp-api) |
 
 ### <a id="Component-PMP-API" /></a>PMP API
+
+TODO: Op welk niveau doe ik controllers en endpoints? Functioneel, entiteit of een mix van beide?
 
 Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
@@ -278,7 +277,7 @@ CommentRepository -->BaseRepository
 | Interface | Example signatures |
 |---|---|
 | ITaskService  | addTask(InputTaskModel), editTask(InputTaskModel), deleteTask(taskId)  |
-| IProjectService  | add, edit, delete  |
+| IProjectService  | add(InputProjectModel), edit(), delete  |
 | ICommentService  | add, edit, delete  |
 | INotification  | processNotificationSendRequest(NotificationSendRequest)  |
 | IAccountService  | signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)  |

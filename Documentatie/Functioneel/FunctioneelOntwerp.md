@@ -151,7 +151,7 @@ Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
 <!-- Hier onder volgt een generalisatie van hoe de workflow van de meeste projecten loopt. -->
 
 ```puml
-| Externe klant |
+| Externe beheerder |
 start
 repeat
 #Red:Plaats aanvraag;
@@ -175,7 +175,7 @@ endif
   #LightBlue:Add time estimate;
   #lightBlue:Vraag om feedback;
   ' #Gray:System: Zet status op "Waiting for review customer";
-| Externe klant |
+| Externe beheerder |
   #Red:Controleren taak;
   note right: FR3.2 Toelichting geven op aanvraag
   #Red:if(Eens met de omschrijving en time estimate?) then (no)
@@ -199,7 +199,7 @@ end note
 
 stop 
 
-| Externe klant |
+| Externe beheerder |
   endif
 
   repeat while
@@ -237,7 +237,7 @@ skinparam groupInheritance 3
 (wishlist) #Tomato
 (aanvragen) #Tomato
 ' (awaiting customer) as awaiting_customer #red
-actor "Externe klant" as EK
+actor "Externe beheerder" as EK
 
 note "Input nodig van klant" as customernotifynote 
 ' #Purple
@@ -435,7 +435,7 @@ Ter simplificatie wordt binnen dit project gesproken over 4 primaire actors in p
 
 ### ACT1: Externe beheerder
 
-Omschrijving: Een externe klant die een project wilt laten uitvoeren door Bluenotion.
+Omschrijving: Een externe beheerder die een project wilt laten uitvoeren door Bluenotion.
 
 Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een project. Op basis van gesprekken met de PM worden voor het project taken aangemaakt in Productive die door het development team worden opgepakt tot uiteindelijke realisatie van het product. Als de klant over de loop van het project wijzigingen wilt doen in de planning van het project loopt dit via de PM of een guest account met een apart bord in Productive.*
 
@@ -444,7 +444,7 @@ Huidig proces: Een klant heeft een contract afgesloten bij Bluenotion voor een p
 Doelen nieuwe project management portal:
 
 - Inzicht geven in het door Bluenotion te verrichten werk door statussen toe te kennen aan taken.
-- Inzicht geven in de aanvragen/taken die door mij (de externe klant) aangescherpt dienen te worden voor ontwikkeling door Bluenotion kan beginnen.
+- Inzicht geven in de aanvragen/taken die door mij (de externe beheerder) aangescherpt dienen te worden voor ontwikkeling door Bluenotion kan beginnen.
 - Toevoegen van nieuwe aanvragen/taken voor een project
 - Prioriteren van bestaande taken
 - Aanpassen onduidelijke/incomplete taken
@@ -486,7 +486,7 @@ Doelen nieuwe project:
 ### ACT5: Externe medewerker
 
 Op basis van gesprek 11-06-2024:
-Er werd gesproken over een admin en medewerkers account voor de externe klant. Voor zo ver ik heb begrepen is dit voornamelijk zodat niet voor iedereen die in het PMP komt tickets mag inschieten. Heeft het medewerkers account voor de externe klant leesrechten op alle functionaliteiten die ACT1 heeft of enkel een subset?
+Er werd gesproken over een admin en medewerkers account voor de externe beheerder. Voor zo ver ik heb begrepen is dit voornamelijk zodat niet voor iedereen die in het PMP komt tickets mag inschieten. Heeft het medewerkers account voor de externe beheerder leesrechten op alle functionaliteiten die ACT1 heeft of enkel een subset?
 
 ### User stories
 
@@ -560,34 +560,32 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | User story no | Gerelateerde actors  | Omschrijving  | Resulterende requirement(s)  |
 |---|---|---|---|
 | US1   | ACT2  | Als Bluenotion admin wil ik een eenduidig overzicht van alle projecten die lopen binnen Bluenotion zodat ik snel de status met een klant kan bespreken.  | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) |
-| US2  | ACT1 | Als externe klant wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) |
-| US3  | ACT1 | Als externe klant wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project), [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details), [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) |
-| US4  | ACT2  | Als Bluenotion admin wil ik de zelfde informatie kunnen zien als een externe klant zodat ik bij vragen de klant kan ondersteunen.  |  X |
+| US2  | ACT1 | Als externe beheerder wil ik een eenduidig overzicht van alle voor mij relevante projecten zodat ik snel kan zien welke projecten actief aan gewerkt worden.  | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) |
+| US3  | ACT1 | Als externe beheerder wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten. | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten), [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project), [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details), [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) |
+| US4  | ACT2  | Als Bluenotion admin wil ik de zelfde informatie kunnen zien als een externe beheerder zodat ik bij vragen de klant kan ondersteunen.  |  X |
 | US5  | ACT3  | Als Bluenotion medewerker wil ik niet mijn werkwijze aanpassen om een nieuw systeem voor de klant te ondersteunen.  | [NFR2.1](#nonfunctional-requirements)  |
-| US6  | ACT1  | Als externe klant wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr3-toevoegen-aanvraag) |
+| US6  | ACT1  | Als externe beheerder wil ik bij mijn projecten de optie om nieuwe taken toe te voegen zodat ik issues en door ontwikkelingen kan doorgeven.  | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr3-toevoegen-aanvraag) |
 | US7  | ACT1, ACT2  | Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect ingevuld zijn de klant de optie geven deze onduidelijkheid te verhelderen.  | [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag), [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) |
-| US8  | ACT1  | Als externe klant wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
-| US9  | ACT1  | Als externe klant wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) |
-| US10  | ACT2  | Als Bluenotion admin wil ik bij taken die toegevoegd zijn door een externe klant taken goedkeuren voor ze op de backlog terecht komen.  | [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
+| US8  | ACT1  | Als externe beheerder wil ik bij taken die extra toelichting nodig hebben feedback kunnen geven op deze taken zodat ze goedgekeurd kunnen worden voor de backlog.  | [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) |
+| US9  | ACT1  | Als externe beheerder wil ik een eenduidig overzicht van taken die wachten op mijn input voordat er aan gewerkt wordt zodat deze taken niet onnodig lang blijven liggen.  | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed), [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) |
+| US10  | ACT2  | Als Bluenotion admin wil ik bij taken die toegevoegd zijn door een externe beheerder taken goedkeuren voor ze op de backlog terecht komen.  | [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken)  |
 | US11  |   | Als ?software developer? wil ik geen data over het netwerk sturen waar de klant geen toegang toe heeft.  |   |
 | US12 | ACT2 | Als Bluenotion admin wil ik dat de klant afbeeldingen kan invoegen om problemen/aanvragen toe te lichten. | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
-| US13 | ACT1 | Als externe klant wil ik alle informatie over mijn te bouwen/gebouwde systeem op één centrale plek bekijken | [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies), [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies), [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document), [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) |
+| US13 | ACT1 | Als externe beheerder wil ik alle informatie over mijn te bouwen/gebouwde systeem op één centrale plek bekijken. | [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies), [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies), [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document), [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) |
 | US14 | ACT3 | Als software developer wil ik niet dat mensen toegang krijgen tot data die mogelijk privacy gevoelig is en/of niet bedoeld is voor de betreffende persoon. | [NFR4.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.4](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US15 | ACT3 | Als software developer wil ik dat als er iets niet naar behoren werkt er logs beschikbaar zijn om het probleem te herleiden. | [NFR4.5](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR4.6](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US16 | ACT3 | Als medewerker van Bluenotion wil ik dat alle klanten van Bluenotion om kunnen gaan met het PMP. | [NFR1.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR6.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR7.1](FunctioneelOntwerp.md#nonfunctional-requirements) |
-| US17 | ACT1 | Als externe klant wil ik niet beïnvloed worden door andere mensen die tegelijkertijd het PMP gebruiken. | [NFR2.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.2](FunctioneelOntwerp.md#nonfunctional-requirements) |
+| US17 | ACT1 | Als externe beheerder wil ik niet beïnvloed worden door andere mensen die tegelijkertijd het PMP gebruiken. | [NFR2.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.2](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US18 | ACT2 | Als Bluenotion admin wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
 | US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
 | US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Requirements/FR5_Opstellen_project.md) |
-| US22 | ACT1 | Als externe klant wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
-
-
+| US22 | ACT1 | Als externe beheerder wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
+| US23 | ACT1 | Als externe beheerder wil ik screenshots kunnen toevoegen aan mijn tickets en opmerkingen om mijn punten te verduidelijken. | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
 
 ## Requirements
 
 Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan het systeem toegelicht. Binnen dit hoofdstuk staat de requirements traceability matrix waarin requirements van user story tot implementatie door de documentatie gevolgd kan worden.
-
 
 ### Use case diagram
 
@@ -782,7 +780,7 @@ legend left
 | FR10.2 |  | Wijzigen rechten | Must have |  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR10.3 |  | Verwijderen gebruiker | Must have |  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 
-#### Nonfunctional requirements
+### Nonfunctional requirements
 
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) |  Document references |
 |---|---|---|---|---|
@@ -847,11 +845,11 @@ Voor autorisatie wordt gebruik gemaakt van claims die binnen het PMP gekoppeld z
 
 | Naam | Omschrijving | Oorsprong |
 |---|---|---|
-| Company admin (comp_id) |  Heeft volledige read en write toegang tot alle data gerelateerd aan zijn/haar bedrijf |  [ACT1 Externe klant](#act1-externe-beheerder) |
+| Company admin (comp_id) |  Heeft volledige read en write toegang tot alle data gerelateerd aan zijn/haar bedrijf |  [ACT1 Externe beheerder](#act1-externe-beheerder) |
 | Organization admin (org_id) | Heeft volledige read en write toegang tot alle data gerelateerd aan zijn/haar organisatie.  | [ACT2 Bluenotion admin](#act2-interne-beheerder)  |
 | Organization employee (org_id) | Heeft leestoegang tot alle data gerelateerd aan zijn/haar organisatie, de mogelijkheid hier comments aan toe te voegen, taaklijsten en statussen aan te passen.  |  [ACT3 Bluenotion medewerker](#act3-interne-medewerker) |
 | System | Heeft leestoegang en de optie mailtjes te sturen. | [ACT4 Notificatie manager](#act4-notificatie-manager) |
-| Company employee (comp_id) | Heeft lees rechten op alle data gerelateerd aan zijn/haar bedrijf  |  [ACT5 Externe klant read](#act5-externe-medewerker) |
+| Company employee (comp_id) | Heeft lees rechten op alle data gerelateerd aan zijn/haar bedrijf  |  [ACT5 Externe beheerder read](#act5-externe-medewerker) |
 
 Ter verduidelijking over welke groep bij welke data mag is een deel van de relevante informatie uit het productive data model gehaald:
 

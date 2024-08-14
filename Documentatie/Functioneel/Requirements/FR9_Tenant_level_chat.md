@@ -2,15 +2,17 @@
 
 ## FR9.1: Starten nieuwe chat
 
+User story: Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn.
+
 Deze functional requirement heeft betrekking op communiceren met de klant op een algemenere basis.
 
 | FR9.1 | Starten nieuwe chat |
 |---|---|
 | Prioriteit | Won't have  |
-| Primaire Actor | ACT1: Externe klant  |
+| Primaire Actor | ACT1: Externe beheerder  |
 | Stakeholders | ACT2: Bluenotion admin |
 | Pre condities | Beide actoren kunnen inloggen in het systeem |
-| Post condities | Er is een chat opgezet waar de externe klant met "Bluenotion" kan communiceren |
+| Post condities | Er is een chat opgezet waar de externe beheerder met "Bluenotion" kan communiceren |
 | Triggers | De klant heeft een vraag aan Bluenotion zonder dat dit een incident of doorontwikkeling is. |
 | Exceptions |  |
 | Open issues |  |
@@ -32,10 +34,12 @@ Hoe kom ik achter het onderwerp? Is dat iets dat de gebruiker aangeeft?
 
 ## FR9.2 Bericht sturen niet afgesloten chat
 
+User story: Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn.
+
 | FR9.2 | Bericht sturen niet afgesloten chat |
 |---|---|
 | Prioriteit | Won't have  |
-| Primaire Actor | ACT1: Externe klant, ACT2: Bluenotion admin  |
+| Primaire Actor | ACT1: Externe beheerder, ACT2: Bluenotion admin  |
 | Stakeholders |  |
 | Pre condities | Er is een chat opgezet tussen de klant en Bluenotion |
 | Post condities | De gebruiker kan berichten sturen in de active chat |
@@ -56,10 +60,12 @@ Hoe kom ik achter het onderwerp? Is dat iets dat de gebruiker aangeeft?
 
 ## FR9.3 Hervatten afgesloten chat
 
+User story: Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn.
+
 | FR9.3 | Hervatten afgesloten chat |
 |---|---|
 | Prioriteit | Won't have  |
-| Primaire Actor | ACT1: Externe klant, ACT2: Bluenotion admin  |
+| Primaire Actor | ACT1: Externe beheerder, ACT2: Bluenotion admin  |
 | Stakeholders |  |
 | Pre condities | Er is een afgesloten chat tussen de klant en Bluenotion. |
 | Post condities | De gebruiker kan berichten sturen in de voorheen afgesloten chat. |
@@ -80,18 +86,20 @@ Hoe kom ik achter het onderwerp? Is dat iets dat de gebruiker aangeeft?
 
 ## FR9.4 Sluiten chat
 
-### FR9.4: Main flow
+User story: Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn.
 
 | FR9.4 | Hervatten afgesloten chat |
 |---|---|
 | Prioriteit | Won't have  |
-| Primaire Actor | ACT1: Externe klant, ACT2: Bluenotion admin  |
+| Primaire Actor | ACT1: Externe beheerder, ACT2: Bluenotion admin  |
 | Stakeholders |  |
 | Pre condities | Er is een open chat tussen de klant en Bluenotion |
 | Post condities | De chat is afgesloten en kan niet meer gebruikt worden berichten te sturen. |
 | Triggers | De actor geeft aan dat het onderwerp van de chat is afgehandeld. |
 | Exceptions |  |
 | Open issues |  |
+
+### FR9.4: Main flow
 
 | Stap | Actor | System |
 |---|---|---|

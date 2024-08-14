@@ -4,10 +4,12 @@ Deze functional requirements betreffen het inzien van informatie over en gerelat
 
 ## FR2.1: Inzien taken van project
 
+User story: Als externe beheerder wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten.
+
 | FR2.1 | Inzien taken van project |
 |---|---|
 | Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | PM |
 | Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
 | Post condities | De klant heeft een overzicht van de taken die voor de software developers op de planning staan. [(planning van lifecycle taken)](../FunctioneelOntwerp.md#lifecycle-aanvragen) |
@@ -30,10 +32,12 @@ Deze functional requirements betreffen het inzien van informatie over en gerelat
 
 ## FR2.2: Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed
 
+User story: Als externe beheerder wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten.
+
 | FR2.2 | Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed |
 |---|---|
 | Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | PM |
 | Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion. |
 | Post condities | De klant heeft een gefilterd/gesorteerd overzicht van alle voor hem relevante taken. |
@@ -56,10 +60,12 @@ Deze functional requirements betreffen het inzien van informatie over en gerelat
 
 ## FR2.3: Inzien taak details
 
+User story: Als externe beheerder wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten.
+
 | FR2.3 | Inzien taak details |
 |---|---|
 | Prioriteit | Must have  |
-| Primaire Actor | ACT1: Externe klant |
+| Primaire Actor | ACT1: Externe beheerder |
 | Stakeholders | PM |
 | Pre condities | De klant kan inloggen in het PMP. </br> De klant heeft op zijn minst één gepland, lopend of afgerond project bij Bluenotion met op zijn minst één bijbehorende taak. |
 | Post condities | De klant heeft een overzicht van de voor hem relevante informatie over een taak zoals de status, geplande uren/kosten, due date, priority en type. (heeft een klant toegang tot de comments van een taak?) |
@@ -76,10 +82,12 @@ Deze functional requirements betreffen het inzien van informatie over en gerelat
 
 ## FR2.4: Tonen taken in Gantt chart
 
+User story: Als externe beheerder wil ik een overzicht van het geplande werk zodat ik zicht kan houden op de ontwikkeltijd en kosten.
+
 | FR? | Tonen taken in Gantt chart |
 |---|---|
 | Prioriteit | Could have |
-| Primaire Actor | ACT1: Externe klant  |
+| Primaire Actor | ACT1: Externe beheerder  |
 | Stakeholders |  |
 | Pre condities | Er zijn taken ingepland voor een project van de klant |
 | Post condities | De gebruiker krijgt een overzicht van wanneer welke taken gepland staan. |
