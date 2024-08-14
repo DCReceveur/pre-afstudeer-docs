@@ -42,47 +42,6 @@ In deze combinatie zijn nog wat dingen aan te merken:
 - intern medewerker is praktisch het zelfde als extern maar kan comments achter laten en status veranderen? Wordt niet gebruikt, is dit nodig/prio? Extra FR maken? -->
 
 ### Rechten tabel
-<!-- 
-Schrijf het uit:
-
-- een organisatie heeft nul of meerdere klanten
-- een klant heeft nul of meerdere projecten
-- een organisatie heeft een of meerdere admins
-- een organisatie heeft nul of meerdere medewerkers
-- een project heeft een klant admin nodig om taken goed te keuren
-- een project heeft een organisatie admin nodig om taken te accepteren
-
-dan:
-
-- een organisatie admin voegt een nieuwe klant toe
-- een organisatie admin voegt gebruikers toe aan de klant
-- een organisatie admin voegt een project toe voor de klant
-- een organisatie admin wijst de project admin aan voor de klant?
-
-Over het hele PMP zijn de zelfde gebruikers accounts aanwezig, mensen hoeven maar één keer uitgenodigd te worden voor het PMP.
-
-Een gebruiker kan toegewezen worden aan een organisatie of klant als werknemer of admin.
-
-Een gebruiker kan toegewezen worden aan een project als werknemer of admin.
-
-Een admin van een organisatie kan projecten beheren
-
-Een admin van een klant kan gebruikers toevoegen aan projecten van de klant.
-
-Een admin van een Project kan taken inschieten en accepteren
-
-|  | Medewerker | Admin |
-|--|--|--|
-| Organisatie | Zelfde rechten als op productive* | Volledig beheer over onderliggende klanten en projecten |
-| Klant | N/A | Toewijzen project admins** & volledig beheer over onderliggende projecten |
-| Project | leesrechten over alle project data | Volledig beheer over het project en onderliggende taken |
-
-*is dit nodig?
-**Zou ook gedaan kunnen worden door de organisatie admin.
-
-In essentie heeft het PMP 2 account rol types nodig, Beheerder en Medewerker. Een account kan op verschillende niveau's rechten toegewezen krijgen, dit reflecteert de huidige binnen Productive gebruikte structuur met de mogelijkheid verschillende medewerkers bij de zelfde klant verschillende rechten te geven over verschillende projecten.
-
-Moet er nog rekening gehouden worden met intern/extern? Wel als niet alle bn medewerkers niet bij alle projecten zouden mogen. -->
 
 ```puml
 rectangle "Beheerder"
@@ -777,6 +736,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 <!-- !!!!!!!!!!!!!!!!!!!Auto generated from requirementstablecsv.csv by way of Usecase_diagram.sh!!!!!!!!!!!!!!!!!!!! -->
 
 ```puml
+title Usecase diagram PMP
 left to right direction
 skinparam packageStyle rect
 :ACT1 Externe klant Admin: as ACT1
