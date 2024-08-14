@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/productive_sync.props" />
+</Project>

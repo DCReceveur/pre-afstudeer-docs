@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/daanreceveur/Documents/project management portal/Voorbereiding/markdown/Prototyping/P1-Productive-syncO2/productive_sync/productive_sync.csproj": {}
+  },
+  "projects": {
+    "/Users/daanreceveur/Documents/project management portal/Voorbereiding/markdown/Prototyping/P1-Productive-syncO2/productive_sync/productive_sync.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/daanreceveur/Documents/project management portal/Voorbereiding/markdown/Prototyping/P1-Productive-syncO2/productive_sync/productive_sync.csproj",
+        "projectName": "productive_sync",
+        "projectPath": "/Users/daanreceveur/Documents/project management portal/Voorbereiding/markdown/Prototyping/P1-Productive-syncO2/productive_sync/productive_sync.csproj",
+        "packagesPath": "/Users/daanreceveur/.nuget/packages/",
+        "outputPath": "/Users/daanreceveur/Documents/project management portal/Voorbereiding/markdown/Prototyping/P1-Productive-syncO2/productive_sync/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/daanreceveur/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://gitlab.bluenotion.nl/api/v4/projects/690/packages/nuget/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
