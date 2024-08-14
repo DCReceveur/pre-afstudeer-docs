@@ -309,8 +309,8 @@ De verschillende componenten in de bovenstaande afbeelding zijn niet compleet ma
 | Component | Uitleg |
 |---|---|
 | BaseService  | Dient als basis class voor de andere service classes. beheert de referentie naar de database context en rechten van de huidige gebruiker.  |
-| BaseProductiveService\<T\>  | Dient als basis class voor service classes die moeten synchroniseren met Productive. Doet REST calls naar de Productive API wanneer er data wordt weggeschreven naar de database context.  |
-| BaseRepository\<T\>  | Dient als basis voor elke repository. Biedt standaard CRUD functionaliteiten aan.  |
+| BaseProductiveService<T\>  | Dient als basis class voor service classes die moeten synchroniseren met Productive. Doet REST calls naar de Productive API wanneer er data wordt weggeschreven naar de database context.  |
+| BaseRepository<T\>  | Dient als basis voor elke repository. Biedt standaard CRUD functionaliteiten aan.  |
 | NotificationService  | Biedt communicatie met de mailserver (of andere communicatie tool) aan. Moet weten wie, wat, wanneer in welke taal gestuurd moet krijgen.  |
 | AccountService  | Verantwoordelijk voor het afvangen van alle inlog gerelateerde taken.  |
 
