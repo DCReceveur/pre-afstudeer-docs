@@ -70,7 +70,7 @@ De volgende methodes zijn overwogen toe te passen binnen het gekozen onderzoek p
 | 1 | [Best, good & bad practices](https://ictresearchmethods.nl/library/best-good-and-bad-practices/) | Library | Vindt opties door met collega's en online te zoeken naar potentiële oplossingen voor vergelijkbare synchronisaties. |
 | 2 | [Design Pattern Search](https://ictresearchmethods.nl/library/design-pattern-research/) | Library | Onderzoek of er standaard design patterns zijn die dergelijke synchronisaties afhandelen. |
 | 3 | [Literature Study](https://ictresearchmethods.nl/library/literature-study/) | Library | Uitbreiding op de gevonden resultaten van de bovenstaande methodes. |
-|  | [Stakeholder analysis](https://ictresearchmethods.nl/field/stakeholder-analysis/) | Field | [Onderdeel FO](../Functioneel/FunctioneelOntwerp.md#actors--user-stories) |
+|  | [Stakeholder analysis](https://ictresearchmethods.nl/field/stakeholder-analysis/) | Field | [Onderdeel FO](../Functioneel/FunctioneelOntwerp.md#actors-en-user-stories) |
 |  | [Problem analysis](https://ictresearchmethods.nl/field/problem-analysis/) | Field | Ter verificatie dat de voorgestelde oplossing niet vanaf een vroeg punt de verkeerde richting in is geslagen of onnodig complex is wordt met de PM&TL overlegd. |
 |  | [Observation](https://ictresearchmethods.nl/field/observation/) | Field | Discover productive workflow |
 |  | [Interview](https://ictresearchmethods.nl/field/interview/) | Field | Discover productive workflow |
@@ -302,22 +302,22 @@ Na het opzetten van het minimal viable product worden de resultaten van het onde
 
 ### Q1: Biedt productive een API aan voor alle data die binnen het FO en schermontwerpen besproken worden?
 
-Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie zouden kunnen aanleveren als de front-end direct met productive zou communiceren als bij [ADR001-O1](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive-zonder-caching). De resultaten hiervan zijn opgenomen in de onderstaande tabel:
+Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie zouden kunnen aanleveren als de front-end direct met productive zou communiceren als bij [ADR001-O1](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md#o1-directe-communicatie-met-productive). De resultaten hiervan zijn opgenomen in de onderstaande tabel:
 
 | Scherm | [/projects](https://developer.productive.io/projects.html#projects) | [/tasks](https://developer.productive.io/tasks.html#tasks) | [/people](https://developer.productive.io/people.html#people) | [/companies](https://developer.productive.io/companies.html#companies) | [/attachments](https://developer.productive.io/attachments.html#attachments) | [/comments](https://developer.productive.io/comments.html#comments) | [/activities](https://developer.productive.io/activities.html#activities) |
 |--|--|--|--|--|--|--|--|
-| [Klant: Projecten pagina](../Functioneel/FunctioneelOntwerp.md#klant-projecten-pagina) | x | x | x |  |  |  |  |
-| [Admin: Projecten pagina](../Functioneel/FunctioneelOntwerp.md#admin-projecten-pagina) | x |  | x | x |  |  |  |
-| [Klant: Taken lijst](../Functioneel/FunctioneelOntwerp.md#klant-taken-lijst) |  | x | x |  |  |  |  |
-| [Klant: Project overzicht](../Functioneel/FunctioneelOntwerp.md#klant-project-overzicht) | x | x |  |  |  |  |  |
-| [Klant: Taken detail](../Functioneel/FunctioneelOntwerp.md#klant-taken-detail) |  | x | x |  | x | x | x |
-| [Admin: Taken lijst](../Functioneel/FunctioneelOntwerp.md#admin-taken-lijst) |  | x | x |  |  |  |  |
-| [Admin: Taken detail](../Functioneel/FunctioneelOntwerp.md#admin-taken-detail) |  | x | x |  |  x | x | x |
-| [Klant: Documentatie pagina](../Functioneel/FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
-| [Admin: Toevoegen documentatie](../Functioneel/FunctioneelOntwerp.md#ontwerpen-fr7-inzien-project-documentatie)* |  |  |  |  |  |  |  |
-| [Admin: Controleren aanvraag](../Functioneel/FunctioneelOntwerp.md#ontwerpen-fr8-controleren-aanvraag) |  | x | x |  | x | x | x |
+| Klant: Projecten pagina | x | x | x |  |  |  |  |
+| Admin: Projecten pagina | x |  | x | x |  |  |  |
+| Klant: Taken lijst |  | x | x |  |  |  |  |
+| Klant: Project overzicht | x | x |  |  |  |  |  |
+| Klant: Taken detail |  | x | x |  | x | x | x |
+| Admin: Taken lijst |  | x | x |  |  |  |  |
+| Admin: Taken detail |  | x | x |  |  x | x | x |
+| Klant: Documentatie pagina* |  |  |  |  |  |  |  |
+| Admin: Toevoegen documentatie* |  |  |  |  |  |  |  |
+| Admin: Controleren aanvraag |  | x | x |  | x | x | x |
 
-<!-- TODO: links in bovenstaande tabel fixen -->
+<!-- TODO: links toevoegen na het reorganiseren scherm ontwerpen -->
 
 ### Q2: Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?
 

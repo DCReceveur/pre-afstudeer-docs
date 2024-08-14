@@ -40,7 +40,7 @@ B: Aanpassen naar lage prioriteit
 
 |Stap | Actor | System |
 |---|---|---|
-| 4A |  | De taak heeft een prioriteit van 1 of 2 (zie [toelichting prioriteit taken](../FunctioneelOntwerp.md#incident-impact-urgentie-en-prioriteit-levels)) |
+| 4A |  | De taak heeft een prioriteit van 1 of 2 (zie [toelichting prioriteit taken](../../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)) |
 | 5A   |   | Geeft aan dat de taak critical is en vraagt om critical taken telefonisch door te geven. |
 | 6A | De klant geeft de taak telefonisch door | |
 | 6B | De klant past de urgentie of impact aan zodat de taak een prioriteit boven de 3 krijgt |  |

@@ -406,7 +406,7 @@ Maakt de PM taken aan op de backlog?
 |  | Aanvragen |  |  |
 
 
-## Actors & user stories
+## Actors en user stories
 
 De actors zijn de rollen die mensen aannemen als ze gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
 
@@ -760,7 +760,7 @@ legend left
 | FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](#user-stories) [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards-en-taak-status) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5.3 |  | Beheren project documentatie | Could have |  [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR5.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr53-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR6 | Inzien project service statuses |  |  | [Requirement overzicht](./Requirements/FR6_Inzien_project_service_statuses.md)  |  |
 | FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](FunctioneelOntwerp.md#user-stories),[Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
