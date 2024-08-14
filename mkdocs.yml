@@ -3,6 +3,8 @@ theme:
   name: material
   features:
     - navigation.instant
+    - content.action.edit
+
 docs_dir: Documentatie
 exclude_docs: |
   /Archive/
@@ -12,3 +14,7 @@ plugins:
     - plantuml:
         puml_url: https://www.plantuml.com/plantuml/
         num_workers: 8
+    - search
+
+repo_url: https://github.com/DCReceveur/pre-afstudeer-docs
+edit_uri: tree/main/Documentatie
