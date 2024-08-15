@@ -210,7 +210,7 @@ TODO?: Een redenatie toevoegen over patch vs put?
 
 optie:
 
-endpoints ontwerpenzoals de repositories zodat filtering op de endpoints zelf toegepast kan worden.
+endpoints ontwerpen zoals de repositories zodat filtering op de endpoints zelf toegepast kan worden.
 
 #### filtering pagination and sorting
 

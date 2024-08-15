@@ -32,7 +32,7 @@ PMP--> DB
 | Element | Toelichting |
 |--|--|
 | [Project Management Portal](#components) | Levert op vraag informatie aan de gebruikers over de projecten en taken zoals beschikbaar op de productive.io API. |
-| Productive (API) | Productive houdt de huidige staat van binnen Bluenotion uitgevoerde projecten bij. Deze API en de achter liggende database dient als de single point of truth van het PMP systeem. |
+| [Productive (API)](#productive-api) | Productive houdt de huidige staat van binnen Bluenotion uitgevoerde projecten bij. Deze API en de achter liggende database dient als de single point of truth van het PMP systeem. |
 | Messaging system | Verantwoordelijk voor het op de hoogte stellen van gebruikers als er acties ondernomen moeten worden. Voorbeelden zijn:</br>- Een taak die gereviewd moet worden</br>- Een critical of blocking issue |
 | PMP Database | Omdat de Productive API rate limited is en er mogelijk data over projecten dient opgeslagen te worden die niet binnen productive beschikbaar is wordt gebruik gemaakt van een (voor de API) lokale database om opgevraagde data te cachen en overige data op te slaan. |
 
@@ -424,7 +424,7 @@ Navragen: in het template project hebben de controllers een dependency op databa
 
 ### Productive API -->
 
-### <a id="Component-Notification-system" />Notification system
+### <a id="Component-Notification-system"></a>Notification system
 
 Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wanneer het systeem iets belangrijks te melden heeft zoals wanneer een gebruiker een actie moet ondernemen als in [FR4.1](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) of bij issues met prioriteit 1(Kritiek) en 2(Hoog) als in [FR4.2](../Functioneel/Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals).
 
@@ -432,7 +432,7 @@ De details van het notificatie systeem zijn nog niet uitgewerkt, er zal een mail
 
 TODO: Details wel uitwerken
 
-### <a id="Component-Productive-API" />Productive API
+### <a id="Component-Productive-API"></a>Productive API
 
 De Productive api biedt mogelijkheid om data uit Productive te halen en naar Productive te sturen. Zoals beschreven in het [FO](../Functioneel/FunctioneelOntwerp.md#domein) is Productive de tooling die Bluenotion gebruikt voor project management. De Productive API is een restful API die een aantal endpoints aanbiedt voor het uitlezen en bewerken van gegevens binnen productive. Voor de architectuur van het PMP zijn een aantal dingen belangrijk:
 
@@ -526,6 +526,7 @@ rectangle "ADR005-Database-ORM"
 rectangle "ADR006-Frontend backend Communicatie"
 rectangle "ADR007-MVC Design pattern"
 rectangle "ADR008-Taak Mijlpalen"
+rectangle "ADR010-Authentication" #Orange
 rectangle "ADR?-filtering pagination & sorting" as Sorting
 
 

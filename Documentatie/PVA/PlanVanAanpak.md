@@ -70,8 +70,6 @@ TODO: Grenzen overleggen
 - Bluenotion stelt op zijn minst 1x in de 2 weken een medewerker beschikbaar voor het geven van feedback op het project.
 - Bluenotion stelt een Productive account beschikbaar met de juiste rechten om de beschreven functionaliteit te behalen.
 
-<div style="page-break-after: always;"></div>
-
 ## Op te leveren producten en kwaliteitseisen en uit te voeren activiteiten
 
 Binnen dit project worden de volgende producten opgeleverd.

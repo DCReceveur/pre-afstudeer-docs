@@ -213,7 +213,7 @@ stop
 
 ```
 
-*Note: De laatste check en het opsplitten van taken naar taken voor de UX, UI, BE, FE zou voor "Vraag om feedback" kunnen gebeuren als hier wens naar is. De reden waarom dit op het moment apart gebeurt is zodat er nog een laatste controle wordt gedaan op een taak voordat deze geaccepteerd wordt en zodat mocht de scope van een aanvraag niet duidelijk zijn is het niet nodig hier subtaken van te maken.
+*Note: De laatste check en het opsplitsen van taken naar taken voor de UX, UI, BE, FE zou voor "Vraag om feedback" kunnen gebeuren als hier wens naar is. De reden waarom dit op het moment apart gebeurt is zodat er nog een laatste controle wordt gedaan op een taak voordat deze geaccepteerd wordt en zodat mocht de scope van een aanvraag niet duidelijk zijn is het niet nodig hier subtaken van te maken.
 
 ### Bord structuur
 
