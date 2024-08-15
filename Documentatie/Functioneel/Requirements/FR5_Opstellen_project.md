@@ -97,14 +97,14 @@ De admin handelingen voor het beheer van de dependencies.
 | Post condities | Er is een service gekoppeld aan het project |
 | Triggers | Op aanvraag van Bluenotion admin |
 | Exceptions |  |
-| Open issues | Zie [FR6.1](#fr61-inzien-lijst-van-project-dependencies) |
+| Open issues | Zie [FR6.1](./FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) |
 
 ### FR5.3: Main flow
 
 |Stap | Actor | System |
 |---|---|---|
 | 1 | Kiest een project waar een wijziging moet gebeuren in de services |  |
-| 2 |  | Toont de lijst met gekoppelde services als beschreven in [FR6.1](#fr61-inzien-lijst-van-project-dependencies) |
+| 2 |  | Toont de lijst met gekoppelde services als beschreven in [FR6.1](./FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) |
 | 3 | Kiest een service geeft aan deze bij te willen werken |  |
 | 4 |   | Toont een lijst aan gegevens die bij te werken zijn voor deze service (hostname/ip & servicenaam) |
 | 5 | Past gegevens aan en geeft aan wijzigingen door te willen voeren  |   |

@@ -24,7 +24,7 @@ User story: Als Bluenotion admin wil ik een eenduidig overzicht van alle project
 | 1 | Vraagt de lijst met alle beschikbare projecten op |  |
 | 2 |  | Toont alle voor de klant beschikbare projecten |
 
-### FR1.1: Alternative flow - no projects for customer
+### <a id=FR1.1></a>FR1.1: Alternative flow - no projects for customer
 
 |Stap| Actor | System |
 |---|---|---|
