@@ -319,21 +319,51 @@ Binnen de Productive API is vervolgens gezocht welke endpoints deze informatie z
 
 <!-- TODO: links toevoegen na het reorganiseren scherm ontwerpen -->
 
+Enkele opvallende aspecten van de Productive API zijn:
+
+- Het /comments endpoint kan niet gefilterd worden op task_id of project_id dus kan niet makkelijk gebruikt worden alle comments van x op te vragen. Het /activities endpoint lijkt zich hier beter toe te lenen.
+- Het wisselen van een tasklist wanneer een taak van bijvoorbeeld todo naar doing wordt gesleept wordt als change aangegeven binnen /activities maar enkel met de namen van de lijsten, niet de Id's die hier aan gekoppeld zijn. Het niet verifiëren van de achterliggende id's zou kunnen leiden tot corrupte/foutieve data binnen het PMP.
+- Data over welke klant wat post zou binnen Productive minder duidelijk zijn als alles gepost wordt met de zelfde API key. Hier zijn eventueel ook veiligheids risico's bij. De procedure die op het moment het meest logisch lijkt is de naam van de klant toevoegen voor de comment. Hiermee is een comment in Productive niet meer netjes terug te leiden naar een klant in het PMP maar wel duidelijk wie een comment geschreven heeft.
+
+```puml
+"Customer" as klant
+"Front-end" as fe
+"Back-end" as be 
+"Productive API" as prod
+
+klant -> fe : leaves feedback comment
+fe -> be : posts comment to pmp api
+be -> prod : adds customer name and posts using bot api key
+```
+
+Een andere optie zou kunnen zijn zodra een klant zich registreert bij het PMP een account aanmaken binnen Productive. Er is echter vooralsnog geen endpoint gevonden waarin automatisch api tokens gegenereerd kunnen worden voor de klant.
+
 ### Q2: Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?
 
-Afhankelijk van ADR001 maar waarschijnlijk aan de hand van webhooks.
+Afhankelijk van [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) maar waarschijnlijk aan de hand van webhooks met waar data niet binnengehaald kan worden met webhooks er directe communicatie met de Productive API gebruikt wordt.
 
 ### Q3: Hoe worden wijzigingen gedaan in het PMP doorgegeven aan Productive?
 
 Aan de hand van directe API calls.
 
+- Moet er een vorm van staging zijn die calls naar productive telt en alleen wijzigingen naar productive stuurt wanneer de capaciteit er is? Mogelijk met een queue oid?
+
 ### Q4: Kan het systeem "oneindig" (los van Productive) schalen?
 
-Technisch gezien zou dit met webhooks mogelijk zijn.
+Technisch gezien zou dit met webhooks mogelijk zijn?
 
 ### Q5: Moeten er aparte endpoints gemaakt worden binnen het PMP voor de communicatie met Productive of kan er (netjes) gebruik gemaakt worden van de endpoints die de front-end ook gebruikt?
 
 Technisch gezien kunnen de zelfde endpoints gebruikt worden maar aparte endpoints voor dat wat de gebruiker doet en dat wat door het systeem wordt gebruikt om data te synchroniseren is netter.
+
+<!-- TODO: Check if different actions from the Productive webhooks use different http methods or if they all use post. -->
+
+```plantuml
+class ProductiveSyncController 
+ProductiveSyncController : Task ProcessPostTask(ProductiveTaskInputModel)
+ProductiveSyncController : Task ProcessUpdateTask(ProductiveTaskInputModel)
+ProductiveSyncController : Task ProcessDeleteTask(ProductiveTaskInputModel)
+```
 
 ### Q6: Hoe dicht in de buurt van de webhook limits komt het dagelijks gebruik van Bluenotion? 1000 per 5 min
 
@@ -349,7 +379,7 @@ Er is geen filter toegepast die enkel projecten, taken en comments dus er staan 
 
 Aangezien binnen het PMP (waarschijnlijk*) twee datasources zullen bestaan waar om de druk op de Productive API te verlagen primair gebruik wordt gemaakt van de lokale PMP database is het van belang dat data in deze database compleet en correct is. Om de compleetheid en correctheid te kunnen garanderen dient er gekeken te worden naar verschillende manieren om te detecteren wanneer data fout is en de juiste data te herstellen als het fout is.
 
-TDOO: waarschijnlijk weghalen? ADR001
+Optie: webhook logs?
 
 #### Optie1: Last edited
 

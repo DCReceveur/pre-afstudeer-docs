@@ -1,0 +1,477 @@
+{
+    "data": {
+        "id": "7805242",
+        "type": "tasks",
+        "attributes": {
+            "title": "UX Designonderzoek & wireframes",
+            "description": "<div>Er zijn verschillende project management software pakketten beschikbaar. Om de bruikbaarheid van het project management portal te verbeteren kan er gekeken worden naar de verschillende opties binnen de markt (<a href=\"https://ictresearchmethods.nl/library/competitive-analysis/\">competitive analysis</a>) en eventueel de positieve aspecten van verschillende pakketten implementeren in het project management portal.&nbsp;</div>",
+            "number": "13",
+            "task_number": "13",
+            "private": false,
+            "due_date": null,
+            "start_date": null,
+            "closed_at": null,
+            "created_at": "2024-04-24T10:20:27.231+02:00",
+            "updated_at": "2024-08-15T15:12:34.472+02:00",
+            "repeat_schedule_id": null,
+            "repeat_on_interval": null,
+            "repeat_on_monthday": null,
+            "repeat_on_weekday": [],
+            "repeat_on_date": "1980-04-24",
+            "repeat_origin_id": null,
+            "email_key": "ad8ab3a2967faced1d5b81e3e8cff788",
+            "custom_fields": null,
+            "todo_count": 4,
+            "open_todo_count": 4,
+            "subtask_count": null,
+            "open_subtask_count": null,
+            "creation_method_id": 1,
+            "todo_assignee_ids": [],
+            "task_dependency_count": 0,
+            "type_id": 1,
+            "blocking_dependency_count": 0,
+            "waiting_on_dependency_count": 0,
+            "linked_dependency_count": 0,
+            "placement": 1031000,
+            "subtask_placement": null,
+            "closed": false,
+            "due_time": null,
+            "tag_list": [
+                "documentatie",
+                "onderzoek"
+            ],
+            "last_activity_at": "2024-08-15T15:12:23.000+02:00",
+            "initial_estimate": null,
+            "remaining_time": null,
+            "billable_time": null,
+            "worked_time": null,
+            "deleted_at": null
+        },
+        "relationships": {
+            "organization": {
+                "data": {
+                    "type": "organizations",
+                    "id": "12996"
+                }
+            },
+            "project": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "creator": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "assignee": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "last_actor": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "task_list": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "parent_task": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "workflow_status": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "repeated_task": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "attachments": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "custom_field_people": {
+                "meta": {
+                    "included": false
+                }
+            },
+            "custom_field_attachments": {
+                "meta": {
+                    "included": false
+                }
+            }
+        }
+    },
+    "meta": {
+        "organization_features": {
+            "custom_fields": {
+                "type": "metered",
+                "limit": 5
+            },
+            "custom_fields_per_project": {
+                "type": "metered",
+                "limit": 3
+            },
+            "employee_fields": {
+                "type": "metered",
+                "limit": 30
+            },
+            "scheduling_placeholders": {
+                "type": "metered",
+                "limit": 5
+            },
+            "workflows": {
+                "type": "metered",
+                "limit": 5
+            },
+            "rate_cards": {
+                "type": "metered",
+                "limit": 10
+            },
+            "teams": {
+                "type": "metered",
+                "limit": 5
+            },
+            "outgoing_emails": {
+                "type": "metered",
+                "limit": 100
+            },
+            "recycle_bin": {
+                "type": "metered",
+                "limit": 180
+            },
+            "multiple_pipelines": {
+                "type": "metered",
+                "limit": 3
+            },
+            "multigrouping": {
+                "type": "switch",
+                "available": true
+            },
+            "client_access_to_budgets": {
+                "type": "switch",
+                "available": true
+            },
+            "subsidiaries": {
+                "type": "switch",
+                "available": false
+            },
+            "time_approvals": {
+                "type": "switch",
+                "available": true
+            },
+            "expenses_approvals": {
+                "type": "switch",
+                "available": false
+            },
+            "timeoff_approvals": {
+                "type": "switch",
+                "available": true
+            },
+            "autotracking": {
+                "type": "switch",
+                "available": false
+            },
+            "forecasting": {
+                "type": "switch",
+                "available": false
+            },
+            "webhooks": {
+                "type": "switch",
+                "available": false
+            },
+            "table_pivoting": {
+                "type": "switch",
+                "available": true
+            },
+            "formula_fields": {
+                "type": "switch",
+                "available": true
+            },
+            "single_sign_on": {
+                "type": "switch",
+                "available": true
+            },
+            "deals_billable_time_rounding": {
+                "type": "switch",
+                "available": true
+            },
+            "billable_time_rounding": {
+                "type": "switch",
+                "available": true
+            },
+            "payment_sync": {
+                "type": "switch",
+                "available": true
+            },
+            "import_tasks_csv": {
+                "type": "switch",
+                "available": true
+            },
+            "time_calendar_layout": {
+                "type": "switch",
+                "available": true
+            },
+            "remove_branding": {
+                "type": "switch",
+                "available": false
+            },
+            "custom_invoicing_email": {
+                "type": "switch",
+                "available": false
+            },
+            "google_calendar_layout": {
+                "type": "switch",
+                "available": true
+            },
+            "pulse": {
+                "type": "switch",
+                "available": false
+            },
+            "slack": {
+                "type": "switch",
+                "available": true
+            },
+            "task_custom_fields_library": {
+                "type": "switch",
+                "available": true
+            },
+            "comment_visibility": {
+                "type": "switch",
+                "available": true
+            },
+            "time_off_sync": {
+                "type": "switch",
+                "available": true
+            },
+            "time_locking": {
+                "type": "switch",
+                "available": false
+            },
+            "docs": {
+                "type": "switch",
+                "available": true
+            },
+            "scheduling_resource_utilization": {
+                "type": "switch",
+                "available": true
+            },
+            "enforce_two_factor_auth": {
+                "type": "switch",
+                "available": false
+            },
+            "personio_integration": {
+                "type": "switch",
+                "available": true
+            },
+            "task_dependencies": {
+                "type": "switch",
+                "available": true
+            },
+            "hris_integration": {
+                "type": "switch",
+                "available": true
+            },
+            "numbering_scheme": {
+                "type": "switch",
+                "available": false
+            },
+            "automations": {
+                "type": "metered",
+                "limit": 1000
+            },
+            "dashboards_sharing": {
+                "type": "switch",
+                "available": true
+            },
+            "currency_picker": {
+                "type": "switch",
+                "available": true
+            },
+            "required_custom_fields": {
+                "type": "switch",
+                "available": false
+            },
+            "restricted_tracking": {
+                "type": "switch",
+                "available": false
+            },
+            "enforce_sso": {
+                "type": "switch",
+                "available": false
+            },
+            "jira_integration": {
+                "type": "switch",
+                "available": true
+            },
+            "docs_versions": {
+                "type": "switch",
+                "available": false
+            },
+            "zapier_integration": {
+                "type": "switch",
+                "available": true
+            },
+            "recurring_budgets": {
+                "type": "switch",
+                "available": true
+            },
+            "restricted_user_roles": {
+                "type": "switch",
+                "available": true
+            },
+            "service_tracking_toggle": {
+                "type": "switch",
+                "available": true
+            },
+            "repeating_tasks": {
+                "type": "switch",
+                "available": true
+            },
+            "save_public_and_private_view": {
+                "type": "switch",
+                "available": true
+            },
+            "overhead_cost": {
+                "type": "switch",
+                "available": false
+            },
+            "show_only_filtered_data": {
+                "type": "switch",
+                "available": true
+            },
+            "invoicing_integrations": {
+                "type": "switch",
+                "available": true
+            },
+            "audit_log": {
+                "type": "switch",
+                "available": false
+            },
+            "hubspot_integration": {
+                "type": "switch",
+                "available": false
+            },
+            "booking_activity_modal": {
+                "type": "switch",
+                "available": true
+            },
+            "person_custom_field": {
+                "type": "switch",
+                "available": false
+            },
+            "template_center": {
+                "type": "switch",
+                "available": true
+            },
+            "custom_roles": {
+                "type": "switch",
+                "available": false
+            },
+            "purchase_orders": {
+                "type": "switch",
+                "available": false
+            },
+            "payment_reminders": {
+                "type": "switch",
+                "available": true
+            },
+            "gantt": {
+                "type": "switch",
+                "available": true
+            },
+            "tentative_bookings": {
+                "type": "switch",
+                "available": true
+            },
+            "task_view_sharing": {
+                "type": "switch",
+                "available": true
+            },
+            "view_sharing": {
+                "type": "switch",
+                "available": true
+            },
+            "org_chart": {
+                "type": "switch",
+                "available": true
+            },
+            "person_status": {
+                "type": "switch",
+                "available": true
+            },
+            "deal_cost_rates": {
+                "type": "switch",
+                "available": false
+            },
+            "custom_man_days": {
+                "type": "switch",
+                "available": false
+            },
+            "workload_view": {
+                "type": "switch",
+                "available": true
+            },
+            "xero_expense_sync": {
+                "type": "switch",
+                "available": true
+            },
+            "rippling_integration": {
+                "type": "switch",
+                "available": true
+            },
+            "document_styler": {
+                "type": "switch",
+                "available": true
+            },
+            "tax_codebook": {
+                "type": "switch",
+                "available": true
+            },
+            "probability_per_stage": {
+                "type": "switch",
+                "available": false
+            },
+            "expense_sync": {
+                "type": "switch",
+                "available": true
+            },
+            "reports_sharing": {
+                "type": "switch",
+                "available": true
+            },
+            "service_custom_fields": {
+                "type": "switch",
+                "available": true
+            },
+            "sandbox": {
+                "type": "switch",
+                "available": false
+            },
+            "module_deactivate_tasks": {
+                "type": "switch",
+                "available": false
+            },
+            "module_deactivate_docs": {
+                "type": "switch",
+                "available": false
+            }
+        },
+        "settings": {
+            "systemFlags": {
+                "setting_type": "systemFlags",
+                "value": "[\"addPersonToDealOrBudget\",\"allPayrollReportItems\",\"allowBookingsOutsideBudgetDate\",\"alternativeQuickSearchShortcut\",\"alwaysEnableLimitedTimeOffs\",\"amplitudeMtuOptimization\",\"apiDisableMembershipsSerialization\",\"apiRemoveOrganizationMembershipTimer\",\"archiveTimeOffCategory\",\"auditLog\",\"automations\",\"automationsActionStepFormRefactor\",\"automationsBudgetDecorator\",\"automationsDealRefactor\",\"automationsDuplicate\",\"automationsInvoice\",\"automationsInvoiceProjects\",\"automationsNewAttributes\",\"automationsNewComparators\",\"automationsNotifications\",\"automationsOnDealsAndBudgets\",\"automationsRelativeDates\",\"automationsRelativePeopleInActions\",\"automationsRelativePeopleInConditions\",\"automationsSendEmailAction\",\"automationsTaskDecorator\",\"backendLineItemsGenerator\",\"billingTypeFinancialInsight\",\"boardPickerAddNewList\",\"bookTimeOffFlag\",\"bookingFormNestedServicePicker\",\"bookingFormNewServicePicker\",\"bookingNotifications\",\"bookingRequiredCustomField\",\"bookingSplitApiAction\",\"bookingsUseDealAcl\",\"breathe\",\"budgetActualCap\",\"budgetAddNewMembers\",\"budgetDefaultsSettings\",\"budgetFormCurrencyField\",\"budgetMemberships\",\"budgetNavigationForClients\",\"budgetNavigationForTimeManagers\",\"budgetRecurringFieldInsight\",\"budgetRecurringFilters\",\"budgetSchedulingControl\",\"budgetServicesRevamp\",\"budgetSpentOnInternal\",\"budgetTemplates\",\"budgetTimeEntries\",\"budgetWizard\",\"bulkMoveBookings\",\"bulkShiftAndExtendDates\",\"bundledNotificationsNotify\",\"calendarDuplicateTimeEntry\",\"capacityAvailabilityScheduledBillable\",\"charlieHr\",\"chiliPiperWidgetOnRegistration\",\"clientBaseRole\",\"commentsRevamp\",\"commentsVersionNumber\",\"companyFormInvoiceDefaults\",\"companyTimeRedesign\",\"companyTimeTab\",\"companyWideNotifications\",\"configFeaturesComparisonShortlist\",\"contractBookingSync\",\"convertDateParamsToPersonTimezone\",\"convertToDoc\",\"convertToTentative\",\"convertToVirtualUser\",\"copierAsCreator\",\"copySettingsFromPreviousInvoice\",\"coreCheckUpdatedAtInPushInternalModel\",\"costRateHolidayCalendar\",\"createAttachmentSerializer\",\"currencyFormattingOptions\",\"customAvailabilityStatus\",\"dashboardWidgetFromScratch\",\"dashboards_revamp\",\"dataTableRowHrefHotfix\",\"dateRangeFieldOnTasksView\",\"dayEntriesMobileDrawer\",\"dayViewDuplicate\",\"dayViewPin\",\"dealCostRates\",\"dealLostReasonOnEveryTab\",\"dealManDayMinutes\",\"dealMoveFutureBookingsToBudget\",\"dealMoveTimeEntriesExpensesToBudget\",\"dealMultipleSalesPipelines\",\"dealScheduling\",\"dealSimpleEditor\",\"dealTimeExpenseTracking\",\"dealsIgnoreBookableDate\",\"dealsRemoveBillingAddressRequirement\",\"decimalInputFieldMask\",\"declarativePdfGenerator\",\"defaultBudgetFieldFinanicalReport\",\"deprecateOldTimeReport\",\"destroyFutureBookings\",\"disableTimeEntriesManageApprovedPermission\",\"disableTimeOffSetting\",\"docs\",\"docsAccessibleDocIdFilter\",\"docsBannersInToolbar\",\"docsBasicAtributesPageFF\",\"docsBreadcrumbsRevamp\",\"docsChecklist\",\"docsCommandsTriggerButton\",\"docsComments\",\"docsConvertToPage\",\"docsCreateTask\",\"docsCursorNameFlags\",\"docsExportAsPdf\",\"docsFileUpload\",\"docsMovePage\",\"docsPageCoverEmoji\",\"docsPagePreferences\",\"docsPreventAddMembershipsOnProjectDoc\",\"docsRealtimeAuth\",\"docsSaveUntitledPages\",\"docsStepsOnSave\",\"docsTableUi\",\"docsVersionNumber\",\"docsVideo\",\"documentDealJobs\",\"documentServiceTypeDisplay\",\"documentTemplateAttachments\",\"documentTemplateSorting\",\"documentTemplateWizard\",\"dueDateConfigurableOnNotifications\",\"duplicateAndArchiveRateCards\",\"duplicateFromLastWorkingDay\",\"duplicatePageDoc\",\"dynamicChartHeightOnInsights\",\"economicCustomer\",\"emailPermissions\",\"emptyChangesetOnDestroyActivity\",\"enableProductiveAI\",\"enableTaskViewSharing\",\"enableTimeOff\",\"engagementCostOptimization\",\"engagementHolidayOptimization\",\"exactPaymentSync\",\"exactUpdateInvoice\",\"excludeCostRateFromOnboarding\",\"expenseApprovalsNotification\",\"expenseQuantity\",\"expenseQuantityDecimal\",\"expenseReimbursementBulk\",\"expensesApprovePermissionsSplit\",\"expensesCurrencyCalculation\",\"expensesDifferentCurrenciesMarkup\",\"expensesNestedServicePicker\",\"expensesReimbusementPayment\",\"exportCreditNoteEconomic\",\"exportCreditNoteExact\",\"exportCreditNoteFortnox\",\"exporterPulseAttachment\",\"facilityCostsRate\",\"factorial\",\"filterByNickname\",\"financialItemsStageStatusField\",\"financialReportTimeFields\",\"financialReportsStageType\",\"financialsRevamp\",\"formulableProbability\",\"fortnoxPaymentSync\",\"fortnoxUpdateInvoice\",\"freeForNowIntegrationBadge\",\"ganttDependencies\",\"ganttHolidays\",\"ganttLayout\",\"ganttMoveAsGroup\",\"ganttSkipWeekends\",\"googleCalendarFilterEventsInOrganizationTimezone\",\"headerActionsInSidebar\",\"hideDocumentTemplateFields\",\"hideUserContactsFromClients\",\"holidayCalendarDropdown\",\"holidayCalendarReportField\",\"hourlyCostRate\",\"hubspot\",\"hubspotDesyncProperties\",\"humaans\",\"impersonatePermissionSets\",\"importTemplatesNewDesign\",\"inAppExportRoute\",\"invoiceInlineCustomFields\",\"invoiceLineItemsReports\",\"invoicePercentageOfBudget\",\"invoiceWizardNewBudgetsTable\",\"invoiceWizardUnrecognizedCorrection\",\"jiraIssueStatusAndSummary\",\"jiraTimeEntriesRework\",\"jobsFeed\",\"jumpSearchQuickSearch\",\"justworks\",\"leftToScheduleRevamp\",\"mailerOutboxFromDomain\",\"manualBudgetRecurring\",\"marketplaceBanner\",\"meilisearchReindex\",\"membershipFirstLevelIncludes\",\"membershipNotificationRefactor\",\"membershipsOnProjects\",\"mergeDevWebhooks\",\"milestones\",\"moveSubsidiaryPicker\",\"navGenericRendering\",\"navigationByModule\",\"negativeRevenueRecognition\",\"nestedBudgetPicker\",\"nestedExpenseOptions\",\"nestedServicePicker\",\"nestedServicePickerInBulk\",\"nestedServicePickerRedesign\",\"nestedServicePickerWithSections\",\"nestedTaskList\",\"newAddonsLocation\",\"newAttachmentsFeatureDataFlow\",\"newAvatarUploadFlow\",\"newAvatarUploadFlowForPerson\",\"newBookingMailer\",\"newBookingSynchronizerJob\",\"newDayViewRedesign\",\"newEssentialPlan\",\"newExpenseForm\",\"newOnboardingVisuals\",\"newProjectWizard\",\"newReportView\",\"newSalaryTable\",\"nonWorkingDaysColor\",\"normalizedCurrencyInReports\",\"numberingSchemeFormatting\",\"optimizeResourcingBookings\",\"optionalGrouperPerformance\",\"orgChart\",\"organizationMembershipWithoutCounts\",\"overheadCostAddonSettings\",\"overheadDetailsModal\",\"overheadMonthlyControls\",\"overheadOvertimeAndUndertime\",\"overheadPreciseHours\",\"overheadProjectionRecalculate\",\"overheadRecalculatingStatus\",\"overheadTimeOffCosts\",\"overheadValidation\",\"overtimeUndertimeHours\",\"paginatedSelectField\",\"paramsStruct\",\"patchNonIncludedRelationships\",\"patchSave\",\"paymentRemindersFlag\",\"payrollReport\",\"peopleCustomFieldsMigration\",\"periodCostOptimization\",\"permissionSetsBuilder\",\"permissions\",\"permissionsTimeOffCategories\",\"personAvailabilities\",\"personCustomField\",\"personManagerField\",\"personNicknameCustomization\",\"personStatus\",\"personTimeTab\",\"personalIntegrations\",\"planComparison\",\"policyAbilities\",\"popoverContentImprovement\",\"positioningRevamp\",\"preciseMoney\",\"priceTrackingControls\",\"pricesReport\",\"pricingLaneUpgrade\",\"projectResourcingNestedServicePicker\",\"projectTemplates\",\"projectTimeTab\",\"projectlessBudget\",\"purchaseOrders\",\"pushInternalModelOverride\",\"rateCardPermissions\",\"ratesInEuroColumn\",\"realtimeBroadcastsFirstLevelIncludes\",\"recalculateOverheadOnProjections\",\"recaptcha\",\"reccurringBudgetCopyExpenses\",\"recognizedScheduledTime\",\"reducedDashboardShareTypes\",\"registrationNewSampleDataLoaderVisuals\",\"registrationStepCompletionMetrics\",\"relationshipFields\",\"removeAveragingPeriod\",\"removeBreatheIntegrationFromMergeDev\",\"removeDirectAwsAttachmentUrlsFromHTML\",\"removeSubtaskTaskType\",\"replaceActualsLabelWithTimeAndMaterials\",\"reportLevelCurrencyPicker\",\"reportsMarginsWithNegative\",\"requestTimeOffRevamp\",\"resourcingEnableDragWhileUndoing\",\"resourcingIncludesFlag\",\"resourcingNavigationItems\",\"resourcingNestedServicePicker\",\"resourcingPaginationFlag\",\"resourcingProjectAllocations\",\"restrictedTrackingForAllPlans\",\"roundingSettingsOnDeal\",\"safariInputFieldHack\",\"sageAccounting\",\"schedulingCompanyFilter\",\"schedulingHalfDayBooking\",\"schedulingHistory\",\"schedulingPercentageOnEventBookings\",\"searchDocsMentionsNoCount\",\"sensitiveCustomFields\",\"servicePickerExtendedScope\",\"servicePickerMembershipsScope\",\"serviceTimePrecision\",\"serviceTrackingControlsValidation\",\"serviceTrackingToggle\",\"servicesForecastedProfitability\",\"servicesViewSetupQuantity\",\"skipBlendedRateConversion\",\"slackMobileGranularNotifications\",\"splitTeamMembersPermission\",\"subscriptionProducts\",\"taskAttachmentsRedesign\",\"taskFormlossPreventionFix\",\"taskSubscribersEndpoint\",\"taskTimeRefactor\",\"tasksGroupByDueDate\",\"tasksInlineEdit\",\"taxRatesTwoWaySync\",\"teams\",\"templateProjectsPolicyRevamp\",\"tentativeBookings\",\"timeCalendarRevamp\",\"timeEntriesVersioningEnabled\",\"timeEntryApprovePermissionsSync\",\"timeEntryCostRateCurrency\",\"timeEntryFormPopulateAllVirtualAttributes\",\"timeEntryImport\",\"timeLockingByDay\",\"timeOffAttachments\",\"timeOffCategoryDescription\",\"timeOffStatusSync\",\"timeOffTabRevamp\",\"timePrecision\",\"timerPolicyUpdate\",\"timerWidgetRevamp\",\"toDoDueDateConfigurableOnNotifications\",\"twinfieldIntegration\",\"uniqueTimeEntriesFilterRemoval\",\"unlimitedTimeOffsInHours\",\"upsellBannerOnKacunkoModal\",\"useNormalizedCurrencyForLineItems\",\"useRefactoredOutlookCalendar\",\"user2faCodeReset\",\"userCanChangeOwnEmail\",\"userImport\",\"vsChartDependantTimeFormatting\",\"vsChartImprovedPercentageFormatting\",\"webhooksRewrite\",\"weeklySummaryRevamp\",\"workLogOnMyTime\",\"workloadTrack\",\"xeroExpenseSync\",\"xeroMultipleOrganizations\"]",
+                "updated_at": "2024-08-08T15:02:57.001+02:00"
+            }
+        }
+    }
+}

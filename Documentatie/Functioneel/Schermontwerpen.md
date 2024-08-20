@@ -55,7 +55,7 @@ Om te bewaken dat alle functionele requirements ook daadwerkelijk in de te maken
 | [Klant: Documentatie pagina](#view5-documentatie-view) | | | | | | | | | | | | | | | | | | | | |✓|✓| | | | | | |
 |  | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
 | [Admin: Projecten pagina](#view2-mijn-projecten) | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-| Admin: Tenant pagina | | | | | | | | | | | | | | | | | | | | | | | | |   |✓|✓|✓|
+| Admin: Tenant pagina | | | | | | | | | | | | | | | | | | | | | | | | | |✓|✓|✓|
 | Admin: Project setup pagina | | | | | | | | | | | | | | | |✓| | | | | | | | | | | | |
 | Admin: Project dependencies pagina | | | | | | | | | | | | | | | | | | | |✓| | | | | | | | |
 | [Admin: Project documentatie pagina](#view5-documentatie-view) | | | | | | | | | | | | | | | | | | | | | | |✓| | | | | |

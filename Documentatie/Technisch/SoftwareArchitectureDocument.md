@@ -406,6 +406,72 @@ Productive input model?
 
 De classes onder API.Models dienen als input [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object) voor de verschillende REST controllers. Binnen deze models wordt aan de hand van [ASP.NET Validatie attributen](https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-8.0#validation-attributes) de back-end validatie gedaan om er zeker van te zijn dat er geen vreemde data naar de API wordt gestuurd.
 
+```C#
+public class ProductiveTaskInputModel
+{
+    private int id;
+    private string type; //Type van een task is altijd een task
+    //Attributes
+    private string title;
+    private string description;
+    private int number;
+    private int task_number;
+    private bool is_private;
+    private DateTime due_date;
+    private DateTime start_date;
+    private DateTime closed_at;
+    private DateTime created_at;
+    private DateTime updated_at;
+    private int repeat_schedule_id;
+    private int repeat_on_monthday;
+    private int[] repeat_on_weekday;
+    private DateOnly repeat_on_date;
+    private int repeat_origin_id;
+    private string email_key;
+    private int custom_fields;
+    private int todo_count;
+    private int open_todo_count;
+    private int subtask_count;
+    private int creation_method_id;
+    private int[] todo_assignee_ids;
+    private int task_dependency_count;
+    private int type_id;
+    private int blocking_dependency_count;
+    private int waiting_on_dependency_count;
+    private int linked_dependency_count;
+    private int placement;
+    private int subtask_placement;
+    private bool closed;
+    private TimeOnly due_time;
+    private string[] tag_list;
+    private DateTime last_activity_at;
+    private int initial_estimate;
+    private int remaining_time;
+    private int billable_time;
+    private int worked_time;
+    private DateTime deleted_at;
+
+    //relationships 0-n
+    private int organization_id;
+    private int project_id;
+    private int creator_id;
+    private int assignee_id;
+    private int last_actor_id;
+    private int task_list_id;
+    private int parent_task_id;
+    private int workflow_status_id;
+    private int repeated_task_id;
+    private int[] attachment_ids;
+    private int[] custom_field_attachment_ids;
+}
+
+```
+
+<!-- 
+    TODO: Worden relationships gewoon entiteiten? forceer ik dan de structuur van productive op de EF models? Zouden de input models uberhaupt tot de EF db models komen of blijven dit apparte definities?
+    Er is ook een argument te maken binnen de input models enkel een variable met de "naam van het type" relatie vast te leggen en in dit variable het meegegeven id op te slaan. 
+-->
+
 #### Services.Models
 
 De classes onder Services.Models dienen als output [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object) voor de verschillende REST controllers.
