@@ -127,3 +127,11 @@ De admin handelingen voor het beheer van de dependencies.
 | 4B |  | Vraagt om bevestiging of de gebruiker de service "servicenaam" wilt verwijderen |
 | 5B | Bevestigt het verwijderen van de service uit het project |  |
 | 6 |  | Resume main flow stap 6 |
+
+## FR5.4: Uploaden documentatie
+
+User story: Als interne beheerder wil ik documentatie kunnen uploaden zodat het open gezet kan worden voor klanten om te lezen.
+
+## FR5.5: Documentatie op de to-do lijst zetten
+
+User story: Als interne beheerder wil ik de externe beheerder op de hoogte brengen van aangeleverde instructies zodat dingen als deployment stappen door de klant zelf gevolgd kunnen worden en ik kan zien wanneer dit is gedaan.
