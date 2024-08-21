@@ -74,6 +74,50 @@ Is een klant geïnteresseerd in de verschillende mijlpaal taken?
 - [x] Maakt het functioneel uit of iemand PM of TL is? Zijn de rollen binnen het PMP anders of zijn rollen als “klant” en “admin” voldoende?
 - A: In de context van het PMP is een klant en Bluenotion admin genoeg onderscheid.
 
+20-08-2024
+UX 20-08
+
+- [x] Vaststellen “Onboarding” requirement:
+Userstory: 
+Als interne admin wil ik instructies klaar kunnen zetten voor de klant en terugkoppeling willen krijgen over de status hiervan zodat de klant handelingen voor setups en upgrades zelf kan uitvoeren.
+Als externe admin wil ik Bluenotion op de hoogte stellen zodra ik instructies heb gevolgd zodat de interne admins op de hoogte zijn van de staat van mijn software. 
+    - [x] Onboarding zegt mij dat deze functionaliteit enkel bij start of deployment van een project gebruikt wordt. Is dit correct? Zo ja, als alle stappen doorlopen zijn menu verbergen?
+A: Voorlopig onboarding houden, dit zijn dingen die een klant moet uitvoeren, aanvinken en BN kan zien wat is aangevinkt of niet.
+    - [x] Zijn de onboarding “taken” de zelfde documenten als in handleidingen?
+A: Ja, kan naar handleidingen maar hoef niet.
+    - [x] (Misschien geen taken noemen omdat tickets al resulteren in taken) Navragen: Is dit hetzelfde begrip als dat jij hebt opgebouwd uit de documentatie
+A: Tickets en taken zijn verschillend, een klant schiet tickets in en op basis van een ticket worden vanuit het PMP taken aangemaakt die in Productive terecht komen. Afhankelijk van of task dependencies (binnen productive) gebruikt kunnen worden taken op verschillende borden te koppelen kan voor de “ticket” een taak aangemaakt worden met een link naar de subtaken zodat het beiden in het PMP en Productive duidelijk is welke taken waarvandaan komen.
+
+![alt text](../Images/Notes/Onboarding_dashboard.png)
+
+- [x] Zijn comments op een Ticket een groepering van alle comments van de subtaken, comments op een hoofd taak (in geval van task dependencies) of enkel comments in het PMP? (Bijlages ook)
+A: De comments, bijlagen en logs zijn tussen de klant en BN. De klant is niet geïnteresseerd in de details die developers in de comments zetten noch de gehele (onoverzichtelijke) log zoals op Productive.
+
+- [x] De verschillende statussen zoals aanwezig op Productive worden losgekoppeld van het PMP.
+A: Nieuwe status setup is:
+
+Open=>Bezig=>Klaar
+
+Actie vereist:
+
+Ja=>Nee
+
+- [x] FR7: Over handleidingen requirement:
+    - [x] Worden handleidingen per versie één keer geüpload en “open gezet” voor verschillende (klanten/projecten?) of wordt per klant/project een nieuwe versie van het document geüpload? 
+A: De handleidingen zijn één grote kennisbank waar iedereen bij kan zonder hier rechten voor nodig te hebben.
+
+- [x] Project A => Releases
+    - [x] | Versie nummer | Release date | Patchnotes | Download link? |
+    - [x] Is nog geen requirement voor, is dit een lijst van afgelopen uitgebrachte versies van software?
+
+A: Automatische release notes op basis van productive wat op live is gezet
+Versies staan ergens op een database, wordt al aangemaakt.
+Download is niet nodig
+
+TODO: Task dependencies uitpluizen
+
+TODO: FR toevoegen over versie upgrades en tijdslimieten tot EOL van binnen een project gebruikte dependencies
+
 ## Technische vragen
 
 - [ ] Het bewaren van documenten (FR7) kan op Productive maar ook op een andere locatie. Waar willen we documenten daadwerkelijk opslaan?
