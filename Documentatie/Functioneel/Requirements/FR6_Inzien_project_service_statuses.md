@@ -60,3 +60,28 @@ Het zien van welke dependencies een project nodig heeft (databases, proxies, alg
 | 3 |  | Vraagt aan de services of ze online zijn |
 | 4 |  | Toont het resultaat van de 'vraag' aan de gebruiker |
 | 5 |  |  |
+
+## FR6.3: Inzien dependency versies, update status en end of life
+
+| FR6.3 | Inzien dependency versies, update status en end of life |
+|---|---|
+| Prioriteit | Could have  |
+| Primaire Actor | ACT1: Externe beheerder |
+| Stakeholders |  |
+| Pre condities | Een klant heeft een project in het PMP. |
+| Post condities | De klant heeft een overzicht van dependencies inclusief de gebruikte versie, de verwachte end of life van de gebruikte versie en de door Bluenotion aangeraden versie van de gebruikte dependencies |
+| Triggers | Op aanvraag van Externe beheerder |
+| Exceptions |  |
+| Open issues |  |
+
+### FR6.3: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | De gebruiker geeft aan te willen weten of zijn/haar software nog up to date is. |  |
+| 2 |  | Het systeem toont een lijst van alle gebruikte dependencies. |
+
+Opties/extra functionaliteit:
+
+- Mailtje sturen wanneer eol in de buurt komt
+- Knop voor inplannen update

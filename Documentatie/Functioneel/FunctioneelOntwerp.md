@@ -36,6 +36,7 @@ rectangle "Project management portal"{
 rectangle "Productive"{
   class Project
   class Taak
+  class Takenlijst
   class Board
   class Status
 }
@@ -61,7 +62,9 @@ Impact "1"--"0-..*" Incident : < Ingediend met
 Urgentie "1"--"0..*" Incident : < Ingediend met
 Prioriteit .. (Impact, Urgentie)  
 
-Taak"0..*"--"1"Board : > Weggeschreven op
+Taak"0..*"--"1"Takenlijst : > Weggeschreven op
+Takenlijst"0..*"--"1"Board : < Onderdeel van
+
 Taak"0..*"--"1"Prioriteit :< Van
 Taak"0..*"--"1"Status :< Van
 
@@ -273,8 +276,8 @@ legend left
     |<#Orange>| Open |
     |<#99FF00>| Done |
     |<#Green>| Closed |
-    |<#Purple> | Waiting for review customer |
-    |<#LightBlue>  | Waiting for review Bluenotion |
+'    |<#Purple> | Waiting for review customer |
+'    |<#LightBlue>  | Waiting for review Bluenotion |
     | ✓ | Accepted |
 endlegend
 
@@ -297,8 +300,6 @@ endlegend
 
 #### Toelichting statuses
 
-Huidige situatie
-
 De status die bij de bovenstaande borden staat aangegeven is de standaard status van taken op dat bord. Op het moment worden statuses voornamelijk gebruikt om te binnen Productive te filteren op welke taken Open en Closed zijn. Aan de hand hiervan kan een klant met directe toegang tot Productive zien waar aan gewerkt wordt of kan de PM de status van taken door communiceren.
 
 | Status  | Uitleg  | [Workflow stage](https://help.productive.io/en/articles/5813154-creating-and-managing-workflows)  |
@@ -308,103 +309,9 @@ De status die bij de bovenstaande borden staat aangegeven is de standaard status
 | Vakantie/vrij | Geeft aan dat de persoon die met deze taak aan de slag moet op het moment niet beschikbaar is. | Started |
 | Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
 
-Voorgestelde situatie:
-
-Door in de workflow twee statuses toe te voegen die aangeven dat één van de partijen feedback moet aanleveren voordat er verder gegaan kan worden met een taak is het mogelijk op elk moment in het ontwerp of ontwikkelproces een taak weer open te zetten voor feedback. Hiermee kan met een relatief kleine wijziging in het bestaande systeem door het PMP aan de combinatie van een taak zijn status en het bord waar hij op staat bepaald worden wat welke actor wat moet doen om weer aan de slag te kunnen met een taak.
-
-<!-- Bluenotion werkt bij start van het project per taak met een status die aangeeft of een taak "Open", "Done", "Vakantie/Vrij" of "Closed" is. Het hele proces van aanvraag tm implementatie bevindt zich in de "Open" status. Door naast Open twee extra statuses toe te voegen voor wanneer een taak wacht op feedback van de klant of wacht op feedback van Bluenotion is het mogelijk binnen Productive zonder een taak van bord te wisselen een taak "open te zetten voor review". Zo kan er bijvoorbeeld een taak met onduidelijke beschrijving uit de aanvragen opengezet worden voor verduidelijking en een taak uit staging klaargezet voor review in de applicatie. -->
-
-| Status  | Uitleg  | [Workflow stage](https://help.productive.io/en/articles/5813154-creating-and-managing-workflows)  |
-|---|---|---|
-| Waiting for review customer  | Geeft aan dat een taak aan het wachten is op feedback van de klant.  | Not started  |
-| Waiting for review Bluenotion | Geeft aan dat een taak aan het wachten is op feedback van Bluenotion. | Not started |
-| Open  | Geeft aan dat Bluenotion actief aan het werk is aan een taak.  | Started  |
-| Done  | Geeft aan dat Bluenotion aan een taak heeft gewerkt en deze klaar is voor review.  | Started  |
-| Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
-<!-- | Not started | TODO: is deze status nodig? Hiermee zou een taak niet in progress zijn zonder dat er op een van de partijen op feedback wordt gewacht. Mogelijk relevant voor de wishlist? Extra statuses kunnen er wel voor zorgen dat het overzicht wordt verloren. | Not started | -->
-
-Omdat niet elk project bij Bluenotion niet de zelfde Productive structuur volgt qua taak borden en statussen is voor een koppeling tussen het PMP en Productive de volgende informatie nodig:
-
-Bord:
-
-- Welk bord (mogen) aanvragen staan?
-- Welk bord wordt gebruikt als backlog?
-- Welk bord wordt gebruikt als laatste controle van de klant? (development/staging)
-- *Welk bord wordt gebruikt als wishlist?
-
-Status:
-
-- Bij welke status moet de klant 'iets' met de taak? (Waiting for review customer)
-- Bij welke status moet Bluenotion 'iets' met de taak? (Waiting for review Bluenotion)*
-- status open
-- status done
-- status closed
-
-*Status wordt op het moment gebruikt in sommige projecten, om tijdens de transitie van klanten in Productive naar het PMP geen functionaliteit kwijt te raken waar de klant gewend aan is, is het misschien beter om te kijken of tags gebruikt kunnen worden als notificatie flag.
-
-*Is wishlist deel van V1?
-Is done/closed nodig of wordt status gebruikt?
-
-wishlist?
-
-benodigde statussen:
-
-Not started
-Open
-Done
-Closed
-
-TODO: Wordt vakantie/vrij gebruikt?
-
-Aan de hand van deze informatie kan het PMP de volgende beslissingen maken:
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review Bluenotion | Aanvragen | De aanvraag is ingediend en wacht op goedkeuring van Bluenotion | Informeer de PM aan de hand van PMP of e-mail. |
-| Waiting for review customer | Aanvragen | De aanvraag heeft meer feedback nodig van de klant | Informeer de klant aan de hand van het PMP of e-mail. |
-| Open | Aanvragen | De aanvraag is goedgekeurd, taken zijn aangemaakt en zijn in behandeling bij Bluenotion | nvt |
-| Done | Aanvragen | Alle taken waarin de aanvraag was geresulteerd zijn klaar voor review voor de klant | Informeer de klant aan de hand van het PMP of e-mail. |
-| Closed | Aanvragen | Alle taken waarin de aanvraag was geresulteerd zijn klaar voor review voor de klant | nvt |
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review customer | Backlog | Tijdens het ontwikkelen bleek meer informatie nodig te zijn. | Informeer de klant aan de hand van PMP of e-mail. |
-| Waiting for review Bluenotion | Backlog | De klant heeft reactie gegeven op de informatievraag. | Informeer de PM (of dev?) aan de hand van PMP of e-mail. |
-| Open | Backlog | De taak is in behandeling | nvt |
-| Not started | Backlog | Er is iets mis? | nvt* |
-| Done | Backlog | Er is iets mis? | nvt* |
-| Closed | Backlog | Er is iets mis? | nvt* |
-
-*Iets verzinnen voor deze "verloren" taken? Staan normaal op productive maar zouden mogelijk niet netjes in een PMP groepering gegooid worden.
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review customer  | Staging | De taak is afgerond en de klant kan de functionaliteit controleren. |  |
-| Waiting for review Bluenotion  | Staging | De klant heeft reactie gegeven op de taak maar de taak niet goedgekeurd. |  |
-| Open  | Staging |  |  |
-| Done | Staging |  |  |
-| Closed | Staging |  |  |
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review customer  | Live |  |  |
-| Waiting for review Bluenotion  | Live |  |  |
-| Open  | Live |  |  |
-| Done | Live |  |  |
-| Closed | Live |  |  |
-
-Kun je een taak hebben in de aanvragen?
-Maakt de PM taken aan op de backlog?
-
-|  |  |  |  |
-|--|--|--|--|
-|  | backlog |  |  |
-|  | staging |  |  |
-|  | Aanvragen |  |  |
-|  | Aanvragen |  |  |
-|  | Aanvragen |  |  |
-|  | Aanvragen |  |  |
-
+<!-- ### Aanpassingen domein
+TODO: verhaaltje over de aanpassingen in het domein?
+Om de functionaliteiten van het PMP op zo'n manier te realiseren dat over alle verschillende projecten door de klant en PM gewerkt kan worden binnen het PMP en de interne medewerkers van Bluenotion verder kunnen werken binnen Productive is [FDR004](./FDRs/FDR004-Aanpassingen-Productive-workflow.md) opgezet. -->
 
 ## Actors en user stories
 
@@ -552,6 +459,7 @@ ACT2--US20
 
 ACT2--US21
 ACT1--US22
+ACT3--US24
 
 ```
 
@@ -582,6 +490,7 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Requirements/FR5_Opstellen_project.md) |
 | US22 | ACT1 | Als externe beheerder wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
 | US23 | ACT1 | Als externe beheerder wil ik screenshots kunnen toevoegen aan mijn tickets en opmerkingen om mijn punten te verduidelijken. | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
+| US24 | ACT3 | Als interne medewerker wil ik mijn workflow niet moeten wijzigen om een nieuw klantportaal te faciliteren | NFR8.4 |
 
 ## Requirements
 
@@ -811,8 +720,9 @@ legend left
 |   | NFR7.1  | Het systeem werkt op alle Windows en MAC versies van de afgelopen 3? jaar  | Must have  |    [US16](#user-stories)  |
 | NFR8 | Maintainability  |   |   |      |
 |   | NFR8.1  | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  | Could have  |    [US18](#user-stories)  |
-|   | NFR8.2  |  Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |   [US18](#user-stories)  |
+|   | NFR8.2  | Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |   [US18](#user-stories)  |
 |   | NFR8.3  | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  | Must have  |    [US18](#user-stories)  |
+|   | NFR8.4  | Medewerkers van Bluenotion kunnen met minimale aanpassingen in de workflow zijn werk nog kunnen doen. | Should have | [US23](#user-stories) |
 
 **Unsorted**
 
@@ -820,8 +730,6 @@ legend left
 |---|---|---|---|---|---|
 | FR1.3  |   | Toekennen overige project uren  | Could have  | FR1.2  |   |
 | FR1.4  |   | Toekennen SLA KPI's | Could have  | FR1.1  |   |
-
-
 
 ### Authenticatie, Autorisatie, Accounting
 

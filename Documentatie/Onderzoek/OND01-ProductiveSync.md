@@ -395,8 +395,6 @@ Pro:
 
 Con:
 
-
-
 #### Optie2: Item counts
 
 Omschrijving:
