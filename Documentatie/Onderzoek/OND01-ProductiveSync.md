@@ -1,4 +1,4 @@
-# Communicatie met productive
+# OND01-Communicatie met productive
 
 Binnen dit document dient antwoord te geven op de vraag "Hoe gaat het PMP communiceren met de al bestaande Productive omgeving?". De resultaten van dit onderzoek zijn in het kort vastgelegd in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md), dit document dient als toelichting op de aanpak om tot de beslissing in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) te komen.
 
@@ -10,9 +10,7 @@ Aangezien het PMP de klant inzicht dient te geven in de actuele staat van zijn/h
 - Q4: Kan het systeem "oneindig" (los van Productive) schalen?
 - Q5: Moeten er aparte endpoints gemaakt worden binnen het PMP voor de communicatie met Productive of kan er (netjes) gebruik gemaakt worden van de endpoints die de front-end ook gebruikt?
 
-<!-- TODO: rewrite met externe referenties naar onderzoek methodes. -->
-
-Tijdens het library onderzoek [(1 tm 3)](./Onderzoeksmethodes.md) zijn nog een aantal vragen naar boven gekomen over de voorgestelde oplossingen.
+Tijdens het library onderzoek zijn nog een aantal vragen naar boven gekomen over de voorgestelde oplossingen.
 
 - Q6: Hoe dicht in de buurt van de webhook limits komt het dagelijks gebruik van Bluenotion? 1000 per 5 min
 - Q7: Kan een systeem op basis van webhooks foutieve informatie ontdekken en herstellen?
@@ -20,16 +18,6 @@ Tijdens het library onderzoek [(1 tm 3)](./Onderzoeksmethodes.md) zijn nog een a
 - Q9: Wordt alle informatie die het PMP nodig heeft doorgegeven aan de hand van webhooks? Wat gebeurt er bijvoorbeeld met comments?
   A: Staan als activity onder het object waar een comment op is achter gelaten.
 - Q10: Wat zijn scenario's waarin foutieve informatie in het systeem zou kunnen komen?
-
-Ongesorteerde observaties:
-
-- Hoe krijg ik een task_list_id? deze is niet aanwezig in /activities. niet includable vanuit activities, zou wel kunnen dat hij vanaf de webhooks te bereiken is.
-TODO: test* Indien dit niet mogelijk is zou het kunnen dat de "status" zoals beschreven in het [functioneel ontwerp](../Functioneel/FunctioneelOntwerp.md#toelichting-statuses)
-Include werkt wel op taak.
-
-*Waar slaan we documenten op?
-
-<!-- TODO: is Q10 wel een goede onderzoeksvraag of is dit te direct? Technisch gezien is er geen systeem dat foutieve informatie zou kunnen ontvangen op dit punt. -->
 
 ## Methodiek
 
@@ -56,12 +44,6 @@ Realise as required: Field -> Workshop -> Lab
 Realise as expert: Library -> Workshop -> Showroom
 
 Choose fitting technology: Library -> Field -> Workshop -> Lab
-
-<!-- | Methode | Type | Redenatie |
-|--|--|--|
-| [Realise as required pattern](https://ictresearchmethods.nl/patterns/realise-as-required/) | Pattern |  |
-| [Realise as expert pattern](https://ictresearchmethods.nl/patterns/realise-as-an-expert/) | Pattern |  |
-| [Choose fitting technology](https://ictresearchmethods.nl/patterns/choose-fitting-technology/) | Pattern |  | -->
 
 De volgende methodes zijn overwogen toe te passen binnen het gekozen onderzoek patroon.
 
@@ -102,10 +84,7 @@ Op basis van de overwegingen uit het vorige hoofdstuk is het onderstaande onderz
 
 ## Library
 
-Tijdens het library onderzoek wordt globaal gekeken naar verschillende manieren om data tussen twee data sources te synchroniseren. Hierbij wordt ook gekeken welke data Productive aan de hand van hun API aanbiedt en wat de vastgestelde rate limits zijn.
-
-<!-- TODO: gekke introductie -->
-In dit document wordt in meer detail in gegaan op de verschillende opties voor synchronisatie tussen het PMP en de data uit Productive. Een korte omschrijving van het probleem en de gekozen oplossing is te vinden in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md), dit document dient voor meer diepgang op het onderwerp indien de lezer van ADR001 behoefte heeft aan meer diepgang op de verschillende overwogen opties.
+In dit document wordt in meer detail in gegaan op de verschillende opties voor synchronisatie tussen [data uit het PMP](../Technisch/TechnischOntwerp.md#pmp-datamodel) en de [data uit Productive](../Technisch/TechnischOntwerp.md#productive-datamodel). Een korte omschrijving van het probleem en de gekozen oplossing is te vinden in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md), dit document dient voor meer diepgang op het onderwerp indien de lezer van ADR001 behoefte heeft aan meer diepgang op de verschillende overwogen opties.
 
 Voor het project moet data uit en verstuurd worden naar productive. Deze data moet als single source of truth Productive gebruiken en dient met 50 gebruikers reactietijden te hebben van minder dan 3 sec zoals beschreven in [NFR3](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) en [NFR5](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements). Om de haalbaarheid deze NFR's te pijlen is gebruik gemaakt van de [scherm ontwerpen.](../Functioneel/Schermontwerpen.md)
 
@@ -172,12 +151,11 @@ Dit zijn reguliere webhooks, in te dienen bij Productive via de REST API met een
 
 Om een begrip op te bouwen over wat een Zapier webhook is wordt uitgegaan van [dit artikel](https://caisy.io/blog/webhooks-vs-zapier). Uit dit artikel blijkt dat Zapier automatie tooling is die gebruikt kan worden om zonder code te schrijven simpele taken te automatiseren tussen verschillende applicaties. Hiermee heb je de optie snel simpele procedures op te zetten maar verlies je een stukje flexibiliteit door Zapiers proprietary protocol.
 
-##### Conclusie
+<!-- ##### Conclusie
 
 De eerste indruk van Zapier is dat de vereenvoudigde automatisering voor kleinere/eenvoudigere projecten nuttig kan zijn, zoals het inlichten van een persoon bij een specifiek soort ticket. Hiervoor zou geen code geschreven hoeven worden en zou puur in de GUI van Zapier kunnen gebeuren.
 
-Aangezien in het PMP de webhooks gebruikt zouden worden om de gehele dataset te synchroniseren en er binnen dit project toch endpoints geschreven moeten worden om data over projecten en taken te verwerken voor de front-end zie ik de voordelen van Zapier binnen het PMP vooralsnog niet opwegen tegen de extra kosten en verlaagde maten van flexibiliteit.
-
+Aangezien in het PMP de webhooks gebruikt zouden worden om de gehele dataset te synchroniseren en er binnen dit project toch endpoints geschreven moeten worden om data over projecten en taken te verwerken voor de front-end zie ik de voordelen van Zapier binnen het PMP vooralsnog niet opwegen tegen de extra kosten en verlaagde maten van flexibiliteit. -->
 
 ### Time based synchronisatie ADR001-O3
 
@@ -224,9 +202,9 @@ Het nadeel van deze optie zit hem echter ook in de twee requests naar Productive
 
 ### Gecombineerd webhooks en change based polling ADR001-O5
 
-Door webhooks de standaard data synchronisatie te laten afhandelen zou het scenario dat het PMP twee sequentiële minder vaak voorkomen. Om er voor te zorgen dat data wanneer de gebruiker er om vraagt zeker up to date is kan gebruik gemaakt worden van het proces zoals beschreven bij [ADR001-O4](#change-based-polling-adr001-o4).*
+Door webhooks de standaard data synchronisatie te laten afhandelen zou het scenario dat het PMP twee sequentiële requests moet doen minder vaak voorkomen. Om er voor te zorgen dat data wanneer de gebruiker er om vraagt zeker up to date is kan gebruik gemaakt worden van het proces zoals beschreven bij [ADR001-O4](#change-based-polling-adr001-o4).*
 
-TODO:
+Open vraag:
 *De last activity geeft me geen garantie dat alle data tot dat punt is weggeschreven, alleen dat de activity van dat moment is weggeschreven. Kan ik iets zeggen over de activities die er voor kwamen en de garantie dat deze ook in de lokale database voorkomen?
 
 ## Workshop
@@ -235,13 +213,11 @@ Van de initieel voorgestelde opties [ADR001-O1 tm ADR001-O5](../Technisch/ADRs/A
 
 ### Requirements prioritization
 
-<!-- TODO: de onderstaande data wordt... -> de onderstaande data is.... -->
+<!-- TODO: de onderstaande data wordt... -> de onderstaande data is....
 
-Na in het library onderzoek een aantal mogelijke opties verzameld te hebben dienen de opties vergeleken te worden op basis van de opgestelde functionele en non-functionele requirements. De onderstaande data wordt voorgelegd aan de PM en TL van het project om feedback te krijgen op de voorgestelde oplossing voordat hier een prototype van gemaakt wordt. Ook hebben collega's op dit punt weer een feedback moment waar aan de hand van peer review commentaar of tips gegeven kan worden.
+Na in het library onderzoek een aantal mogelijke opties verzameld te hebben dienen de opties vergeleken te worden op basis van de opgestelde functionele en non-functionele requirements. De onderstaande data wordt voorgelegd aan de PM en TL van het project om feedback te krijgen op de voorgestelde oplossing voordat hier een prototype van gemaakt wordt. Ook hebben collega's op dit punt weer een feedback moment waar aan de hand van peer review commentaar of tips gegeven kan worden. -->
 
-<!-- TODO: PoC vs MVP https://www.nesta.org.uk/blog/proof-of-concept-prototype-pilot-mvp-whats-in-a-name/ -->
-
-#### Kwaliteit eisen
+<!-- #### Kwaliteit eisen -->
 
 Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en Productive worden binnen dit document voor de opties als beschreven in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) een aantal test opstellingen opgezet. Aan de hand van deze testopstellingen zullen de opties op de volgende eisen getest worden:
 
@@ -443,7 +419,7 @@ Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden
 
 ### Q9: Wordt alle informatie die het PMP nodig heeft doorgegeven aan de hand van webhooks? Wat gebeurt er bijvoorbeeld met comments?
 
-Voorlopig onbekend. Het zou kunnen dat voor informatie die weinig gebruikt wordt zoals bijlages in comments, wijzigingen in e-mail adressen of andere kleine weizigingen op het moment over het hoofd worden gezien. Wel is in ieder geval het grootste deel van de gewenste data te verkrijgen aan de hand van webhooks. Dit geeft ook ruimte om aan de hand van reguliere API calls de missende data op te halen met een verlaagd risico boven de Productive rate limits te komen.
+Voorlopig onbekend. Het zou kunnen dat voor informatie die weinig gebruikt wordt zoals bijlages in comments, wijzigingen in e-mail adressen of andere kleine wijzigingen op het moment over het hoofd worden gezien. Wel is in ieder geval het grootste deel van de gewenste data te verkrijgen aan de hand van webhooks. Dit geeft ook ruimte om aan de hand van reguliere API calls de missende data op te halen met een verlaagd risico boven de Productive rate limits te komen.
 
 
 

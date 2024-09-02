@@ -238,8 +238,36 @@ Uitdagingen:
 - Activities omzetten naar objecten als projecten en taken zou uitdagend kunnen zijn
 - Het is mogelijk dat enkel de meest recent geüpdatet data in de activities lijst komen en dus alsnog naderhand data opgehaald moet worden van productive om alle informatie aan de gebruiker te kunnen tonen.
 
-## Open vragen
+### O4: Hybrid/caching?
 
-- De bulk requests zoals beschreven in [optie 4](#o4-change-based-polling) heb ik persoonlijk nooit gebruikt en in de [Productive FAQ](https://developer.productive.io/faq.html#faq) wordt gesproken over dat er geen bulk insert bestaat voor create budget/deals. Mij is het vooralsnog onduidelijk of dit inhoudt dat er enkel voor de budget en deals endpoints geen bulk inserts gedaan kunnen worden of dat er api breed enkel bulk update en deletes gedaan kunnen worden.
-- [O2:](#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) Bij het toevoegen van data voor Productive binnen het PMP is er een periode dat de data wel in het PMP zou kunnen staan zonder dat er via de webhooks het toegevoegde item binnen zou komen. In de sequence diagram van het aangegeven hoofdstuk wordt bijgehouden of verschillende items gesynchroniseerd zijn aan de hand van verificatie na de webhook maar hier is geen strikte eis voor. Is er wens naar een dergelijke functionaliteit of is dit onnodige bij bedachte complexiteit?
-- Zoals bij de diagram voor [data wijzigen binnen het PMP](#data-wijzigen-binnen-het-pmp) besproken zou er nagedacht kunnen worden over een rollback procedure van incorrecte of niet verwerkte data in plaats van data sequentieel weg te schrijven. In de ideale situatie zouden alle stappen binnen TaskService.AddTask(TaskInfo) asynchroon uitvoerbaar zijn terwijl de transactie not atomair is.
+Er kan gebruik gemaakt worden van een cache met een tijd waarna records verlopen. Data over taken of projecten kan aan de hand van webhooks of direct polling opgehaald en weggeschreven worden waarna het PMP pas nieuwe data gaat ophalen zodra data voor een bepaalde tijd niet meer is ververst. Hiermee wordt het dubbel ophalen van data als er bijvoorbeeld van het dashboard naar een project wordt genavigeerd voorkomen.
+
+```puml
+title get by project id with cache
+TicketController -> TicketService : GetTicketsByProjectId([id])
+TicketService -> TicketRepository : GetByProjectId([id])
+    alt "Project found && !Refresh needed"
+            note right
+                Refresh needed = last_synced-datetime.now>refresh_required_interval
+            end note
+        TicketService <- TicketRepository : Tickets
+        TicketController <- TicketService : Tickets
+    else "Project not found || Refresh needed"
+        TicketService -> SyncService : SyncTicketsForProjects([id])
+        SyncService -> TicketApiClient : GetTicketsByProjectId([id])
+        SyncService -> TicketRepository : AddOrUpdateTickets(Tickets)
+        TicketController <- SyncService : Tickets
+end alt
+```
+
+<!-- ## Open vragen -->
+
+<!-- [ ] De bulk requests zoals beschreven in [optie 4](#o4-change-based-polling) heb ik persoonlijk nooit gebruikt en in de [Productive FAQ](https://developer.productive.io/faq.html#faq) wordt gesproken over dat er geen bulk insert bestaat voor create budget/deals. Mij is het vooralsnog onduidelijk of dit inhoudt dat er enkel voor de budget en deals endpoints geen bulk inserts gedaan kunnen worden of dat er api breed enkel bulk update en deletes gedaan kunnen worden. -->
+
+<!-- [ ] [O2:](#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) Bij het toevoegen van data voor Productive binnen het PMP is er een periode dat de data wel in het PMP zou kunnen staan zonder dat er via de webhooks het toegevoegde item binnen zou komen. In de sequence diagram van het aangegeven hoofdstuk wordt bijgehouden of verschillende items gesynchroniseerd zijn aan de hand van verificatie na de webhook maar hier is geen strikte eis voor. Is er wens naar een dergelijke functionaliteit of is dit onnodige bij bedachte complexiteit? -->
+
+<!-- [ ] Zoals bij de diagram voor [data wijzigen binnen het PMP](#data-wijzigen-binnen-het-pmp) besproken zou er nagedacht kunnen worden over een rollback procedure van incorrecte of niet verwerkte data in plaats van data sequentieel weg te schrijven. In de ideale situatie zouden alle stappen binnen TaskService.AddTask(TaskInfo) asynchroon uitvoerbaar zijn terwijl de transactie not atomair is. -->
+
+## Toevoegingen
+
+- De ProductiveApiClient die aanvragen verstuurd naar Productive als iets gewijzigd moet worden is gelimiteerd aan de 100 requests per 10 seconden waar de Productive API. Indien het PMP boven deze 100 requests uit komt dient het systeem hier netjes mee om te gaan. In de huidige setup zou dit de vorm aan nemen van een queue die berichten stuurt naar de Productive API die indien er door Productive het bericht wordt gegeven dat de rate limits bereikt zijn de wijzigingen bewaart en op een rustiger moment verwerkt.

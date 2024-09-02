@@ -1,6 +1,174 @@
 # Technisch ontwerp
 
-## ERD
+## Data model
+
+Data binnen het PMP is afkomstig uit twee bronnen, onderstaand is een korte toelichting op de bronnen, welke data er vandaan komt en hoe de koppeling ligt tussen de twee bronnen.
+
+- Productive API
+
+Binnen Productive wordt door developers gewerkt aan een project aan de hand van taken. Het PMP dient op de hoogte te zijn van de status van deze taken.
+
+- Interne PMP database
+
+De interne PMP database wordt gebruikt om extra data te koppelen aan Productive taken waar dit binnen productive niet mogelijk of praktisch is. Denk hierbij aan prioriteiten en koppelingen tussen klant accounts en verschillende projecten.
+
+| Entiteit | Productive | PMP |
+|---|---|---|
+| Tickets | - Productive task id </br>- Productive project id</br>- Title</br>- Description</br>- Inschatting</br>- Dependency task_id's</br>- Of één van de partijen feedback moet geven op een taak? (custom field)</br>- Datum ingediend</br>- Datum laatste update | - Productive task id + PMP task id + last updated (sync record?)</br>- Productive project id</br>- PMP task+project id</br>- Prioriteit/urgentie/impact</br>- Ingediend door</br>- Type (Doorontwikkeling of issue) |
+| Taken | - Productive task id</br>- Productive project id</br>- Title</br>- Description</br>- Inschatting</br>- Dependency task_id's</br>- Of één van de partijen feedback moet geven op een taak?</br>- Datum ingediend</br>- Datum laatste update | - Productive task id + PMP task id + last updated (sync record?)</br>- Productive project id</br>- PMP task+project id</br>- Prioriteit/urgentie/impact</br>- Ingediend door</br>- Type (Doorontwikkeling of issue) |
+| Projecten | - Productive project id</br>- Title</br>- Archived? | - Project beheerders + medewerkers</br>- Project status (archived?) |
+
+### Productive datamodel
+
+```puml
+title Essential productive data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle "Productive" {
+  class Project {
+    project_id
+    name
+  }
+  
+  class Task {
+    task_id
+    title
+    description
+    task_list_id
+    status_id
+    last_edited_on
+    created_on
+  }
+
+  class Attachment{
+    id
+    url
+  }
+  
+  class Task_list {
+    task_list_id
+    name
+    board_id
+  }
+  
+  class Board {
+    board_id
+    name
+    project_id
+  }
+  
+  class Status {
+    status_id
+    name
+  }
+
+  class CustomField{
+    custom_field_id
+    value
+  }
+
+  class Comment {
+    comment_id
+    content
+    task_id
+  }
+}
+
+class Ticket
+
+' Klant beheert project
+Klant "1"--"0..1" Project :> Eigenaar van
+Klant "1..*"--"0..*" Project :> Beheerder van
+
+' Klant Ticket
+Klant "1"--"0..*" Ticket :> Maakt een
+Ticket "1"--"0..*" Task :> Resulteert in
+
+Task "0..*" -- "1" Task_list : > Weggeschreven op
+Task_list "0..*" -- "1" Board : < Onderdeel van
+
+Task "0..*" -- "1" Status :< Van
+Board "1..*" -- "1" Project :> Voor
+
+Task "1" -- "0..*" Comment :< Heeft
+Task "0..*" -- "1" CustomField
+
+Task "0..*" -- "0..*" Task :> Depends on
+
+Attachment -- Task
+Attachment -- Comment
+
+```
+
+### PMP datamodel
+
+```plantuml
+title Essential PMP data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle Productive{
+    class "Task" as productive_task
+    class "Project" as productive_project
+    class "Attachment" as productive_attachment
+}
+
+rectangle PMP{
+    class Ticket{
+        Guid id
+        int productive_id
+        Type
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Task{
+        Guid id
+        int productive_id
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Bedrijf{
+        Guid id
+    }
+    class Prioriteit{
+        int urgentie
+        int impact
+    }
+    class Klant{
+        Guid id
+        String voornaam
+        String achternaam
+        String email
+    }
+    class Project{
+        Guid id
+        int productive_id
+    }
+    note right
+        Refers to Productive Project
+    end note
+}
+
+Klant "1..*"--"0..*" Project :> Beheerder van
+Klant "1..*"--"0..*" Bedrijf :> Beheerder van
+Project "0..*"--"1" Bedrijf :> Uitgevoerd voor
+Klant "1"--"0..*" Ticket :> Maakt een
+Task "0..*"--"1" Ticket :> Resulteert in
+Ticket "0..*" -- "1" Prioriteit :> Ingediend met
+
+Task "1"--"1" productive_task :> Links to
+Ticket "1"--"1" productive_task :> Links to
+Project "1"--"1" productive_project :> Links to
+```
+
+
+<!-- 
+OLD ERD:
 
 ```puml
 skinparam linetype ortho
@@ -170,7 +338,7 @@ Company ||..|{Project :> Owner of
 
 Task ||..||WorkflowStatus
 
-```
+``` -->
 
 ## Productive endpoints per scherm
 

@@ -133,25 +133,14 @@ Prioriteit .. (Impact, Urgentie)
 | Entiteit | Uitleg |
 |---|---|
 | Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. Dit is meestal een **doorontwikkeling**, **incident** of **servicevraag**. |
-| Taak | Een **Aanvraag** waar een [PM of TL](#act2-interne-beheerder) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. 
+| Taak | Een **Aanvraag** waar een [PM of TL](#act2-interne-beheerder) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. |
 | Incident  | Het substantieel niet voldoen van de applicatie aan de overeengekomen specificaties alsmede de situatie waarin sprake is van niet-Beschikbaarheid die niet het gevolg is van onderhoud. |
 | Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)   |
 | Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)  |
 | Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md) |
 
-<!-- **Aanvraag**: Als een klant iets wil in zijn/haar project doen ze hier een aanvraag voor.
-
-**Taak**: Een goedgekeurde aanvraag die op de backlog van productive terecht komt.
-
-**Incident**: Een taak waar eerder aangeleverde functionaliteit niet werkt naar behoren. Incidenten krijgen een urgentie en impact aan de hand waarvan een prioriteit wordt toegewezen.
-
-**Doorontwikkeling**: Een taak waar nieuwe functionaliteit wordt gebouwd voor een project. -->
-
-<!-- Dit proces kan per project verschillen met details als of klanten zelf toegang hebben tot Productive of toevoeging/weglaten van sommige task lists maar het blijft in grove lijnen over de meeste projecten het zelfde. Ter verheldering is de aanvraag/taak structuur uit het domeinmodel hier apart toegelicht. -->
-
- Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier verschillende taken van voor verschillende teams binnen Bluenotion. Deze taken worden over de loop van tijd op verschillende [Productive borden](./FunctioneelOntwerp.md#bord-structuur) gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak.
+Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier verschillende taken van voor verschillende teams binnen Bluenotion. Deze taken worden over de loop van tijd op verschillende [Productive borden](./FunctioneelOntwerp.md#bord-structuur) gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak.
 Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
-<!-- Hier onder volgt een generalisatie van hoe de workflow van de meeste projecten loopt. -->
 
 ```puml
 | Externe beheerder |
@@ -159,8 +148,6 @@ start
 repeat
 #Red:Plaats aanvraag;
 note right: FR3.1 Toevoegen nieuwe taak
-' note right: inclusief urgentie en impact
-' #Gray:System: Zet status op "Waiting for review Bluenotion";
 | Bluenotion admin |
 #LightBlue:Controleren aanvraag;
 note left: FR8.1 Controleren aanvraag 
@@ -229,8 +216,6 @@ skinparam ranksep 10
 left to right direction
 skinparam groupInheritance 3
 
-' skinparam linetype polyline
-' skinparam linetype ortho
 (backlog) #orange
 (in progress) as in_progress  #orange
 (in review) as in_review #orange 
@@ -239,13 +224,10 @@ skinparam groupInheritance 3
 (live) #green
 (wishlist) #Tomato
 (aanvragen) #Tomato
-' (awaiting customer) as awaiting_customer #red
 actor "Externe beheerder" as EK
 
 note "Input nodig van klant" as customernotifynote 
-' #Purple
 note "input nodig van Bluenotion" as bluenote 
-' #Lightblue
 
 customernotifynote .[norank]. wishlist
 customernotifynote .[norank]. staging
@@ -276,14 +258,10 @@ legend left
     |<#Orange>| Open |
     |<#99FF00>| Done |
     |<#Green>| Closed |
-'    |<#Purple> | Waiting for review customer |
-'    |<#LightBlue>  | Waiting for review Bluenotion |
     | ✓ | Accepted |
 endlegend
 
 ```
-
-<!-- | Awaiting customer (new)  | Taken die incorrect of incompleet zijn ingevuld door de klant worden door de PM of TL op dit bord neergezet met een vraag voor extra feedback van de klant.  | ACT1: Externe beheerder | -->
 
 #### Toelichting borden
 
@@ -309,15 +287,11 @@ De status die bij de bovenstaande borden staat aangegeven is de standaard status
 | Vakantie/vrij | Geeft aan dat de persoon die met deze taak aan de slag moet op het moment niet beschikbaar is. | Started |
 | Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
 
-<!-- ### Aanpassingen domein
-TODO: verhaaltje over de aanpassingen in het domein?
-Om de functionaliteiten van het PMP op zo'n manier te realiseren dat over alle verschillende projecten door de klant en PM gewerkt kan worden binnen het PMP en de interne medewerkers van Bluenotion verder kunnen werken binnen Productive is [FDR004](./FDRs/FDR004-Aanpassingen-Productive-workflow.md) opgezet. -->
-
 ## Actors en user stories
 
 De actors zijn de rollen die mensen aannemen als ze gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
 
-Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Wegens veiligheidsoverwegingen (TODO: schrijven FDR) is er de keuze gemaakt deze gebruikers verder op te delen in een medewerkers en een beheerders groep. Het idee hier achter is dat gebruikers op drie niveau's binnen het systeem rechten kunnen krijgen:
+Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Wegens veiligheidsoverwegingen is er [de keuze gemaakt](./FDRs/FDR005-Gelaagde%20rechten.md) deze gebruikers verder op te delen in een medewerkers en een beheerders groep. Het idee hier achter is dat gebruikers op drie niveau's binnen het systeem rechten kunnen krijgen:
 
 - **Corporatie**
     - Interne beheerder: Verantwoordelijk voor globaal project en klant beheer.
@@ -333,12 +307,7 @@ Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruik
     - Externe beheerder: Gemachtigd aanvragen te doen en taken te accepteren voor het aangewezen project.
     - Externe medewerker: Gemachtigd alle informatie over het aangewezen project in te zien.
 
-Twee aspecten die opvallend zijn aan deze opzet zijn:
-
-- Dat er geen externe beheerders of medewerkers toegevoegd kunnen worden op corporatie niveau. (TODO: FDR?)
-- Dat interne en externe medewerkers de zelfde omschrijving (en toegang hebben tot [de zelfde FR's](#rechten-tabel)) maar hier toch aparte actors van zijn gemaakt. (TODO: FDR?)
-
-Ter simplificatie wordt binnen dit project gesproken over 4 primaire actors in plaats van de bovengenoemde 10. Dit omdat de verschillen tussen verschillende rollen op verschillende niveau's niet zo zeer invloed hebben op welke acties een actor kan/mag uitvoeren maar op welke objecten binnen het systeem deze acties uitgevoerd mogen worden.
+Ter simplificatie wordt binnen dit project gesproken over 4 primaire actors in plaats van de bovengenoemde 10. Dit omdat de verschillen tussen verschillende rollen op verschillende niveau's niet zo zeer invloed hebben op welke acties een actor kan/mag uitvoeren maar op welke objecten binnen het systeem deze acties uitgevoerd mogen worden. De volledige rechten tabel is [later in dit document](#rechten-tabel) te vinden.
 
 ### ACT1: Externe beheerder
 
@@ -396,72 +365,6 @@ Op basis van gesprek 11-06-2024:
 Er werd gesproken over een admin en medewerkers account voor de externe beheerder. Voor zo ver ik heb begrepen is dit voornamelijk zodat niet voor iedereen die in het PMP komt tickets mag inschieten. Heeft het medewerkers account voor de externe beheerder leesrechten op alle functionaliteiten die ACT1 heeft of enkel een subset?
 
 ### User stories
-
-<!-- TODO: nalopen actor user story koppeling
-
-```puml
-left to right direction
-skinparam packageStyle rect
-
-:ACT1 Externe beheerder: as ACT1
-:ACT2 Interne beheerder: as ACT2
-:ACT3 Interne medewerker: as ACT3
-:ACT5 Externe medewerker: as ACT5
-ACT2-LEFT-|>ACT3
-ACT2-LEFT-|>ACT1
-ACT1-LEFT-|>ACT5
-ACT3-LEFT-|>ACT5
-
-usecase US1
-usecase US2
-usecase US3
-usecase US4
-usecase US5
-usecase US6
-usecase US7
-usecase US8
-usecase US9
-usecase US10
-usecase US12
-usecase US13
-usecase US14
-usecase US15
-usecase US16
-usecase US17
-usecase US18
-usecase US19
-usecase US20
-usecase US21
-usecase US22
-
-ACT2--US1
-ACT1--US2
-ACT1--US3
-ACT2--US4
-ACT3--US5
-ACT1--US6
-ACT1--US7
-ACT2--US7
-
-ACT1--US8
-ACT1--US9
-ACT2--US10
-ACT2--US12
-ACT1--US13
-ACT3--US14
-ACT3--US15
-ACT3--US16
-ACT1--US17
-ACT2--US18
-ACT2--US19
-ACT1--US20
-ACT2--US20
-
-ACT2--US21
-ACT1--US22
-ACT3--US24
-
-``` -->
 
 Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user story.
 
@@ -645,8 +548,6 @@ legend left
 
 ### Requirements traceability matrix
 
-<!-- TODO: opnieuw uitdraaien tabel of handmatig bijwerken. Let op! er zijn nieuwe FRs bijgekomen en deel van FR 7 is naar FR 5 verhuisd ivm rechten. -->
-
 | Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Document references | Status |
 |---|---|---|---|---|---|
 | FR1 | Inzien project plannings informatie |  |  | [Requirement overzicht](./Requirements/FR1_Inzien_project_plannings_informatie.md) |  |
@@ -736,8 +637,6 @@ legend left
 ### Authenticatie, Autorisatie, Accounting
 
 #### Rechten tabel
-
-TODO: Rename rechten tabel naar iets duidelijkers? actor requirement matrix oid?
 
 |  | Beheerder extern | Medewerker extern | Beheerder intern | Medewerker intern |
 |--|--|--|--|--|

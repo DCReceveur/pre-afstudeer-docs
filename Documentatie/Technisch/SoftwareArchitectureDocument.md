@@ -171,7 +171,6 @@ rectangle "PMP API"{
     ProductiveSyncController --> ITaskService
     ProductiveSyncController --> ICommentService
     ProductiveSyncController --> IAccountService
-
 ```
 
 #### Toelichting API componenten
@@ -185,6 +184,13 @@ rectangle "PMP API"{
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
 | **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
 | [**Models**](#Component-PMP-DB)  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#Component-PMP-DB) gegeven op de models.  |
+
+<!-- TODO: is dit een ADR? -->
+
+Eén gemaakte keuze bij het gebruik van de verschillende lagen en de communicatie hiertussen is dat de verschillende controllers enkel toegang hebben tot de verschillende service interfaces en niet de repository interfaces. Hierdoor zal voor lees acties binnen de services extra code geschreven moeten worden maar is de controller laag niet gekoppeld aan de onderliggende repositories.
+
+https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html
+
 
 ### <a id="Component-PMP-Services" /></a>PMP Services
 

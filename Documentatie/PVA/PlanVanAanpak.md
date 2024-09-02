@@ -8,6 +8,37 @@ Binnen dit document wordt toelichting gegeven op het Project Management Portal d
 
 Bluenotion is een bedrijf dat naar opdracht op maat gemaakte software oplossingen aanbiedt. Dit houdt in dat er op elk moment bij Bluenotion voor verschillende opdrachtgevers aan verschillende (vaak kort durende) projecten wordt gewerkt.
 
+```puml
+rectangle CEO
+rectangle Finance 
+rectangle "Operationeel management" as OM
+rectangle HR
+
+rectangle "Project technisch/management" as PTM
+
+rectangle Development 
+
+rectangle "User experience" as UX
+rectangle "Front end" as FE
+rectangle "Back end" as BE
+
+CEO -- Finance
+CEO -- OM
+CEO -- HR
+
+OM--PTM
+PTM--Development
+
+Development--UX
+Development--FE
+Development--BE
+note bottom
+    Daan Receveur
+end note
+```
+
+<!-- TODO: organigram toelichten? -->
+
 Met deze projectmatige wijze van maatwerk software oplossingen leveren heeft Bluenotion ondervonden dat de opdrachtgever bij het bouwproces betrekken een positieve invloed heeft op het algemene ontwikkelproces. Om deze reden is de opdracht "Een centraal portaal bouwen waar beide actoren in kunnen werken. Zodat alle informatie aangaande het proces geborgen wordt in een single point of truth" bedacht. Het idee voor dit project bestaat al een tijdje maar is wegens de lagere prioriteit van interne projecten nooit gebouwd.
 
 Met het aanbod het project verder te laten uitwerken als afstudeer project zijn er intern resources beschikbaar gesteld voor verdere ontwikkeling.
@@ -48,7 +79,7 @@ Hiervoor dient een centraal portaal gebouwd te worden waar beide de klant en med
 - Stroomlijnen development proces
     Door de klant meer input te geven over het plannings proces is de hoop dat onduidelijke taken verduidelijkt worden voordat ze bij developers terecht komen.
 - Borgen van kennis over projecten
-    Kennis als handleidingen of deployment informatie kunnen aangeleverd worden op de zelfde plek als waar de klant inzicht heeft in de ontwikkeling van het project. (TODO: navragen aanleveren documenten in "huidige staat systeem")
+    Kennis als handleidingen of deployment informatie kunnen aangeleverd worden op de zelfde plek als waar de klant inzicht heeft in de ontwikkeling van het project.
 
 ### Concrete resultaten
 
@@ -58,7 +89,7 @@ Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van
 
 ## Project grenzen
 
-- Het projectmanagement portal wordt niet ontwikkeld als vervanging van Productive.io voor het dev team of de PM/TL. Enkel voor de communicatie met de externe beheerder. Hiermee hebben alle usecases waar de externe beheerder geen primaire actor is automatisch een MoSCoW prioriteit van "Should have" of lager.
+- Het projectmanagement portal wordt niet ontwikkeld als vervanging van Productive.io voor het dev team of de PM/TL. Enkel voor de communicatie met de externe beheerder. Hiermee hebben alle use cases waar de externe beheerder geen primaire actor is automatisch een MoSCoW prioriteit van "Should have" of lager.
 - Het project wordt in ieder geval door ontwikkeld tot (TODO: precieze datum eind stage nazoeken)
 
 TODO: Grenzen overleggen
@@ -73,8 +104,6 @@ TODO: Grenzen overleggen
 ## Op te leveren producten en kwaliteitseisen en uit te voeren activiteiten
 
 Binnen dit project worden de volgende producten opgeleverd.
-
-<!-- TODO: is "PoC: Productive communicatie" een apart product of valt dit onder het onderzoek? -->
 
 | Product  | ProductKwaliteitseisen  | Benodigde activiteiten om te komen tot het product  | Proceskwaliteit (5 x W 1 x H)  |
 |---|---|---|---|
@@ -100,8 +129,6 @@ Aangezien binnen Bluenotion vaker met kleine teams tegelijkertijd aan verschille
 
 Deze deliverables worden besproken tijdens een sprint review waar stakeholders de optie hebben feedback te geven en het project bij te sturen. De review is de enige Scrum ceremonie die met regelmaat wordt uitgevoerd en dient tevens als retrospective en planning voor de volgende sprint.
 
-<!-- TODO: Onderzoeks stukje apart zetten? Ook verduidelijking toevoegen in kwaliteitseisen-->
-
 Aangezien er op het gebied van communicatie met productive een aantal open vragen zijn die invloed kunnen hebben op de rest van de software is er besloten vroegtijdig een onderzoekje op te zetten waar verschillende manieren van synchronisatie worden vergeleken en een prototype wordt gebouwd met de (afhankelijk van de functionele en non-functionele eisen) meest belovende oplossing. Dit prototype dient initieel als Proof of Concept en wordt als de oplossing bevalt uitgebouwd tot synchronisatie module. Met deze aanpak is de hoop eventuele problemen en/of limitaties van het gebruik van de Productive API te ontdekken en indien mogelijk een synchronisatie systeem te maken dat volledig losgekoppeld staat van de rest van de software.
 
 Open Productive communicatie vragen:
@@ -109,10 +136,9 @@ Open Productive communicatie vragen:
 - Biedt productive een API aan voor alle data die binnen het FO en schermontwerpen besproken worden?
 - Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?
 - Hoe worden wijzigingen gedaan in het PMP doorgegeven aan Productive?
-- Kan het systeem "oneindig" (los van Productive) schalen?
+- Kan het systeem los van Productive rate limits schalen?
 - Is het nodig de huidige data uit productive in een lokale database weg te schrijven of kan het systeem op requests werken?
 - Moeten er aparte endpoints gemaakt worden binnen het PMP voor de communicatie met Productive of kan er (netjes) gebruik gemaakt worden van de endpoints die de front-end ook gebruikt?
-<!-- TODO: schalen ding is onduidleijk -->
 
 Aan de hand van de antwoorden op deze vragen en de specifieke functionele en non-functionele eisen dient antwoord gegeven te worden op de hoofdvraag/Architectural Decision: Hoe dient het PMP te communiceren met Productive?
 
