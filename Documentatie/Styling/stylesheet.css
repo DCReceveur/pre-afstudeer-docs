@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'SuisseIntl';
+    src: url('Styling/SuisseIntl-Regular.otf') format("opentype");
+}
+:root {
+    --md-primary-fg-color: #022FB6;
+    --md-primary-fg-color--light: #2158FD;
+    --md-primary-fg-color--dark:  #022FB6;
+    --md-text-font: 'SuisseIntl';
+}
