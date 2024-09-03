@@ -1,3 +1,9 @@
+---
+
+weight: 10
+
+---
+
 # FR10: Beheren gebruikers
 
 ## FR10.1: Uitnodigen gebruiker

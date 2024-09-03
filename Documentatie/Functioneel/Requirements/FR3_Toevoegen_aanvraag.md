@@ -1,3 +1,9 @@
+---
+
+weight: 3
+
+---
+
 # FR3: Toevoegen aanvraag
 
 Deze functional requirements hebben betrekking op het toevoegen, toelichten of wijzigen van aanvragen/taken op een lopend project.
@@ -153,8 +159,8 @@ User story: Als externe beheerder wil ik screenshots kunnen toevoegen aan mijn t
 
 ## FR3.5: Aanpassen taak prioriteit
 
-TODO: verder uitwerken.
-Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotion
+<!-- TODO: verder uitwerken. Of is deze FR overbodig?
+Note: Na het aanpassen van de prio taak weer open zetten voor feedback Bluenotion -->
 
 | FR3.5 | Aanpassen taak prioriteit |
 |---|---|

@@ -1,3 +1,9 @@
+---
+
+weight: 9
+
+---
+
 # FR9: Tenant chat
 
 ## FR9.1: Starten nieuwe chat
@@ -108,8 +114,6 @@ User story: Als Bluenotion admin wil ik servicevragen gescheiden houden van take
 | 3 | Kiest de chat die hij wilt sluiten | |
 | 4 |  | Toont de chatlog en een optie de chat te sluiten |
 | 5 | Geeft aan de chat te willen sluiten.  |   |
-| 6 |   | Vraagt de reden waarom de chat gesloten mag worden. (Vraag beantwoord, Omgezet naar taak, Anders...)*  |
+| 6 |   | Vraagt de reden waarom de chat gesloten mag worden. (Vraag beantwoord, Omgezet naar taak, Anders...)  |
 | 7 | Geeft een reden op waarom de chat gesloten mag worden. |  |
 | 8 |   | Haalt de optie nieuwe berichten te sturen in de chat weg.  |
-
-TODO: redenen nodig? navragen.

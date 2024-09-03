@@ -1,3 +1,9 @@
+---
+
+weight: 4
+
+---
+
 # FR4: Versturen notificaties
 
 Deze functional requirements hebben betrekking op het inlichten van actoren wanneer ze niet actief zijn in het PMP.

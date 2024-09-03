@@ -1,3 +1,9 @@
+---
+
+weight: 7
+
+---
+
 # FR7 Inzien project documentatie
 
 ## FR7.1: Openen/downloaden document

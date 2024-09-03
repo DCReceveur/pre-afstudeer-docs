@@ -1,3 +1,9 @@
+---
+
+weight: 6
+
+---
+
 # FR6: Inzien project service statuses
 
 Deze functional requirements hebben betrekking tot het inzien van verschillende dependencies en services die geleverde projecten nodig hebben om te functioneren. Enkele voorbeelden van deze services en dependencies zijn een database, proxy, backup service, web/app server, virtuele machines.
@@ -26,7 +32,7 @@ Het zien van welke dependencies een project nodig heeft (databases, proxies, alg
 | 1 | De klant geeft aan de dependencies/services van een project te willen zien* |  |
 | 2 |  | Toont een lijstje met de namen van verschillende services aan de gebruiker. |
 
-TODO: *Afhankelijk van de hoeveelheid informatie die al op het scherm aanwezig is kan deze informatie mogelijk gewoon op de project detail pagina.
+<!-- TODO: *Afhankelijk van de hoeveelheid informatie die al op het scherm aanwezig is kan deze informatie mogelijk gewoon op de project detail pagina of een aparte tab. -->
 
 ### FR6.1: Alternative flow - Er zijn geen services aan het project gekoppeld
 

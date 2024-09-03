@@ -1,3 +1,9 @@
+---
+
+weight: 2
+
+---
+
 # FR2: Inzien taken
 
 Deze functional requirements betreffen het inzien van informatie over en gerelateerd aan de taken die gekoppeld zijn aan het project van een klant.

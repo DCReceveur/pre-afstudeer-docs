@@ -19,6 +19,7 @@ plugins:
         puml_url: https://www.plantuml.com/plantuml/
         num_workers: 8
     - search
+    - mkdocs-nav-weight
 
 repo_url: https://github.com/DCReceveur/pre-afstudeer-docs
 edit_uri: tree/main/Documentatie
