@@ -1,3 +1,9 @@
+---
+
+weight: 1
+
+---
+
 # FR1: Inzien project plannings informatie
 
 Deze functional requirements betreffen het inzien van de globale informatie over één of meerdere projecten voor ACT1: Externe beheerder.

@@ -70,12 +70,12 @@ FR4.2;;Inlichten Bluenotion bij blockers/criticals;Could have;ACT4: Notificatie 
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
 FR5;Beheren project;;;ACT2: Interne beheerder;;
-FR5.1;;Afhandelen project setup binnen PMP;Could have;ACT2: Interne beheerder;[US19](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) ;[ ] Define
+FR5.1;;Afhandelen project setup binnen PMP;Could have;ACT2: Interne beheerder;[US19](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR5_Beheren_project.md#fr51-afhandelen-project-setup) ;[ ] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR5.2;;Instellen productive boards & taak status;Could have;ACT2: Interne beheerder;[US20](#user-stories) [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards-en-taak-status);[x] Define
+FR5.2;;Instellen productive boards & taak status;Could have;ACT2: Interne beheerder;[US20](#user-stories) [FR5.2](./Requirements/FR5_Beheren_project.md#fr52-instellen-productive-boards-en-taak-status);[x] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
@@ -85,7 +85,7 @@ FR5.3;;Beheren project documentatie;Could have;ACT2: Interne beheerder; [Fully d
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR5.3;;Beheren project services;Could have;ACT2: Interne beheerder;[Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services);[ ] Define
+FR5.4;;Beheren project services;Could have;ACT2: Interne beheerder;[Fully dressed usecase description](/Documentatie/Requirements/FR6_Inzien_project_service_statuses.md#fr63-beheren-project-services);[ ] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE

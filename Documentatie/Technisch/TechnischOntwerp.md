@@ -1,6 +1,174 @@
 # Technisch ontwerp
 
-## ERD
+## Data model
+
+Data binnen het PMP is afkomstig uit twee bronnen, onderstaand is een korte toelichting op de bronnen, welke data er vandaan komt en hoe de koppeling ligt tussen de twee bronnen.
+
+- Productive API
+
+Binnen Productive wordt door developers gewerkt aan een project aan de hand van taken. Het PMP dient op de hoogte te zijn van de status van deze taken.
+
+- Interne PMP database
+
+De interne PMP database wordt gebruikt om extra data te koppelen aan Productive taken waar dit binnen productive niet mogelijk of praktisch is. Denk hierbij aan prioriteiten en koppelingen tussen klant accounts en verschillende projecten.
+
+| Entiteit | Productive | PMP |
+|---|---|---|
+| Tickets | - Productive task id </br>- Productive project id</br>- Title</br>- Description</br>- Inschatting</br>- Dependency task_id's</br>- Of één van de partijen feedback moet geven op een taak? (custom field)</br>- Datum ingediend</br>- Datum laatste update | - Productive task id + PMP task id + last updated (sync record?)</br>- Productive project id</br>- PMP task+project id</br>- Prioriteit/urgentie/impact</br>- Ingediend door</br>- Type (Doorontwikkeling of issue) |
+| Taken | - Productive task id</br>- Productive project id</br>- Title</br>- Description</br>- Inschatting</br>- Dependency task_id's</br>- Of één van de partijen feedback moet geven op een taak?</br>- Datum ingediend</br>- Datum laatste update | - Productive task id + PMP task id + last updated (sync record?)</br>- Productive project id</br>- PMP task+project id</br>- Prioriteit/urgentie/impact</br>- Ingediend door</br>- Type (Doorontwikkeling of issue) |
+| Projecten | - Productive project id</br>- Title</br>- Archived? | - Project beheerders + medewerkers</br>- Project status (archived?) |
+
+### Productive datamodel
+
+```puml
+title Essential productive data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle "Productive" {
+  class Project {
+    project_id
+    name
+  }
+  
+  class Task {
+    task_id
+    title
+    description
+    task_list_id
+    status_id
+    last_edited_on
+    created_on
+  }
+
+  class Attachment{
+    id
+    url
+  }
+  
+  class Task_list {
+    task_list_id
+    name
+    board_id
+  }
+  
+  class Board {
+    board_id
+    name
+    project_id
+  }
+  
+  class Status {
+    status_id
+    name
+  }
+
+  class CustomField{
+    custom_field_id
+    value
+  }
+
+  class Comment {
+    comment_id
+    content
+    task_id
+  }
+}
+
+class Ticket
+
+' Klant beheert project
+Klant "1"--"0..1" Project :> Eigenaar van
+Klant "1..*"--"0..*" Project :> Beheerder van
+
+' Klant Ticket
+Klant "1"--"0..*" Ticket :> Maakt een
+Ticket "1"--"0..*" Task :> Resulteert in
+
+Task "0..*" -- "1" Task_list : > Weggeschreven op
+Task_list "0..*" -- "1" Board : < Onderdeel van
+
+Task "0..*" -- "1" Status :< Van
+Board "1..*" -- "1" Project :> Voor
+
+Task "1" -- "0..*" Comment :< Heeft
+Task "0..*" -- "1" CustomField
+
+Task "0..*" -- "0..*" Task :> Depends on
+
+Attachment -- Task
+Attachment -- Comment
+
+```
+
+### PMP datamodel
+
+```plantuml
+title Essential PMP data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle Productive{
+    class "Task" as productive_task
+    class "Project" as productive_project
+    class "Attachment" as productive_attachment
+}
+
+rectangle PMP{
+    class Ticket{
+        Guid id
+        int productive_id
+        Type
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Task{
+        Guid id
+        int productive_id
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Bedrijf{
+        Guid id
+    }
+    class Prioriteit{
+        int urgentie
+        int impact
+    }
+    class Klant{
+        Guid id
+        String voornaam
+        String achternaam
+        String email
+    }
+    class Project{
+        Guid id
+        int productive_id
+    }
+    note right
+        Refers to Productive Project
+    end note
+}
+
+Klant "1..*"--"0..*" Project :> Beheerder van
+Klant "1..*"--"0..*" Bedrijf :> Beheerder van
+Project "0..*"--"1" Bedrijf :> Uitgevoerd voor
+Klant "1"--"0..*" Ticket :> Maakt een
+Task "0..*"--"1" Ticket :> Resulteert in
+Ticket "0..*" -- "1" Prioriteit :> Ingediend met
+
+Task "1"--"1" productive_task :> Links to
+Ticket "1"--"1" productive_task :> Links to
+Project "1"--"1" productive_project :> Links to
+```
+
+
+<!-- 
+OLD ERD:
 
 ```puml
 skinparam linetype ortho
@@ -170,7 +338,7 @@ Company ||..|{Project :> Owner of
 
 Task ||..||WorkflowStatus
 
-```
+``` -->
 
 ## Productive endpoints per scherm
 
@@ -203,10 +371,10 @@ Controllers worden per entiteit aangemaakt en volgen allemaal grofweg de zelfde 
 | Find (GET) | Geeft de mogelijkheid om informatie over één van de entiteiten op te vragen op basis van een opgegeven unieke identifier.  |  ```public async Task<ActionResult<TaskModel>> Find([FromRoute] TaskId taskId)```  |
 | GetAll (GET) | Levert alle entiteiten van het type aan die de gebruiker gemachtigd is te bekijken.  | ```public async Task<ActionResult<TasksModel>> GetAll()```  |
 | Post (POST) | Endpoint om nieuwe entiteiten van het type aan te maken.  |  ```public async Task<ActionResult<TasksModel>> AddBookingWithActivity([FromBody] AddTaskModel model, CancellationToken cancellationToken)``` |
-| Patch (PATCH)* | Endpoint om bestaande entiteiten op basis van hun unieke identificatie te wijzigen.  |  ```public async Task<ActionResult<TasksModel>> AddBookingWithActivity([FromBody] AddTaskModel model, CancellationToken cancellationToken)``` |
+| Patch (PATCH) | Endpoint om bestaande entiteiten op basis van hun unieke identificatie te wijzigen.  |  ```public async Task<ActionResult<TasksModel>> AddBookingWithActivity([FromBody] AddTaskModel model, CancellationToken cancellationToken)``` |
 | Delete (DELETE) | Endpoint om bestaande entiteiten te verwijderen  | ```public async Task<NoContentResult> DeleteActivityAdmin([FromRoute] TaskId taskId, CancellationToken cancellationToken)```  |
 
-TODO?: Een redenatie toevoegen over patch vs put?
+<!-- TODO?: Een redenatie toevoegen over patch vs put? -->
 
 optie:
 
@@ -214,7 +382,7 @@ endpoints ontwerpen zoals de repositories zodat filtering op de endpoints zelf t
 
 #### filtering pagination and sorting
 
-TODO: Vastleggen zodra ADR001 Decided is.
+<!-- TODO: Vastleggen zodra ADR001 Decided is. -->
 
 Afhankelijk van [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) zou er voor de PMP API gekeken moeten/kunnen worden naar filtering en pagination voor de RESTful endpoints. Bij de endpoints zoals aangeleverd door de Productive API op alle endpoints beiden filters en paginatie beschikbaar. Hiermee kunnen de hoeveelheid en welke records records die in een keer verstuurd worden beperkt worden en dus kunnen dus de reactiesnelheid en flexibiliteit van de endpoints vergroten. Met het voorlopig besluit van [ADR001-O2](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) waar het PMP een eigen database heeft waar de meeste productive data aan de hand van webhooks gesynchroniseerd wordt naar de lokale PMP database zouden filters en paginatie op de endpoints het uiteindelijke dataverkeer sterk verminderen.
 
@@ -231,7 +399,6 @@ Door hier extra filters aan te hangen voor enkel het doorsturen van bijvoorbeeld
 Met enkel deze filters zou [FR2.2](../Functioneel/Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) naast de feedback intern+extern al geïmplementeerd kunnen worden. Het filteren van de taken op feedback nodig van Bluenotion of de klant zouden zoals beschreven in het FO bij de [Toelichting statuses](../Functioneel/FunctioneelOntwerp.md#toelichting-statuses) kunnen gebeuren op basis de [workflow_status_id](https://developer.productive.io/tasks.html#header-supported-filter-params) filter kunnen gebeuren.
 
 Met oog op de [schermontwerpen](../Functioneel/Schermontwerpen.md) ligt het maximale aantal van de zelfde items items dat op één pagina in een keer geladen moet worden niet veel hoger dan 15. Als er gebruik gemaakt gaat worden van een lokale database voor de productive data zoals beschreven in [ADR001-O2](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) zou sortering, filtering en pagination op API endpoint niveau een waardevolle toevoeging kunnen zijn aan het project.
-
 
 <!-- https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/filters?view=aspnetcore-8.0 -->
 <!-- https://medium.com/@alrazak/pagination-and-filtering-in-rest-api-9fc4643d9cfe -->
@@ -410,7 +577,7 @@ Account_Controller -LEFT-> IAccount_Service
 
 ```
 
-*TODO: Betere logging procedure opzetten
+<!-- *TODO: Betere logging procedure opzetten -->
 
 <!-- #### IProjectService
 

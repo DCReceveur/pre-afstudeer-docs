@@ -1,3 +1,9 @@
+---
+
+weight: 7
+
+---
+
 # FR7 Inzien project documentatie
 
 ## FR7.1: Openen/downloaden document
@@ -82,10 +88,3 @@ TODO: Het voordeel aan deze opmerking is dat bij het uploaden van een nieuwe ver
 |Stap | Actor | System |
 |---|---|---|
 
-## FR7.4: Uploaden documentatie
-
-User story: Als interne beheerder wil ik documentatie kunnen uploaden zodat het open gezet kan worden voor klanten om te lezen.
-
-## FR7.5: Documentatie op de to-do lijst zetten
-
-User story: Als interne beheerder wil ik de externe beheerder op de hoogte brengen van aangeleverde instructies zodat dingen als deployment stappen door de klant zelf gevolgd kunnen worden en ik kan zien wanneer dit is gedaan.

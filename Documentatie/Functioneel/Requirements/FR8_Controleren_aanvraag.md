@@ -1,3 +1,9 @@
+---
+
+weight: 8
+
+---
+
 # FR8 Controleren aanvraag
 
 Deze functional requirements hebben betrekking op het goed (of af) keuren van aanvragen gedaan door de externe beheerder en het maken van taken op basis van deze aanvragen.

@@ -36,6 +36,7 @@ rectangle "Project management portal"{
 rectangle "Productive"{
   class Project
   class Taak
+  class Takenlijst
   class Board
   class Status
 }
@@ -61,7 +62,9 @@ Impact "1"--"0-..*" Incident : < Ingediend met
 Urgentie "1"--"0..*" Incident : < Ingediend met
 Prioriteit .. (Impact, Urgentie)  
 
-Taak"0..*"--"1"Board : > Weggeschreven op
+Taak"0..*"--"1"Takenlijst : > Weggeschreven op
+Takenlijst"0..*"--"1"Board : < Onderdeel van
+
 Taak"0..*"--"1"Prioriteit :< Van
 Taak"0..*"--"1"Status :< Van
 
@@ -130,25 +133,14 @@ Prioriteit .. (Impact, Urgentie)
 | Entiteit | Uitleg |
 |---|---|
 | Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. Dit is meestal een **doorontwikkeling**, **incident** of **servicevraag**. |
-| Taak | Een **Aanvraag** waar een [PM of TL](#act2-interne-beheerder) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. 
+| Taak | Een **Aanvraag** waar een [PM of TL](#act2-interne-beheerder) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. |
 | Incident  | Het substantieel niet voldoen van de applicatie aan de overeengekomen specificaties alsmede de situatie waarin sprake is van niet-Beschikbaarheid die niet het gevolg is van onderhoud. |
 | Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)   |
 | Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)  |
 | Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md) |
 
-<!-- **Aanvraag**: Als een klant iets wil in zijn/haar project doen ze hier een aanvraag voor.
-
-**Taak**: Een goedgekeurde aanvraag die op de backlog van productive terecht komt.
-
-**Incident**: Een taak waar eerder aangeleverde functionaliteit niet werkt naar behoren. Incidenten krijgen een urgentie en impact aan de hand waarvan een prioriteit wordt toegewezen.
-
-**Doorontwikkeling**: Een taak waar nieuwe functionaliteit wordt gebouwd voor een project. -->
-
-<!-- Dit proces kan per project verschillen met details als of klanten zelf toegang hebben tot Productive of toevoeging/weglaten van sommige task lists maar het blijft in grove lijnen over de meeste projecten het zelfde. Ter verheldering is de aanvraag/taak structuur uit het domeinmodel hier apart toegelicht. -->
-
- Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier verschillende taken van voor verschillende teams binnen Bluenotion. Deze taken worden over de loop van tijd op verschillende [Productive borden](./FunctioneelOntwerp.md#bord-structuur) gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak.
+Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier verschillende taken van voor verschillende teams binnen Bluenotion. Deze taken worden over de loop van tijd op verschillende [Productive borden](./FunctioneelOntwerp.md#bord-structuur) gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak.
 Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
-<!-- Hier onder volgt een generalisatie van hoe de workflow van de meeste projecten loopt. -->
 
 ```puml
 | Externe beheerder |
@@ -156,8 +148,6 @@ start
 repeat
 #Red:Plaats aanvraag;
 note right: FR3.1 Toevoegen nieuwe taak
-' note right: inclusief urgentie en impact
-' #Gray:System: Zet status op "Waiting for review Bluenotion";
 | Bluenotion admin |
 #LightBlue:Controleren aanvraag;
 note left: FR8.1 Controleren aanvraag 
@@ -226,8 +216,6 @@ skinparam ranksep 10
 left to right direction
 skinparam groupInheritance 3
 
-' skinparam linetype polyline
-' skinparam linetype ortho
 (backlog) #orange
 (in progress) as in_progress  #orange
 (in review) as in_review #orange 
@@ -236,13 +224,10 @@ skinparam groupInheritance 3
 (live) #green
 (wishlist) #Tomato
 (aanvragen) #Tomato
-' (awaiting customer) as awaiting_customer #red
 actor "Externe beheerder" as EK
 
 note "Input nodig van klant" as customernotifynote 
-' #Purple
 note "input nodig van Bluenotion" as bluenote 
-' #Lightblue
 
 customernotifynote .[norank]. wishlist
 customernotifynote .[norank]. staging
@@ -273,14 +258,10 @@ legend left
     |<#Orange>| Open |
     |<#99FF00>| Done |
     |<#Green>| Closed |
-    |<#Purple> | Waiting for review customer |
-    |<#LightBlue>  | Waiting for review Bluenotion |
     | ✓ | Accepted |
 endlegend
 
 ```
-
-<!-- | Awaiting customer (new)  | Taken die incorrect of incompleet zijn ingevuld door de klant worden door de PM of TL op dit bord neergezet met een vraag voor extra feedback van de klant.  | ACT1: Externe beheerder | -->
 
 #### Toelichting borden
 
@@ -297,8 +278,6 @@ endlegend
 
 #### Toelichting statuses
 
-Huidige situatie
-
 De status die bij de bovenstaande borden staat aangegeven is de standaard status van taken op dat bord. Op het moment worden statuses voornamelijk gebruikt om te binnen Productive te filteren op welke taken Open en Closed zijn. Aan de hand hiervan kan een klant met directe toegang tot Productive zien waar aan gewerkt wordt of kan de PM de status van taken door communiceren.
 
 | Status  | Uitleg  | [Workflow stage](https://help.productive.io/en/articles/5813154-creating-and-managing-workflows)  |
@@ -308,109 +287,11 @@ De status die bij de bovenstaande borden staat aangegeven is de standaard status
 | Vakantie/vrij | Geeft aan dat de persoon die met deze taak aan de slag moet op het moment niet beschikbaar is. | Started |
 | Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
 
-Voorgestelde situatie:
-
-Door in de workflow twee statuses toe te voegen die aangeven dat één van de partijen feedback moet aanleveren voordat er verder gegaan kan worden met een taak is het mogelijk op elk moment in het ontwerp of ontwikkelproces een taak weer open te zetten voor feedback. Hiermee kan met een relatief kleine wijziging in het bestaande systeem door het PMP aan de combinatie van een taak zijn status en het bord waar hij op staat bepaald worden wat welke actor wat moet doen om weer aan de slag te kunnen met een taak.
-
-<!-- Bluenotion werkt bij start van het project per taak met een status die aangeeft of een taak "Open", "Done", "Vakantie/Vrij" of "Closed" is. Het hele proces van aanvraag tm implementatie bevindt zich in de "Open" status. Door naast Open twee extra statuses toe te voegen voor wanneer een taak wacht op feedback van de klant of wacht op feedback van Bluenotion is het mogelijk binnen Productive zonder een taak van bord te wisselen een taak "open te zetten voor review". Zo kan er bijvoorbeeld een taak met onduidelijke beschrijving uit de aanvragen opengezet worden voor verduidelijking en een taak uit staging klaargezet voor review in de applicatie. -->
-
-| Status  | Uitleg  | [Workflow stage](https://help.productive.io/en/articles/5813154-creating-and-managing-workflows)  |
-|---|---|---|
-| Waiting for review customer  | Geeft aan dat een taak aan het wachten is op feedback van de klant.  | Not started  |
-| Waiting for review Bluenotion | Geeft aan dat een taak aan het wachten is op feedback van Bluenotion. | Not started |
-| Open  | Geeft aan dat Bluenotion actief aan het werk is aan een taak.  | Started  |
-| Done  | Geeft aan dat Bluenotion aan een taak heeft gewerkt en deze klaar is voor review.  | Started  |
-| Closed  | Geeft aan dat de klant een afgeronde taak heeft gereviewd en goedgekeurd.  | Closed  |
-<!-- | Not started | TODO: is deze status nodig? Hiermee zou een taak niet in progress zijn zonder dat er op een van de partijen op feedback wordt gewacht. Mogelijk relevant voor de wishlist? Extra statuses kunnen er wel voor zorgen dat het overzicht wordt verloren. | Not started | -->
-
-Omdat niet elk project bij Bluenotion niet de zelfde Productive structuur volgt qua taak borden en statussen is voor een koppeling tussen het PMP en Productive de volgende informatie nodig:
-
-Bord:
-
-- Welk bord (mogen) aanvragen staan?
-- Welk bord wordt gebruikt als backlog?
-- Welk bord wordt gebruikt als laatste controle van de klant? (development/staging)
-- *Welk bord wordt gebruikt als wishlist?
-
-Status:
-
-- Bij welke status moet de klant 'iets' met de taak? (Waiting for review customer)
-- Bij welke status moet Bluenotion 'iets' met de taak? (Waiting for review Bluenotion)*
-- status open
-- status done
-- status closed
-
-*Status wordt op het moment gebruikt in sommige projecten, om tijdens de transitie van klanten in Productive naar het PMP geen functionaliteit kwijt te raken waar de klant gewend aan is, is het misschien beter om te kijken of tags gebruikt kunnen worden als notificatie flag.
-
-*Is wishlist deel van V1?
-Is done/closed nodig of wordt status gebruikt?
-
-wishlist?
-
-benodigde statussen:
-
-Not started
-Open
-Done
-Closed
-
-TODO: Wordt vakantie/vrij gebruikt?
-
-Aan de hand van deze informatie kan het PMP de volgende beslissingen maken:
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review Bluenotion | Aanvragen | De aanvraag is ingediend en wacht op goedkeuring van Bluenotion | Informeer de PM aan de hand van PMP of e-mail. |
-| Waiting for review customer | Aanvragen | De aanvraag heeft meer feedback nodig van de klant | Informeer de klant aan de hand van het PMP of e-mail. |
-| Open | Aanvragen | De aanvraag is goedgekeurd, taken zijn aangemaakt en zijn in behandeling bij Bluenotion | nvt |
-| Done | Aanvragen | Alle taken waarin de aanvraag was geresulteerd zijn klaar voor review voor de klant | Informeer de klant aan de hand van het PMP of e-mail. |
-| Closed | Aanvragen | Alle taken waarin de aanvraag was geresulteerd zijn klaar voor review voor de klant | nvt |
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review customer | Backlog | Tijdens het ontwikkelen bleek meer informatie nodig te zijn. | Informeer de klant aan de hand van PMP of e-mail. |
-| Waiting for review Bluenotion | Backlog | De klant heeft reactie gegeven op de informatievraag. | Informeer de PM (of dev?) aan de hand van PMP of e-mail. |
-| Open | Backlog | De taak is in behandeling | nvt |
-| Not started | Backlog | Er is iets mis? | nvt* |
-| Done | Backlog | Er is iets mis? | nvt* |
-| Closed | Backlog | Er is iets mis? | nvt* |
-
-*Iets verzinnen voor deze "verloren" taken? Staan normaal op productive maar zouden mogelijk niet netjes in een PMP groepering gegooid worden.
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review customer  | Staging | De taak is afgerond en de klant kan de functionaliteit controleren. |  |
-| Waiting for review Bluenotion  | Staging | De klant heeft reactie gegeven op de taak maar de taak niet goedgekeurd. |  |
-| Open  | Staging |  |  |
-| Done | Staging |  |  |
-| Closed | Staging |  |  |
-
-| Status | Bord | Betekenis | Actie |
-|--|--|--|--|
-| Waiting for review customer  | Live |  |  |
-| Waiting for review Bluenotion  | Live |  |  |
-| Open  | Live |  |  |
-| Done | Live |  |  |
-| Closed | Live |  |  |
-
-Kun je een taak hebben in de aanvragen?
-Maakt de PM taken aan op de backlog?
-
-|  |  |  |  |
-|--|--|--|--|
-|  | backlog |  |  |
-|  | staging |  |  |
-|  | Aanvragen |  |  |
-|  | Aanvragen |  |  |
-|  | Aanvragen |  |  |
-|  | Aanvragen |  |  |
-
-
 ## Actors en user stories
 
 De actors zijn de rollen die mensen aannemen als ze gebruik maken van het systeem. Voor elke actor wordt toegelicht wat zijn/haar rol is, hoe de actor in de situatie voor het PMP werkt en wat de actor uit het PMP kan verwachten.
 
-Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Wegens veiligheidsoverwegingen (TODO: schrijven FDR) is er de keuze gemaakt deze gebruikers verder op te delen in een medewerkers en een beheerders groep. Het idee hier achter is dat gebruikers op drie niveau's binnen het systeem rechten kunnen krijgen:
+Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Wegens veiligheidsoverwegingen is er [de keuze gemaakt](./FDRs/FDR005-Gelaagde%20rechten.md) deze gebruikers verder op te delen in een medewerkers en een beheerders groep. Het idee hier achter is dat gebruikers op drie niveau's binnen het systeem rechten kunnen krijgen:
 
 - **Corporatie**
     - Interne beheerder: Verantwoordelijk voor globaal project en klant beheer.
@@ -426,12 +307,7 @@ Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruik
     - Externe beheerder: Gemachtigd aanvragen te doen en taken te accepteren voor het aangewezen project.
     - Externe medewerker: Gemachtigd alle informatie over het aangewezen project in te zien.
 
-Twee aspecten die opvallend zijn aan deze opzet zijn:
-
-- Dat er geen externe beheerders of medewerkers toegevoegd kunnen worden op corporatie niveau. (TODO: FDR?)
-- Dat interne en externe medewerkers de zelfde omschrijving (en toegang hebben tot [de zelfde FR's](#rechten-tabel)) maar hier toch aparte actors van zijn gemaakt. (TODO: FDR?)
-
-Ter simplificatie wordt binnen dit project gesproken over 4 primaire actors in plaats van de bovengenoemde 10. Dit omdat de verschillen tussen verschillende rollen op verschillende niveau's niet zo zeer invloed hebben op welke acties een actor kan/mag uitvoeren maar op welke objecten binnen het systeem deze acties uitgevoerd mogen worden.
+Ter simplificatie wordt binnen dit project gesproken over 4 primaire actors in plaats van de bovengenoemde 10. Dit omdat de verschillen tussen verschillende rollen op verschillende niveau's niet zo zeer invloed hebben op welke acties een actor kan/mag uitvoeren maar op welke objecten binnen het systeem deze acties uitgevoerd mogen worden. De volledige rechten tabel is [later in dit document](#rechten-tabel) te vinden.
 
 ### ACT1: Externe beheerder
 
@@ -490,71 +366,6 @@ Er werd gesproken over een admin en medewerkers account voor de externe beheerde
 
 ### User stories
 
-TODO: nalopen actor user story koppeling
-
-```puml
-left to right direction
-skinparam packageStyle rect
-
-:ACT1 Externe beheerder: as ACT1
-:ACT2 Interne beheerder: as ACT2
-:ACT3 Interne medewerker: as ACT3
-:ACT5 Externe medewerker: as ACT5
-ACT2-LEFT-|>ACT3
-ACT2-LEFT-|>ACT1
-ACT1-LEFT-|>ACT5
-ACT3-LEFT-|>ACT5
-
-usecase US1
-usecase US2
-usecase US3
-usecase US4
-usecase US5
-usecase US6
-usecase US7
-usecase US8
-usecase US9
-usecase US10
-usecase US12
-usecase US13
-usecase US14
-usecase US15
-usecase US16
-usecase US17
-usecase US18
-usecase US19
-usecase US20
-usecase US21
-usecase US22
-
-ACT2--US1
-ACT1--US2
-ACT1--US3
-ACT2--US4
-ACT3--US5
-ACT1--US6
-ACT1--US7
-ACT2--US7
-
-ACT1--US8
-ACT1--US9
-ACT2--US10
-ACT2--US12
-ACT1--US13
-ACT3--US14
-ACT3--US15
-ACT3--US16
-ACT1--US17
-ACT2--US18
-ACT2--US19
-ACT1--US20
-ACT2--US20
-
-ACT2--US21
-ACT1--US22
-
-```
-
 Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user story.
 
 | User story no | Gerelateerde actors  | Omschrijving  | Resulterende requirement(s)  |
@@ -577,11 +388,12 @@ Eisen en wensen gesteld aan het systeem worden eerst geregistreerd als een user 
 | US16 | ACT3 | Als medewerker van Bluenotion wil ik dat alle klanten van Bluenotion om kunnen gaan met het PMP. | [NFR1.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR6.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.3](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR7.1](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US17 | ACT1 | Als externe beheerder wil ik niet beïnvloed worden door andere mensen die tegelijkertijd het PMP gebruiken. | [NFR2.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR5.2](FunctioneelOntwerp.md#nonfunctional-requirements) |
 | US18 | ACT2 | Als Bluenotion admin wil ik dat het systeem bij verlies van database binnen 3 uur hersteld kan worden naar een werkende state. | [NFR8.1](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.2](FunctioneelOntwerp.md#nonfunctional-requirements), [NFR8.3](FunctioneelOntwerp.md#nonfunctional-requirements) |
-| US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup) |
+| US19 | ACT2 | Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen | [FR5.1](./Requirements/FR5_Beheren_project.md#fr51-afhandelen-project-setup) |
 | US20 | ACT1, ACT2 | Als Bluenotion admin wil ik servicevragen gescheiden houden van taken zodat developers hier minder tijd aan kwijt zijn. | [FR9](./Requirements/FR9_Tenant_level_chat.md) |
-| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Requirements/FR5_Opstellen_project.md) |
+| US21 | ACT2 | Als Bluenotion admin wil ik per project aan kunnen passen welke productive [borden voor het PMP betekenis hebben](FunctioneelOntwerp.md#bord-structuur) zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet. | [FR5.2](./Requirements/FR5_Beheren_project.md) |
 | US22 | ACT1 | Als externe beheerder wil ik mijn aanvragen kunnen annuleren zodat geen tijd wordt besteed aan taken die ik niet belangrijk vindt. |  |
 | US23 | ACT1 | Als externe beheerder wil ik screenshots kunnen toevoegen aan mijn tickets en opmerkingen om mijn punten te verduidelijken. | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) |
+| US24 | ACT3 | Als interne medewerker wil ik mijn workflow niet moeten wijzigen om een nieuw klantportaal te faciliteren | NFR8.4 |
 
 ## Requirements
 
@@ -757,10 +569,10 @@ legend left
 | FR4.1 |  | Inlichten klant wanneer een taak wacht op input van de klant | Should have | [US9](FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR4.2 |  | Inlichten Bluenotion bij blockers/criticals | Could have | [Fully dressed usecase description](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5 | Beheren project |  |  |  |  |
-| FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](#user-stories) [FR5.2](./Requirements/FR5_Opstellen_project.md#fr52-instellen-productive-boards-en-taak-status) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.1 |  | Afhandelen project setup binnen PMP | Could have | [US19](FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR5_Beheren_project.md#fr51-afhandelen-project-setup)  | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.2 |  | Instellen productive boards & taak status | Could have | [US20](#user-stories) [FR5.2](./Requirements/FR5_Beheren_project.md#fr52-instellen-productive-boards-en-taak-status) | [x] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR5.3 |  | Beheren project documentatie | Could have |  [Fully dressed usecase description](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
-| FR5.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Requirements/FR5_Opstellen_project.md#fr53-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
+| FR5.3 |  | Beheren project services | Could have | [Fully dressed usecase description](./Requirements/FR5_Beheren_project.md#fr53-beheren-project-services) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR6 | Inzien project service statuses |  |  | [Requirement overzicht](./Requirements/FR6_Inzien_project_service_statuses.md)  |  |
 | FR6.1 |  | Inzien lijst van project dependencies | Could have | [US13](FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
 | FR6.2 |  | Inzien huidige status (online/offline) project dependencies | Could have | [US13](FunctioneelOntwerp.md#user-stories),[Fully dressed usecase description](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [ ] Define  </br> [ ] UX  </br> [ ] FE  </br> [ ] BE  </br> [ ] Testing |
@@ -811,8 +623,9 @@ legend left
 |   | NFR7.1  | Het systeem werkt op alle Windows en MAC versies van de afgelopen 3? jaar  | Must have  |    [US16](#user-stories)  |
 | NFR8 | Maintainability  |   |   |      |
 |   | NFR8.1  | Het systeem kan bij verlies van de database binnen 3 uur hersteld worden naar een werkende state.  | Could have  |    [US18](#user-stories)  |
-|   | NFR8.2  |  Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |   [US18](#user-stories)  |
+|   | NFR8.2  | Bij verlies van de database raken geen gegevens over projecten of taken verloren. | Must have |   [US18](#user-stories)  |
 |   | NFR8.3  | Bij verlies van de database raken geen gegevens ouder dan 24 uur verloren.  | Must have  |    [US18](#user-stories)  |
+|   | NFR8.4  | Medewerkers van Bluenotion kunnen met minimale aanpassingen in de workflow zijn werk nog kunnen doen. | Should have | [US23](#user-stories) |
 
 **Unsorted**
 
@@ -821,13 +634,9 @@ legend left
 | FR1.3  |   | Toekennen overige project uren  | Could have  | FR1.2  |   |
 | FR1.4  |   | Toekennen SLA KPI's | Could have  | FR1.1  |   |
 
-
-
 ### Authenticatie, Autorisatie, Accounting
 
 #### Rechten tabel
-
-TODO: Rename rechten tabel naar iets duidelijkers? actor requirement matrix oid?
 
 |  | Beheerder extern | Medewerker extern | Beheerder intern | Medewerker intern |
 |--|--|--|--|--|
@@ -890,18 +699,18 @@ Bron: https://developer.productive.io/comments.html#comments
 
 Uiteraard worden de comments meegenomen onder de rechten regels zoals [hierboven](#autorisatie) beschreven.
 
-TODO: Keep in mind dat de Bluenotion api key enkel resultaten van org Bluenotion kent
+<!-- TODO: Keep in mind dat de Bluenotion api key enkel resultaten van org Bluenotion kent (op te lossen na vraag over comments in productive Jesse) -->
 
 #### Accounting
 
 Om problemen binnen het systeem te kunnen herleiden naar hun oorsprong dient voor alle wijzigingen die vanuit het PMP naar Productive de gebruiker en wijziging gelogd te worden.
 
-TODO: is dit alles?
+<!-- TODO: is dit alles? -->
 
 ## Bronnen
 
-TODO: Sources netjes documenteren maar sources:
+<!-- TODO: Sources netjes documenteren maar sources:
 
 NFR categories: https://www.altexsoft.com/blog/non-functional-requirements/
 https://www.altexsoft.com/blog/software-requirements-specification/
-Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523
+Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->
