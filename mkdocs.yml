@@ -4,15 +4,15 @@ theme:
   features:
     - navigation.instant
     - content.action.edit
-  logo: /Styling/logo.svg
-  favicon: /Styling/favicon.png
+  logo: Styling/logo.svg
+  favicon: Styling/favicon.png
 docs_dir: Documentatie
 exclude_docs: |
   /Archive/
   /Notes/
 
 extra_css:
-- /Styling/stylesheet.css
+- Styling/stylesheet.css
 
 plugins:
     - plantuml:
