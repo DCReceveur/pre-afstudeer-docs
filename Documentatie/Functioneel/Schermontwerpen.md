@@ -277,7 +277,30 @@ Raakt:
 
 ![component met een aantal tickets](../Images/FunctioneelOntwerp/takenlijst.png)
 
-Feed
+#### Feed
+
+Voorbeeld feed list.
+
+| Datetime | Ticket naam | Actie |
+|---|---|---|
+| 05-09-2024 10:02 | Elektrische steppen toevoegen aan de voorraad | Geaccepteerd door Sjef Wouters |
+| 05-09-2024 10:01 | Elektrische steppen toevoegen aan de voorraad | Opmerking toegevoegd door Jesse Bekke |
+| 05-09-2024 09:15 | Elektrische steppen toevoegen aan de voorraad | Actie vereist van de klant* |
+| 05-09-2024 09:15 | Elektrische steppen toevoegen aan de voorraad | Opmerking toegevoegd door Jesse Bekke |
+| 04-09-2024 12:35 | Elektrische steppen toevoegen aan de voorraad | Geaccepteerd door Sjef Wouters |
+| 04-09-2024 10:12 | Elektrische steppen toevoegen aan de voorraad | Actie vereist van de klant* |
+| 04-09-2024 10:11 | Elektrische steppen toevoegen aan de voorraad | Bijlagen toegevoegd door Jesse Bekke |
+| 03-09-2024 10:22 | Elektrische steppen toevoegen aan de voorraad | Geaccepteerd door Sjef Wouters |
+| 03-09-2024 09:33 | Elektrische steppen toevoegen aan de voorraad | Actie vereist van de klant* |
+| 03-09-2024 09:32 | Elektrische steppen toevoegen aan de voorraad | Omschrijving aangepast door Jesse Bekke |
+| 03-09-2024 09:30 | Elektrische steppen toevoegen aan de voorraad | Prioriteit gewijzigd door Jesse Bekke |
+| 03-09-2024 09:00 | Elektrische steppen toevoegen aan de voorraad | Ticket aangemaakt door Sjef Wouters |
+
+Sjef Wouters is in dit geval externe beheerder van het project
+Jesse Bekke is in dit geval interne beheerder van het project
+*Zou anders verwoord kunnen worden of vervangen kunnen worden door [klantnaam]
+
+**Hier zouden we kunnen vertellen door wie een opmerking is toegevoegd? Doen
 
 ![alt text](../Images/FunctioneelOntwerp/feed.png)
 
