@@ -699,18 +699,18 @@ Bron: https://developer.productive.io/comments.html#comments
 
 Uiteraard worden de comments meegenomen onder de rechten regels zoals [hierboven](#autorisatie) beschreven.
 
-TODO: Keep in mind dat de Bluenotion api key enkel resultaten van org Bluenotion kent
+<!-- TODO: Keep in mind dat de Bluenotion api key enkel resultaten van org Bluenotion kent (op te lossen na vraag over comments in productive Jesse) -->
 
 #### Accounting
 
 Om problemen binnen het systeem te kunnen herleiden naar hun oorsprong dient voor alle wijzigingen die vanuit het PMP naar Productive de gebruiker en wijziging gelogd te worden.
 
-TODO: is dit alles?
+<!-- TODO: is dit alles? -->
 
 ## Bronnen
 
-TODO: Sources netjes documenteren maar sources:
+<!-- TODO: Sources netjes documenteren maar sources:
 
 NFR categories: https://www.altexsoft.com/blog/non-functional-requirements/
 https://www.altexsoft.com/blog/software-requirements-specification/
-Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523
+Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->

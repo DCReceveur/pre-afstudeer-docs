@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'SuisseIntl';
-    src: url('Styling/SuisseIntl-Regular.otf') format("opentype");
+    src: url('/Styling/SuisseIntl-Regular.otf') format("opentype");
 }
 :root {
     --md-primary-fg-color: #022FB6;

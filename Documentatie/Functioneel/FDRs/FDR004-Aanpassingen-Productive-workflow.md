@@ -8,11 +8,11 @@ Is dit eigenlijk een ADR? Het is niet perse relevant voor de architectuur van he
 
 Aangezien voor elk project variaties bestaan op de boven beschreven werkwijzes/procedures en lang niet alle informatie interessant is voor de klant van Bluenotion is er na overleg met de UX ontwerper en PM gekozen om de "ontwikkelstraat"** lost te koppelen van de status die de klant ziet. De hoop is door de klant een gesimplificeerde werkwijze te laten zien de onduidelijkheden over benaming van verschillende takenlijsten en statussen te beperken. Wel komt hier bij kijken dat er een eis is in [NFR8.4](#nonfunctional-requirements) die specificeert dat de werkwijze van developers zo min mogelijk aangetast dient te worden door de introductie van het PMP.
 
-TODO2: **ontwikkelstraat toevoegen aan woordenlijst
+<!-- TODO2: **ontwikkelstraat toevoegen aan woordenlijst -->
 
-Om tot een passende oplossing te komen over hoe binnen Productive flexibel gewerkt kan worden maar wel alle data beschikbaar is voor het PMP zijn voor [ACT1](../FunctioneelOntwerp.md#act1-externe-beheerder) en [ACT2](../FunctioneelOntwerp.md#act2-interne-beheerder) alle scenarios waarop ze zouden interacteren met de Productive omgeving op een rijtje gezet en opties vergeleken waarop de interactie gefaciliteerd zou kunnen en wat voor impact dit zou hebben op de workflow [ACT3](../FunctioneelOntwerp.md#act3-interne-medewerker). 
+Om tot een passende oplossing te komen over hoe binnen Productive flexibel gewerkt kan worden maar wel alle data beschikbaar is voor het PMP zijn voor [ACT1](../FunctioneelOntwerp.md#act1-externe-beheerder) en [ACT2](../FunctioneelOntwerp.md#act2-interne-beheerder) alle scenarios waarop ze zouden interacteren met de Productive omgeving op een rijtje gezet en opties vergeleken waarop de interactie gefaciliteerd zou kunnen en wat voor impact dit zou hebben op de workflow [ACT3](../FunctioneelOntwerp.md#act3-interne-medewerker).
 
-TODO: is dit nou soort van [problem analysis](https://ictresearchmethods.nl/field/problem-analysis/)?
+<!-- TODO: is dit nou soort van [problem analysis](https://ictresearchmethods.nl/field/problem-analysis/)? -->
 
 ### ACT1: Externe beheerder
 
@@ -67,7 +67,7 @@ De custom fields zijn met een dropdown niet fout gevoelig en worden bij de meest
 
 ### O1: Afleiden wie wat moet doen op basis van welke taaklijst een taak in staat
 
-TODO: invullen of weghalen
+<!-- TODO: invullen of weghalen -->
 
 <!-- Omschrijving:
 

@@ -1,4 +1,4 @@
-# ADR000: Gelaagde rechten
+# ADR005: Gelaagde rechten
 
 <!-- TODO: Verder uitwerken -->
 

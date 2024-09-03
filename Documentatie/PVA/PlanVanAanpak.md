@@ -90,9 +90,9 @@ Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van
 ## Project grenzen
 
 - Het projectmanagement portal wordt niet ontwikkeld als vervanging van Productive.io voor het dev team of de PM/TL. Enkel voor de communicatie met de externe beheerder. Hiermee hebben alle use cases waar de externe beheerder geen primaire actor is automatisch een MoSCoW prioriteit van "Should have" of lager.
-- Het project wordt in ieder geval door ontwikkeld tot (TODO: precieze datum eind stage nazoeken)
+- Het project wordt in ieder geval door ontwikkeld tot 25-01-2025
 
-TODO: Grenzen overleggen
+<!-- TODO: Grenzen overleggen -->
 
 ## Randvoorwaarden
 
@@ -117,9 +117,7 @@ Binnen dit project worden de volgende producten opgeleverd.
 | Testplan & Testrapport  | - Het test plan is aan het eind van elke sprint een accurate representatie van de staat van het project.</br> - Het testplan bevat voor elke usecase de happy flow.</br> - Het testplan bevat alternative flows voor scenario’s waar de opdrachtgever dit belangrijk acht.  | - In het testplan worden happy flows opgenomen zodra de bijbehorende usecases “Done” zijn.</br> - Alternative flows worden overlegd met de opdrachtgever, techlead of productmanager en indien ze complex zijn of om andere reden er een wens is alt flows toe te lichten worden ze meegenomen in het FO en Testrapport.  | - Het testrapport wordt op de laatste dag van elke sprint opnieuw ingevuld.  |
 | Afstudeerverslag | - Het afstudeerverslag is niet langer dan 6.000 woorden of 15 pagina's (exclusief samenvatting, inhoudsopgave, bronvermeldingen en bijlagen)</br> - Alle beoordelingscriteria (BC1 tm BC5) uit het beoordelingsformulier afstuderen ICT 2020-2021 van de Afstudeerhandleiding HBO-ICT en CMD 2024-2026 zijn met op zijn minst twee prestatiecriterium afgevinkt. </br> | - Woorden & pagina teller </br> - Feedback docent begeleider  | De beoordeling criteria en bijbehorende prestatie criteria in een verslag template zetten aan het begin van de stage en wanneer ze aan bod komen de bijbehorende hoofdstukken aanvullen. </br> indien halverwege de stage BC's of PC's blijven nog niet ingevuld zijn dit aangeven bij de bedrijf of docent begeleider met vraag om advies dit te rectificeren. |
 | Eindpresentatie  | - Er wordt een presentatie gegeven van 20 tot 30 minuten over het afstudeerproject | - Het stage verslag maken. | - Aan het eind van de stage het proces als vastgelegd in het afstudeerverslag in een powerpoint zetten. |
-| Opleverdocument | - Bevat een kort overzicht van de aangeleverde software en de bijbehorende functionaliteiten op basis van het testrapport. </br>- Bevat een deployment diagram met stappenplan om de software vanaf niets op te zetten. </br>- Bevat een kort overzicht van eventuele toekomstige uitbreidingen. |  |  |
-
-<!-- TODO: opleverdocument activiteiten en proceskwaliteit -->
+| Opleverdocument | - Bevat een kort overzicht van de aangeleverde software en de bijbehorende functionaliteiten op basis van het testrapport. </br>- Bevat een deployment diagram met stappenplan om de software vanaf niets op te zetten. </br>- Bevat een kort overzicht van eventuele toekomstige uitbreidingen. | - Testrapport maken en invullen</br>- Functionaliteiten lijst nalopen met implementatie status</br>- Deployment instructies schrijven</br>- Samenvatten van belangrijke beslissingen uit het SAD, FO en TO</br>- Noteren potentiële aandachtspunten en uitbreidingsmogelijkheden | - In sprint 9 de gemaakte software vergelijken met de gemaakte documentatie en de hiervoor genoemde punten nalopen. |
 
 ## Ontwikkelmethoden
 
@@ -200,16 +198,16 @@ Ook deze zijn ingedeeld in sprints van 2 weken, aangezien er per week twee werkd
 
 | Sprint | Werkzaamheden | Op te leveren producten |
 |---|---|---|
-| Sprint 1 | Verfijnen projectplan. | PVA |
-| Sprint 2 | Opzet FO & SAD | User stories, NFR's & domein model |
-| Sprint 3 | Verfijnen FO & SAD | Fully dressed usecases en wireframes/mock-ups |
-| Sprint 4 | In kaart brengen welke domein data uit welke Productive endpoints kunnen komen | Communicatie poc? |
-| Sprint 5 | Technische uitdagingen uitsluiten. | SAD uitgebreid met de tot nu toe besproken ADR's |
-| Sprint 6 | Opzet TO | Database/entity model en bijbehorende endpoints voor de back-end |
-| Sprint 7 | Verfijnen TO | back-end endpoint definities en signatures |
-| Sprint 8 | ? |  |
-| Sprint 9 | ? |  |
-| Sprint 10 | ? |  |
+| Sprint 1 | Probleem vastleggen, plan van aanpak schrijven, functionaliteiten vastleggen. | PVA, user stories, Functionele requirements |
+| Sprint 2 | Functioneel ontwerp schrijven, start software architecture document, identificeren potentiële technische uitdagingen. | NFR's, domein model & SAD containers & context |
+| Sprint 3 | UX/UI ontwerpen, FO afronden, start maken TO & Productive communicatie onderzoek | Fully dressed usecases, wireframes/mock-ups, onderzoeksplan |
+| Sprint 4 | Communicatie onderzoek afronden, start maken uiteindelijke software oplossing | Communicatie onderzoek, start back-end incl database & model |
+| Sprint 5 | TO afronden, SAD afronden | Technisch ontwerp & SAD |
+| Sprint 6 | Implementatie systeem communicatie met Productive |  |
+| Sprint 7 | Start maken front-end systeem |  |
+| Sprint 8 | Volledige back-end API implementatie | back-end endpoint definities en signatures |
+| Sprint 9 | Implementatie uitloop |  |
+| Sprint 10 | Implementatie uitloop |  |
 
 ## Risico’s
 

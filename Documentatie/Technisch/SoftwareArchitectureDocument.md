@@ -6,8 +6,8 @@ Binnen dit overzicht wordt aan de hand van het c4 model voor software architectu
 
 Zoals beschreven in het [FO](../Functioneel/FunctioneelOntwerp.md) besproken dient het PMP als koppeling tussen Bluenotion en haar klanten zodat de klanten van Bluenotion door inzicht te krijgen in de status van hun project meer bij het ontwikkelproces betrokken kunnen zijn. Hiervoor maakt het PMP gebruik van een koppeling met de Productive waar de medewerkers van Bluenotion hun dagelijkse bezigheden registreren.*
 
-*TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
-Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem.
+<!-- *TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
+Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem. -->
 
 ```puml
 
@@ -80,7 +80,7 @@ Service --> NS : SMTP?
 
 ### <a id="Component-FE" /></a>React front-end
 
-TODO: De echte views hier in zetten.
+<!-- TODO: De echte views hier in zetten. -->
 
 ```puml
 top to bottom direction
@@ -133,7 +133,7 @@ rectangle "React front-end"{
 
 ### <a id="Component-PMP-API" /></a>PMP API
 
-TODO: Op welk niveau doe ik controllers en endpoints? Functioneel, entiteit of een mix van beide?
+<!-- TODO: Op welk niveau doe ik controllers en endpoints? Functioneel, entiteit of een mix van beide? -->
 
 Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
@@ -272,7 +272,7 @@ CommentRepository -->BaseRepository
 
 ```
 
-*TODO: interface naar de mailserver is nog niet uitgewerkt
+<!-- *TODO: interface naar de mailserver is nog niet uitgewerkt -->
 
 #### Toelichting Service componenten
 
@@ -295,7 +295,7 @@ CommentRepository -->BaseRepository
 
 ##### Namespaces*
 
-*TODO: beter benoemen dan namespaces
+<!-- *TODO: beter benoemen dan namespaces -->
 
 Het Services pakket is opgesplitst in drie componenten:
 
@@ -305,7 +305,7 @@ Het Services pakket is opgesplitst in drie componenten:
 | PMP services  | De PMP services zijn een groepering aan services die niet te maken hebben met informatie uit Productive maar enkel informatie aanwezig in het PMP.   |
 | Productive services | De Productive services zijn een groepering aan services de informatie nodig hebben van of informatie moet opslaan op de externe productive omgeving.  |
 
-*TODO: Repo pattern beter toelichten & Read operaties gebruiken nu de repository binnen de controller class terwijl voor create update en delete de verschillende services worden gebruikt. Wat is netter en waarom?
+<!-- *TODO: Repo pattern beter toelichten & Read operaties gebruiken nu de repository binnen de controller class terwijl voor create update en delete de verschillende services worden gebruikt. Wat is netter en waarom? -->
 
 ##### Componenten
 
@@ -319,7 +319,7 @@ De verschillende componenten in de bovenstaande afbeelding zijn niet compleet ma
 | NotificationService  | Biedt communicatie met de mailserver (of andere communicatie tool) aan. Moet weten wie, wat, wanneer in welke taal gestuurd moet krijgen.  |
 | AccountService  | Verantwoordelijk voor het afvangen van alle inlog gerelateerde taken.  |
 
-TODO: beantwoorden sync ding
+<!-- TODO: beantwoorden sync ding -->
 
 - Komen de syncs binnen op de zelfde endpoints als de berichten van de front-end? (Afhankelijk van de uitwisselbaarheid van pmp domein model in vergelijking met productive model)
 - Hoe wordt onderscheid gemaakt tussen de wat wel en niet gesynchroniseerd hoort te worden (A. Verschillende controllers B. flag in controller)
@@ -335,7 +335,7 @@ De sync service is verantwoordelijk voor het opzetten en verwerken van de produc
 
 Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden.
 
-TODO: setup webhooks toevoegen!
+<!-- TODO: setup webhooks toevoegen! -->
 
 ###### Clean sync
 
@@ -343,9 +343,9 @@ Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan o
 
 Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
 
-TODO: rename productive service?
+<!-- TODO: rename productive service? -->
 
-TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik".
+<!-- TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik". -->
 
 ### <a id="Component-PMP-DB" /></a>PMP Database and Data models
 
@@ -399,14 +399,14 @@ dt2-->dt3
 
 ```
 
-Gevraag:
+<!-- Gevraag:
 
 Welke models heb je nodig?
 
 Endpoint input models
 Endpoint output models
 Database model
-Productive input model?
+Productive input model? -->
 
 #### API.Models
 
@@ -482,13 +482,13 @@ public class ProductiveTaskInputModel
 
 De classes onder Services.Models dienen als output [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object) voor de verschillende REST controllers.
 
-TODO: De database models dienen ook als output?...
+<!-- TODO: De database models dienen ook als output?... -->
 
 #### Database.Models
 
 Binnen de classes van het database.Models package wordt aan de hand van annotaties de Entity Framework verbinding op gezet. Hierdoor worden wijzigingen in het datamodel meegenomen met het versiebeheer wat het potentieel terug vinden (of draaien) van problemen eenvoudiger maakt.
 
-TODO: is niet smart
+<!-- TODO: is niet smart -->
 
 Navragen: in het template project hebben de controllers een dependency op database.models om de database classes te gebruiken als return type. Na gesprek met Niels is me verteld dat er doorgaans geen dependency is tussen de controller en de database models maar al deze communicatie via de services loopt. Zou het netter zijn deze dependency te verwijderen en enkel Services.Models te gebruiken als output?
 
@@ -502,7 +502,7 @@ Het notificatiesysteem is verantwoordelijk voor het inlichten van gebruikers wan
 
 De details van het notificatie systeem zijn nog niet uitgewerkt, er zal een mail client opgezet worden die gemachtigd is berichten te sturen naar de klant. Als alternatief zou ook een SMS systeem mogelijk kunnen zijn.
 
-TODO: Details wel uitwerken
+<!-- TODO: Details wel uitwerken -->
 
 ### <a id="Component-Productive-API"></a>Productive API
 
@@ -569,7 +569,7 @@ ITaskService-->TaskController:HTTP201
 
 ```
 
-TODO: Is het hele tmp task event verhaal nodig?
+<!-- TODO: Is het hele tmp task event verhaal nodig? -->
 
 ```puml
 title hooked sync
@@ -627,4 +627,4 @@ Verantwoordingen toe te voegen:
 
 Is dit wel een ADR?
 
-- TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend.
+<!-- - TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend. -->

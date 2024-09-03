@@ -106,11 +106,11 @@ Om meer zekerheid te bieden dat er geen belangrijke functionele requirements bli
 | [FR10.2: Wijzigen rechten](./Requirements/FR10_Beheren_gebruikers.md#fr102-wijzigen-rechten), [FR10.3: Beheren gebruikers](./Requirements/FR10_Beheren_gebruikers.md)  | Wordt afgehandeld in het gebruikte template*  | TODO: screenshots in de scherm ontwerpen? |
 
 <!-- TODO: *Documenteren gebruikte template en functionaliteiten -->
-TODO: Netjes algemene views in het document opnemen.
-TODO: FDUCs nalopen of ze allemaal genoeg zijn beschreven.
-TODO: **FR6.1 en FR6.2 hebben wel lage prio maar kunnen ook beter omschreven worden in de FDUC
-TODO: ***Nalezen verschillende SLAs. Wie mochten BN bellen wanneer een incident critical of blocker was? Als iedereen is deze functionaliteit niet afhankelijk van  FR3.3
-TODO: "FR5.2: Instellen productive boards en taak status. Afhankelijk van FDR004 zou het kunnen dat dit enkel de boards is.
+<!-- TODO: Netjes algemene views in het document opnemen. -->
+<!-- TODO: FDUCs nalopen of ze allemaal genoeg zijn beschreven. -->
+<!-- TODO: **FR6.1 en FR6.2 hebben wel lage prio maar kunnen ook beter omschreven worden in de FDUC -->
+<!-- TODO: ***Nalezen verschillende SLAs. Wie mochten BN bellen wanneer een incident critical of blocker was? Als iedereen is deze functionaliteit niet afhankelijk van  FR3.3 -->
+<!-- TODO: "FR5.2: Instellen productive boards en taak status. Afhankelijk van FDR004 zou het kunnen dat dit enkel de boards is. -->
 
 <!-- ## Functionele requirements die worden aangekaart in de ontwerpen
 
@@ -118,26 +118,7 @@ Om te bewaken dat alle functionele requirements ook daadwerkelijk in de te maken
 
 <!-- TODO: tabel verkleinen of verwijderen. In de huidige staat werkt hij niet echt -->
 
-<!-- |  | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) | [FR1.2](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr12-inzien-totaal-geplande-urenkosten) | [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) | [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) | [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) | [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) | FR2.7 | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) | [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla) | [FR3.4](./Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak) | [FR3.5](./Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit) | [FR3.6](./Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag) | [FR4.1](./Requirements/FR4_Versturen_notificaties.md#fr41-inlichten-klant-wanneer-een-taak-wacht-op-input-van-de-klant) | [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) | [FR5.1](./Requirements/FR5_Beheren_project.md#fr51-afhandelen-project-setup) | [FR5.2](./Requirements/FR5_Beheren_project.md#fr52-instellen-productive-boards-en-taak-status) | [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) | [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies) | [FR5.3](./Requirements/FR5_Beheren_project.md#fr53-beheren-project-services) | [FR7.1](./Requirements/FR7_Inzien_project_documentatie.md#fr71-openendownloaden-document) | [FR7.2](./Requirements/FR7_Inzien_project_documentatie.md#fr72-filteren-documentnaamcategorie) | [FR5.3](./Requirements/FR7_Inzien_project_documentatie.md#fr73-beheren-project-documentatie) | [FR8.1](./Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag) | [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) | [FR9.1](./Requirements/FR9_Tenant_level_chat.md#fr91-starten-nieuwe-chat) | [FR9.2](./Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat) | [FR9.3](./Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat) |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| [Klant: Mijn projecten pagina](#view2-mijn-projecten) |✓| | |✓| | | | | | | | | | | | | | | | | | | | | | | | |
-| Klant: Project detail pagina | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-| [Klant: Taken lijst pagina](#view6-takenoverview) | | |✓|✓| | | | | | | | | | | | | | | | | | | | | | | | |
-| [Klant: Taak detail pagina](#view3-taak-detail-view) | | | | |✓| | | |✓| | | | | | | | | | | | | | | | | | | |
-| [Klant: Toevoegen aanvraag pop-up/pagina/stappen&vragen](#view4-toevoegen-taak-view) | | | | | | | |✓| |✓|✓| | | | | | | | | | | | | | | | | |
-| Klant: Aanpassen taak/aanvraag | | | | | | | | | | | |✓| | | | | | | | | | | | | | | | |
-| [Klant: Documentatie pagina](#view5-documentatie-view) | | | | | | | | | | | | | | | | | | | | |✓|✓| | | | | | |
-|  | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-| [Admin: Projecten pagina](#view2-mijn-projecten) | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-| Admin: Tenant pagina | | | | | | | | | | | | | | | | | | | | | | | | | |✓|✓|✓|
-| Admin: Project setup pagina | | | | | | | | | | | | | | | |✓| | | | | | | | | | | | |
-| Admin: Project dependencies pagina | | | | | | | | | | | | | | | | | | | |✓| | | | | | | | |
-| [Admin: Project documentatie pagina](#view5-documentatie-view) | | | | | | | | | | | | | | | | | | | | | | |✓| | | | | |
-| [Admin: Taak detail pagina](#view3-taak-detail-view) | | | | | | | | | | | | | | | | | | | | | | | | |✓| | | |
-| Chat venster | | | | | | | | | | | | | | | | | | | | | | | | | |✓|✓|✓|
-| Chat historie | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-
-Missende elementen:
+<!-- Missende elementen:
 
 - FR3.6 annuleren aanvraag wel aanwezig in taak detail maar onbekende procedure.
 - FR8.1 Zelfde als FR3.6
@@ -151,7 +132,7 @@ Missende elementen:
 
 Per gemaakt scherm ontwerp wordt vastgelegd hoe het huidige ontwerp tot stand is gekomen, voor welke omgeving het is en hoe de verschillende omgevingen van elkaar verschillen. Indien mogelijk wordt er gerefereerd naar de functionele eisen waar de schermen op gebaseerd zijn/welke eisen ze vervullen. Ook wordt er in verband met het [onderzoek naar de synchronisatie met Productive](./../Onderzoek/OND01-ProductiveSync.md#library) genoteerd welke data uit Productive nodig is om de schermen te realiseren. Hoe deze data wordt opgehaald is vastgelegd in [Resultaten > Q1.](./../Onderzoek/OND01-ProductiveSync.md#q1-biedt-productive-een-api-aan-voor-alle-data-die-binnen-het-fo-en-schermontwerpen-besproken-worden)
 
-TODO: wat er in de intro staat.
+<!-- TODO: wat er in de intro staat. -->
 
 ### View1: Dashboard
 
@@ -184,7 +165,9 @@ Vereiste input: Tasks filter status
 
 #### View2: Organization admin
 
-![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](../Images/FunctioneelOntwerp/admin_projectenpage.png)
+| Wireframe | Scherm ontwerp | Realisatie |
+|---|---|---|
+| ![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](../Images/FunctioneelOntwerp/admin_projectenpage.png) | ![Scherm ontwerp voor het overzicht van alle projecten](../Images/Schermontwerpen/schermontwerp_projectenpage.png) |  |
 
 Projectnaam, begindatum, einddatum, status: projects endpoint
 
@@ -194,7 +177,7 @@ Contactpersoon: People endpoint
 
 <!-- budget, kosten, uren & uren: taken? -->
 
-#### View2: Company admin
+<!-- #### View2: Company admin
 
 ![Scherm ontwerp voor het overzicht van alle projecten voor een klant](../Images/FunctioneelOntwerp/projectenpage.png)
 
@@ -206,7 +189,7 @@ Aantal taken: Tasks endpoint, grouped by project
 
 Vereiste input: Tasks filter status
 
-Prioriteit: ?
+Prioriteit: ? -->
 
 <!-- ### View2: Organization employee
 
@@ -214,9 +197,11 @@ Prioriteit: ?
 
 ### View3: Taak detail view
 
-Mijlpalen:
+| Wireframe | Scherm ontwerp | Realisatie |
+|---|---|---|
+| ![Scherm ontwerp voor de detail pagina van één taak](../Images/FunctioneelOntwerp/TaakDetailPage.png) | ![Scherm ontwerp voor de detail pagina van één taak](../Images/Schermontwerpen/TaakDetailPage.png) |  |
 
-![Scherm ontwerp voor de detail pagina van één taak](../Images/FunctioneelOntwerp/TaakDetailPage.png)
+Mijlpalen:
 
 Mijlpalen is een keuze in te maken. De data over "mijlpalen" staat op het moment voor een taak en de workflow wordt bijgehouden door de PM. Zie [ADR008 Taak mijlpalen](../Technisch/ADRs/ADR008-Taak-Mijlpalen.md)
 
@@ -240,18 +225,14 @@ Log: Activities
 
 ### View4: Toevoegen taak view
 
-![Schermontwerp voor het aanmaken van een nieuwe taak](../Images/FunctioneelOntwerp/Nieuwe_taak1.png)
-
-![Schermontwerp voor het aanmaken van een incident](../Images/FunctioneelOntwerp/Nieuwe_taak_incident.png)
-
-![Schermontwerp voor het aanmaken van een doorontwikkeling](../Images/FunctioneelOntwerp/Nieuwe_taak_doorontwikkeling.png)
-
-![Schermontwerp met het bericht dat de taak is aangemaakt](../Images/FunctioneelOntwerp/Nieuwe_taak_success.png)
+| Wireframe | Scherm ontwerp | Realisatie |
+|---|---|---|
+| ![Schermontwerp voor het aanmaken van een nieuwe taak](../Images/FunctioneelOntwerp/Nieuwe_taak1.png) </br>![Schermontwerp voor het aanmaken van een incident](../Images/FunctioneelOntwerp/Nieuwe_taak_incident.png)</br>![Schermontwerp voor het aanmaken van een doorontwikkeling](../Images/FunctioneelOntwerp/Nieuwe_taak_doorontwikkeling.png)</br>![Schermontwerp met het bericht dat de taak is aangemaakt](../Images/FunctioneelOntwerp/Nieuwe_taak_success.png) | ![Ontwerp voor het kiezen van een taak categorie](../Images/Schermontwerpen/Nieuwe_taak1.png)</br>![Ontwerp voor het invoeren van incident informatie](../Images/Schermontwerpen/Nieuwe_taak_incident.png)</br>![Ontwerp nieuwe taak succesvol aangemaakt](../Images/Schermontwerpen/Nieuwe_taak_success.png) |  |
 
 Voor deze ontwerpen is weinig tot geen informatie nodig van Productive.
 
 Controleren:
-
+<!-- TODO: Maken controleren ontwerpen? -->
 ![Schermontwerp voor de admin taak detail pagina met knoppen voor het accepteren, weigeren of opsplitsen van een taak](../Images/FunctioneelOntwerp/admin_TaakDetailPage.png)
 
 Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
