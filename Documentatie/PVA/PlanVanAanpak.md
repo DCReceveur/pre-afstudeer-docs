@@ -8,7 +8,7 @@ Binnen dit document wordt toelichting gegeven op het Project Management Portal d
 
 Bluenotion is een bedrijf met +/- 20 medewerkers dat naar opdracht op maat gemaakte software oplossingen aanbiedt. Dit houdt in dat er op elk moment bij Bluenotion voor verschillende opdrachtgevers aan verschillende (vaak kort durende) projecten wordt gewerkt.
 
-```plantuml
+```puml
 rectangle CEO
 rectangle Finance 
 rectangle "Operationeel management" as OM
