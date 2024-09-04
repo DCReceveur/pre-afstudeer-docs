@@ -27,10 +27,10 @@ DENIED_NAME="Rejected"
 DENIED_COLOR="#FF0000"
 STATUS_FINISHED="[x]"
 STATUS_UNFINISHED="[ ]"
-MUST_COLOR="#FF9999"
-SHOULD_COLOR="#DD9999"
-COULD_COLOR="#BB9999"
-WONT_COLOR="#999999"
+MUST_COLOR="#66ff33"
+SHOULD_COLOR="#ffff00"
+COULD_COLOR="#ff9933"
+WONT_COLOR="#FF0000"
 
 # Function to print the header for the PlantUML file
 print_puml_header() {
@@ -66,6 +66,16 @@ print_puml_legend(){
    | <color:$TESTING_COLOR><size:20>●</size></color> | <color:$TESTING_COLOR><size:20>○</size></color>| $TESTING_NAME |
    | <color:$DENIED_COLOR><size:20>●</size></color> | <color:$DENIED_COLOR><size:20>○</size></color>| $DENIED_NAME |
 
+  | **Task color** | **Priority** |
+  | <$MUST_COLOR> | Must have |
+  | <$SHOULD_COLOR> | Should have |
+  | <$COULD_COLOR> | Could have |
+  | <$WONT_COLOR> | Won't have |
+  end legend">>$OUTPUT_FILE
+}
+
+print_short_legend(){
+    echo "legend left
   | **Task color** | **Priority** |
   | <$MUST_COLOR> | Must have |
   | <$SHOULD_COLOR> | Should have |
@@ -116,6 +126,12 @@ add_sub_to_out(){
   OUTPUT_UC_BUFFER="$OUTPUT_UC_BUFFER 
 usecase \"$CURRENT_SUB_DESCRIPTION\" as $CURRENT_SUB_ID"
 add_priority_color
+}
+
+color_wont_haves(){
+  if [[ $CURRENT_SUB_PRIORITY == *"Won't"* ]]; then
+    OUTPUT_UC_BUFFER="$OUTPUT_UC_BUFFER $WONT_COLOR"
+  fi
 }
 
 add_status(){
@@ -196,9 +212,9 @@ generate_usecase_diagram() {
       "
     fi
 
-    if [[ -n "$status" ]]; then
-      add_status
-    fi
+    # if [[ -n "$status" ]]; then
+    #   add_status
+    # fi
 
   done < <(tail -n +2 $CSV_FILE) # Skip the header line
   
@@ -207,7 +223,8 @@ generate_usecase_diagram() {
 
   echo "$OUTPUT_UC_BUFFER" >> $OUTPUT_FILE
   echo "$RELATION_BUFFER" >> $OUTPUT_FILE
-  print_puml_legend
+  # print_puml_legend
+  print_short_legend
   print_puml_footer
   # MD_TABLE_BUFFER=$(echo -n $MD_TABLE_BUFFER | grep -o '\n(?= *\|*)*\[' )  
   echo "$MD_TABLE_BUFFER" >> $OUTPUT_FILE
@@ -218,20 +235,20 @@ MD_TABLE_ROW_BUFFER=""
 
 add_table_headers(){
   MD_TABLE_BUFFER="$MD_TABLE_BUFFER 
-| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Document references | Status |
-|---|---|---|---|---|---|
+| Ref no | Main requirement | Sub requirement | Prioriteit (MoSCoW) | Document references |
+|---|---|---|---|---|
 "
 }
 
 generate_markdowntable_fromcsv(){
     status_no_newlines="${status//$'[\r\n]'/}"
     if [[ -n "$main_req" || -n "$sub_req" ]]; then
-    MD_TABLE_BUFFER="$MD_TABLE_BUFFER| $ref_no | $main_req | $sub_req | $priority | $doc_references | $status_no_newlines |
+    MD_TABLE_BUFFER="$MD_TABLE_BUFFER| $ref_no | $main_req | $sub_req | $priority | $doc_references |
 "
-    elif [[ -n "$status" ]]; then
-      MD_TABLE_BUFFER=${MD_TABLE_BUFFER%\|*}
-      MD_TABLE_BUFFER="$MD_TABLE_BUFFER </br> $status_no_newlines |
-"
+#     elif [[ -n "$status" ]]; then
+#       MD_TABLE_BUFFER=${MD_TABLE_BUFFER%\|*}
+#       MD_TABLE_BUFFER="$MD_TABLE_BUFFER </br> $status_no_newlines |
+# "
     fi
 }
 

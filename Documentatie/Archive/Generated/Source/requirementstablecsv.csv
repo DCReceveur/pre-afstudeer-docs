@@ -27,33 +27,33 @@ FR2.4;;Tonen taken in Gantt chart;Could have;ACT1: Externe beheerder;[US3](/Docu
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR3;Toevoegen aanvraag;;;ACT1: Externe beheerder;[Requirement overzicht](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md);
-FR3.1;;Toevoegen nieuwe taak;Must have;ACT1: Externe beheerder;[US6](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project);[x] Define
+FR3;Toevoegen ticket;;;ACT1: Externe beheerder;[Requirement overzicht](/Documentatie/Requirements/FR3_Toevoegen_ticket.md);
+FR3.1;;Toevoegen nieuwe taak;Must have;ACT1: Externe beheerder;[US6](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_ticket.md#fr31-toevoegen-nieuwe-ticket-in-een-project);[x] Define
 ;;;;;;[x] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR3.2;;Toelichting geven op aanvraag (extern);Must have;ACT1: Externe beheerder;[US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag);[x] Define
+FR3.2;;Toelichting geven op ticket (extern);Must have;ACT1: Externe beheerder;[US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_ticket.md#fr32-toelichting-geven-op-ticket);[x] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR3.3;;Toevoegen taken past zich aan aan de klant zijn SLA;Could have;ACT1: Externe beheerder;[Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla);[ ] Define
+FR3.3;;Toevoegen taken past zich aan aan de klant zijn SLA;Could have;ACT1: Externe beheerder;[Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_ticket.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla);[ ] Define
 ;;;;;;[x] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR3.4;;Toevoegen bijlagen bij taak;Must have;ACT1: Externe beheerder;[US12](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr34-toevoegen-bijlagen-bij-taak);[x] Define
+FR3.4;;Toevoegen bijlagen bij taak;Must have;ACT1: Externe beheerder;[US12](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_ticket.md#fr34-toevoegen-bijlagen-bij-taak);[x] Define
 ;;;;;;[x] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR3.5;;Aanpassen taak prioriteit;Could have;ACT1: Externe beheerder;[Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_aanvraag.md#fr35-aanpassen-taak-prioriteit);[x] Define
+FR3.5;;Aanpassen taak prioriteit;Could have;ACT1: Externe beheerder;[Fully dressed usecase description](/Documentatie/Requirements/FR3_Toevoegen_ticket.md#fr35-aanpassen-taak-prioriteit);[x] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR3.6;;Annuleren aanvraag;Should have;ACT1: Externe beheerder;[Fully dressed usecase description](./Requirements/FR3_Toevoegen_aanvraag.md#fr36-annuleren-aanvraag);[x] Define
+FR3.6;;Annuleren ticket;Should have;ACT1: Externe beheerder;[Fully dressed usecase description](./Requirements/FR3_Toevoegen_ticket.md#fr36-annuleren-ticket);[x] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
@@ -112,13 +112,13 @@ FR7.2;;Filteren documentnaam/categorie;Could have;ACT5: Externe medewerker;[US13
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR8;Controleren aanvraag;;;ACT2: Interne beheerder;[Requirement overzicht](/Documentatie/Requirements/FR8_Controleren_aanvraag.md);
-FR8.1;;Controleren aanvraag (intern);Must have;ACT2: Interne beheerder;[US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR8_Controleren_aanvraag.md#fr81-controleren-aanvraag), [US10](/Documentatie/FunctioneelOntwerp.md#user-stories);[x] Define
+FR8;Controleren ticket;;;ACT2: Interne beheerder;[Requirement overzicht](/Documentatie/Requirements/FR8_Controleren_ticket.md);
+FR8.1;;Controleren ticket (intern);Must have;ACT2: Interne beheerder;[US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR8_Controleren_ticket.md#fr81-controleren-ticket), [US10](/Documentatie/FunctioneelOntwerp.md#user-stories);[x] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
 ;;;;;;[ ] Testing
-FR8.2;;Op splitten taak naar team taken;Could have;ACT2: Interne beheerder;[US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken), [US10](/Documentatie/FunctioneelOntwerp.md#user-stories);[x] Define
+FR8.2;;Op splitten taak naar team taken;Could have;ACT2: Interne beheerder;[US7](/Documentatie/FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR8_Controleren_ticket.md#fr82-op-splitten-taak-naar-team-taken), [US10](/Documentatie/FunctioneelOntwerp.md#user-stories);[x] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
 ;;;;;;[ ] BE
@@ -128,7 +128,7 @@ FR9.1;;Starten nieuwe chat;Won't have;ACT5: Externe medewerker;[US20](./Function
 FR9.2;;Bericht sturen niet afgesloten chat;Won't have;ACT5: Externe medewerker;[US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr92-bericht-sturen-niet-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md);[x] Rejected
 FR9.3;;Hervatten afgesloten chat;Won't have;ACT5: Externe medewerker;[US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr93-hervatten-afgesloten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md);[x] Rejected
 FR9.4;;Sluiten chat;Won't have;ACT5: Externe medewerker;[US20](./FunctioneelOntwerp.md#user-stories), [Fully dressed usecase description](/Documentatie/Requirements/FR9_Tenant_level_chat.md#fr94-sluiten-chat), [FDR002](./Decisions/Functional/FDR002-Tenant-level-chat.md);[x] Rejected
-FR10;Beheren gebruikers;;;ACT2: Interne beheerder;[Requirement overzicht](/Documentatie/Requirements/FR8_Controleren_aanvraag.md);
+FR10;Beheren gebruikers;;;ACT2: Interne beheerder;[Requirement overzicht](/Documentatie/Requirements/FR8_Controleren_ticket.md);
 FR10.1;;Uitnodigen gebruiker;Must have;ACT2: Interne beheerder;;[ ] Define
 ;;;;;;[ ] UX
 ;;;;;;[ ] FE
