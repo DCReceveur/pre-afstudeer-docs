@@ -297,10 +297,10 @@ Voorbeeld feed list.
 | 03-09-2024 09:00 | Elektrische steppen toevoegen aan de voorraad | Ticket aangemaakt door Sjef Wouters |
 
 Sjef Wouters is in dit geval externe beheerder van het project
-Jesse Bekke is in dit geval interne beheerder van het project
-*Zou anders verwoord kunnen worden of vervangen kunnen worden door [klantnaam]
 
-**Hier zouden we kunnen vertellen door wie een opmerking is toegevoegd? Doen
+Jesse Bekke is in dit geval interne beheerder van het project
+
+*In plaats van klant zou hier ook de klantnaam neergezet kunnen worden.
 
 ![alt text](../Images/FunctioneelOntwerp/feed.png)
 

@@ -406,7 +406,7 @@ Ja: De procedure zoals beschreven in ADR001-O4 resulteert in 2 of 3 database cal
 
 Nee: Technisch gezien niet, er zou puur op aanvraag data verzameld kunnen worden.
 
-### Q9: Wordt alle informatie die het PMP nodig heeft doorgegeven aan de hand van webhooks? Wat gebeurt er bijvoorbeeld met comments?
+### Q9: Wordt alle informatie die het PMP nodig heeft doorgegeven aan de hand van webhooks?
 
 Voorlopig onbekend. Het zou kunnen dat voor informatie die weinig gebruikt wordt zoals bijlages in comments, wijzigingen in e-mail adressen of andere kleine wijzigingen op het moment over het hoofd worden gezien. Wel is in ieder geval het grootste deel van de gewenste data te verkrijgen aan de hand van webhooks. Dit geeft ook ruimte om aan de hand van reguliere API calls de missende data op te halen met een verlaagd risico boven de Productive rate limits te komen.
 

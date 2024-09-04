@@ -32,6 +32,7 @@ Bron: OER Bijlagen Eindkwalificaties HBO-ICT van <https://oer.han.nl/5e7f0058-a6
 <!-- TODO: Verder aanvullen met concrete referenties die bewijzen dat ik de PEKs en BCs heb gehaald (inclusief specifiek hoofdstuk voor FO/TO BC2?) -->
 
 | Beoordelingsdimensie | Toegepast |
+|---|---|
 | BC1 | [Actors en user stories](../Functioneel/FunctioneelOntwerp.md#actors-en-user-stories) </br>[Requirements](../Functioneel/FunctioneelOntwerp.md#requirements) |
 | BC2 | [Functioneel ontwerp](../Functioneel/FunctioneelOntwerp.md), [Software architecture document](../Technisch/SoftwareArchitectureDocument.md), [Technisch ontwerp](../Technisch/TechnischOntwerp.md) |
 | BC3 | [Software architecture document](../Technisch/SoftwareArchitectureDocument.md) |
