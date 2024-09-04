@@ -121,7 +121,7 @@ Binnen dit project worden de volgende producten opgeleverd.
 
 ## Ontwikkelmethoden
 
-Het project wordt voornamelijk door één software developer uitgevoerd. Daar waar gewenst zijn binnen Bluenotion collega's beschikbaar voor feedback en tips op het gebied van Project management, UX, UI en het programmeren zelf maar deze collega's zijn in hun dagelijks werk aan het werk aan andere projecten.
+Het project wordt voornamelijk door één software developer uitgevoerd. Daar waar gewenst zijn binnen Bluenotion collega's beschikbaar voor feedback en tips op het gebied van Project management, UX, FE en het programmeren zelf maar deze collega's zijn in hun dagelijks werk aan het werk aan andere projecten.
 
 Aangezien binnen Bluenotion vaker met kleine teams tegelijkertijd aan verschillende projecten wordt gewerkt hanteren ze hier een lichtere vorm van SCRUM dan die aangegeven in het [SCRUM manifesto](https://agilescrumgroup.nl/scrum-manifesto/)(Sania, 2023). Om de voortgang van het project voor alle stakeholders duidelijk te houden wordt er wel gewerkt in sprints van 2 weken per stuk waar aan het eind van elke sprint concrete deliverables worden aangeleverd.
 
@@ -188,12 +188,12 @@ Aan de hand van de antwoorden op deze vragen en de specifieke functionele en non
 | Contactmomenten | Op aanvraag |
 | verantwoordelijkheden | Brainstormen en feedback leveren op de user experience |
 
-| Rol(len): | **UI Developer** |
+| Rol(len): | **FE Developer** |
 |---|---|
-| Naam: | ? |
-| Contactgegevens: | ? |
+| Naam: | Jelle Streefkerk |
+| Contactgegevens: | Jelle@bluenotion.nl |
 | Contactmomenten | Op aanvraag |
-| verantwoordelijkheden | Brainstormen en feedback leveren op de development van de UI |
+| verantwoordelijkheden | Brainstormen en feedback leveren op de development van de FE |
 
 | Rol(len): | **Docentbegeleider** |
 |---|---|
@@ -214,11 +214,11 @@ Opmerking over de planning: Binnen de planning wordt gesproken over het "afronde
 | Sprint 2 | Functioneel ontwerp schrijven, start software architecture document, identificeren potentiële technische uitdagingen, start Productive communicatie onderzoek | NFR's, domein model, onderzoeksplan, SAD context & containers  |
 | Sprint 3 | UX/UI ontwerpen, FO "afronden", start maken TO, SAD aanvullen, Productive communicatie onderzoek | Fully dressed usecases, wireframes/mock-ups, SAD Components, Productive communicatie POC |
 | Sprint 4 | Communicatie onderzoek afronden, start maken uiteindelijke software oplossing | Communicatie onderzoek, SAD Code, API endpoint definities, start back-end incl database & model |
-| Sprint 7 | Start maken front-end systeem | TO alle views & components front-end voor must en should haves |
-| Sprint 5 | TO "afronden", SAD "afronden", implementatie FE & BE | Technisch ontwerp, SAD, implementatie must haves |
-| Sprint 6 | Implementatie PMP koppeling met Productive, implementatie FE & BE | implementatie must haves |
-| Sprint 8 | Implementatie uitloop | Uitloop must haves of implementatie should haves |
-| Sprint 9 | Implementatie uitloop | Uitloop must haves of implementatie should haves |
+| Sprint 5 | Start maken front-end systeem | TO alle views & components front-end voor must en should haves |
+| Sprint 6 | TO "afronden", SAD "afronden", implementatie FE & BE | Technisch ontwerp, SAD, implementatie must haves |
+| Sprint 7 | Implementatie PMP koppeling met Productive, implementatie FE & BE | implementatie must haves |
+| Sprint 8 | Implementatie uitloop | Uitloop implementatie |
+| Sprint 9 | Implementatie uitloop | Uitloop implementatie |
 
 ## Risico’s
 
@@ -231,7 +231,8 @@ Opmerking over de planning: Binnen de planning wordt gesproken over het "afronde
 ## Bronnen
 
 - Admin. (2024, 20 augustus). Wat Is De 5 x W + 1H Doorvraag Methode in Lean? | Lean.nl. Lean.nl. <https://www.lean.nl/wat-is-de-5-x-w-1h-doorvraag-methode-green-belt/>
-- FURPS+. (z.d.). <http://agileinaflash.blogspot.com/2009/04/furps.html> GeeksforGeeks. (2024, 6 maart). Deployment diagram in Unified Modeling Language(UML). GeeksforGeeks. <https://www.geeksforgeeks.org/deployment-diagram-unified-modeling-languageuml/>
+- FURPS+. (z.d.). <http://agileinaflash.blogspot.com/2009/04/furps.html>
+- GeeksforGeeks. (2024, 6 maart). Deployment diagram in Unified Modeling Language(UML). GeeksforGeeks. <https://www.geeksforgeeks.org/deployment-diagram-unified-modeling-languageuml/>
 - Haefke, E. (2024, 14 februari). What Is the Twin Peaks Model? | microTOOL. microTOOL. <https://www.microtool.de/en/knowledge-base/what-is-the-twin-peaks-model/>
 - MOSCOW Prioritization. (2022, 21 december). ProductPlan. <https://www.productplan.com/glossary/moscow-prioritization/>
 - Paradkar, S. (2023, 24 november). A Step-Wise Guide to Architectural Decisions - Oolooroo - Medium. Medium. <https://medium.com/oolooroo/a-step-wise-guide-to-architectural-decisions-ee7304871a71>
