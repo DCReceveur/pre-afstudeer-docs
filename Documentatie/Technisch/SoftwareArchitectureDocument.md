@@ -9,25 +9,9 @@ Zoals beschreven in het [FO](../Functioneel/FunctioneelOntwerp.md) besproken die
 <!-- *TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
 Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem. -->
 
-```puml
-
-actor Klant
-actor Admin
-
-rectangle "Productive (API)" as productive
-rectangle "Messaging system" as message
-rectangle "Project Management Portal" as PMP
-rectangle "PMP Database" as DB
-' rectangle "PMP database" as BE_DB
-Klant --> PMP : "Manages projects in                           "
-Admin --> PMP : "Validates tasks in           "
-
-PMP --> productive : "Retrieves project data from"
-' PMP --> BE_DB : "Caches project data in"
-PMP --> message : "Informs customers using"
-PMP--> DB
-
-```
+{%
+    include-markdown "../UML/Technisch/C4_Context.md"
+%}
 
 | Element | Toelichting |
 |--|--|
@@ -38,34 +22,9 @@ PMP--> DB
 
 ## Containers
 
-```puml
-
-actor Klant
-actor Admin
-
-rectangle Browser{
-component "React front-end" as PWA
-}
-
-component PMP{
-component "PMP API" as API
-component "PMP Database" as DB
-component "PMP Services" as Service
-}
-
-rectangle "Notification system" as NS
-database "Productive.io API" as PR_API
-
-Klant --> PWA : HTTP(S)/JSON
-Admin --> PWA : HTTP(S)/JSON
-PWA --> API : HTTP(S)/JSON
-Service --> DB : MS Entity framework
-API-->Service
-Service --> PR_API : HTTP(S)/JSON
-PR_API -[norank]-> API : HTTP(S)/JSON via webhooks
-Service --> NS : SMTP?
-
-```
+{%
+    include-markdown "../UML/Technisch/C4_Containers.md"
+%}
 
 | Container | Toelichting |
 |---|---|
@@ -82,44 +41,9 @@ Service --> NS : SMTP?
 
 <!-- TODO: De echte views hier in zetten. -->
 
-```puml
-top to bottom direction
-skinparam linetype ortho
-skinparam nodesep 10
-skinparam ranksep 10
-
-rectangle "React front-end"{
-    rectangle "View" as view{
-        rectangle "Admin" as Admin{
-            rectangle "AdminProjectView"
-            rectangle "AdminProjectDetailView"
-            rectangle "AdminTaskDetailView"
-            rectangle "AdminCommentsView"
-        }
-        rectangle "Customer" as Customer{
-            rectangle "CustomerProjectView"
-            rectangle "CustomerProjectDetailView"
-            rectangle "CustomerTaskDetailView"
-            rectangle "CustomerCommentsView"
-        }
-        rectangle "Partials" as Partials{
-            rectangle "ProjectsPartial"
-            rectangle "ProjectDetailsPartial"
-            rectangle "TaskDetailPartial"
-            rectangle "CommentsPartial"   
-        }
-    }
-
-    rectangle "Generated API" as GeneratedAPI{
-        rectangle "Generated Controllers"
-        rectangle "Generated Models"
-    }
-
-    view-->GeneratedAPI
-    Admin-->Partials : uses
-    Customer-->Partials : uses
-}
-```
+{%
+    include-markdown "../UML/Technisch/C4_Component_FE.md"
+%}
 
 #### Toelichting FE componenten
 
@@ -137,41 +61,9 @@ rectangle "React front-end"{
 
 Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
-```puml
-rectangle PMP{
-rectangle "PMP API"{
-    rectangle "Controllers"{
-        rectangle "AccountController"
-        rectangle "ProjectController"
-        rectangle "TaskController"
-        rectangle "CommentController"
-        rectangle "ProductiveSyncController"
-    }
-    rectangle "Models"
-}
-    rectangle "Services"{
-        interface "INotification"
-        interface "IAccountService"
-        interface "ITaskService"
-        ' rectangle TaskService
-        interface "IProjectService"
-        ' rectangle ProjectService
-        interface "ICommentService"
-
-    }
-}
-    Controllers -[norank]-> Models : uses
-    AccountController --> IAccountService
-    TaskController --> ITaskService
-    ProjectController --> IProjectService
-    CommentController --> ICommentService
-    ITaskService --> INotification
-    IProjectService --> INotification
-    ProductiveSyncController --> IProjectService
-    ProductiveSyncController --> ITaskService
-    ProductiveSyncController --> ICommentService
-    ProductiveSyncController --> IAccountService
-```
+{%
+    include-markdown "../UML/Technisch/C4_Component_API.md"
+%}
 
 #### Toelichting API componenten
 
@@ -196,81 +88,9 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 
 De service laag is verantwoordelijk voor de business logica, [transformeren van input naar database models](#databasemodels) en het coördineren van "externe" verbindingen.
 
-```puml
-top to bottom direction
-skinparam linetype ortho
-
-interface "INotification" as INotification
-interface "IAccountService"
-interface "ITaskService"
-interface "IProjectService"
-interface "ICommentService"
-
-' Main Services functionality
-rectangle "Services"{
-    rectangle "Repositories" as Repositories{
-        rectangle "BaseRepository<T>" as BaseRepository
-        rectangle AccountRepository
-        rectangle TaskRepository
-        rectangle ProjectRepository
-        rectangle CommentRepository
-    }
-    rectangle "PMP Services"{
-    rectangle "Notification service" as NotificationService
-    rectangle AccountService
-    rectangle ProductiveSyncService
-    }
-    rectangle "BaseService"
-    rectangle "Productive services" as ProductiveServices{
-        rectangle TaskService
-        rectangle ProjectService
-        rectangle CommentService
-    rectangle "BaseProductiveService<T>" as ProductiveService
-    }
-    rectangle Models
-}
-' Others
-interface dbContext
-interface "Mail*" as Mail
-interface "Productive REST API" as PRA
-rectangle "Other components"{
-    rectangle "Productive API" as productive
-    rectangle "Mail server" as mail
-    rectangle Database as db
-}
-
-' Relations to servicebases
-ProductiveService-->BaseService
-AccountService-[norank]->BaseService
-NotificationService-[norank]->BaseService
-TaskService-->ProductiveService
-ProjectService-->ProductiveService
-CommentService-->ProductiveService
-
-' Interfaces to services
-IAccountService-->AccountService
-ITaskService-->TaskService
-IProjectService-->ProjectService
-ICommentService-->CommentService
-INotification --> NotificationService
-
-' Externals
-BaseService --> Repositories
-ProductiveService --> PRA
-Repositories-->dbContext
-NotificationService-->Mail
-
-PRA-->productive
-dbContext-->db
-Mail-->mail
-
-' Relations to repository
-AccountRepository -->BaseRepository
-TaskRepository -->BaseRepository
-ProjectRepository -->BaseRepository
-CommentRepository -->BaseRepository
-
-```
+{%
+    include-markdown "../UML/Technisch/C4_Component_Services.md"
+%}
 
 <!-- *TODO: interface naar de mailserver is nog niet uitgewerkt -->
 
@@ -353,51 +173,6 @@ De database package is verantwoordelijk voor het low level beheer van de databas
 
 Aangezien er op verschillende plekken van dit document over "het model" gesproken wordt is een kleine toelichting van welke models welke rollen hebben binnen het systeem. In de software zullen binnen de API, Services en Database packages aparte models te vinden zijn:
 
-```puml
-
-rectangle API.Models{
-        rectangle AddCustomerModel as cm1
-        rectangle SearchProjectModel as sp1
-        rectangle UpdateTaskListModel as ut1
-        rectangle DeleteTaskModel as dt1
-}
-
-rectangle Services.Models{
-        rectangle CustomerModel as cm2
-        rectangle ProjectModel as sp2
-        rectangle TasklistModel as ut2
-        rectangle TaskModel as dt2
-}
-
-rectangle Database.Models{
-        rectangle Customer as cm3
-        rectangle Project as sp3
-        rectangle Tasklist as ut3
-        rectangle Task as dt3    
-}
-
-note "API input" as n1
-note "API output" as n2
-note "Database model" as n3
-
-API.Models .right. n1
-Services.Models .right. n2
-Database.Models .right. n3
-
-cm1-->cm2
-cm2-->cm3
-
-sp1-->sp2
-sp2-->sp3
-
-ut1-->ut2
-ut2-->ut3
-
-
-dt1-->dt2
-dt2-->dt3
-
-```
 
 <!-- Gevraag:
 
@@ -530,55 +305,9 @@ De productive API biedt webhooks om voor de volgende objecten een bericht te kri
 
 Aparte endpoints:
 
-```puml
-title sync from productive sync controller
-ProductiveSyncController-->ISyncProductive : result = processSyncRequest(obj)
-ISyncProductive-->Repository: result = add(obj)
-Repository-->Database: result = commit()
-' Database-->Repository
-' Repository-->ISyncProductive
-' ISyncProductive-->ProductiveSyncController
-
-```
-
-Samengevoegde endpoints:
-
-```puml
-title sync from FE endpoints
-TaskController-->ITaskService:addTask(obj)
-
-ITaskService-->ProductiveService:add(obj)
-note over ProductiveService
-    Uitdaging bij hergebruik controllers: 
-    Niet data afkomstig van Productive 
-    nogmaals terug sturen naar Productive.
-end note 
-ITaskService-->Repository:add(obj)
-```
-
-```puml
-title Sync from FE endpoints without local save but with logging?
-
-TaskController-->ITaskService:addTask(task)
-ITaskService-->"TaskRepository":asyncAddPmpTaskEvent(task)
-ITaskService-->"Productive REST API":async POST task
-ITaskService<--"Productive REST API":HTTP201
-ITaskService-->"TaskRepository":asyncAddTask(task)
-ITaskService-->"TaskRepository":asyncMarkTaskEventHandled(task?)
-ITaskService-->TaskController:HTTP201
-
-```
-
-<!-- TODO: Is het hele tmp task event verhaal nodig? -->
-
-```puml
-title hooked sync
-
-TaskController --> ITaskService:addTask(task)
-ITaskService --> TaskRepository:asyncAddTask(task)
-
-
-```
+{%
+    include-markdown "../UML/Technisch/Sequence/C4_Code_Productive_sync_multiple.md"
+%}
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md).
 
@@ -588,32 +317,9 @@ Can a bad sync happen, how would you notice and how would you solve it?
 
 ## Architectural Decision Records
 
-```puml
-
-rectangle "ADR001-O2-Continu synchroniserende backend database aan de hand van Webhooks" as ADR001 #Orange
-rectangle "ADR002-O1-React native" as ADR002 #Green
-rectangle "ADR003-O1-asp.net core" as ADR003 #Green
-rectangle "ADR004-Database system-O1-SQL" as ADR004 #Orange
-rectangle "ADR005-Database-ORM"
-rectangle "ADR006-Frontend backend Communicatie"
-rectangle "ADR007-MVC Design pattern"
-rectangle "ADR008-Taak Mijlpalen"
-rectangle "ADR010-Authentication" #Orange
-rectangle "ADR?-filtering pagination & sorting" as Sorting
-
-
-ADR001 <-- Sorting : Depends on
-
-legend left
-    | Color | Status |
-    |<#Orange>| Proposed |
-    |<#Green>| Accepted |
-    |<#Red>| Rejected |
-    | <#LightSlateGray> | Deprecated |
-    | <#Maroon> | Superseded by |
-endlegend
-
-```
+{%
+    include-markdown "../UML/Technisch/SAD_ADRs.md"
+%}
 
 Verantwoordingen toe te voegen:
 

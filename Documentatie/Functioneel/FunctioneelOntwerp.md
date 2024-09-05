@@ -12,64 +12,9 @@ De actuele technische aspecten van het systeem zijn vastgelegd in het [Technisch
 
 In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal functioneren als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hierdoor wordt de data die het PMP verwacht van Productive in een vroeg stadium vastgelegd en de afhankelijkheid op deze data aangegeven.
 
-```puml
-
-skinparam linetype ortho
-skinparam nodesep 130
-skinparam ranksep 120
-
-rectangle "Project management portal"{
-  class Klant
-  class Aanvraag
-  class Doorontwikkeling
-  class Incident
-  class Impact
-  class Urgentie
-  class Prioriteit
-  class SLA{
-    reactietijd
-    oplostijd
-  }
-  class Gebruiker
-}
-rectangle "Productive"{
-  class Project
-  class Taak
-  class Takenlijst
-  class Board
-  class Status
-}
-
-SLA"1"--"1"Project :> Toegekend aan
-SLA"1"--"1"Prioriteit :> Bevat tijden voor
-
-' Klant beheert project
-Klant "1"--"0..1" Project :> Eigenaar van
-Klant "1..*"--"0..*" Project :> Beheerder van
-
-' Klant aanvraag
-Klant "1"--"0..*" Aanvraag :> Doet een
-Aanvraag "1"--"0..*" Taak :> Resulteert in
-
-' aanvraag is een...
-Incident --|> Aanvraag : < Ingediend als
-Doorontwikkeling --|> Aanvraag : < Ingediend als
-
-
-' Incident priority
-Impact "1"--"0-..*" Incident : < Ingediend met
-Urgentie "1"--"0..*" Incident : < Ingediend met
-Prioriteit .. (Impact, Urgentie)  
-
-Taak"0..*"--"1"Takenlijst : > Weggeschreven op
-Takenlijst"0..*"--"1"Board : < Onderdeel van
-
-Taak"0..*"--"1"Prioriteit :< Van
-Taak"0..*"--"1"Status :< Van
-
-Board "1..*"--"1" Project :> Voor
-
-```
+{%
+  include-markdown "../UML/Functioneel/Domeinmodel_globaal.md"
+%}
 
 ### Toelichting domeinmodel
 
@@ -79,7 +24,7 @@ Board "1..*"--"1" Project :> Voor
 | Project management portal (groepering) | De entiteiten binnen de PMP groepering zijn gebaseerd op de Bluenotion workflow en de bijbehorende service level agreements. Deze entiteiten hebben geen al bestaande data in de Productive omgeving.  | Bovenstaand diagram  |
 | Project | Een stuk software dat een **Klant** wilt laten ontwikkelen door Bluenotion. | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) |
 | Klant  | Een individu of organisatie die bij Bluenotion een of meer projecten heeft lopen bij Bluenotion | [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) |
-| Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. Dit is meestal een **doorontwikkeling**, **incident** of **servicevraag**. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
+| Aanvraag/ticket | Iets dat de **klant** wil in zijn/haar **project**. Dit is meestal een **doorontwikkeling**, **incident** of **servicevraag**. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
 | Taak | Een **Aanvraag** waar een [PM of TL](FunctioneelOntwerp.md#act2-bluenotion-admin) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. Toelichting over de lifecycle van taken is [hier onder](#lifecycle-aanvragen) te vinden. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
 | Bord | Een bord waar intern voor Bluenotion taken op worden bijgehouden. Zie [lifecycle taken](#lifecycle-aanvragen) voor meer informatie. | [FR3.1](./Requirements/FR3_Toevoegen_aanvraag.md#fr31-toevoegen-nieuwe-aanvraag-in-een-project) |
 | Team | Een representatie van de rollen en beschikbare kennis binnen Bluenotion die worden gebruikt voor het toekennen van de juiste taak aan de juiste werknemers. (UX, FE, BE) | [FR8.2](./Requirements/FR8_Controleren_aanvraag.md#fr82-op-splitten-taak-naar-team-taken) |
@@ -98,36 +43,9 @@ Board "1..*"--"1" Project :> Voor
 
 Aangezien een van de primaire doelen van het PMP het inzichtelijk maken van het aangevraagde, uitvoerende en uitgevoerde werk is volgt in dit hoofdstuk een toelichting op de lifecycle van een typische aanvraag/taak binnen Bluenotion. Het in dit hoofdstuk beschreven proces gebeurt in de huidige situatie in een combinatie van excel, Productive en email en telefonische communicatie. Aangezien details kwijt kunnen raken in het volledige [domein model](./FunctioneelOntwerp.md#domein) volgt eerst nog een snelle toelichting op het verschil tussen een aanvraag, taak, doorontwikkeling en incident in de context van hoe deze door Bluenotion in Productive gebruikt worden.
 
-```puml
-skinparam linetype ortho
-skinparam nodesep 130
-skinparam ranksep 120
-
-  class Klant
-  class Aanvraag
-  class Taak
-  class Doorontwikkeling
-  class Incident
-  class Impact
-  class Urgentie
-  class Prioriteit
-
-
-' Klant aanvraag
-Klant "1"--"0..*" Aanvraag :> Doet een
-Aanvraag "1"--"1..*" Taak :> Resulteert in
-
-
-' Priority part
-Incident --|> Aanvraag : < Ingediend als
-Doorontwikkeling --|> Aanvraag : < Ingediend als
-
-
-' Incident part
-Impact "1"--"0-..*" Incident : < Ingediend met
-Urgentie "1"--"0..*" Incident : < Ingediend met
-Prioriteit .. (Impact, Urgentie)  
-```
+{%
+  include-markdown "../UML/Functioneel/Domein_aanvraag_simpel.md"
+%}
 
 | Entiteit | Uitleg |
 |---|---|
@@ -141,66 +59,9 @@ Prioriteit .. (Impact, Urgentie)
 Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier verschillende taken van voor verschillende teams binnen Bluenotion. Deze taken worden over de loop van tijd op verschillende [Productive borden](./FunctioneelOntwerp.md#bord-structuur) gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak.
 Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
 
-```puml
-| Externe beheerder |
-start
-repeat
-#Red:Plaats aanvraag;
-note right: FR3.1 Toevoegen nieuwe taak
-| Bluenotion admin |
-#LightBlue:Controleren aanvraag;
-note left: FR8.1 Controleren aanvraag 
-#LightBlue:if (Aanvraag één duidelijke functionaliteit?) then (yes) 
-else (no) 
-  #LightBlue:if (Aanvraag bestaat uit meerdere functionaliteiten) then (yes)
-  #LightBlue:Maak aanvraag aan per functionaliteit;
-  note left 
-  *extra FR?
-  end note 
-  else (no)
-  endif
-  #LightBlue:Wijzig omschrijving;
-endif
-  #LightBlue:Add time estimate;
-  #lightBlue:Vraag om feedback;
-  ' #Gray:System: Zet status op "Waiting for review customer";
-| Externe beheerder |
-  #Red:Controleren taak;
-  note right: FR3.2 Toelichting geven op aanvraag
-  #Red:if(Eens met de omschrijving en time estimate?) then (no)
-  #Red:if(Wil aanvraag annuleren) then (yes)
-  #Red:Aanvraag annuleren;
-  end
-  else(no)
-  endif
-  #Red:Wijzigen aanvraag;
-  else(yes)
-  #Red:Accepteer taak;
-  
-
-| Bluenotion admin |
-#LightBlue:Accepteren taak;
-#LightBlue:Opsplitten taak;
-note left 
-  FR8.2: Op splitten taak naar "team" taken.
-  Deze taken komen op de backlog.
-end note
-
-stop 
-
-| Externe beheerder |
-  endif
-
-  repeat while
-
-' legend right
-'     | Color | Status |
-'     |<#Red>| ACT1: Externe beheerder |
-'     |<#LightBlue>| ACT2: Interne beheerder |
-'     |<#Gray>| PMP back-end |
-' endlegend
-
-```
+{%
+  include-markdown "../UML/Functioneel/Activitydiagram_plaatsen_aanvraag.md"
+%}
 
 *Note: De laatste check en het opsplitsen van taken naar taken voor de UX, UI, BE, FE zou voor "Vraag om feedback" kunnen gebeuren als hier wens naar is. De reden waarom dit op het moment apart gebeurt is zodat er nog een laatste controle wordt gedaan op een taak voordat deze geaccepteerd wordt en zodat mocht de scope van een aanvraag niet duidelijk zijn is het niet nodig hier subtaken van te maken.
 
@@ -208,59 +69,9 @@ stop
 
 Zodra voor een doorontwikkeling of incident een taak is aangemaakt komt deze op een bord terecht in productive. Aan de hand van deze borden houdt Bluenotion bij hoe veel werk nog open staat voor elk project en wie verantwoordelijk is voor de volgende stap voor de betreffende taken.
 
-```puml
-title Boards and statuses
-skinparam nodesep 10
-skinparam ranksep 10
-left to right direction
-skinparam groupInheritance 3
-
-(backlog) #orange
-(in progress) as in_progress  #orange
-(in review) as in_review #orange 
-(development) #99FF00
-(staging) #99FF00
-(live) #green
-(wishlist) #Tomato
-(aanvragen) #Tomato
-actor "Externe beheerder" as EK
-
-note "Input nodig van klant" as customernotifynote 
-note "input nodig van Bluenotion" as bluenote 
-
-customernotifynote .[norank]. wishlist
-customernotifynote .[norank]. staging
-customernotifynote .[norank]. aanvragen
-bluenote .[norank]. aanvragen
-bluenote .[norank]. wishlist
-
-aanvragen -DOWN-> backlog : ✓
-wishlist -[norank]-> backlog : ✓
-backlog -DOWN-> in_progress : ✓
-in_progress -DOWN-> in_review : ✓
-in_review -DOWN-> development : ✓
-development -DOWN-> staging : ✓
-staging -DOWN-> live : ✓
-in_review -[norank]-> backlog : Denied by reviewer
-wishlist -[norank]-> wishlist : Denied by PM,TL of klant
-aanvragen -[norank]-> aanvragen : Denied by PM/TL
-development -[norank]-> backlog : Denied by customer
-staging -[norank]-> backlog : Denied by customer
-in_progress -[norank]-> wishlist : Functionality is nice to have but outside of scope
-EK --> aanvragen : Voorgestelde situatie
-' EK ..[norank]..> backlog : Oude situatie
-
-
-legend left
-    | Color | Status |
-    | <#Tomato> | Not started |
-    |<#Orange>| Open |
-    |<#99FF00>| Done |
-    |<#Green>| Closed |
-    | ✓ | Accepted |
-endlegend
-
-```
+{%
+  include-markdown "../UML/Functioneel/Boards_and_statuses.md"
+%}
 
 #### Toelichting borden
 
@@ -400,143 +211,9 @@ Binnen dit hoofdstuk worden de functionele en non-functionele eisen gesteld aan 
 
 ### Use case diagram
 
-```puml
-
-left to right direction
-skinparam packageStyle rect
-:ACT1 Externe beheerder: as ACT1
-:ACT2 Interne beheerder: as ACT2
-:ACT3 Interne medewerker: as ACT3
-:ACT4 notification manager: as ACT4
-:ACT5 Externe medewerker: as ACT5
-ACT2-LEFT-|>ACT3
-ACT2-LEFT-|>ACT1
-ACT1-LEFT-|>ACT5
-ACT3-LEFT-|>ACT5
- 
-usecase "FR1.1: Inzien projecten \n" as FR1_1 #66ff33 
-usecase "FR1: Inzien project plannings informatie" as FR1 
-usecase "FR1.2: Inzien totaal geplande uren+kosten \n" as FR1_2 #FF0000 
-usecase "FR2.1: Inzien taken van project \n" as FR2_1 #66ff33 
-usecase "FR2.2: Filteren taken op: waiting for feedback intern+extern, open, staging/testing, closed \n" as FR2_2 #66ff33 
-usecase "FR2.3: Inzien taak details \n" as FR2_3 #66ff33 
-usecase "FR2: Inzien taken" as FR2 
-usecase "FR2.4: Tonen taken in Gantt chart \n" as FR2_4 #ff9933 
-usecase "FR3.1: Toevoegen nieuwe taak \n" as FR3_1 #66ff33 
-usecase "FR3.2: Toelichting geven op ticket (extern) \n" as FR3_2 #66ff33 
-usecase "FR3.3: Toevoegen taken past zich aan aan de klant zijn SLA \n" as FR3_3 #ff9933 
-usecase "FR3.4: Toevoegen bijlagen bij taak \n" as FR3_4 #66ff33 
-usecase "FR3.5: Aanpassen taak prioriteit \n" as FR3_5 #ff9933 
-usecase "FR3: Toevoegen ticket" as FR3 
-usecase "FR3.6: Annuleren ticket \n" as FR3_6 #ffff00 
-usecase "FR4.1: Inlichten klant wanneer een taak wacht op input van de klant \n" as FR4_1 #ffff00 
-usecase "FR4: Versturen notificaties" as FR4 
-usecase "FR4.2: Inlichten Bluenotion bij blockers/criticals \n" as FR4_2 #ff9933 
-usecase "FR5.1: Afhandelen project setup binnen PMP \n" as FR5_1 #ff9933 
-usecase "FR5.2: Instellen productive boards & taak status \n" as FR5_2 #ff9933 
-usecase "FR5.3: Beheren project documentatie \n" as FR5_3 #ff9933 
-usecase "FR5: Beheren project" as FR5 
-usecase "FR5.4: Beheren project services \n" as FR5_4 #ff9933 
-usecase "FR6.1: Inzien lijst van project dependencies \n" as FR6_1 #ff9933 
-usecase "FR6: Inzien project service statuses" as FR6 
-usecase "FR6.2: Inzien huidige status (online/offline) project dependencies \n" as FR6_2 #ff9933 
-usecase "FR7.1: Openen/downloaden document \n" as FR7_1 #ff9933 
-usecase "FR7: Inzien project documentatie" as FR7 
-usecase "FR7.2: Filteren documentnaam/categorie \n" as FR7_2 #ff9933 
-usecase "FR8.1: Controleren ticket (intern) \n" as FR8_1 #66ff33 
-usecase "FR8: Controleren ticket" as FR8 
-usecase "FR8.2: Op splitten taak naar team taken \n" as FR8_2 #ff9933 
-usecase "FR9.1: Starten nieuwe chat \n" as FR9_1 #FF0000 
-usecase "FR9.2: Bericht sturen niet afgesloten chat \n" as FR9_2 #FF0000 
-usecase "FR9.3: Hervatten afgesloten chat \n" as FR9_3 #FF0000 
-usecase "FR9: Chat met tenants" as FR9 
-usecase "FR9.4: Sluiten chat \n" as FR9_4 #FF0000 
-usecase "FR10.1: Uitnodigen gebruiker \n" as FR10_1 #66ff33 
-usecase "FR10.2: Wijzigen rechten \n" as FR10_2 #66ff33 
-usecase "FR10: Beheren gebruikers" as FR10 
-usecase "FR10.3: Verwijderen gebruiker \n" as FR10_3 #66ff33
- 
-      ACT5 -DOWN-> FR1
-      FR1 -DOWN->  FR1_1
-      
-      FR1 -DOWN->  FR1_2
-       
-      ACT5 -DOWN-> FR2
-      FR2 -DOWN->  FR2_1
-      
-      FR2 -DOWN->  FR2_2
-      
-      FR2 -DOWN->  FR2_3
-      
-      FR2 -DOWN->  FR2_4
-       
-      ACT1 -DOWN-> FR3
-      FR3 -DOWN->  FR3_1
-      
-      FR3 -DOWN->  FR3_2
-      
-      FR3 -DOWN->  FR3_3
-      
-      FR3 -DOWN->  FR3_4
-      
-      FR3 -DOWN->  FR3_5
-      
-      FR3 -DOWN->  FR3_6
-       
-      ACT4 -DOWN-> FR4
-      FR4 -DOWN->  FR4_1
-      
-      FR4 -DOWN->  FR4_2
-       
-      ACT2 -DOWN-> FR5
-      FR5 -DOWN->  FR5_1
-      
-      FR5 -DOWN->  FR5_2
-      
-      FR5 -DOWN->  FR5_3
-      
-      FR5 -DOWN->  FR5_4
-       
-      ACT5 -DOWN-> FR6
-      FR6 -DOWN->  FR6_1
-      
-      FR6 -DOWN->  FR6_2
-       
-      ACT5 -DOWN-> FR7
-      FR7 -DOWN->  FR7_1
-      
-      FR7 -DOWN->  FR7_2
-       
-      ACT2 -DOWN-> FR8
-      FR8 -DOWN->  FR8_1
-      
-      FR8 -DOWN->  FR8_2
-       
-      ACT5 -DOWN-> FR9
-      FR9 -DOWN->  FR9_1
-      
-      FR9 -DOWN->  FR9_2
-      
-      FR9 -DOWN->  FR9_3
-      
-      FR9 -DOWN->  FR9_4
-       
-      ACT2 -DOWN-> FR10
-      FR10 -DOWN->  FR10_1
-      
-      FR10 -DOWN->  FR10_2
-      
-      FR10 -DOWN->  FR10_3
-      
-legend left
-  | **Task color** | **Priority** |
-  | <#66ff33> | Must have |
-  | <#ffff00> | Should have |
-  | <#ff9933> | Could have |
-  | <#FF0000> | Won't have |
-  end legend
-
-```
+{%
+  include-markdown "../UML/Functioneel/Usecase_diagram.md"
+%}
 
 ### Requirements traceability matrix
 
@@ -654,25 +331,9 @@ Voor autorisatie wordt gebruik gemaakt van claims die binnen het PMP gekoppeld z
 
 Ter verduidelijking over welke groep bij welke data mag is een deel van de relevante informatie uit het productive data model gehaald:
 
-```puml
-
-rectangle Organization as org
-rectangle Company as comp
-rectangle User as usr
-rectangle Project as prj
-rectangle Board as brd
-rectangle Task as tsk
-rectangle "Task list" as tsk_lst
-org -- comp :< customer of
-comp -- prj :< project for
-prj--brd :< board for
-brd--tsk_lst :< list on
-tsk_lst--tsk :< task on
-
-comp -- usr :< works at
-org -- usr :< works at
-
-```
+{%
+  include-markdown "../UML/Functioneel/Company_project_hirarchy.md"
+%}
 
 In dit overzicht is te zien dat gebruikers op beiden company niveau en organisatie niveau kunnen zitten. Twee dingen die in dit diagram minder duidelijk zijn aangegeven zijn de "works at" relatie (die zoals in de verschillende rollen aangegeven kunnen bestaan uit een admin functie of een generieke medewerkers functie) en waar comments bestaan in Productive.
 

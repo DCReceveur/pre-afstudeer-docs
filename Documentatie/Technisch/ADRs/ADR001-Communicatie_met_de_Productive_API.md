@@ -16,20 +16,9 @@ Om de meest recente data te tonen uit productive terwijl de schaalbaarheid wordt
 
 In dit geval zou het PMP bij bijvoorbeeld het opvragen van taken die bij een project horen enkel met zijn eigen database communiceren.
 
-```puml
-title getTasks 'local'
-autonumber
-participant TaskController as task
-participant TaskService as task_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-
-?-> task : UI request
-task --> task_serv : getTasks(projectId)
-task_serv --> pers_serv : getTasks(projectId)
-pers_serv --> pmp_db : SELECT....
-
-```
+{%
+    include-markdown "../../UML/Technisch/Sequence/ADR001_gettasks_local.md"
+%}
 
 <!-- TODO: Zijn gets nodig om via een service te doen? Is het netter de controller direct met de repositories te laten praten of heeft de service laag hier toch een rol in?
 
@@ -39,24 +28,9 @@ TODO: Terminologie opzoeken transparant vs non-transparant layers of iets dergel
 
 Indien via het PMP een wijziging wordt doorgevoerd zoals het toevoegen van een taak of comment of het wijzigen van een status komt dit binnen bij het PMP en wordt de PMP database bijgewerkt.
 
-```puml
-title Add task via Productive
-autonumber
-participant ProductiveSyncController as prod_sync
-participant SyncService as sync_serv
-participant TaskService as task_serv
-participant "PersistenceService" as pers_serv
-database PMP_database as pmp_db
-
-[-> prod_sync : webhook message
-prod_sync -> sync_serv : processSyncRequest(message)
-sync_serv -> task_serv : addTask(TaskInfo) 
-task_serv -> pers_serv : addOrUpdate(TaskInfo)
-pers_serv -> pmp_db : INSERT TaskInfo
-note right 
-    %autonumber%: Could be inserted/updated with "synced flag"
-end note
-```
+{%
+    include-markdown "../../UML/Technisch/Sequence/ADR001_addtask_via_prod.md"
+%}
 
 #### Data wijzigen binnen het PMP
 
@@ -64,34 +38,9 @@ Als via het PMP een wijziging wordt doorgevoerd kan deze direct of op een rustig
 
 *Deze mening is puur gebaseerd op het redundant wegschrijven van data en [NFR2.1](../../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) en [NFR8.2](../../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) zonder verdere uitgebreide redenatie of onderzoek.
 
-```puml
-title Add task via PMP
-autonumber
-participant TaskController as task_ctrl
-participant TaskService as task_serv
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-database Productive_API as prod_api
-
-[->task_ctrl : UI request(TaskInfo)
-task_ctrl -> task_serv : addTask(TaskInfo)
-
-task_serv -> prod_serv : syncTask(TaskInfo)
-prod_serv -> prod_api: HTTP POST
-alt http success
-
-task_serv -> pers_serv : insertOrUpdateTask(TaskInfo)
-
-pers_serv -> pmp_db : INSERT TaskInfo
-note right 
-    %autonumber%: Could be inserted/updated with "not synced flag"
-end note
-else http failure
-prod_serv -> task_ctrl : throw SynchronizationException
-end
-
-```
+{%
+    include-markdown "../../UML/Technisch/Sequence/ADR001_addtask_via_PMP_with_prod_insert.md"
+%}
 
 <!-- TODO: Procedure voor retries bij error of direct error tonen aan gebruiker?
 
@@ -146,56 +95,17 @@ Technisch gezien is voor de data over projecten en taken geen back end database 
 
 <!-- TODO: Data altijd opvragen en toch wegschrijven in een lokale db zodat opgevraagde data wél altijd beschikbaar is zou een 'alternatief' kunnen zijn maar komt qua voor en nadelen redelijk overeen met O1. Zou dit een optie zijn voor wanneer Productive overbelast is? Vermoedelijk voegt het onnodige complexiteit toe zonder toevoeging van grote waarde. -->
 
-```puml
-title getTasks 'direct'
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-database Productive_API as prod_api
-
-?-> task : UI request
-task --> prod_serv : getTasks(projectId)
-prod_serv -->prod_api : http GET
-
-```
-
 ### O3: Timed data synchronisatie
 
 Productive biedt de mogelijkheid [bulk requests](https://developer.productive.io/index.html#header-content-negotiation) te doen. Dit zou gebruikt kunnen worden om op aanvraag de back-end database te synchroniseren met de informatie zoals beschikbaar op Productive.
 
-```puml
-title Add task from pmp
-autonumber
-participant TaskController as task
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
+{%
+    include-markdown "../../UML/Technisch/Sequence/ADR001_addtask_via_PMP_without_prod_insert.md"
+%}
 
-
-?-> task : UI request
-task -> prod_serv : addTask(TaskInfo)
-prod_serv -> pers_serv : addTask(TaskInfo)
-pers_serv -> pmp_db : INSERT...
-```
-
-```puml
-title Bulk sync tasks
-autonumber
-participant ProductiveSyncController as prod_sync
-participant ProductiveService as prod_serv
-participant PersistenceService as pers_serv
-database PMP_database as pmp_db
-database Productive_API as prod_api
-
-?-> prod_sync : cron job sync
-prod_sync -> prod_serv : syncLocalChanges
-prod_serv -> pers_serv : lc = getLocalChanges
-pers_serv -> pmp_db : select where synced=0
-
-prod_serv -> prod_api : HTTP GET 
-prod_serv -> pers_serv : setToSynced(lc)**
-pers_serv -> pmp_db : UPDATE/DELETE...
-```
+{%
+    include-markdown "../../UML/Technisch/Sequence/ADR001_bulk_sync_tasks.md"
+%}
 
 **Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
 
@@ -205,30 +115,9 @@ pers_serv -> pmp_db : UPDATE/DELETE...
 
 Productive biedt een "[Activities](https://developer.productive.io/activities.html#activities)" endpoint aan waar wijzigingen in het Model van productive opgevraagd kunnen worden op basis van taak, project of bedrijf met ingebouwde filters evenementen voor of na een bepaalde datum. Door wanneer data over een bepaald project nodig is zou in de lokale database gekeken kunnen worden wanneer hier de laatste activiteit in is geweest. Deze activiteit is weg te schrijven in de lokale database en kan getoond worden aan de gebruiker.
 
-```puml
-
-start
-:get relevant project from local db;
-if (Project found) then (no)
-    :get project from productive;
-    if(Productive contains project data)then (yes)
-        :get all activities from productive*;
-    else (no)
-    :Show project not found;
-    endif
-else (yes) 
-    :get Activities from productive since last local update;
-
-    if(Activities>0) then (yes)
-    :Write changes to local db;
-    else (no)
-    endif
-endif
-
-:show data to user;
-stop
-
-```
+{%
+    include-markdown "../../UML/Technisch/ADR001_Activity_change_based_polling.md"
+%}
 
 Aan de hand van deze procedure stuur je per pagina op zijn minst één request naar de productive Activities endpoint en één request naar de PMP database. Als aan de hand van de activities alle data ingeladen kan worden is met één request naar de PMP database en twee naar productive (met één enkel naar Activities zie je het verschil tussen geen activity en geen project niet) gegarandeerd worden dat je werkt met de meest recente versie van een project en de bijbehorende taken.
 
@@ -242,23 +131,9 @@ Uitdagingen:
 
 Er kan gebruik gemaakt worden van een cache met een tijd waarna records verlopen. Data over taken of projecten kan aan de hand van webhooks of direct polling opgehaald en weggeschreven worden waarna het PMP pas nieuwe data gaat ophalen zodra data voor een bepaalde tijd niet meer is ververst. Hiermee wordt het dubbel ophalen van data als er bijvoorbeeld van het dashboard naar een project wordt genavigeerd voorkomen.
 
-```puml
-title get by project id with cache
-TicketController -> TicketService : GetTicketsByProjectId([id])
-TicketService -> TicketRepository : GetByProjectId([id])
-    alt "Project found && !Refresh needed"
-            note right
-                Refresh needed = last_synced-datetime.now>refresh_required_interval
-            end note
-        TicketService <- TicketRepository : Tickets
-        TicketController <- TicketService : Tickets
-    else "Project not found || Refresh needed"
-        TicketService -> SyncService : SyncTicketsForProjects([id])
-        SyncService -> TicketApiClient : GetTicketsByProjectId([id])
-        SyncService -> TicketRepository : AddOrUpdateTickets(Tickets)
-        TicketController <- SyncService : Tickets
-end alt
-```
+{%
+    include-markdown "../../UML/Technisch/Sequence/ADR001_gettasks_with_cache.md"
+%}
 
 <!-- ## Open vragen -->
 
