@@ -222,11 +222,12 @@ Opmerking over de planning: Binnen de planning wordt gesproken over het "afronde
 
 ## Risico’s
 
-| **Risico**   | **Kans** | **Impact** | **Tegenmaatregel**  |**Uitwijkstrategie**  |
+| **Risico**   | **Kans** | **Impact** | **Tegenmaatregel**  | **Uitwijkstrategie**  |
 |---|---|---|---|---|
 | Langdurige ziekte | Klein    | Middel     | ?     | Thuis werken   |
 | Verlies data development machine | Klein | Klein  | Zorg ervoor dat wijzigingen elke dag online worden gezet  | Herstel vanuit git & cloud storage.                                                            |
 | Productive.io API is niet toereikend aan het project | Klein    | Middel     | Overleg met productive.io of er wijzigingen mogelijk zijn  | Overleg met opdrachtgever over wat te doen met de functionaliteit die de API niet ondersteund. |
+| Wijzigingen in de Productive API zorgen er voor dat gemaakte functionaliteit refactored moet worden  | middel  | middel  | In de gaten houden Productive API changes feed en handelen wanneer een gebruikte endpoint wordt aangepast.  | Bij te korte support oude API endpoint contact opnemen met Productive support om opties te bespreken. |
 
 ## Bronnen
 
