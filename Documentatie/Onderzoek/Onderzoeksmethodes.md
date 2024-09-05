@@ -45,3 +45,8 @@ De volgende methodes zijn overwogen toe te passen binnen het gekozen onderzoek p
 | 6 | [Prototyping](https://ictresearchmethods.nl/workshop/prototyping/) | Workshop |  Na het vaststellen van de eisen en onderzoeken van de verschillende opties wordt de meest belovende optie uitgewerkt tot een PoC zodat er meer zekerheid is dat de oplossing naar verwachting functioneert. | [OND01](OND01-ProductiveSync.md#workshop) |
 | 7 | [Usability testing](https://ictresearchmethods.nl/lab/usability-testing/) | Lab | Zodra een PoC is gemaakt kunnen er tests uitgevoerd worden die de grenzen van het systeem testen. | [OND01](OND01-ProductiveSync.md#lab) |
 | 8 | [A/B Testing](https://ictresearchmethods.nl/lab/a-b-testing/) | Lab | Zou gebruikt kunnen worden om twee oplossingen te vergelijken na het maken van één of meerdere PoC's. | [OND01](OND01-ProductiveSync.md#lab) |
+| 9 | [Stakeholder analysis](https://ictresearchmethods.nl/field/stakeholder-analysis/) | Field | [Onderdeel FO](../Functioneel/FunctioneelOntwerp.md#actors-en-user-stories) | |
+| 10 | [Problem analysis](https://ictresearchmethods.nl/field/problem-analysis/) | Field | Ter verificatie dat de voorgestelde oplossing niet vanaf een vroeg punt de verkeerde richting in is geslagen of onnodig complex is wordt met de PM&TL overlegd. | |
+| 11 | [Observation](https://ictresearchmethods.nl/field/observation/) | Field | Discover productive workflow | |
+| 12 | [Interview](https://ictresearchmethods.nl/field/interview/) | Field | Discover productive workflow | |
+| 13 | [Document analysis](https://ictresearchmethods.nl/field/document-analysis/) | Field | Discover productive workflow | |

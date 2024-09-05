@@ -134,9 +134,40 @@ De admin handelingen voor het beheer van de dependencies.
 | 5B | Bevestigt het verwijderen van de service uit het project |  |
 | 6 |  | Resume main flow stap 6 |
 
-## FR5.4: Uploaden documentatie
+## FR5.4: Beheren project documentatie
 
 User story: Als interne beheerder wil ik documentatie kunnen uploaden zodat het open gezet kan worden voor klanten om te lezen.
+User story: Als interne beheerder wil ik verschillende documenten open kunnen zetten voor verschillende projecten zodat de klant enkel toegang heeft tot de documenten die voor hem/haar relevant zijn.
+
+TODO: fully dressed versie uitwerken.
+
+| FR7.3 | Beheren project documentatie (CRUD) |
+|---|---|
+| Prioriteit | Could have  |
+| Primaire Actor | ACT2: Bluenotion admin |
+| Stakeholders | ACT1: Externe beheerder |
+| Pre condities | Er is een project toegevoegd in het PMP |
+| Post condities | Een document is toegevoegd, vervangen of verwijderd|
+| Triggers | Op aanvraag Bluenotion admin |
+| Exceptions |  |
+| Open issues |  |
+
+Notes:
+
+Documentatie wordt geupload aan de hand van FR7.4, aan de hand van FR7.3 wordt de (al bestaande) documentatie gekoppeld aan een project.
+
+TODO: Het voordeel aan deze opmerking is dat bij het uploaden van een nieuwe versie van bestaande documentatie er één nieuwe versie geüpload kan worden en deze met een handeling voor alle projecten vervangen kan worden. Je zou ook een nieuwe versie van een bestaand document kunnen uploaden en deze moeten koppelen aan elk project die je wilt updaten.
+
+### FR5.4: Main flow
+
+|Stap | Actor | System |
+|---|---|---|
+
+### FR5.4: Alternative flow - Geen uren ingepland op het project
+
+|Stap | Actor | System |
+|---|---|---|
+
 
 ## FR5.5: Documentatie op de to-do lijst zetten
 
