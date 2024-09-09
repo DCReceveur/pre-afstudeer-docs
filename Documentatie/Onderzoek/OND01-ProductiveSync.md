@@ -152,7 +152,8 @@ Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en 
 | NFR2.1: Compleetheid & Betrouwbaarheid gesynchroniseerde data | ++ | + | -- | ++ | ++ |
 | NFR8.*: Opties voor catastrophisch herstel | ++ | +/- | +/- | +/- | +/- |
 | Implementatie complexiteit | + | - | + | - | - |
-| Totaal: | 8 | 6 | 0 | -1 | -2 |
+| Beschikbaar in het huidige Productive pakket | ++ | -- | ++ | ++ | -- |
+| Totaal: | 10 | 4 | 2 | 1 | -4 |
 
 Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements).
 
@@ -160,12 +161,28 @@ Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het
 
 Na in het library onderzoek een aantal verschillende potentiële oplossingen uitgelicht te hebben en ze (voor zo ver mogelijk) op meetbare data gerangschikt te hebben wordt in elk geval de meest veelbelovende oplossing uitgewerkt naar een Proof of Concept prototype. Het doel van dit prototype is op kleine schaal project en taak data van en naar een lokale database te synchroniseren. Door eerst op (relatief) kleine schaal een prototype te maken vallen fouten in de synchronisatie eerder op en mocht de oplossing niet voldoen aan de verwachtingen kan er snel omgeslagen worden naar een andere potentiële oplossing. De eisen voor het PoC prototype zijn als volgt:
 
+<!-- 
 - POC: Worden binnen de webhooks alle identificerende data van objecten meegegeven of kan data uit de Productive API ambigu zijn?
 - POC: Zet een procedure op die bij Productive kijkt of de webhooks actief zijn en indien dit niet het geval is webhooks kan activeren.
 - POC: Zet een procedure op die aan de hand van webhooks één project passief op hoogte houdt met wijzigingen binnen Productive. (create, update delete webhooks on at least task & project)
 - POC: Zet een aantal API endpoints op die (tijdelijke) Project/Taak data accepteren en doorsturen naar Productive via de Productive REST APi
 - POC: (afhankelijk initiële dataset vraag) Zet een procedure op die voor één project alle voor het PMP relevante Project en taak informatie ophaalt.*
 *Dit is een grote. Er zou voor een initiële dataset veel data (boven de api limits) aan Productive gevraagd moeten worden.
+
+Polling POC -->
+
+Te beantwoorden vragen:
+
+- Welke data is binnen het PMP nodig om efficient Productive uit te lezen? (welke keys/entiteiten moeten lokaal beschikbaar zijn?)
+- Hoe zet je veilig een cache laag op die wanneer de zelfde data meerdere keren opgevraagd wordt niet elke keer de data aan Productive vraagt?
+- Hoe zet je een procedure op die schrijf acties in Productive in "real time" laat gebeuren maar geen gegevens kwijt raakt als de API overbelast is?
+
+POC eisen:
+
+- ASP.NET endpoint voor het opvragen van alle taken van een project
+- ASP.NET endpoint voor het toevoegen van een nieuwe taak aan een project
+- Relationele database met opzet van het lokale datamodel
+- Correcte foutafhandeling bij overbelaste Productive API
 
 Na het opzetten van het proof of concept worden de resultaten van het onderzoek en opgeleverde POC besproken met een techlead van Bluenotion om de haalbaarheid en compleetheid van het opgeleverde product aan de hand van peer review te testen.
 
@@ -185,14 +202,14 @@ Na het opzetten van het minimal viable product worden de resultaten van het onde
   - Wat als wijzigingen over de zelfde data gaan en ongeveer tegelijkertijd gedaan worden?
   - Wat als data in een onverwachte volgorde binnenkomt/verwerkt wordt?
   - Hoe gaan we met attachments om? Zelf hosten? Gebruik maken van Productive "hosting"?
-- Meet het gebruik van de webhooks tegenover de schatting van phase 1.
+<!-- - Meet het gebruik van de webhooks tegenover de schatting van phase 1. -->
 
 <!-- TODO: *Is dit concreet testbaar? Mogelijk met integratietests? Zijn dit "HAN deelvragen"? Moet ik überhaupt "HAN deelvragen" hebben? -->
 
-1. Set up webhook
+<!-- 1. Set up webhook
 2. Post data to productive
 3. Verify webhook trigger
-4. Verify database
+4. Verify database -->
 
 ## Lab
 
