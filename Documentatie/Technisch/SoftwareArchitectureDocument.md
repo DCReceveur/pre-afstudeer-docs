@@ -74,12 +74,24 @@ Het PMP API component is verantwoordelijk voor het beheer van de verschillende R
 | **ProjectController**  | Verantwoordelijk voor endpoints met betrekking tot Projecten of project management  |
 | **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
-| **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API.* |
 | [**Models**](#Component-PMP-DB)  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#Component-PMP-DB) gegeven op de models.  |
 
+<!-- | **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API.* | -->
 <!-- TODO: Is er een aparte endpoint nodig voor forced syncs en dergelijke? Deze was eerst bedoeld voor webhook management -->
 
 <!-- TODO: is dit een ADR? -->
+<!-- TODO: is synchroniseren met productive de verantwoordelijkheid van een service of een repository?
+Repo roept service aan?
+Is er uberhaupt een repository voor project/task data?
+
+Nadeel in service:
+Als er een open gelaagd systeem is zou de controller direct kunnen praten met de repository. Als de repository niet persé up to date date bezit omdat de service verantwoordelijk is voor het bijwerken van 
+deze data zou je met incomplete of verouderde data kunnen werken.
+
+Voordeel in service:
+Door de repos enkel te gebruiken voor "lokaal" opgeslagen data is de code voor iemand die niet bekend is met het project beter te overzien.
+
+ -->
 
 Eén gemaakte keuze bij het gebruik van de verschillende lagen en de communicatie hiertussen is dat de verschillende controllers enkel toegang hebben tot de verschillende service interfaces en niet de repository interfaces. Hierdoor zal voor lees acties binnen de services extra code geschreven moeten worden maar is de controller laag niet gekoppeld aan de onderliggende repositories.
 
@@ -97,8 +109,6 @@ De service laag is verantwoordelijk voor de business logica, [transformeren van 
 <!-- *TODO: interface naar de mailserver is nog niet uitgewerkt -->
 
 #### Toelichting Service componenten
-
-<!-- | ISyncProductive  | addTasks(<InputTaskModel[]>), modifyTasks(<InputTaskModel[]>), removeTasks(<InputTaskModel[]>) (*)  | -->
 
 ##### Interfaces
 
@@ -316,3 +326,6 @@ Verantwoordingen toe te voegen:
 Is dit wel een ADR?
 
 <!-- - TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend. -->
+
+
+<!-- https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html -->
