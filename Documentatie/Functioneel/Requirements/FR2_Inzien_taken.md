@@ -113,30 +113,3 @@ User story: Als externe beheerder wil ik een overzicht van het geplande werk zod
 |Stap | Actor | System |
 |---|---|---|
 |  |  |  |
-
-
-<!-- ## FR2.6: Comments toevoegen op aanvraag/taak
-
-| FR2.6 | Comments toevoegen op  aanvraag/taak |
-|---|---|
-| Prioriteit | Must have  |
-| Primaire Actor | ACT2  |
-| Stakeholders | ACT1 |
-| Pre condities | Er is een taak of aanvraag gekoppeld aan de klant zijn/haar project |
-| Post condities | Het bericht van de klant is opgenomen in de Productive.io comments |
-| Triggers | De klant geeft aan een bericht bij een taak neer te willen zetten. |
-| Exceptions |  |
-| Open issues |  |
-
-### FR2.6: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  |
-|  |  |  |
-
-### FR2.6: Alternative flow - flow name
-
-|Stap | Actor | System |
-|---|---|---|
-|  |  |  | -->

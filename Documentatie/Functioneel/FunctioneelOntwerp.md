@@ -32,28 +32,33 @@ rectangle "Project management portal"{
 }
 rectangle "Productive"{
   class Project{
-    Nr. 1
+    <color:red>Nr. 1</color>
   }
   class Taak{
-    Nr. 2
+    <color:red>Nr. 2</color>
   }
   class Takenlijst{
-    Nr. 3
+    <color:red>Nr. 3</color>
   }
   class Board{
-    Nr. 4
+    <color:red>Nr. 4</color>
   }
   class Status{
-    Nr. 5
+    <color:red>Nr. 5</color>
+  }
+  class Bedrijf{
+    <color:red>Nr. 6</color>
   }
 }
+Klant "1..*"--"0..*" Bedrijf :> Beheerder van
+Project "0..*"--"1" Bedrijf :> Uitgevoerd voor
 
 SLA"1"--"1"Project :> Toegekend aan
 SLA"1"--"1"Prioriteit :> Bevat tijden voor
 
 ' Klant beheert project
-Klant "1"--"0..1" Project :> Eigenaar van
-Klant "1..*"--"0..*" Project :> Beheerder van
+'Klant "1"--"0..1" Project :> Eigenaar van
+'Klant "1..*"--"0..*" Project :> Beheerder van
 
 ' Klant aanvraag
 Klant "1"--"0..*" Aanvraag :> Doet een
@@ -624,7 +629,7 @@ Voor autorisatie wordt gebruik gemaakt van claims die binnen het PMP gekoppeld z
 
 Ter verduidelijking over welke groep bij welke data mag is een deel van de relevante informatie uit het productive data model gehaald:
 
-```puml
+<!-- ```puml
 
 rectangle Organization as org
 rectangle Company as comp
@@ -642,12 +647,12 @@ tsk_lst--tsk :< task on
 comp -- usr :< works at
 org -- usr :< works at
 
-```
+``` -->
 <!-- TODO: Is deze verduidelijking nuttig? -->
 
 In dit overzicht is te zien dat gebruikers op beiden company niveau en organisatie niveau kunnen zitten. Twee dingen die in dit diagram minder duidelijk zijn aangegeven zijn de "works at" relatie (die zoals in de verschillende rollen aangegeven kunnen bestaan uit een admin functie of een generieke medewerkers functie) en waar comments bestaan in Productive.
 
-Comments kunnen binnen productive op de volgende plekken toegevoegd worden:
+<!-- Comments kunnen binnen productive op de volgende plekken toegevoegd worden:
 
 - Budgets - deal relationship
 - Companies - company relationship
@@ -660,7 +665,7 @@ Comments kunnen binnen productive op de volgende plekken toegevoegd worden:
 
 Bron: https://developer.productive.io/comments.html#comments
 
-Uiteraard worden de comments meegenomen onder de rechten regels zoals [hierboven](#autorisatie) beschreven.
+Uiteraard worden de comments meegenomen onder de rechten regels zoals [hierboven](#autorisatie) beschreven. -->
 
 <!-- TODO: Keep in mind dat de Bluenotion api key enkel resultaten van org Bluenotion kent (op te lossen na vraag over comments in productive Jesse) -->
 

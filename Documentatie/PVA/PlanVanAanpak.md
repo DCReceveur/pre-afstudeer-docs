@@ -143,21 +143,6 @@ Sprint review:
 
 De sprint review wordt grotendeels gehouden zoals beschreven in het [SCRUM manifesto](https://agilescrumgroup.nl/scrum-manifesto/). De in de afgelopen sprint gemaakte functionaliteit wordt aan de stakeholders voorgelegd met de vraag hier feedback op te geven. Hierna wordt samen met de stakeholders een planning opgezet voor de volgende sprint en de functionaliteiten die de stakeholders graag zouden willen zien in de volgende sprint. Door deze twee acties wordt er over de loop van het project oog gehouden op of het geleverde werk overeen komt met de wensen van de opdrachtgever en de andere stakeholders.
 
-<!-- Gaat dit ergens anders heen? -->
-
-<!-- Aangezien er op het gebied van communicatie met productive een aantal open vragen zijn die invloed kunnen hebben op de rest van de software is er besloten vroegtijdig een onderzoekje op te zetten waar verschillende manieren van synchronisatie worden vergeleken en een prototype wordt gebouwd met de (afhankelijk van de functionele en non-functionele eisen) meest belovende oplossing. Dit prototype dient initieel als Proof of Concept en wordt als de oplossing bevalt uitgebouwd tot synchronisatie module. Met deze aanpak is de hoop eventuele problemen en/of limitaties van het gebruik van de Productive API te ontdekken en indien mogelijk een synchronisatie systeem te maken dat volledig losgekoppeld staat van de rest van de software.
-
-Open Productive communicatie vragen:
-
-- Biedt productive een API aan voor alle data die binnen het FO en schermontwerpen besproken worden?
-- Hoe blijft het systeem up to date met wijzigingen gedaan in Productive?
-- Hoe worden wijzigingen gedaan in het PMP doorgegeven aan Productive?
-- Kan het systeem los van Productive rate limits schalen?
-- Is het nodig de huidige data uit productive in een lokale database weg te schrijven of kan het systeem op requests werken?
-- Moeten er aparte endpoints gemaakt worden binnen het PMP voor de communicatie met Productive of kan er (netjes) gebruik gemaakt worden van de endpoints die de front-end ook gebruikt?
-
-Aan de hand van de antwoorden op deze vragen en de specifieke functionele en non-functionele eisen dient antwoord gegeven te worden op de hoofdvraag/Architectural Decision: Hoe dient het PMP te communiceren met Productive? -->
-
 ## Projectorganisatie en communicatie
 
 | Rol(len): | **Student** |

@@ -26,13 +26,13 @@ Documentatie eisen:
 
 Controle:
 
-- PM/TL heeft de fully dressed use case goedgekeurd in het Functioneel ontwerp. (of gewoon userstory?)
+- PM/TL heeft de fully dressed use case goedgekeurd in het Functioneel ontwerp. (of gewoon user story?)
 
 ## Definition of Done
 
 - TR: Resultaten van de gemaakte functionaliteit zijn opgenomen in het test rapport.
 <!-- Doen we minimale unit test coverage? -->
-- TR: Code coverage is minimaal x%?
+<!-- - TR: Code coverage is minimaal x%? -->
 - TO: Het Technisch ontwerp is bijgewerkt met de implementatie van de gemaakte functionaliteit.
 - SAD: Het Software Architecture Document is bijgewerkt met eventueel aangepaste architecturale beslissingen.
 - Code: Pull requests worden door op zijn minst 1 collega nagekeken voor ze op test/deploy komen.

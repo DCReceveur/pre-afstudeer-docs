@@ -247,9 +247,9 @@ Log: Activities
 
 ### View5: Documentatie view
 
-![Schermontwerp voor het overzicht van documentatie binnen een project](../Images/FunctioneelOntwerp/DocumentatieOverzicht.png)
-
-![Schermontwerp voor het toevoegen van een nieuw document](../Images/FunctioneelOntwerp/DocumentatieToevoegen.png)
+| Wireframe | Scherm ontwerp | Realisatie |
+|---|---|---|
+| ![Schermontwerp voor het overzicht van documentatie binnen een project](../Images/FunctioneelOntwerp/DocumentatieOverzicht.png)</br>![Schermontwerp voor het toevoegen van een nieuw document](../Images/FunctioneelOntwerp/DocumentatieToevoegen.png)  |   |   |
 
 ### View6: TakenOverview
 

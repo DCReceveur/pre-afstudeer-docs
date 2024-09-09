@@ -61,6 +61,8 @@ staging
 
 wishlist?
 
+TODO: statussen checken. Als over verschillende projecten de zelfde status id gebruikt wordt hoeft deze mogelijk niet ingesteld te worden. Field toewijzen aan een project of ticket doe je aan de hand van een update op project of ticket <https://developer.productive.io/working_with_custom_fields.html#working_with_custom_fields>
+
 benodigde statussen:
 
 Not started
@@ -69,6 +71,24 @@ Done
 Closed
 Waiting for review customer
 Waiting for review Bluenotion
+
+Voorstel van handmatige configuratie van status in relatie tot bord:
+
+| PMP status | Productive bord  |
+|---|---|
+| Open  | [-] Backlog</br>[-] Wishlist</br>[-] Aanvragen</br>[+] Bord toevoegen |
+| Bezig  | [-] In progress</br>[-] In review</br>[-] Development</br>[-] Testing</br>[+] Bord toevoegen |
+| Klaar  | [-] Staging</br>[+] Bord toevoegen |
+
+Voordeel:
+
+Door PM de borden te laten instellen (Opzetten project aan de hand van een template zou de borden zelf in kunnen vullen) is het mogelijk oude projecten in het PMP te laden.
+
+Nadeel:
+
+Het kan voorkomen dat deze lijst niet compleet is. Er moet dan een keuze gemaakt worden of voor taken op een onbekend bord een "unknown" status wordt gemaakt of de vorige status wordt aangehouden tot de taak op een bord terecht komt die aanduid dat de status is veranderd.
+
+Note: PMP status hoeft wat mij betreft niet vast te staan. Je zou hier ook een extra status kunnen registreren voor tickets voor latere versies oid.
 
 ### FR5.2: Main flow
 
