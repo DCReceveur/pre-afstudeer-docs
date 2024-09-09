@@ -123,9 +123,20 @@ Om de meest recente data te tonen uit productive terwijl de schaalbaarheid wordt
 
 In dit geval zou het PMP bij bijvoorbeeld het opvragen van taken die bij een project horen enkel met zijn eigen database communiceren.
 
-{%
-    include-markdown "../../UML/Technisch/Sequence/ADR001_gettasks_local.md"
-%}
+```puml
+title getTasks 'local'
+autonumber
+participant TaskController as task
+participant TaskService as task_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+
+?-> task : UI request
+task --> task_serv : getTasks(projectId)
+task_serv --> pers_serv : getTasks(projectId)
+pers_serv --> pmp_db : SELECT....
+
+```
 
 <!-- TODO: Zijn gets nodig om via een service te doen? Is het netter de controller direct met de repositories te laten praten of heeft de service laag hier toch een rol in?
 
@@ -138,9 +149,24 @@ redenering: Binnen BN worden voornamelijk open lagen gebruikt waar de controller
 
 Indien via het PMP een wijziging wordt doorgevoerd zoals het toevoegen van een taak of comment of het wijzigen van een status komt dit binnen bij het PMP en wordt de PMP database bijgewerkt.
 
-{%
-    include-markdown "../../UML/Technisch/Sequence/ADR001_addtask_via_prod.md"
-%}
+```puml
+title Add task via Productive
+autonumber
+participant ProductiveSyncController as prod_sync
+participant SyncService as sync_serv
+participant TaskService as task_serv
+participant "PersistenceService" as pers_serv
+database PMP_database as pmp_db
+
+[-> prod_sync : webhook message
+prod_sync -> sync_serv : processSyncRequest(message)
+sync_serv -> task_serv : addTask(TaskInfo) 
+task_serv -> pers_serv : addOrUpdate(TaskInfo)
+pers_serv -> pmp_db : INSERT TaskInfo
+note right 
+    %autonumber%: Could be inserted/updated with "synced flag"
+end note
+```
 
 #### Data wijzigen binnen het PMP
 
@@ -148,9 +174,35 @@ Als via het PMP een wijziging wordt doorgevoerd kan deze direct of op een rustig
 
 *Deze mening is puur gebaseerd op het redundant wegschrijven van data en [NFR2.1](../../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) en [NFR8.2](../../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) zonder verdere uitgebreide redenatie of onderzoek.
 
-{%
-    include-markdown "../../UML/Technisch/Sequence/ADR001_addtask_via_PMP_with_prod_insert.md"
-%}
+```puml
+title Add task via PMP
+autonumber
+participant TaskController as task_ctrl
+participant TaskService as task_serv
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+database Productive_API as prod_api
+
+[->task_ctrl : UI request(TaskInfo)
+task_ctrl -> task_serv : addTask(TaskInfo)
+
+task_serv -> prod_serv : syncTask(TaskInfo)
+prod_serv -> prod_api: HTTP POST
+alt http success
+
+task_serv -> pers_serv : insertOrUpdateTask(TaskInfo)
+
+pers_serv -> pmp_db : INSERT TaskInfo
+note right 
+    %autonumber%: Could be inserted/updated with "not synced flag"
+end note
+else http failure
+prod_serv -> task_ctrl : throw SynchronizationException
+end
+
+```
+
 
 <!-- TODO: Procedure voor retries bij error of direct error tonen aan gebruiker?
 
@@ -166,25 +218,46 @@ Een resultaat van het ontkoppelen van de PMP database en de Productive database 
 
 Productive biedt de mogelijkheid [bulk requests](https://developer.productive.io/index.html#header-content-negotiation) te doen. Dit zou gebruikt kunnen worden om op aanvraag de back-end database te synchroniseren met de informatie zoals beschikbaar op Productive.
 
-{%
-    include-markdown "../../UML/Technisch/Sequence/ADR001_addtask_via_PMP_without_prod_insert.md"
-%}
+```puml
+title Add task from pmp
+autonumber
+participant TaskController as task
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
 
-{%
-    include-markdown "../../UML/Technisch/Sequence/ADR001_bulk_sync_tasks.md"
-%}
 
+?-> task : UI request
+task -> prod_serv : addTask(TaskInfo)
+prod_serv -> pers_serv : addTask(TaskInfo)
+pers_serv -> pmp_db : INSERT...
+```
+
+```puml
+title Bulk sync tasks
+autonumber
+participant ProductiveSyncController as prod_sync
+participant ProductiveService as prod_serv
+participant PersistenceService as pers_serv
+database PMP_database as pmp_db
+database Productive_API as prod_api
+
+?-> prod_sync : cron job sync
+prod_sync -> prod_serv : syncLocalChanges
+prod_serv -> pers_serv : lc = getLocalChanges
+pers_serv -> pmp_db : select where synced=0
+
+prod_serv -> prod_api : HTTP GET 
+prod_serv -> pers_serv : setToSynced(lc)**
+pers_serv -> pmp_db : UPDATE/DELETE...
+```
 **Dit zou ook kunnen gebeuren als de gesynchroniseerde items terug komen via de webhook
 
 <!-- TODO: verantwoording dat je in dit geval de "niet gesynchroniseerde" data gecombineerd moet worden met A. de productive API data of B. de lokale data verzameld aan de hand van webhooks of REST requests. -->
 
 ### O4: Change based polling
 
-Productive biedt een "[Activities](https://developer.productive.io/activities.html#activities)" endpoint aan waar wijzigingen in het Model van productive opgevraagd kunnen worden op basis van taak, project of bedrijf met ingebouwde filters evenementen voor of na een bepaalde datum. Door wanneer data over een bepaald project nodig is zou in de lokale database gekeken kunnen worden wanneer hier de laatste activiteit in is geweest. Deze activiteit is weg te schrijven in de lokale database en kan getoond worden aan de gebruiker.
-
-{%
-    include-markdown "../../UML/Technisch/ADR001_Activity_change_based_polling.md"
-%}
+Productive biedt een "[Activities](https://developer.productive.io/activities.html#activities)" endpoint aan waar wijzigingen in het Model van productive opgevraagd kunnen worden op basis van taak, project of bedrijf met ingebouwde filters evenementen voor of na een bepaalde datum. Door wanneer data over een bepaald project nodig is zou [zoals in deze diagram](../../Onderzoek/OND01-ProductiveSync.md#change-based-polling-adr001-o4) in de lokale database gekeken kunnen worden wanneer hier de laatste activiteit in is geweest. Deze activiteit is weg te schrijven in de lokale database en kan getoond worden aan de gebruiker.
 
 Aan de hand van deze procedure stuur je per pagina op zijn minst één request naar de productive Activities endpoint en één request naar de PMP database. Als aan de hand van de activities alle data ingeladen kan worden is met één request naar de PMP database en twee naar productive (met één enkel naar Activities zie je het verschil tussen geen activity en geen project niet) gegarandeerd worden dat je werkt met de meest recente versie van een project en de bijbehorende taken.
 
@@ -198,9 +271,7 @@ Uitdagingen:
 
 Er kan gebruik gemaakt worden van een cache met een tijd waarna records verlopen. Data over taken of projecten kan aan de hand van webhooks of direct polling opgehaald en weggeschreven worden waarna het PMP pas nieuwe data gaat ophalen zodra data voor een bepaalde tijd niet meer is ververst. Hiermee wordt het dubbel ophalen van data als er bijvoorbeeld van het dashboard naar een project wordt genavigeerd voorkomen.
 
-{%
-    include-markdown "../../UML/Technisch/Sequence/ADR001_gettasks_with_cache.md"
-%} -->
+ -->
 
 <!-- ## Open vragen -->
 

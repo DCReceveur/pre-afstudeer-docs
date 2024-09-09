@@ -118,9 +118,32 @@ Het grote nadeel van deze aanpak is dat je als gebruiker niet weet of de data up
 
 Eén optie om up to date te blijven met productive is door bij elke data request voor een project of taak de lokale data van de entiteit te vergelijken met de data zoals beschikbaar op Productive. Als het "last_activity_at" date time veld in het PMP lager is dan die van Productive weet je dat de lokale data bijgewerkt moet worden. Dit kan vervolgens gedaan worden aan de hand van het /activities endpoint of de endpoint van de bijbehorende entiteit. Onder volgt een stroomschema van dit proces.
 
-{%
-  include-markdown "../UML/Technisch/ADR001_Activity_change_based_polling.md"
-%}
+```puml
+
+start
+:get relevant project from local db;
+if (Project found) then (no)
+    :get project from productive;
+    note right: Request to Productive API
+    if(Productive contains project data) then (yes)
+        :get all activities from productive*;
+            note left: Request to Productive API as n1
+    else (no)
+    :Show project not found;
+    endif
+else (yes) 
+    :get Activities from productive since last local update;
+    note left: Request to Productive API
+    if(Activities>0) then (yes)
+    :Write changes to local db;
+    else (no)
+    endif
+endif
+
+:show data to user;
+stop
+
+```
 
 Als aan de hand van de Activities endpoint alle relevante data binnengehaald kan worden zou het PMP met deze oplossing na maximaal* 2 requests naar productive altijd zekerheid kunnen bieden dat de aangeboden data compleet en correct is.
 

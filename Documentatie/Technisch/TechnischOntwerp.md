@@ -20,15 +20,177 @@ De interne PMP database wordt gebruikt om extra data te koppelen aan Productive 
 
 ### Productive datamodel
 
-{%
-  include-markdown "../UML/Technisch/Productive_required_data_ERD.md"
-%}
+
+
+Intern:
+
+```puml
+title Essential productive data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle "Productive" {
+  class Project {
+    project_id
+    name
+    updated_on
+  }
+  
+  class Task {
+    task_id
+    title
+    description
+    task_list_id
+    status_id
+    updated_on
+    created_on
+  }
+
+  class Attachment{
+    id
+    url
+  }
+  
+  class Task_list {
+    task_list_id
+    name
+    board_id
+  }
+  
+  class Board {
+    board_id
+    name
+    project_id
+  }
+  
+  class Status {
+    status_id
+    name
+  }
+
+  class CustomField{
+    custom_field_id
+    value
+  }
+
+  class Comment {
+    comment_id
+    content
+    task_id
+  }
+}
+
+class Ticket{
+  id
+  name
+  description
+  productive_id
+  updated_on
+  created_on
+}
+
+' Klant beheert project
+Klant "1"--"0..1" Project :> Eigenaar van
+Klant "1..*"--"0..*" Project :> Beheerder van
+
+' Klant Ticket
+Klant "1"--"0..*" Ticket :> Maakt een
+Ticket "1"--"0..*" Task :> Resulteert in
+
+Task "0..*" -- "1" Task_list : > Weggeschreven op
+Task_list "0..*" -- "1" Board : < Onderdeel van
+
+Task "0..*" -- "1" Status :< Van
+Board "1..*" -- "1" Project :> Voor
+
+Task "1" -- "0..*" Comment :< Heeft
+Task "0..*" -- "1" CustomField
+
+Task "0..*" -- "0..*" Task :> Depends on
+
+Attachment -- Task
+Attachment -- Comment
+
+```
+
 
 ### PMP datamodel
 
-{%
-  include-markdown "../UML/Technisch/PMP_required_data_ERD.md"
-%}
+```puml
+title Essential PMP data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle Productive{
+    class "Task" as productive_task
+    class "Project" as productive_project
+    class "Attachment" as productive_attachment
+    class "Comment" as productive_comment
+}
+
+rectangle PMP{
+    class Ticket{
+        Guid id
+        int productive_id
+        Type
+        datetime last_updated_at
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Task{
+        Guid id
+        int productive_id
+        datetime last_updated_at
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Bedrijf{
+        Guid id
+    }
+    class Prioriteit{
+        int urgentie
+        int impact
+    }
+    class Klant{
+        Guid id
+        String voornaam
+        String achternaam
+        String email
+    }
+    class Project{
+        Guid id
+        int productive_id
+        datetime last_updated_at
+    }
+    note right
+        Refers to Productive Project. 
+        Last updated needed? 
+        Volgens mij zou alleen de naam kunnen veranderen?
+    end note
+}
+
+Klant "1..*"--"0..*" Project :> Beheerder van
+Klant "1..*"--"0..*" Bedrijf :> Beheerder van
+Project "0..*"--"1" Bedrijf :> Uitgevoerd voor
+Klant "1"--"0..*" Ticket :> Maakt een
+Ticket "1"--"0..*" Task :> Resulteert in
+Ticket "0..*"--"1" Project :> Werk voor
+Ticket "0..*" -- "1" Prioriteit :> Ingediend met
+
+Task "1"--"1" productive_task :> Links to
+Ticket "1"--"1" productive_task :> Links to
+Project "1"--"1" productive_project :> Links to
+
+productive_comment -- productive_task :> placed on
+productive_attachment -- productive_task :> bijlagen op
+productive_attachment -- productive_comment :> bijlagen op
+
+```
+
 
 ## Productive endpoints per scherm
 
