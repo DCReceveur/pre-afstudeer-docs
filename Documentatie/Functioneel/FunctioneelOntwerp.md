@@ -10,11 +10,13 @@ De actuele technische aspecten van het systeem zijn vastgelegd in het [Technisch
 
 ## Domein
 
-In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal functioneren als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hierdoor wordt de data die het PMP verwacht van Productive in een vroeg stadium vastgelegd en de afhankelijkheid op deze data aangegeven.
+In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich bevind. Aangezien het PMP zal functioneren als koppeling tussen de klant en het Productive systeem van Bluenotion is het onderstaande domeinmodel ingedeeld in concepten binnen Productive en concepten binnen Bluenotion (aangeduid in het vak Project management portal). Hierdoor wordt de data die het PMP verwacht van Productive in een vroeg stadium vastgelegd en de afhankelijkheid op deze data aangegeven. Voor de data die aangegeven staat in het PMP vak zijn binnen Bluenotion op het moment geen gestandaardiseerde of geautomatiseerde procedures over wie dit wanneer waar aangeeft. Ter toelichting op het domeinmodel zijn onderstaand een voorbeeld van data uit Productive en een tabel met korte omschrijvingen van de entiteiten toegevoegd.
 
 {%
   include-markdown "../UML/Functioneel/Domeinmodel_globaal.md"
 %}
+
+![Schermafbeelding van een taak in Productive](../Images/FunctioneelOntwerp/TaakInProductive.png)
 
 ### Toelichting domeinmodel
 
@@ -34,27 +36,14 @@ In dit hoofdstuk wordt toelichting gegeven op het domein waarin het systeem zich
 | Doorontwikkeling (Taak type) | Een verzoek tot aanpassen van iets binnen de software. Doorgaans komen deze wijzigingen neer op doorontwikkelingen van de software. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
 | Servicevraag (Taak type)  | Een vraag die een **klant** heeft over de software waar geen verdere ontwikkeling voor nodig is.  |   |
 | Incident (Taak type) | Het substantieel niet voldoen van de applicatie aan de overeengekomen specificaties alsmede de situatie waarin sprake is van niet-Beschikbaarheid die niet het gevolg is van onderhoud. | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
-| Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)   | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
-| Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)  | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
-| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md) | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) |
+| Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Bijlagen/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)   | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  |
+| Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Bijlagen/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)  | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)   |
+| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Bijlagen/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md) | [FR3.3](./Requirements/FR3_Toevoegen_aanvraag.md#fr33-toevoegen-taken-past-zich-aan-aan-de-klant-zijn-sla)  [FR4.2](./Requirements/FR4_Versturen_notificaties.md#fr42-inlichten-bluenotion-bij-blockerscriticals) |
 | Status (Taak)  | De status van een taak geeft aan in welk deel van het development proces een taak zich bevindt. Voorbeelden zijn Not started, Open en Closed.  |   |
 
 ### Lifecycle aanvragen
 
-Aangezien een van de primaire doelen van het PMP het inzichtelijk maken van het aangevraagde, uitvoerende en uitgevoerde werk is volgt in dit hoofdstuk een toelichting op de lifecycle van een typische aanvraag/taak binnen Bluenotion. Het in dit hoofdstuk beschreven proces gebeurt in de huidige situatie in een combinatie van excel, Productive en email en telefonische communicatie. Aangezien details kwijt kunnen raken in het volledige [domein model](./FunctioneelOntwerp.md#domein) volgt eerst nog een snelle toelichting op het verschil tussen een aanvraag, taak, doorontwikkeling en incident in de context van hoe deze door Bluenotion in Productive gebruikt worden.
-
-{%
-  include-markdown "../UML/Functioneel/Domein_aanvraag_simpel.md"
-%}
-
-| Entiteit | Uitleg |
-|---|---|
-| Aanvraag | Iets dat de **klant** wil in zijn/haar **project**. Dit is meestal een **doorontwikkeling**, **incident** of **servicevraag**. |
-| Taak | Een **Aanvraag** waar een [PM of TL](#act2-interne-beheerder) goedkeuring voor heeft gegeven voor ontwikkeling. Dit kunnen nieuwe functionaliteiten en bugfixes zijn. |
-| Incident  | Het substantieel niet voldoen van de applicatie aan de overeengekomen specificaties alsmede de situatie waarin sprake is van niet-Beschikbaarheid die niet het gevolg is van onderhoud. |
-| Urgentie  | De spoedeisendheid van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)   |
-| Impact  | De (ernst van de) gevolgen van een incident voor de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md)  |
-| Prioriteit | De prioriteit van de taak, afhankelijk van of mensen nog kunnen werken en de wensen van de klant, welke bepaald moet worden aan de hand van het overzicht zoals vastgesteld in het SLA volgens de [volgende tabel](../Archive/Incident%20Impact,%20Urgentie%20en%20Prioriteit%20levels.md) |
+Binnen de huidige situatie gaan een PM en externe klant om tafel zitten (digitaal of fysiek) om periodiek de opgeleverde resultaten te bespreken en de toekomstige scope te bepalen. Wanneer een klant functionaliteit wilt toevoegen of wijzigen doet de klant een aanvraag.
 
 Op basis van deze aanvraag maakt de PM of TL (afhankelijk van de functionele of technische aard van de aanvraag) hier verschillende taken van voor verschillende teams binnen Bluenotion. Deze taken worden over de loop van tijd op verschillende [Productive borden](./FunctioneelOntwerp.md#bord-structuur) gezet met verschillende verwachtingen van **wie** **wat** gaat doen met de taak.
 Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
@@ -63,7 +52,7 @@ Het proces van een aanvraag tot een uiteindelijke taak loopt als volgt:
   include-markdown "../UML/Functioneel/Activitydiagram_plaatsen_aanvraag.md"
 %}
 
-*Note: De laatste check en het opsplitsen van taken naar taken voor de UX, UI, BE, FE zou voor "Vraag om feedback" kunnen gebeuren als hier wens naar is. De reden waarom dit op het moment apart gebeurt is zodat er nog een laatste controle wordt gedaan op een taak voordat deze geaccepteerd wordt en zodat mocht de scope van een aanvraag niet duidelijk zijn is het niet nodig hier subtaken van te maken.
+<!-- TODO: is deze note relevant? *Note: De laatste check en het opsplitsen van taken naar taken voor de UX, UI, BE, FE zou voor "Vraag om feedback" kunnen gebeuren als hier wens naar is. De reden waarom dit op het moment apart gebeurt is zodat er nog een laatste controle wordt gedaan op een taak voordat deze geaccepteerd wordt en zodat mocht de scope van een aanvraag niet duidelijk zijn is het niet nodig hier subtaken van te maken. -->
 
 ### Bord structuur
 
@@ -103,7 +92,7 @@ De actors zijn de rollen die mensen aannemen als ze gebruik maken van het systee
 
 Het PMP heeft te maken met twee groepen gebruikers, interne (Bluenotion) gebruikers en externe (Klant) gebruikers. Wegens veiligheidsoverwegingen is er [de keuze gemaakt](./FDRs/FDR005-Gelaagde%20rechten.md) deze gebruikers verder op te delen in een medewerkers en een beheerders groep. Het idee hier achter is dat gebruikers op drie niveau's binnen het systeem rechten kunnen krijgen:
 
-- **Corporatie**
+- **Corporatie (lees: Bluenotion)**
     - Interne beheerder: Verantwoordelijk voor globaal project en klant beheer.
     - Interne medewerker: Gemachtigd alle projecten van alle klanten in te zien.
 - **Bedrijf**
@@ -362,8 +351,6 @@ Om problemen binnen het systeem te kunnen herleiden naar hun oorsprong dient voo
 
 ## Bronnen
 
-<!-- TODO: Sources netjes documenteren maar sources:
-
-NFR categories: https://www.altexsoft.com/blog/non-functional-requirements/
-https://www.altexsoft.com/blog/software-requirements-specification/
-Tracability matrix: https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523 -->
+- Editor. (2020, 15 september). How to Write Software Requirements Specifications: Best Practices and SRS Tools. AltexSoft. https://www.altexsoft.com/blog/software-requirements-specification/ Editor. (2023, 30 december).
+- Nonfunctional requirements in software engineering: Examples, types, best practices. AltexSoft. https://www.altexsoft.com/blog/non-functional-requirements/ Requirements Traceability Matrix. (2013, maart). researchgate.net.
+- Geraadpleegd op 9 september 2024, van https://www.researchgate.net/figure/Requirements-traceability-matrix-for-online-shopping-system_tbl4_280083523
