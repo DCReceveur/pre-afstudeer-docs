@@ -22,7 +22,6 @@ PWA --> API : HTTP(S)/JSON
 Service --> DB : MS Entity framework
 API-->Service
 Service --> PR_API : HTTP(S)/JSON
-PR_API -[norank]-> API : HTTP(S)/JSON via webhooks
 Service --> NS : SMTP?
 
 ```

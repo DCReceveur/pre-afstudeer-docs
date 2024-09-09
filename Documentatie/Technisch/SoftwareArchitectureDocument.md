@@ -74,8 +74,10 @@ Het PMP API component is verantwoordelijk voor het beheer van de verschillende R
 | **ProjectController**  | Verantwoordelijk voor endpoints met betrekking tot Projecten of project management  |
 | **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
-| **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
+| **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API.* |
 | [**Models**](#Component-PMP-DB)  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#Component-PMP-DB) gegeven op de models.  |
+
+<!-- TODO: Is er een aparte endpoint nodig voor forced syncs en dergelijke? Deze was eerst bedoeld voor webhook management -->
 
 <!-- TODO: is dit een ADR? -->
 
@@ -146,26 +148,6 @@ De verschillende componenten in de bovenstaande afbeelding zijn niet compleet ma
 - Hoe kom je er achter wanneer data fout is/niet overeenkomt met productive? (A. Wanneer een gebruiker iets probeert te updaten/verwijderen dat niet bestaat)
 - Voor het synchroniseren naar productive van via de FE binnen gekomen data (Heeft repositories een koppeling met Productive API zodat wanneer insert of update dit direct wordt doorgestuurd)
 - Productive kan ook gewoon een repository zijn?
-
-##### Sync service
-
-De sync service is verantwoordelijk voor het opzetten en verwerken van de productive synchronisatie data. Synchronisatie gebeurt aan de hand van twee verschillende methodes:
-
-###### Regular sync
-
-Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden.
-
-<!-- TODO: setup webhooks toevoegen! -->
-
-###### Clean sync
-
-Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP, first time setup of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive. Aangezien deze actie veel data nodig heeft van productive zal deze procedure waarschijnlijk dermate veel tijd en requests kosten dat hij enkel als nood oplossing uitgevoerd dient te worden.
-
-Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
-
-<!-- TODO: rename productive service? -->
-
-<!-- TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik". -->
 
 ### <a id="Component-PMP-DB" /></a>PMP Database and Data models
 
@@ -301,7 +283,9 @@ Welke functionaliteiten binnen Productive beschikbaar zijn is afhankelijk van de
 
 ### Productive API sync
 
-De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.
+
+
+<!-- De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.
 
 Aparte endpoints:
 
@@ -313,7 +297,7 @@ Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is d
 
 Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks.
 
-Can a bad sync happen, how would you notice and how would you solve it?
+Can a bad sync happen, how would you notice and how would you solve it? -->
 
 ## Architectural Decision Records
 

@@ -86,19 +86,6 @@ Database is trager en er moet op gelet worden dat deze cache data die nog niet i
 
 Afhankelijk van de hoeveelheid projecten en taken zou er een background sync aangemaakt kunnen worden die de cache periodiek ververst.
 
-```puml
-title add task with error
-autonumber
-participant projectController as project_ctrl
-'participant projectService as project_serv
-participant projectRepository as project_repo
-participant ProductiveApiClient as prod_api
-database "PMP Database" as PMP_DB
-database "Productive Database" as prod_db
-
-
-```
-
 ## **Consequences:**
 
 - Productive rate limits
@@ -121,16 +108,6 @@ Afhankelijk van waar de data die aan de gebruiker geleverd wordt vandaan komt zo
 - Correctheid geschreven data
 
 Als er taken worden aangemaakt binnen het PMP dienen dienen deze vastgelegd te worden in Productive. Afhankelijk van waar de aan de gebruiker getoonde informatie vandaan komt (Productive of lokale db) dient deze data direct gesynchroniseerd te worden of kan dit op een later moment gebeuren.
-
-- Niet reageren webhook
-
-Mocht de PMP back-end om wat voor reden niet dan ook geen OK status code terug sturen naar de webhook worden er door Productive nog 11 keer (over 12 uur) een poging gedaan de data te sturen. In het geval dat het PMP in deze tijd niet reageert zou er data in Productive staan die niet in het PMP aanwezig is en dus gesynchroniseerd moet worden.
-
-- Initiële dataset
-
-Omdat er aan de hand van webhooks enkel nieuwe data wordt gesynchroniseerd tussen Productive en het PMP dient er voor een oplossing aan de hand van webhooks nagedacht te worden over een procedure van het binnenhalen van een initiële dataset.
-
-
 
 ## **Alternatives:**
 

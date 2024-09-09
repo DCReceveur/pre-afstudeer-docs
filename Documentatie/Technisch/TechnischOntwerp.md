@@ -163,7 +163,7 @@ OnboardingTasksSearchInputModel{
 
 Afhankelijk van [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) zou er voor de PMP API gekeken moeten/kunnen worden naar filtering en pagination voor de RESTful endpoints. Bij de endpoints zoals aangeleverd door de Productive API op alle endpoints beiden filters en paginatie beschikbaar. Hiermee kunnen de hoeveelheid en welke records records die in een keer verstuurd worden beperkt worden en dus kunnen dus de reactiesnelheid en flexibiliteit van de endpoints vergroten. Met het voorlopig besluit van [ADR001-O2](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) waar het PMP een eigen database heeft waar de meeste productive data aan de hand van webhooks gesynchroniseerd wordt naar de lokale PMP database zouden filters en paginatie op de endpoints het uiteindelijke dataverkeer sterk verminderen.
 
-Om een grove schatting te maken van hoe nodig het inperken van de endpoint responses kan gekeken worden naar de resultaten van het pollen van endpoints voor een van de (wat grotere) projecten bij Bluenotion als te vinden in [OND01 Productive Sync](../Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1) waar aan één project 845 taken gekoppeld zijn waar voor het opsturen van de data 939ms (voor 1 pagina) nodig was. 
+Om een grove schatting te maken van hoe nodig het inperken van de endpoint responses kan gekeken worden naar de resultaten van het pollen van endpoints voor een van de (wat grotere) projecten bij Bluenotion als te vinden in [OND01 Productive Sync](../Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1) waar aan één project 845 taken gekoppeld zijn waar voor het opsturen van de data 939ms (voor 1 pagina) nodig was.
 
 Door hier extra filters aan te hangen voor enkel het doorsturen van bijvoorbeeld taken die niet closed zijn of gekoppeld zijn aan een bepaald bord of takenlijst zou de filtertijd mogelijk wel vergroot worden maar de hoeveelheid te versturen data zou verminderen.
 
@@ -353,28 +353,6 @@ Task_Controller -LEFT-> IComment_Service
 Account_Controller -LEFT-> IAccount_Service
 
 ```
-
-<!-- *TODO: Betere logging procedure opzetten -->
-
-<!-- #### IProjectService
-
-#### ICommentService
-
-#### INotification
-
-#### IAccountService
-
-ITaskService	addTask(InputTaskModel), editTask(InputTaskModel), deleteTask(taskId)
-IProjectService	add, edit, delete
-ICommentService	add, edit, delete
-INotification	processNotificationSendRequest(NotificationSendRequest)
-IAccountService	signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)
-
-AccountController	Verantwoordelijk voor endpoints met betrekking tot inloggen of account management
-ProjectController	Verantwoordelijk voor endpoints met betrekking tot Projecten of project management
-TaskController	Verantwoordelijk voor endpoints met betrekking tot Taken of taak management
-CommentController	Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?).
-ProductiveSyncController	Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. -->
 
 ### Synchronisatieservice
 
