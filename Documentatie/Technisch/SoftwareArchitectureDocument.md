@@ -311,7 +311,7 @@ Aparte endpoints:
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md).
 
-Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks. De
+Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks.
 
 Can a bad sync happen, how would you notice and how would you solve it?
 

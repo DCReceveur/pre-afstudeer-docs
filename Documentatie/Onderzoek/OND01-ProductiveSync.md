@@ -23,8 +23,6 @@ Tijdens het library onderzoek zijn nog een aantal vragen naar boven gekomen over
 
 In dit hoofdstuk volgt een korte toelichting over de overwogen en gekozen onderzoek patronen en methodes.
 
-<!-- TODO: bovenstaande hoofdstuk is eigenlijk dubbele informatie. -->
-
 Op basis van de overwegingen uit het vorige hoofdstuk is het onderstaande onderzoek plan opgesteld.
 
 | Stappen | Te beantwoorden deelvragen |

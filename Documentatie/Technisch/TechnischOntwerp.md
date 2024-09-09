@@ -70,6 +70,93 @@ optie:
 
 endpoints ontwerpen zoals de repositories zodat filtering op de endpoints zelf toegepast kan worden.
 
+<!-- TODO: endpoint voorstellen nalopen -->
+
+GET /projects
+
+```C#
+List[ProjectModel] getProjects(ProjectSearchInputModel inputmodel){}
+
+ProjectSearchInputModel{
+  maybe Guid pmp_project_id
+  maybe int productive_id //Is dit nodig?
+  maybe Guid customer_id
+  boolean force_productive_sync
+}
+
+ProjectRowItemModel{
+  Guid pmp_project_id
+  String name
+  boolean actie_vereist
+}
+```
+
+/tickets
+
+```C#
+GET /tickets
+List[TicketRowItemModel] getTickets(TicketSearchInputModel inputmodel){}
+
+GET /tickets/{id} //Detail kan ook naar zijn eigen slug. /ticket oid?
+List[TicketDetailModel] getTickets(TicketSearchInputModel inputmodel){}
+
+TicketSearchInputModel{
+  maybe Guid Pmp_Id
+  maybe int Productive_Id //Is dit nodig?
+  maybe Guid Customer_Id
+  maybe Guid Project_Id
+  maybe boolean Action_required
+  boolean Force_Productive_Sync
+}
+
+TicketRowItemModel{
+  Guid pmp_ticket_id
+  String name
+  boolean actie_vereist
+  String beschrijving
+  String type
+  int prioriteit
+  String status //waarschijnlijk geen string
+  datetime created_at
+  datetime updated_at
+}
+
+TicketDetailModel{
+  Guid pmp_ticket_id
+  String name
+  boolean actie_vereist
+  String beschrijving
+  String type
+  int prioriteit
+  String status //waarschijnlijk geen string
+  datetime created_at
+  datetime updated_at
+
+  int impact
+  int urgentie
+  String prioriteit
+  int inschatting
+  String aangemaakt_door //Customer ID?
+
+  task dependency graph? //TODO: Bijwerken na gesprek UX 10-09
+  //Comments, screenshots en log is extra api call?
+
+}
+```
+
+GET /onboarding_tasks
+
+```C#
+List[OnboardingTaskModel] getOnboardingTasks(OnboardingTasksSearchInputModel inputmodel){}
+
+OnboardingTasksSearchInputModel{
+  maybe Guid Pmp_Id
+  maybe Guid Customer_Id
+  maybe Guid Project_Id
+  maybe boolean Action_required
+}
+```
+
 #### filtering pagination and sorting
 
 <!-- TODO: Vastleggen zodra ADR001 Decided is. -->
