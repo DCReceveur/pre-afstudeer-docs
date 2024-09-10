@@ -208,7 +208,7 @@ productive_attachment -- productive_comment :> bijlagen op
 | Admin: Toevoegen documentatie* |  |  |  |  |  |  |  |
 | Admin: Controleren aanvraag |  | x | x |  | x | x | x |
 
-*Waar slaan we documenten op?
+<!-- TODO: *Waar slaan we documenten op? -->
 
 Voor het uitlezen van data voor één pagina zouden bij sommige pagina's 5 verschillende Productive endpoints benaderd worden. Als volgens [NFR5.1](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) 50 gebruikers gelijktijdig bijvoorbeeld de details van een taak bekijken zou dit resulteren in 250 requests naar de Productive API. Er van uit gaande dat een pagina informatie nodig heeft van gemiddeld 3 a 4 endpoints zou de meest basale implementatie gebaseerd op directe communicatie met productive zich limiteren tot rond de 30 gelijktijdige gebruikers. (100/3.5=28.5)
 
@@ -227,6 +227,25 @@ Controllers worden per entiteit aangemaakt en volgen allemaal grofweg de zelfde 
 | Delete (DELETE) | Endpoint om bestaande entiteiten te verwijderen  | ```public async Task<NoContentResult> DeleteActivityAdmin([FromRoute] TaskId taskId, CancellationToken cancellationToken)```  |
 
 <!-- TODO?: Een redenatie toevoegen over patch vs put? -->
+<!-- Is het netjes om een find meer informatie terug te laten geven? -->
+
+| Endpoint | Gebruikt in | Filter fields | Sortable fields | Response |
+|---|---|---|---|---|
+| /projects | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View2](../Functioneel/Schermontwerpen.md#view2-mijn-projecten) | company_id, action_required, pmp_project_id | Datum ingediend, laatste update |  |
+| /tickets | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | pmp_project_id, status, action_required, type, prioriteit | titel, type, prio, datum ingediend, laatste update |  |
+| /tasks | ViewX Toekennen taak zonder ticket | pmp_project_id, status | datum ingediend, laatste update |  |
+| /feed | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view) | project_id, ticket_id |  |  |
+| /onboarding | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard) | pmp_project_id |  |  |
+| /attachments | [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | ticket_id |  |  |
+| /manuals | [View5](../Functioneel//Schermontwerpen.md#view5-documentatie-view) | pmp_project_id |  |  |
+
+/tickets & /projects hebben een {controller}/{id}/details endpoint om de ticket detail view en project settings te faciliteren.
+
+<!-- TODO: Paginatie kan op API of FE niveau, ADR schrijven? -->
+<!-- TODO: Is er nog een filter nodig op /projects die op user_id kan filteren? Zo zouden projecten waar de gevraagde gebruiker toegang toe heeft opgevraagd kunnen worden -->
+<!-- TODO: er is een argument te maken om attachments en manuals in één endpoint to stoppen -->
+<!-- TODO: pagination -->
+<!-- TODO: Is er een /tellers endpoint nodig? -->
 
 optie:
 

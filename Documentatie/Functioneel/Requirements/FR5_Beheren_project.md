@@ -61,16 +61,16 @@ staging
 
 wishlist?
 
-TODO: statussen checken. Als over verschillende projecten de zelfde status id gebruikt wordt hoeft deze mogelijk niet ingesteld te worden. Field toewijzen aan een project of ticket doe je aan de hand van een update op project of ticket <https://developer.productive.io/working_with_custom_fields.html#working_with_custom_fields>
+<!-- TODO: statussen checken. Als over verschillende projecten de zelfde status id gebruikt wordt hoeft deze mogelijk niet ingesteld te worden. Field toewijzen aan een project of ticket doe je aan de hand van een update op project of ticket <https://developer.productive.io/working_with_custom_fields.html#working_with_custom_fields> -->
 
 benodigde statussen:
 
-Not started
-Open
-Done
-Closed
-Waiting for review customer
-Waiting for review Bluenotion
+Not started > Not started
+Open > Open
+Done > Klaar
+Closed > Klaar
+Waiting for review customer > Actie vereist
+Waiting for review Bluenotion > Actie vereist
 
 Voorstel van handmatige configuratie van status in relatie tot bord:
 

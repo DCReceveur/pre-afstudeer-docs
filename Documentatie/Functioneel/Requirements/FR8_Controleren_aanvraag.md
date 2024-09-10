@@ -78,7 +78,7 @@ User story: Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect i
 
 ### FR8.2: Main flow
 
-|Stap | Actor | System |
+<!-- |Stap | Actor | System |
 |---|---|---|
 | 1 | De actor geeft aan een aanvraag te willen splitten naar verschillende taken |  |
 | 2 |  | Het systeem geeft een aantal opties (teams) waar binnen dat project taken voor aangemaakt kunnen worden |
@@ -89,6 +89,21 @@ User story: Als Bluenotion admin wil ik bij taken die onduidelijk of incorrect i
 
 *Standaard wordt de tijd opgedeeld aan de hand van de standaard split met optie tot aanpassing.
 TODO: navragen, stap 5 zou ook kunnen gebeuren aan de hand van de "standaard split"
+
+Vernieuwde main flow: -->
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | De actor geeft aan dat er meerdere teams aan een ticket moeten werken |  |
+| 2 |  | Het systeem geeft een aantal opties voor teams die aan de taak zouden kunnen werken en eventueel al aangemaakte subtaken. |
+| 3 | De actor kiest een van de teams |  |
+|   |   | Toont een invoerveld waar de gebruiker een titel en korte omschrijving kan invoeren voor de te maken taak  |
+| 4 | De actor voegt een korte omschrijving toe met wat een lid van het gekozen team moet doen |  |
+| 5 |  | Het systeem maakt een taak aan binnen Productive die een blocking dependency heeft op de originele ticket* |
+| 6 |  | Toont de zelfde informatie als bij stap 2 maar nu met extra sub taak |
+
+<!-- TODO: *blocking dependency kan ook op andere manieren opgelost worden. Het idee is dat er binnen Productive te herleiden is wat de parent ticket is. -->
+<!-- Is het überhaupt interessant om te weten of subtaken afhankelijk zijn van elkaar? Op het moment is dit ook niet het geval. -->
 
 ### FR8.2: Alternative flow - flow name
 

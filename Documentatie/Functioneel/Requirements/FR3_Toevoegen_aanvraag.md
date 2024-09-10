@@ -32,11 +32,31 @@ User story: Als externe beheerder wil ik bij mijn projecten de optie om nieuwe t
 | 3 | Vult de gepresenteerde velden in met informatie over de taak. |  |
 | 4 |   | Toont de ingevoerde informatie nogmaals en vraagt de gebruiker of de informatie correct is.  |
 | 5 | Controleert de ingevulde informatie en geeft aan dat de informatie correct is. |  |
-| 6 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. </br> TODO: navragen, tonen verwachte reactie tijd/opvolg instructies? Dit zou afhankelijk zijn van het SLA dus deel van FR3.3? |
+| 6 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. |
 
 *Schatting van de door de actor aan te leveren informatie:
 
 Titel, korte omschrijving, Screenshot (urgentie & impact zie FR3.3)
+
+
+Aangepaste main flow:
+
+|Stap | Actor | System |
+|---|---|---|
+| 1 | Geeft aan een aanvraag te hebben voor een bestaand project |  |
+| 2 |  | Presenteert de gebruiker met een aantal invoer velden om informatie te verzamelen op de taak. |
+| 3 | Vult de gepresenteerde velden in met informatie over de taak. |  |
+| 4 |   | Toont de ingevoerde informatie nogmaals en vraagt de gebruiker of de informatie correct is.  |
+| 5 | Controleert de ingevulde informatie en geeft aan dat de informatie correct is. |  |
+| 6 |  | Maakt op basis van de ingevulde gegevens een taak aan op de aanvragen lijst in Productive. |
+| 7  |   | Geeft de taak binnen Productive voegt tag toe met PMP ticket Id*  |
+| 8  |   |   |
+| 9  |   |   |
+
+
+Tags niet besproken
+
+ <!-- </br> TODO: navragen, tonen verwachte reactie tijd/opvolg instructies? Dit zou afhankelijk zijn van het SLA dus deel van FR3.3? -->
 
 ### FR3.1: Alternative flow - Hoge prioriteit taak
 
