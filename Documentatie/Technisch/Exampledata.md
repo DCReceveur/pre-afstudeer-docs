@@ -1,309 +1,832 @@
-# Example data
+# Endpoints
 
 In dit document wordt per endpoint aangegeven wat voor data ze verwachten, terug kunnen geven en wat voor foutmeldingen er te verwachten zijn.
 
 ## PMP
 
+| controller | Omschrijving |
+|---|---|
+| /projects  | CRUD projecten |
+| /tickets | CRUD projecten, beheer ticket - taak relatie |
+| /tasks | CRUD taken, beheer taak dependencies |
+| /feed | Getters voor de feed |
+| /onboarding |  |
+| /attachments  |  |
+| /manuals |  |
+
+Uit het TO:
+
+| Endpoint | Gebruikt in | Filter fields | Sortable fields |
+|---|---|---|---|
+| /projects | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View2](../Functioneel/Schermontwerpen.md#view2-mijn-projecten) | company_id, action_required, pmp_project_id | Datum ingediend, laatste update |
+| /tickets | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | pmp_project_id, status, action_required, type, prioriteit | titel, type, prio, datum ingediend, laatste update |
+| /tasks | ViewX Toekennen taak zonder ticket | pmp_project_id, status | datum ingediend, laatste update |
+| /feed | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view) | project_id, ticket_id |  |
+| /onboarding | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard) | pmp_project_id |  |
+| /attachments | [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | ticket_id |  |
+| /manuals | [View5](../Functioneel//Schermontwerpen.md#view5-documentatie-view) | pmp_project_id |  |
+
+/tickets & /projects hebben een {controller}/{id}/details endpoint om de ticket detail view en project settings te faciliteren.
+
 ### /projects
 
-#### GET /projects
+<!-- #### Basic /projects -->
 
-request body:
+??? "/projects"
 
-N/A
+    #### GET
 
-Response:
+    ??? "**Request:** GET `/projects`"
 
-```json
-"projects":[
-    {
-        "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
-        "name": "ProjectManagementPortal",
-        "actie_vereist": false
-    },
-    {
-        "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA12345",
-        "name": "Eurowheelz",
-        "actie_vereist": true
-    }
-  ]
-```
+        **Path parameters:** N/A
 
-Alternatief om [de tellers](../Functioneel/Schermontwerpen.md#taken-tellers) binnen dit endpoint te verwerken
+        **Query parameters:**
 
-```json
-"projects":[
-    {
-        "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
-        "name": "ProjectManagementPortal",
-        "actie_vereist_taken": 0,
-        "totaal_taken": 7
-    },
-    {
-        "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
-        "name": "Eurowheelz",
-        "actie_vereist_taken": 3,
-        "totaal taken": 5
-    }
-  ]
-```
+        | Parameter | usage |
+        |---|---|
+        | company_id | filter projects by company id |
 
-Errors:
+        **Request body:** N/A
 
-forbidden, not found, too many requests
-<!-- TODO: iets van een filter error? -->
+        **Response:**
 
-Authentication, Authorization, Auditing:
+        ```json
+        {
+            "projects":[
+                {
+                    "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
+                    "name": "ProjectManagementPortal",
+                    "actie_vereist": false
+                },
+                {
+                    "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA12345",
+                    "name": "Eurowheelz",
+                    "actie_vereist": true
+                }
+            ]
+        }
+        ```
 
-Only returns projects you have at least read rights for, no logging.
+        Alternatief om [de tellers](../Functioneel/Schermontwerpen.md#taken-tellers) binnen dit endpoint te verwerken
 
-#### POST /projects
+        ```json
+        {
+            "projects":[
+                {
+                    "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
+                    "name": "ProjectManagementPortal",
+                    "tasks_require_action": 0,
+                    "tasks_total": 7
+                },
+                {
+                    "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
+                    "name": "Eurowheelz",
+                    "tasks_require_action": 3,
+                    "tasks_total": 5
+                }
+            ]
+        }
+        ```
 
-<!-- TODO: request body, response, errors, AAA -->
-Not yet used
+        **Errors:**
 
-#### PATCH/PUT /projects
+        | Error response | Cause |
+        |---|---|
+        | too many requests | The API is overloaded and has reached its rate limit. |
 
-<!-- TODO: request body, response, errors, AAA -->
-Not yet used
+        <!-- forbidden, not found, too many requests -->
+        <!-- TODO: iets van een filter error? -->
 
-#### DELETE /projects/{projectId}
+        **Authentication, Authorization, Auditing:**
 
-<!-- TODO: request body, response, errors, AAA -->
-Not yet used
+        Only returns projects you have at least read rights for, no logging.
 
-#### GET /projects/{projectId}/details
 
-<!-- TODO: request body, response, errors, AAA -->
-Not yet used
+    #### POST 
+
+    TODO: request body, response, errors, AAA
+    Not yet used
+
+    #### PATCH/PUT 
+
+    TODO: request body, response, errors, AAA
+    Not yet used
+
+    #### DELETE 
+
+    TODO: request body, response, errors, AAA
+    Not yet used
+
+    #### GET {projectId}/details
+
+    TODO: request body, response, errors, AAA
+    Not yet used
+
+    !!! note "Overige /projects endpoints"
+        Er worden nog POST, PATCH/PUT, DELETE en een GET /projects/{projectId}/details endpoints gemaakt. Deze worden verder uitgewerkt zodra [FR5.1:Afhandelen project setup](../Functioneel/Requirements/FR5_Beheren_project.md#fr51-afhandelen-project-setup) opgepakt wordt.
+
+### /projects/{projectId}/onboarding
+
+??? "/projects/{projectId}/onboarding"
+
+    #### GET 
+
+    ??? "**Request:** GET `/projects/{projectId}/onboarding`"
+
+        **Response:**
+
+        ```json
+        {
+            "onboarding_items":[
+                {
+                    "id": "94D60639-9FB9-4E1D-BA75-78F361D4558A",
+                    "item_marked_done": true,
+                    "description": "Server instellen",
+                    "position": 1
+                },
+                {
+                    "id": "12360639-9FB9-4E1D-BA75-78F361D4558A",
+                    "item_marked_done": false,
+                    "description": "Database schema laden",
+                    "position": 2
+                }
+                {
+                    "id": "98760639-9FB9-4E1D-BA75-78F361D4558A",
+                    "item_marked_done": false,
+                    "description": "Contact opnemen met Bluenotion",
+                    "position": 3
+                }
+            ]
+        }
+        ```
+
+        <!-- TODO: request body, response, errors, AAA -->
+
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+
+    #### POST
+
+    ??? "**Request:** POST `/projects/{projectId}/onboarding`"
+
+        **Request body:**
+
+        ```json
+        {
+            "onboarding_items":[
+                {
+                    "item_marked_done": true,
+                    "description": "Server instellen",
+                    "position": 1
+                }
+            ]
+        }
+        ```
+
+        <!-- TODO: request body, response, errors, AAA -->
+
+        <!-- #### PATCH/PUT /projects/{projectId}/onboarding -->
+
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+    #### PATCH/PUT
+
+    ??? "**Request: ** PATCH/PUT `/projects/{projectId}/onboarding`"
+
+        **Request body:**
+
+        ```json
+        {
+            "onboarding_items":[
+                {
+                    "id": "94D60639-9FB9-4E1D-BA75-78F361D4558A",
+                    "item_marked_done": true,
+                    "description": "Server instellen",
+                    "position": 1
+                },
+                {
+                    "id": "12360639-9FB9-4E1D-BA75-78F361D4558A",
+                    "item_marked_done": false,
+                    "description": "Database schema laden",
+                    "position": 2
+                }
+                {
+                    "id": "98760639-9FB9-4E1D-BA75-78F361D4558A",
+                    "item_marked_done": false,
+                    "description": "Contact opnemen met Bluenotion",
+                    "position": 3
+                }
+            ]
+        }
+        ```
+
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+        <!-- TODO: request body, response, errors, AAA -->
+        <!-- TODO: Betere naam voor itemId -->
+
+    #### DELETE 
+    
+    **Request:** DELETE `/projects/{projectId}/onboarding/{itemId}`
+
+    <!-- TODO: request body, response, errors, AAA -->
+
+    **GET** 
+    
+    `/projects/{projectId}/onboarding/{itemId}/details`
+
+    <!-- TODO: Navragen: zijn er onboarding details of niet? -->
+    <!-- TODO: request body, response, errors, AAA -->
 
 ### /tickets
 
-#### GET /tickets
+??? "/tickets"
 
-Request body:
+    #### GET
 
-N/A
+    ??? "**Request: ** GET `/tickets`"
+    
+        **Path parameters:** 
 
-Response:
+        **Query parameters:**
 
-```json
+        | Parameter | usage |
+        |--|--|
+        | projectId |  |
 
-"ticketListItems":[
-    {
-        "ticketId": "3CE5AB8E-6C19-4ABA-B43B-6C10034657CE",
-        "name": "Trage laadtijden dashboard",
-        "description": "Het dashboard is traag, los dit op.",
-        "actie_vereist": true,
-        "type": "doorontwikkeling",
-        "prioriteit": null,
-        "status": "Bezig", 
-        "Inschatting": 12,
-        "created_at": "10-10-2024:16:44:31",
-        "updated_at": "11-10-2024:16:44:31",
-    },
-    {
-        "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
-        "name": "Toevoegen knop werkt niet",
-        "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
-        "actie_vereist": false,
-        "type": "issue",
-        "prioriteit": "1",
-        "status": "Bezig", 
-        "Inschatting": 12,
-        "created_at": "10-10-2024:16:44:31",
-        "updated_at": "11-10-2024:16:44:31",
-    }
-]
+        **Request body:**
 
-```
+        N/A
 
-Errors:
+        **Response body:**
 
-forbidden, not found
+        <!-- ??? Response -->
 
-Authentication, Authorization, Auditing:
+            ```json
+            {
+                "ticketListItems":[
+                    {
+                        "ticketId": "3CE5AB8E-6C19-4ABA-B43B-6C10034657CE",
+                        "name": "Trage laadtijden dashboard",
+                        "description": "Het dashboard is traag, los dit op.",
+                        "actie_vereist": true,
+                        "type": "doorontwikkeling",
+                        "prioriteit": null,
+                        "status": "Bezig", 
+                        "Inschatting": 12,
+                        "created_at": "10-10-2024:16:44:31",
+                        "updated_at": "11-10-2024:16:44:31",
+                    },
+                    {
+                        "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                        "name": "Toevoegen knop werkt niet",
+                        "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                        "actie_vereist": false,
+                        "type": "issue",
+                        "prioriteit": "1",
+                        "status": "Bezig", 
+                        "Inschatting": 12,
+                        "created_at": "10-10-2024:16:44:31",
+                        "updated_at": "11-10-2024:16:44:31",
+                    }
+                ]
+            }
+            ```
 
-Only returns tickets you have at least read rights for, no logging.
+        **Errors:**
 
-<!-- TODO: request body, response, errors, AAA -->
+        | Error response | Cause |
+        |--|--|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
 
-#### POST /tickets
+        Authentication, Authorization, Auditing:
 
-Request body:
+        Only returns tickets you have at least read rights for, no logging.
 
-```json
-"tickets":[
-    {
-        "name": "Trage laadtijden dashboard",
-        "description": "Het dashboard is traag, los dit op.",
-        "type": "issue",
-        "impact": "laag",
-        "urgentie": "hoog",
-        "Inschatting": 12
-    },
-    {
-        "name": "Trage laadtijden dashboard",
-        "description": "Het dashboard is traag, los dit op.",
-        "type": "issue",
-        "impact": "laag",
-        "urgentie": "hoog",
-        "Inschatting": 12
-    }
-]
-```
+    #### POST
 
-<!-- TODO: request body, response, errors, AAA -->
+    ??? "**Request:** POST `/tickets`"
 
-#### PATCH/PUT /tickets
+        **Path parameters: **
 
-Request body:
+        N/A
 
-<!-- TODO: misschien een expliciete change mee sturen? -->
+        **Query parameters: **
 
-```json
-"tickets":[
-    {
-        "ticketId": "3CE5AB8E-6C19-4ABA-B43B-6C10034657CE",
-        "name": "Trage laadtijden dashboard",
-        "description": "Het dashboard is traag, los dit op.",
-        "type": "issue",
-        "impact": "laag",
-        "urgentie": "hoog",
-        "Inschatting": 12
-    },
-    {
-        "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
-        "name": "Trage laadtijden dashboard",
-        "description": "Het dashboard is traag, los dit op.",
-        "type": "issue",
-        "impact": "laag",
-        "urgentie": "hoog",
-        "Inschatting": 12
-    }
-]
-```
+        TODO
 
-Response: 201
+        **Request body: **
 
-Errors:
+            ```json
+            {
+                "tickets":[
+                    {
+                        "name": "Trage laadtijden dashboard",
+                        "description": "Het dashboard is traag, los dit op.",
+                        "type": "issue",
+                        "impact": "laag",
+                        "urgentie": "hoog",
+                        "Inschatting": 12
+                    },
+                    {
+                        "name": "Trage laadtijden dashboard",
+                        "description": "Het dashboard is traag, los dit op.",
+                        "type": "issue",
+                        "impact": "laag",
+                        "urgentie": "hoog",
+                        "Inschatting": 12
+                    }
+                ]
+            }
+            ```
 
-Forbidden, not found
+        **Response body:**
 
-AAA:
+        **Errors:**
+        | Error response | Cause |
+        |--|--|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
 
-Heeft admin rechten nodig voor project of bedrijf
+        **Authentication, Authorization, Auditing:**
 
-Log de wijziging en de gebruiker die het heeft aangevraagd
+    #### PATCH/PUT
 
-<!-- TODO: request body, response, errors, AAA -->
+    ??? "**Request: ** PATCH/PUT `/tickets`"
 
-#### DELETE /tickets/{ticketId}
+        **Path parameters:**
 
-<!-- TODO: request body, response, errors, AAA -->
+        N/A
 
-#### GET /tickets/{ticketId}/details
+        **Query parameters:**
 
-<!-- TODO: request body, response, errors, AAA -->
+        N/A
 
-Request body:
+        **Request body:**
 
-Response:
+            <!-- ??? Request body -->
 
-Errors:
+            ```json
+            {
+                "tickets":[
+                    {
+                        "ticketId": "3CE5AB8E-6C19-4ABA-B43B-6C10034657CE",
+                        "name": "Trage laadtijden dashboard",
+                        "description": "Het dashboard is traag, los dit op.",
+                        "type": "issue",
+                        "impact": "laag",
+                        "urgentie": "hoog",
+                        "Inschatting": 12
+                    },
+                    {
+                        "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                        "name": "Trage laadtijden dashboard",
+                        "description": "Het dashboard is traag, los dit op.",
+                        "type": "issue",
+                        "impact": "laag",
+                        "urgentie": "hoog",
+                        "Inschatting": 12
+                    }
+                ]
+            }
+            ```
+        **Response body: **
 
-Authentication, Authorization, Auditing:
+        N/A
+
+        **Errors:**
+
+        | Error response | Cause |
+        |—|—|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+        **Authentication, Authorization, Auditing:**
+        
+        Heeft admin rechten nodig voor project of bedrijf
+        Log de wijziging en de gebruiker die het heeft aangevraagd
+
+    #### DELETE /{ticketId}
+
+    Request body
+
+    N/A
+
+    Response
+
+    204 Deleted
+
+    Errors:
+
+    Forbidden, not found
+
+    Authentication, Authorization, Auditing:
+
+    Log de wijziging en de gebruiker die het heeft aangevraagd
+
+    #### GET /{ticketId}/details
+
+    Request body
+
+    N/A
+
+    ??? Response
+
+        ```json
+        {
+            "ticket":{
+                "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                "name": "Toevoegen knop werkt niet",
+                "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                "actie_vereist": false,
+                "type": "issue",
+                "prioriteit": "1",
+                "impact": "Hoog",
+                "urgentie": "Laag",
+                "Bijlages": [], // Aparte endpoint voor bijlages?
+                "Aangemaakt door": "Sjeff Wouters",
+                "status": "Bezig", 
+                "estimate_in_minutes": 720,
+                "created_at": "10-10-2024:16:44:31",
+                "updated_at": "11-10-2024:16:44:31",
+            }
+        }
+
+        ```
+
+    Errors:
+
+    Forbidden, not found
+
+    Authentication, Authorization, Auditing:
+
+    Only returns tickets you have at least read rights for, no logging.
+
+### /tickets/{ticketId}/tasks
+
+??? "/tickets/{ticketId}/tasks"
+
+    #### GET
+
+    TODO: Kan ook deel zijn van GET /tickets/{ticketId}/details
+
+    ??? Response
+
+        ```json
+        {
+        "tasks":[{
+                    "taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "task_name": "Schermontwerpen maken",
+                    "task_team": "UX",
+                    "status": "Done",
+                    "dependencies":[
+                        {
+                            "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":1, //Blocking
+                        },
+                        {
+                            "dependent_taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":1, //Blocking
+                        },
+                    ]
+                },
+                {
+                    "taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "task_name": "Views updaten",
+                    "task_team": "FE",
+                    "status": "Started",
+                    "dependencies":[
+                        {
+                            "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":2 //Waiting
+                        },
+                        {
+                            "dependent_taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":1 //Blocking
+                        },
+                    ]
+
+                },
+                {
+                    "taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                    "task_name": "Database server updaten",
+                    "task_team": "BE",
+                    "status": "Open",
+                    "dependencies":[
+                        {
+                            "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":2 //Waiting
+                        },
+                        {
+                            "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":2 //Waiting
+                        },
+                        ]
+                    },
+                ],
+        }
+        ```
+
+    #### POST /tickets/{ticketId}/tasks
+
+    Adds a new or existing task to a ticket
+
+    ??? Request body
+
+        ```json
+        {
+            "tasks":[
+            {
+                "task_id": null,
+                "name": "Toevoegen knop werkt niet",
+                "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                "estimate_in_minutes": 720,
+                "task_team": "FE",
+                "dependencies":[
+                    {
+                        "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                        "dependencyType":1, //Blocking
+                    },
+                    {
+                        "dependent_taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                        "dependencyType":1, //Blocking
+                    },                
+                ]
+            },
+            {
+                "task_id": "08498498-29C2-442B-96F8-2F611087E948",
+                "name": "Dashboard",
+                "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                "task_team": "BE",
+                "estimate_in_minutes": null,
+                "dependencies":[]
+            }]
+        }
+        ```
+
+    Errors:
+
+    Ticket not found, task not found, forbidden
+
+    #### DELETE /tickets/{ticketId}/tasks/{taskId}
+
+    Removes a task from a ticket
 
 ### /tasks
 
-#### GET /tasks
+??? "/tasks"
 
-<!-- TODO: request body, response, errors, AAA -->
+    - [ ] Get for project
+    - [ ] Add/remove to/from ticket <= bulk
+    - [ ] Set dependencies
 
-#### POST /tasks
+    #### GET /tasks
 
-<!-- TODO: request body, response, errors, AAA -->
+    Request body
 
-#### PATCH/PUT /tasks
+    N/A
 
-<!-- TODO: request body, response, errors, AAA -->
+    ??? Response
 
-#### DELETE /tasks/{taskId}
+        ```json
+        {
+            "tasks":[
+                {
+                    "taskId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "productive_id": "12345",
+                    "name": "Toevoegen knop werkt niet",
+                    "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                    "estimate_in_minutes": 720,
+                    "dependencies":[],
+                    "created_at": "10-10-2024:16:44:31",
+                    "updated_at": "11-10-2024:16:44:31",
+                },
+                {
+                    "taskId": "98765432-B393-4A55-8431-ED2EB0CDC1EC",
+                    "productive_id": "12345",
+                    "name": "Toevoegen knop werkt niet",
+                    "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                    "estimate_in_minutes": 720,
+                    "dependencies":[],
+                    "created_at": "10-10-2024:16:44:31",
+                    "updated_at": "11-10-2024:16:44:31",
+                },
+            ]
+        }
+        ```
 
-<!-- TODO: request body, response, errors, AAA -->
+    Errors:
 
-#### GET /tasks/{taskId}/details
+    Forbidden
 
-<!-- TODO: request body, response, errors, AAA -->
+    Authentication, Authorization, Auditing:
+
+    Only returns tickets you have at least read rights for, no logging.
+
+    #### POST /tasks
+
+    !!! note
+        Er is nog geen scenario bedacht waarop er een taak losstaand van een ticket gemaakt moet worden. Mocht dit in een van de wensen naar boven komen is dit endpoint te implementeren, taken gekoppeld aan tickets toevoegen gaat via `POST /tickets/{ticketId}/tasks`
+
+    <!-- Moved to /tickets/{id}/tasks -->
+
+    #### PATCH/PUT /tasks
+
+    ??? Request body
+
+        ```json
+        {
+        "tasks":[{
+                    "taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "task_name": "Schermontwerpen maken",
+                    "task_team": "UX",
+                    "status": "Done",
+                    "dependencies":[
+                        {
+                            "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":1, //Blocking
+                        },
+                        {
+                            "dependent_taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":1, //Blocking
+                        },
+                    ]
+                },
+                {
+                    "taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "task_name": "Views updaten",
+                    "task_team": "FE",
+                    "status": "Started",
+                    "dependencies":[
+                        {
+                            "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":2 //Waiting
+                        },
+                        {
+                            "dependent_taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":1 //Blocking
+                        },
+                    ]
+
+                },
+                {
+                    "taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                    "task_name": "Database server updaten",
+                    "task_team": "BE",
+                    "status": "Open",
+                    "dependencies":[
+                        {
+                            "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":2 //Waiting
+                        },
+                        {
+                            "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                            "dependencyType":2 //Waiting
+                        },
+                        ]
+                    },
+                ],
+        }
+        ```
+
+
+    <!-- Not needed, use PATCH/PUT /tickets -->
+    <!-- TODO: request body, response, errors, AAA -->
+
+    #### DELETE /tasks/{taskId}
+
+    Deletes a task including on Productive, should remove task from any tickets but leave the ticket
+    <!-- TODO: request body, response, errors, AAA -->
+
+    <!-- #### GET /tasks/{taskId}/details -->
+
+    <!-- TODO: response, errors, AAA -->
 
 ### /feed
 
-#### GET /feed
+??? "/feed"
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### GET /feed
+
+    TODO: actie gevraagd en voltooid en dergelijken kan beter geformuleerd worden
+
+    ??? Response
+
+        ```json
+        {
+            "feed"[
+                {
+                    "action_on":"10-09-2024 12:03",
+                    "action_description":"Actie voltooid door Jesse Bekke",
+                    "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "projectId": "98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "ticketnaam":"Maken ticket dashboard"
+                },
+                {
+                    "action_on":"10-09-2024 12:02",
+                    "action_description":"Actie van de Bluenotion gevraagd door Sjeff Wouters",
+                    "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "projectId": "98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "ticketnaam":"Maken ticket dashboard"
+                },
+                {
+                    "action_on":"10-09-2024 10:02",
+                    "action_description":"Comment toegevoegd: 'Ja hoor, helemaal top' door Sjeff Wouters",
+                    "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "projectId": "98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "ticketnaam":"Maken ticket dashboard"
+
+                },
+                {
+                    "action_on":"05-09-2024 10:03",
+                    "action_description":"Actie van de klant gevraagd op ticket {ticketnaam} door Jesse Bekke",
+                    "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "projectId": "98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "ticketnaam":"Maken ticket dashboard"
+                },
+                {
+                    "action_on":"05-09-2024 10:03",
+                    "action_description":"Comment toegevoegd aan {ticketnaam}: 'Zijn de scherm ontwerpen naar wens?' door Jesse Bekke",
+                    "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                    "projectId": "98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "ticketnaam":"Maken ticket dashboard"
+
+                },
+                {
+                    "action_on":"05-09-2024 10:02",
+                    "action_description":"Afbeeldingen Dashboard.png en Ticketlijst.png toegevoegd aan {ticketnaam} door Roel Dekkers",
+                    "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",  
+                    "projectId": "98765432-6C19-4ABA-B43B-6C10034657CE",
+                    "ticketnaam":"Maken ticket dashboard"
+                }
+            ]
+        }
+        ```
+
+    <!-- TODO: request body, response, errors, AAA -->
 
 ### /onboarding
 
-#### GET /onboarding
-
-<!-- TODO: request body, response, errors, AAA -->
-
-#### POST /onboarding
-
-<!-- TODO: request body, response, errors, AAA -->
-
-#### PATCH/PUT /onboarding
-
-<!-- TODO: request body, response, errors, AAA -->
-<!-- TODO: Betere naam voor itemId -->
-
-#### DELETE /onboarding/{itemId}
-
-<!-- TODO: request body, response, errors, AAA -->
-
-#### GET /onboarding/{itemId}/details
-
-<!-- TODO: request body, response, errors, AAA -->
+Moved /onboarding to /projects.
 
 ### /attachments
 
-<!-- TODO: willen we een GET voor enkele attachment?  -->
+??? "/attachments"
 
-#### GET /attachments
+    <!-- TODO: willen we een GET voor enkele attachment?  -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### GET /attachments
 
-#### POST /attachments
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### POST /attachments
 
-#### PATCH/PUT /attachments
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### PATCH/PUT /attachments
 
-#### DELETE /attachments/{projectId}
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### DELETE /attachments
+
+    <!-- TODO: request body, response, errors, AAA -->
 
 ### /manuals
 
-#### GET /manuals
+??? "manuals"
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### GET /manuals
 
-#### POST /manuals
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### POST /manuals
 
-#### PATCH/PUT /manuals
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### PATCH/PUT /manuals
 
-#### DELETE /manuals/{projectId}
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### DELETE /manuals/{projectId}
 
-#### GET /manuals/{projectId}/details
+    <!-- TODO: request body, response, errors, AAA -->
 
-<!-- TODO: request body, response, errors, AAA -->
+    #### GET /manuals/{projectId}/details
 
+    <!-- TODO: request body, response, errors, AAA -->

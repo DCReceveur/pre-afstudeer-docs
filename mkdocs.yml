@@ -6,11 +6,17 @@ theme:
     - content.action.edit
   logo: Styling/logo.svg
   favicon: Styling/favicon.png
+
 docs_dir: Documentatie
 exclude_docs: |
   /Archive/
   /Notes/
   /UML/
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 
 extra_css:
 - Styling/stylesheet.css
