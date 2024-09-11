@@ -220,16 +220,17 @@ Controllers worden per entiteit aangemaakt en volgen allemaal grofweg de zelfde 
 
 | Naam | Functie | Signature example |
 |---|---|---|
-| Find (GET) | Geeft de mogelijkheid om informatie over één van de entiteiten op te vragen op basis van een opgegeven unieke identifier.  |  ```public async Task<ActionResult<TaskModel>> Find([FromRoute] TaskId taskId)```  |
-| GetAll (GET) | Levert alle entiteiten van het type aan die de gebruiker gemachtigd is te bekijken.  | ```public async Task<ActionResult<TasksModel>> GetAll()```  |
+| GET (GET) | Levert alle entiteiten van het type aan die de gebruiker gemachtigd is te bekijken.  | ```public async Task<ActionResult<TasksModel>> GetAll()```  |
 | Post (POST) | Endpoint om nieuwe entiteiten van het type aan te maken.  |  ```public async Task<ActionResult<TasksModel>> AddBookingWithActivity([FromBody] AddTaskModel model, CancellationToken cancellationToken)``` |
 | Patch (PATCH) | Endpoint om bestaande entiteiten op basis van hun unieke identificatie te wijzigen.  |  ```public async Task<ActionResult<TasksModel>> AddBookingWithActivity([FromBody] AddTaskModel model, CancellationToken cancellationToken)``` |
 | Delete (DELETE) | Endpoint om bestaande entiteiten te verwijderen  | ```public async Task<NoContentResult> DeleteActivityAdmin([FromRoute] TaskId taskId, CancellationToken cancellationToken)```  |
 
+<!-- | Find (GET) | Geeft de mogelijkheid om informatie over één van de entiteiten op te vragen op basis van een opgegeven unieke identifier.  |  ```public async Task<ActionResult<TaskModel>> Find([FromRoute] TaskId taskId)```  | filter PK op GetAll is al een find.  -->
+
 <!-- TODO?: Een redenatie toevoegen over patch vs put? -->
 <!-- Is het netjes om een find meer informatie terug te laten geven? -->
 
-| Endpoint | Gebruikt in | Filter fields | Sortable fields | Response |
+<!-- | Endpoint | Gebruikt in | Filter fields | Sortable fields | Response |
 |---|---|---|---|---|
 | /projects | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View2](../Functioneel/Schermontwerpen.md#view2-mijn-projecten) | company_id, action_required, pmp_project_id | Datum ingediend, laatste update |  |
 | /tickets | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | pmp_project_id, status, action_required, type, prioriteit | titel, type, prio, datum ingediend, laatste update |  |
@@ -239,7 +240,7 @@ Controllers worden per entiteit aangemaakt en volgen allemaal grofweg de zelfde 
 | /attachments | [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | ticket_id |  |  |
 | /manuals | [View5](../Functioneel//Schermontwerpen.md#view5-documentatie-view) | pmp_project_id |  |  |
 
-/tickets & /projects hebben een {controller}/{id}/details endpoint om de ticket detail view en project settings te faciliteren.
+/tickets & /projects hebben een {controller}/{id}/details endpoint om de ticket detail view en project settings te faciliteren. -->
 
 <!-- TODO: Paginatie kan op API of FE niveau, ADR schrijven? -->
 <!-- TODO: Is er nog een filter nodig op /projects die op user_id kan filteren? Zo zouden projecten waar de gevraagde gebruiker toegang toe heeft opgevraagd kunnen worden -->
