@@ -1,0 +1,2438 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../FR4_Versturen_notificaties/">
+      
+      
+        <link rel="next" href="../FR6_Inzien_project_service_statuses/">
+      
+      
+      <link rel="icon" href="../../../Styling/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>FR5: Beheren project - PMP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../Styling/stylesheet.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fr5-beheren-project" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="PMP" class="md-header__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  <img src="../../../Styling/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PMP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FR5: Beheren project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/DCReceveur/pre-afstudeer-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PMP" class="md-nav__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  <img src="../../../Styling/logo.svg" alt="logo">
+
+    </a>
+    PMP
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/DCReceveur/pre-afstudeer-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management Portal documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bijlagen
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bijlagen
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Bijlagen/Incident%20Impact%2C%20Urgentie%20en%20Prioriteit%20levels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Incident Impact, Urgentie en Prioriteit levels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Functioneel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Functioneel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FunctioneelOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functioneel ontwerp Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Schermontwerpen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scherm ontwerpen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    FDRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            FDRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FDRs/FDR001-Tijd-en-kosten-niet-tonen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR001 Tijd en kosten niet tonen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FDRs/FDR002-Tenant-level-chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR002 Tenant level chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FDRs/FDR003-Gebruikers-acties-in-productive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR003 Gebruikers acties in productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FDRs/FDR004-Aanpassingen-Productive-workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR004 Aanpassingen productive workflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FDRs/FDR005-Gelaagde%20rechten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR005: Gelaagde rechten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Requirements
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR1_Inzien_project_plannings_informatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR1: Inzien project plannings informatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR2_Inzien_taken/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR2: Inzien taken
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR3_Toevoegen_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR3: Toevoegen aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR4_Versturen_notificaties/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR4: Versturen notificaties
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    FR5: Beheren project
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    FR5: Beheren project
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fr51-afhandelen-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.1: Afhandelen project setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.1: Afhandelen project setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr51-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.1: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr51-alternative-flow-flow-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.1: Alternative flow - flow name
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr52-instellen-productive-boards-en-taak-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.2 Instellen productive boards en taak status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.2 Instellen productive boards en taak status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr52-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.2: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr52-alternative-flow-flow-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.2: Alternative flow - flow name
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr53-beheren-project-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Beheren project services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.3: Beheren project services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr53-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr53-alternative-flow-service-toevoegen" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Alternative flow - service toevoegen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr53-alternative-flow-service-verwijderen" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Alternative flow - service verwijderen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr54-beheren-project-documentatie" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.4: Beheren project documentatie
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.4: Beheren project documentatie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr54-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.4: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr54-alternative-flow-geen-uren-ingepland-op-het-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.4: Alternative flow - Geen uren ingepland op het project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr55-documentatie-op-de-to-do-lijst-zetten" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.5: Documentatie op de to-do lijst zetten
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR6_Inzien_project_service_statuses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR6: Inzien project service statuses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR7_Inzien_project_documentatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR7 Inzien project documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR8_Controleren_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR8 Controleren aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR9_Tenant_level_chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR9: Tenant chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FR10_Beheren_gebruikers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR10: Beheren gebruikers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FRX_FDUC_Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR000: Empty FDUC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Onderzoek
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Onderzoek
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Onderzoek/OND01-Onderzoeksplan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OND01-Onderzoeksplan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Onderzoek/OND01-ProductiveSync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OND01-Communicatie met productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Onderzoek/Onderzoeksmethodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Onderzoek methodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PVA/PEKs%20en%20BoKS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Beoordelings criteria afstuderen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PVA/PlanVanAanpak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plan van aanpak Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PVA/kwaliteitseisen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kwaliteitseisen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Technisch
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Technisch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/Endpoints/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Endpoints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/SoftwareArchitectureDocument/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture Document
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/TechnischOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technisch ontwerp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ADRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            ADRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR001-Communicatie met de Productive API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR002-Front%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR002-Front end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR003-Back%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR003-Back end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR004-Database%20system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR004-Database system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR005-Database-ORM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR005-Database-ORM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR006-Frontend%20backend%20Communicatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR006-Frontend backend Communicatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR007-MVC%20Design%20pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR007 MVC Design pattern
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR008-Taak-Mijlpalen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR009-ProductiveData/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0009 Productive Data Details
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/ADR010-Authentication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR010 Authentication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/LADR%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR000: LADR Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Technisch/ADRs/scheiding%20tussen%20aanvraag%20en%20taak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR00? Aanvragen in Productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/ADR001%20maybetrash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR001 maybetrash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../notes/Vragen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vragen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fr51-afhandelen-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.1: Afhandelen project setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.1: Afhandelen project setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr51-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.1: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr51-alternative-flow-flow-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.1: Alternative flow - flow name
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr52-instellen-productive-boards-en-taak-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.2 Instellen productive boards en taak status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.2 Instellen productive boards en taak status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr52-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.2: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr52-alternative-flow-flow-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.2: Alternative flow - flow name
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr53-beheren-project-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Beheren project services
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.3: Beheren project services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr53-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr53-alternative-flow-service-toevoegen" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Alternative flow - service toevoegen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr53-alternative-flow-service-verwijderen" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.3: Alternative flow - service verwijderen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr54-beheren-project-documentatie" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.4: Beheren project documentatie
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FR5.4: Beheren project documentatie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fr54-main-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.4: Main flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fr54-alternative-flow-geen-uren-ingepland-op-het-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.4: Alternative flow - Geen uren ingepland op het project
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fr55-documentatie-op-de-to-do-lijst-zetten" class="md-nav__link">
+    <span class="md-ellipsis">
+      FR5.5: Documentatie op de to-do lijst zetten
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/DCReceveur/pre-afstudeer-docs/tree/main/Documentatie/Functioneel/Requirements/FR5_Beheren_project.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="fr5-beheren-project">FR5: Beheren project</h1>
+<p>Deze functional requirement betreft het voorbereidend werk dat wordt gedaan voordat een project wordt gestart. Voorbeelden zijn onderhandelen van de initiële scope, afstemmen van het budget/SLA. Deze requirement is nog niet helemaal afgestemd.</p>
+<h2 id="fr51-afhandelen-project-setup">FR5.1: Afhandelen project setup</h2>
+<p>User story: Als Bluenotion admin wil ik alle project management en project gerelateerde klantcontact via het zelfde kanaal afhandelen</p>
+<table>
+<thead>
+<tr>
+<th>FR5.1</th>
+<th>Afhandelen project setup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prioriteit</td>
+<td>Could have</td>
+</tr>
+<tr>
+<td>Primaire Actor</td>
+<td>ACT2: Bluenotion admin</td>
+</tr>
+<tr>
+<td>Stakeholders</td>
+<td></td>
+</tr>
+<tr>
+<td>Pre condities</td>
+<td>Beiden actoren hebben inlog gegevens voor het PMP</td>
+</tr>
+<tr>
+<td>Post condities</td>
+<td>Een project is gestart met initiële scope</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>Op aanvraag van Externe beheerder</td>
+</tr>
+<tr>
+<td>Exceptions</td>
+<td></td>
+</tr>
+<tr>
+<td>Open issues</td>
+<td>Procedure vast leggen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr51-main-flow">FR5.1: Main flow</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr51-alternative-flow-flow-name">FR5.1: Alternative flow - flow name</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="fr52-instellen-productive-boards-en-taak-status">FR5.2 Instellen productive boards en taak status</h2>
+<p>User story: Als Bluenotion admin wil ik per project aan kunnen passen welke productive borden voor het PMP betekenis hebben zodat het PMP kan werken met projecten die op verschillende manieren zijn opgezet.</p>
+<table>
+<thead>
+<tr>
+<th>FR5.1</th>
+<th>Afhandelen project setup</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prioriteit</td>
+<td>Could have</td>
+</tr>
+<tr>
+<td>Primaire Actor</td>
+<td>ACT2: Bluenotion admin</td>
+</tr>
+<tr>
+<td>Stakeholders</td>
+<td></td>
+</tr>
+<tr>
+<td>Pre condities</td>
+<td>Beiden actoren hebben inlog gegevens voor het PMP</td>
+</tr>
+<tr>
+<td>Post condities</td>
+<td>Een project is gestart met initiële scope</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>Op aanvraag van Externe beheerder</td>
+</tr>
+<tr>
+<td>Exceptions</td>
+<td></td>
+</tr>
+<tr>
+<td>Open issues</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- TODO: cleanup -->
+
+<p>Benodigde borden:
+aanvragen
+backlog
+development?
+staging</p>
+<p>wishlist?</p>
+<!-- TODO: statussen checken. Als over verschillende projecten de zelfde status id gebruikt wordt hoeft deze mogelijk niet ingesteld te worden. Field toewijzen aan een project of ticket doe je aan de hand van een update op project of ticket <https://developer.productive.io/working_with_custom_fields.html#working_with_custom_fields> -->
+
+<p>benodigde statussen:</p>
+<p>Not started &gt; Not started
+Open &gt; Open
+Done &gt; Klaar
+Closed &gt; Klaar
+Waiting for review customer &gt; Actie vereist
+Waiting for review Bluenotion &gt; Actie vereist</p>
+<p>Voorstel van handmatige configuratie van status in relatie tot bord:</p>
+<table>
+<thead>
+<tr>
+<th>PMP status</th>
+<th>Productive bord</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open</td>
+<td>[-] Backlog</br>[-] Wishlist</br>[-] Aanvragen</br>[+] Bord toevoegen</td>
+</tr>
+<tr>
+<td>Bezig</td>
+<td>[-] In progress</br>[-] In review</br>[-] Development</br>[-] Testing</br>[+] Bord toevoegen</td>
+</tr>
+<tr>
+<td>Klaar</td>
+<td>[-] Staging</br>[+] Bord toevoegen</td>
+</tr>
+</tbody>
+</table>
+<p>Voordeel:</p>
+<p>Door PM de borden te laten instellen (Opzetten project aan de hand van een template zou de borden zelf in kunnen vullen) is het mogelijk oude projecten in het PMP te laden.</p>
+<p>Nadeel:</p>
+<p>Het kan voorkomen dat deze lijst niet compleet is. Er moet dan een keuze gemaakt worden of voor taken op een onbekend bord een "unknown" status wordt gemaakt of de vorige status wordt aangehouden tot de taak op een bord terecht komt die aanduid dat de status is veranderd.</p>
+<p>Note: PMP status hoeft wat mij betreft niet vast te staan. Je zou hier ook een extra status kunnen registreren voor tickets voor latere versies oid.</p>
+<h3 id="fr52-main-flow">FR5.2: Main flow</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Vraagt de instellingen van een project op.</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>Toont de lijst van borden en statussen (zie boven)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Geeft aan een van de borden of statussen te willen wijzigen</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td>Toont een lijst van borden of statussen gekoppeld aan het project in Productive</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Geeft aan welke optie uit de lijst gebruikt moet worden en geeft aan wijzigingen te willen opslaan</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td>Slaat de wijziging op in de PMP database.</td>
+</tr>
+<tr>
+<td>7</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr52-alternative-flow-flow-name">FR5.2: Alternative flow - flow name</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="fr53-beheren-project-services">FR5.3: Beheren project services</h2>
+<p>TODO: fully dressed versie uitwerken.</p>
+<p>De admin handelingen voor het beheer van de dependencies.</p>
+<table>
+<thead>
+<tr>
+<th>FR5.3</th>
+<th>Beheren project services</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prioriteit</td>
+<td>Could have</td>
+</tr>
+<tr>
+<td>Primaire Actor</td>
+<td>ACT2: Bluenotion admin</td>
+</tr>
+<tr>
+<td>Stakeholders</td>
+<td>ACT1: Externe beheerder</td>
+</tr>
+<tr>
+<td>Pre condities</td>
+<td>Er is een project toegevoegd aan het PMP</td>
+</tr>
+<tr>
+<td>Post condities</td>
+<td>Er is een service gekoppeld aan het project</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>Op aanvraag van Bluenotion admin</td>
+</tr>
+<tr>
+<td>Exceptions</td>
+<td></td>
+</tr>
+<tr>
+<td>Open issues</td>
+<td>Zie <a href="../FR6_Inzien_project_service_statuses/#fr61-inzien-lijst-van-project-dependencies">FR6.1</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr53-main-flow">FR5.3: Main flow</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Kiest een project waar een wijziging moet gebeuren in de services</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>Toont de lijst met gekoppelde services als beschreven in <a href="../FR6_Inzien_project_service_statuses/#fr61-inzien-lijst-van-project-dependencies">FR6.1</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Kiest een service geeft aan deze bij te willen werken</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td>Toont een lijst aan gegevens die bij te werken zijn voor deze service (hostname/ip &amp; servicenaam)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Past gegevens aan en geeft aan wijzigingen door te willen voeren</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td>Slaat de wijzigingen op in de lokale database</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr53-alternative-flow-service-toevoegen">FR5.3: Alternative flow - service toevoegen</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3A</td>
+<td>Geeft aan een service toe te willen voegen</td>
+<td></td>
+</tr>
+<tr>
+<td>4A</td>
+<td></td>
+<td>Toont een lijst aan gegevens nodig voor het toevoegen van een service (hostname/ip &amp; servicenaam)</td>
+</tr>
+<tr>
+<td>5A</td>
+<td>Vult de gegevens in en geeft aan wijzigingen door te willen voeren</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td>Resume main flow stap 6</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr53-alternative-flow-service-verwijderen">FR5.3: Alternative flow - service verwijderen</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3B</td>
+<td>Kiest een service en geeft aan deze te willen verwijderen</td>
+<td></td>
+</tr>
+<tr>
+<td>4B</td>
+<td></td>
+<td>Vraagt om bevestiging of de gebruiker de service "servicenaam" wilt verwijderen</td>
+</tr>
+<tr>
+<td>5B</td>
+<td>Bevestigt het verwijderen van de service uit het project</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td>Resume main flow stap 6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fr54-beheren-project-documentatie">FR5.4: Beheren project documentatie</h2>
+<p>User story: Als interne beheerder wil ik documentatie kunnen uploaden zodat het open gezet kan worden voor klanten om te lezen.
+User story: Als interne beheerder wil ik verschillende documenten open kunnen zetten voor verschillende projecten zodat de klant enkel toegang heeft tot de documenten die voor hem/haar relevant zijn.</p>
+<p>TODO: fully dressed versie uitwerken.</p>
+<table>
+<thead>
+<tr>
+<th>FR7.3</th>
+<th>Beheren project documentatie (CRUD)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prioriteit</td>
+<td>Could have</td>
+</tr>
+<tr>
+<td>Primaire Actor</td>
+<td>ACT2: Bluenotion admin</td>
+</tr>
+<tr>
+<td>Stakeholders</td>
+<td>ACT1: Externe beheerder</td>
+</tr>
+<tr>
+<td>Pre condities</td>
+<td>Er is een project toegevoegd in het PMP</td>
+</tr>
+<tr>
+<td>Post condities</td>
+<td>Een document is toegevoegd, vervangen of verwijderd</td>
+</tr>
+<tr>
+<td>Triggers</td>
+<td>Op aanvraag Bluenotion admin</td>
+</tr>
+<tr>
+<td>Exceptions</td>
+<td></td>
+</tr>
+<tr>
+<td>Open issues</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<p>Documentatie wordt geupload aan de hand van FR7.4, aan de hand van FR7.3 wordt de (al bestaande) documentatie gekoppeld aan een project.</p>
+<p>TODO: Het voordeel aan deze opmerking is dat bij het uploaden van een nieuwe versie van bestaande documentatie er één nieuwe versie geüpload kan worden en deze met een handeling voor alle projecten vervangen kan worden. Je zou ook een nieuwe versie van een bestaand document kunnen uploaden en deze moeten koppelen aan elk project die je wilt updaten.</p>
+<h3 id="fr54-main-flow">FR5.4: Main flow</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fr54-alternative-flow-geen-uren-ingepland-op-het-project">FR5.4: Alternative flow - Geen uren ingepland op het project</h3>
+<table>
+<thead>
+<tr>
+<th>Stap</th>
+<th>Actor</th>
+<th>System</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="fr55-documentatie-op-de-to-do-lijst-zetten">FR5.5: Documentatie op de to-do lijst zetten</h2>
+<p>User story: Als interne beheerder wil ik de externe beheerder op de hoogte brengen van aangeleverde instructies zodat dingen als deployment stappen door de klant zelf gevolgd kunnen worden en ik kan zien wanneer dit is gedaan.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>

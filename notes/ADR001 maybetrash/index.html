@@ -1,0 +1,1678 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../Technisch/ADRs/scheiding%20tussen%20aanvraag%20en%20taak/">
+      
+      
+        <link rel="next" href="../Notes/">
+      
+      
+      <link rel="icon" href="../../Styling/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>ADR001 maybetrash - PMP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../Styling/stylesheet.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PMP" class="md-header__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  <img src="../../Styling/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PMP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ADR001 maybetrash
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/DCReceveur/pre-afstudeer-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PMP" class="md-nav__button md-logo" aria-label="PMP" data-md-component="logo">
+      
+  <img src="../../Styling/logo.svg" alt="logo">
+
+    </a>
+    PMP
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/DCReceveur/pre-afstudeer-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Management Portal documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Bijlagen
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bijlagen
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Bijlagen/Incident%20Impact%2C%20Urgentie%20en%20Prioriteit%20levels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Incident Impact, Urgentie en Prioriteit levels
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Functioneel
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Functioneel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FunctioneelOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functioneel ontwerp Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Schermontwerpen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scherm ontwerpen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    FDRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            FDRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR001-Tijd-en-kosten-niet-tonen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR001 Tijd en kosten niet tonen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR002-Tenant-level-chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR002 Tenant level chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR003-Gebruikers-acties-in-productive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR003 Gebruikers acties in productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR004-Aanpassingen-Productive-workflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FDR004 Aanpassingen productive workflow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/FDRs/FDR005-Gelaagde%20rechten/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR005: Gelaagde rechten
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Requirements
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Requirements
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR1_Inzien_project_plannings_informatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR1: Inzien project plannings informatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR2_Inzien_taken/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR2: Inzien taken
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR3_Toevoegen_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR3: Toevoegen aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR4_Versturen_notificaties/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR4: Versturen notificaties
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR5_Beheren_project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR5: Beheren project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR6_Inzien_project_service_statuses/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR6: Inzien project service statuses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR7_Inzien_project_documentatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR7 Inzien project documentatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR8_Controleren_aanvraag/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR8 Controleren aanvraag
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR9_Tenant_level_chat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR9: Tenant chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FR10_Beheren_gebruikers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR10: Beheren gebruikers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functioneel/Requirements/FRX_FDUC_Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FR000: Empty FDUC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Onderzoek
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Onderzoek
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Onderzoek/OND01-Onderzoeksplan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OND01-Onderzoeksplan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Onderzoek/OND01-ProductiveSync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OND01-Communicatie met productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Onderzoek/Onderzoeksmethodes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Onderzoek methodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PVA
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            PVA
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PVA/PEKs%20en%20BoKS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Beoordelings criteria afstuderen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PVA/PlanVanAanpak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plan van aanpak Project Management Portal
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PVA/kwaliteitseisen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kwaliteitseisen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Technisch
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Technisch
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/Endpoints/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Endpoints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/SoftwareArchitectureDocument/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Architecture Document
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/TechnischOntwerp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Technisch ontwerp
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ADRs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            ADRs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR001-Communicatie met de Productive API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR002-Front%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR002-Front end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR003-Back%20end%20framework/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR003-Back end framework
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR004-Database%20system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR004-Database system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR005-Database-ORM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR005-Database-ORM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR006-Frontend%20backend%20Communicatie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR006-Frontend backend Communicatie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR007-MVC%20Design%20pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR007 MVC Design pattern
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR008-Taak-Mijlpalen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0008 Taak mijlpalen &amp; scheiding tussen aanvraag en taak
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR009-ProductiveData/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR0009 Productive Data Details
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/ADR010-Authentication/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR010 Authentication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/LADR%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR000: LADR Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Technisch/ADRs/scheiding%20tussen%20aanvraag%20en%20taak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR00? Aanvragen in Productive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    ADR001 maybetrash
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Vragen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vragen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/DCReceveur/pre-afstudeer-docs/tree/main/Documentatie/notes/ADR001 maybetrash.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>ADR001 maybetrash</h1>
+
+<p>Van de <a href="https://help.productive.io/en/articles/3693279-using-webhooks-in-productive">Productive website over webhooks</a>:</p>
+<blockquote>
+<p>It is possible to have a maximum of 25 active webhooks simultaneously. Currently, the same limit applies to Ultimate, Premium, and Enterprise plans.</p>
+</blockquote>
+<p>Na bespreking met de PM is er besloten Productive taken gescheiden te houden van de tickets die een gebruiker in zou dienen. Dit in combinatie met de limitaties die webhooks met zich meebrengen zou er gebruik gemaakt kunnen worden van een hybride oplossing tussen webhooks en directe communicatie met eventueel een caching mechanisme.</p>
+<!-- <div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="439px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1543 439" width="1543px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="20.9531" style="stroke:none;stroke-width:1.0;" width="1510.5708" x="15" y="12.7451"/><ellipse cx="275.8574" cy="48.6982" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="185.4102" x="183.1523" y="78.6982"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="165.4102" x="193.1523" y="99.8369">Gebruiker opent dashboard</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="152.1523" x="21" y="247.6201"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="132.1523" x="31" y="268.7588">Ziet data uit locale db</text><ellipse cx="97.0762" cy="326.6045" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="97.0762" cy="326.6045" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="144.0723" x="355.5791" y="331.1201"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="120.2578" x="365.5791" y="352.2588">Ziet up to date data</text><line style="stroke:#181818;stroke-width:1.5;" x1="275.8574" x2="427.6152" y1="385.0889" y2="385.0889"/><ellipse cx="275.8574" cy="416.0889" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="275.8574" cy="416.0889" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.5;" x1="15" x2="15" y1="12.7451" y2="427.0889"/><line style="stroke:#181818;stroke-width:1.5;" x1="647.4092" x2="1157.4385" y1="132.667" y2="132.667"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="275.5156" x="509.6514" y="180.1514"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="251.7012" x="519.6514" y="201.29">Vraagt lijst van projecten ect uit locale db</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="304.0273" x="1005.4248" y="152.667"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="280.2129" x="1015.4248" y="173.8057">Vraagt lijst van projecten ect uit Productive db</text><line style="stroke:#181818;stroke-width:1.5;" x1="958.6387" x2="1334.9102" y1="221.6357" y2="221.6357"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="326.9434" x="795.167" y="241.6357"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="303.1289" x="805.167" y="262.7744">Voegt eventueel nieuwe data toe aan de locale db</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="369.5996" x="1150.1104" y="241.6357"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="345.7852" x="1160.1104" y="262.7744">Update de getoonde data met de nieuwe Productive data</text><line style="stroke:#181818;stroke-width:1.5;" x1="958.6387" x2="1334.9102" y1="295.6045" y2="295.6045"/><line style="stroke:#000000;stroke-width:1.5;" x1="503.6514" x2="503.6514" y1="12.7451" y2="427.0889"/><line style="stroke:#000000;stroke-width:1.5;" x1="1523.71" x2="1523.71" y1="12.7451" y2="427.0889"/><line style="stroke:#181818;stroke-width:1.0;" x1="275.8574" x2="275.8574" y1="58.6982" y2="78.6982"/><polygon fill="#181818" points="271.8574,68.6982,275.8574,78.6982,279.8574,68.6982,275.8574,72.6982" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="97.0762" x2="97.0762" y1="281.5889" y2="315.6045"/><polygon fill="#181818" points="93.0762,305.6045,97.0762,315.6045,101.0762,305.6045,97.0762,309.6045" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="427.6152" x2="427.6152" y1="365.0889" y2="385.0889"/><polygon fill="#181818" points="423.6152,375.0889,427.6152,385.0889,431.6152,375.0889,427.6152,379.0889" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="275.8574" x2="275.8574" y1="386.5889" y2="405.0889"/><polygon fill="#181818" points="271.8574,395.0889,275.8574,405.0889,279.8574,395.0889,275.8574,399.0889" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="958.6387" x2="958.6387" y1="223.1357" y2="241.6357"/><polygon fill="#181818" points="954.6387,231.6357,958.6387,241.6357,962.6387,231.6357,958.6387,235.6357" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1334.9102" x2="1334.9102" y1="223.1357" y2="241.6357"/><polygon fill="#181818" points="1330.9102,231.6357,1334.9102,241.6357,1338.9102,231.6357,1334.9102,235.6357" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="958.6387" x2="958.6387" y1="275.6045" y2="295.6045"/><polygon fill="#181818" points="954.6387,285.6045,958.6387,295.6045,962.6387,285.6045,958.6387,289.6045" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1334.9102" x2="1334.9102" y1="275.6045" y2="295.6045"/><polygon fill="#181818" points="1330.9102,285.6045,1334.9102,295.6045,1338.9102,285.6045,1334.9102,289.6045" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1157.4385" x2="1157.4385" y1="186.6357" y2="221.6357"/><polygon fill="#181818" points="1153.4385,211.6357,1157.4385,221.6357,1161.4385,211.6357,1157.4385,215.6357" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="647.4092" x2="647.4092" y1="134.167" y2="180.1514"/><polygon fill="#181818" points="643.4092,170.1514,647.4092,180.1514,651.4092,170.1514,647.4092,174.1514" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1157.4385" x2="1157.4385" y1="134.167" y2="152.667"/><polygon fill="#181818" points="1153.4385,142.667,1157.4385,152.667,1161.4385,142.667,1157.4385,146.667" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="647.4092" x2="647.4092" y1="214.1201" y2="230.1201"/><line style="stroke:#181818;stroke-width:1.0;" x1="647.4092" x2="97.0762" y1="230.1201" y2="230.1201"/><line style="stroke:#181818;stroke-width:1.0;" x1="97.0762" x2="97.0762" y1="230.1201" y2="247.6201"/><polygon fill="#181818" points="93.0762,237.6201,97.0762,247.6201,101.0762,237.6201,97.0762,241.6201" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1157.4385" x2="1157.4385" y1="297.1045" y2="313.6201"/><line style="stroke:#181818;stroke-width:1.0;" x1="1157.4385" x2="427.6152" y1="313.6201" y2="313.6201"/><line style="stroke:#181818;stroke-width:1.0;" x1="427.6152" x2="427.6152" y1="313.6201" y2="331.1201"/><polygon fill="#181818" points="423.6152,321.1201,427.6152,331.1201,431.6152,321.1201,427.6152,325.1201" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="275.8574" x2="275.8574" y1="112.667" y2="117.667"/><line style="stroke:#181818;stroke-width:1.0;" x1="275.8574" x2="1005.6807" y1="117.667" y2="117.667"/><line style="stroke:#181818;stroke-width:1.0;" x1="1005.6807" x2="1005.6807" y1="117.667" y2="132.667"/><polygon fill="#181818" points="1001.6807,122.667,1005.6807,132.667,1009.6807,122.667,1005.6807,126.667" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="89.1563" x="214.7476" y="29.4531">Gebruiker</text><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="78.1963" x="974.5825" y="29.4531">Systeem</text></g></svg></div>
+
+
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="99px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 787 99" width="787px" zoomAndPan="magnify"><title>get by project id</title><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="130.6279" x="321.4215" y="22.9951">get by project id</text><g id="elem_TicketController"><rect fill="#F1F1F1" height="48" id="TicketController" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="143.5215" x="7" y="44.2969"/><ellipse cx="22" cy="60.2969" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M24.9688,65.9375 Q24.3906,66.2344 23.75,66.375 Q23.1094,66.5313 22.4063,66.5313 Q19.9063,66.5313 18.5781,64.8906 Q17.2656,63.2344 17.2656,60.1094 Q17.2656,56.9844 18.5781,55.3281 Q19.9063,53.6719 22.4063,53.6719 Q23.1094,53.6719 23.75,53.8281 Q24.4063,53.9844 24.9688,54.2813 L24.9688,57 Q24.3438,56.4219 23.75,56.1563 Q23.1563,55.875 22.5313,55.875 Q21.1875,55.875 20.5,56.9531 Q19.8125,58.0156 19.8125,60.1094 Q19.8125,62.2031 20.5,63.2813 Q21.1875,64.3438 22.5313,64.3438 Q23.1563,64.3438 23.75,64.0781 Q24.3438,63.7969 24.9688,63.2188 L24.9688,65.9375 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111.5215" x="36" y="65.1436">TicketController</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="149.5215" y1="76.2969" y2="76.2969"/><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="149.5215" y1="84.2969" y2="84.2969"/></g><g id="elem_TicketService"><rect fill="#F1F1F1" height="48" id="TicketService" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="126.0898" x="350.72" y="44.2969"/><ellipse cx="365.72" cy="60.2969" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M368.6888,65.9375 Q368.1106,66.2344 367.47,66.375 Q366.8294,66.5313 366.1263,66.5313 Q363.6263,66.5313 362.2981,64.8906 Q360.9856,63.2344 360.9856,60.1094 Q360.9856,56.9844 362.2981,55.3281 Q363.6263,53.6719 366.1263,53.6719 Q366.8294,53.6719 367.47,53.8281 Q368.1263,53.9844 368.6888,54.2813 L368.6888,57 Q368.0638,56.4219 367.47,56.1563 Q366.8763,55.875 366.2513,55.875 Q364.9075,55.875 364.22,56.9531 Q363.5325,58.0156 363.5325,60.1094 Q363.5325,62.2031 364.22,63.2813 Q364.9075,64.3438 366.2513,64.3438 Q366.8763,64.3438 367.47,64.0781 Q368.0638,63.7969 368.6888,63.2188 L368.6888,65.9375 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94.0898" x="379.72" y="65.1436">TicketService</text><line style="stroke:#181818;stroke-width:0.5;" x1="351.72" x2="475.8098" y1="76.2969" y2="76.2969"/><line style="stroke:#181818;stroke-width:0.5;" x1="351.72" x2="475.8098" y1="84.2969" y2="84.2969"/></g><g id="elem_TicketRepository"><rect fill="#F1F1F1" height="48" id="TicketRepository" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="149.4209" x="631.05" y="44.2969"/><ellipse cx="646.05" cy="60.2969" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M649.0188,65.9375 Q648.4406,66.2344 647.8,66.375 Q647.1594,66.5313 646.4563,66.5313 Q643.9563,66.5313 642.6281,64.8906 Q641.3156,63.2344 641.3156,60.1094 Q641.3156,56.9844 642.6281,55.3281 Q643.9563,53.6719 646.4563,53.6719 Q647.1594,53.6719 647.8,53.8281 Q648.4563,53.9844 649.0188,54.2813 L649.0188,57 Q648.3938,56.4219 647.8,56.1563 Q647.2063,55.875 646.5813,55.875 Q645.2375,55.875 644.55,56.9531 Q643.8625,58.0156 643.8625,60.1094 Q643.8625,62.2031 644.55,63.2813 Q645.2375,64.3438 646.5813,64.3438 Q647.2063,64.3438 647.8,64.0781 Q648.3938,63.7969 649.0188,63.2188 L649.0188,65.9375 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117.4209" x="660.05" y="65.1436">TicketRepository</text><line style="stroke:#181818;stroke-width:0.5;" x1="632.05" x2="779.4709" y1="76.2969" y2="76.2969"/><line style="stroke:#181818;stroke-width:0.5;" x1="632.05" x2="779.4709" y1="84.2969" y2="84.2969"/></g><g id="link_TicketController_TicketService"><path codeLine="2" d="M150.63,68.2969 C210.03,68.2969 287.58,68.2969 344.48,68.2969 " fill="none" id="TicketController-to-TicketService" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="350.48,68.2969,341.48,64.2969,345.48,68.2969,341.48,72.2969,350.48,68.2969" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="164.9629" x="168.62" y="61.3638">GetTicketsByProjectId(id)</text></g><g id="link_TicketController_TicketService"><path codeLine="5" d="M156.6986,82.5028 C193.6786,87.8328 233.54,91.2369 274.62,88.2969 C299.45,86.5169 326.58,82.9869 350.24,79.3769 " fill="none" id="TicketController-backto-TicketService" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="150.76,81.6469,159.0973,86.8899,155.7089,82.3602,160.2386,78.9717,150.76,81.6469" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46.0967" x="227.62" y="84.3638">Tickets</text></g><g id="link_TicketService_TicketRepository"><path codeLine="3" d="M477.12,68.2969 C522.24,68.2969 577.06,68.2969 624.63,68.2969 " fill="none" id="TicketService-to-TicketRepository" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="630.63,68.2969,621.63,64.2969,625.63,68.2969,621.63,72.2969,630.63,68.2969" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="118.8662" x="494.93" y="61.3638">GetByProjectId(id)</text></g><g id="link_TicketService_TicketRepository"><path codeLine="4" d="M483.0335,82.2319 C500.1035,85.1619 512.7,86.8269 529.93,88.2969 C562.99,91.1269 599.45,88.0069 630.56,83.4569 " fill="none" id="TicketService-backto-TicketRepository" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="477.12,81.2169,485.3136,86.6818,482.0479,82.0627,486.667,78.7971,477.12,81.2169" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46.0967" x="530.93" y="84.3638">Tickets</text></g></g></svg></div>
+
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="466px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 924 466" width="924px" zoomAndPan="magnify"><title>get by project id</title><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="130.6279" x="398.1816" y="27.9951">get by project id</text><rect fill="none" height="265" style="stroke:#000000;stroke-width:1.5;" width="907.9912" x="10" y="148.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="82" x2="82" y1="73.5938" y2="430.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="281.8223" x2="281.8223" y1="73.5938" y2="430.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="434.1665" x2="434.1665" y1="73.5938" y2="430.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="648.5269" x2="648.5269" y1="73.5938" y2="430.8594"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="847.7588" x2="847.7588" y1="73.5938" y2="430.8594"/><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="125.5215" x="20" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111.5215" x="27" y="62.292">TicketController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="125.5215" x="20" y="429.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111.5215" x="27" y="449.8545">TicketController</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="108.0898" x="227.8223" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94.0898" x="234.8223" y="62.292">TicketService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="108.0898" x="227.8223" y="429.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94.0898" x="234.8223" y="449.8545">TicketService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="131.4209" x="369.1665" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117.4209" x="376.1665" y="62.292">TicketRepository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="131.4209" x="369.1665" y="429.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117.4209" x="376.1665" y="449.8545">TicketRepository</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="99.4834" x="599.5269" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.4834" x="606.5269" y="62.292">SyncService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="99.4834" x="599.5269" y="429.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85.4834" x="606.5269" y="449.8545">SyncService</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="119.2324" x="788.7588" y="42.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.2324" x="795.7588" y="62.292">TicketApiClient</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="119.2324" x="788.7588" y="429.8594"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="105.2324" x="795.7588" y="449.8545">TicketApiClient</text><polygon fill="#181818" points="269.8672,100.7266,279.8672,104.7266,269.8672,108.7266,273.8672,104.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="82.7607" x2="275.8672" y1="104.7266" y2="104.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="175.1064" x="89.7607" y="99.6606">GetTicketsByProjectId([id])</text><polygon fill="#181818" points="422.877,129.8594,432.877,133.8594,422.877,137.8594,426.877,133.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="281.8672" x2="428.877" y1="133.8594" y2="133.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="129.0098" x="288.8672" y="128.7935">GetByProjectId([id])</text><path d="M10,148.8594 L74.4429,148.8594 L74.4429,155.9922 L64.4429,165.9922 L10,165.9922 L10,148.8594 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="265" style="stroke:#000000;stroke-width:1.5;" width="907.9912" x="10" y="148.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="19.4429" x="25" y="161.9263">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="105.0908" x="89.4429" y="161.0698">[&quot;project found&quot;]</text><polygon fill="#181818" points="292.8672,183.125,282.8672,187.125,292.8672,191.125,288.8672,187.125" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="286.8672" x2="433.877" y1="187.125" y2="187.125"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46.0967" x="298.8672" y="182.0591">Tickets</text><polygon fill="#181818" points="93.7607,212.2578,83.7607,216.2578,93.7607,220.2578,89.7607,216.2578" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="87.7607" x2="280.8672" y1="216.2578" y2="216.2578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46.0967" x="99.7607" y="211.1919">Tickets</text><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="10" x2="917.9912" y1="225.2578" y2="225.2578"/><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="266.9165" x="15" y="235.4683">[&quot;Project not found || syncflag set to true&quot;]</text><polygon fill="#181818" points="637.2686,256.1953,647.2686,260.1953,637.2686,264.1953,641.2686,260.1953" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="281.8672" x2="643.2686" y1="260.1953" y2="260.1953"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="182.1206" x="288.8672" y="255.1294">SyncTicketsForProjects([id])</text><polygon fill="#181818" points="836.375,285.3281,846.375,289.3281,836.375,293.3281,840.375,289.3281" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="649.2686" x2="842.375" y1="289.3281" y2="289.3281"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="175.1064" x="656.2686" y="284.2622">GetTicketsByProjectId([id])</text><polygon fill="#181818" points="445.877,314.4609,435.877,318.4609,445.877,322.4609,441.877,318.4609" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="439.877" x2="648.2686" y1="318.4609" y2="318.4609"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="190.3916" x="451.877" y="313.395">AddOrUpdateTickets(Tickets)</text><polygon fill="#181818" points="422.877,343.5938,432.877,347.5938,422.877,351.5938,426.877,347.5938" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="281.8672" x2="428.877" y1="347.5938" y2="347.5938"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="129.0098" x="288.8672" y="342.5278">GetByProjectId([id])</text><polygon fill="#181818" points="292.8672,372.7266,282.8672,376.7266,292.8672,380.7266,288.8672,376.7266" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="286.8672" x2="433.877" y1="376.7266" y2="376.7266"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46.0967" x="298.8672" y="371.6606">Tickets</text><polygon fill="#181818" points="93.7607,401.8594,83.7607,405.8594,93.7607,409.8594,89.7607,405.8594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="87.7607" x2="280.8672" y1="405.8594" y2="405.8594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="46.0967" x="99.7607" y="400.7935">Tickets</text></g></svg></div> -->
+
+<!-- <div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="497px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 314 497" width="314px" zoomAndPan="magnify"><defs/><g><ellipse cx="144.8438" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="154.8711" x="67.4082" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="134.8711" x="77.4082" y="71.1387">User opens dashboard</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="209.293" x="40.1973" y="103.9688"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="189.293" x="50.1973" y="125.1074">Get project cache from local db</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="167.6211" x="61.0332" y="206.3398"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="147.6211" x="71.0332" y="227.4785">Set updating flag to true</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="267.6875" x="11" y="260.3086"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="247.6875" x="21" y="281.4473">Api request for projects since last update</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="139.1094" x="75.2891" y="314.2773"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="119.1094" x="85.2891" y="335.416">Write projects to db</text><polygon fill="#F1F1F1" points="74.3616,157.9375,215.3259,157.9375,227.3259,169.9375,215.3259,181.9375,74.3616,181.9375,62.3616,169.9375,74.3616,157.9375" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="24.981" x="148.8438" y="192.1479">True</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="140.9644" x="74.3616" y="173.7456">IsAdmin || UpdateNeeded</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="28.6226" x="227.3259" y="167.3433">False</text><polygon fill="#F1F1F1" points="144.8438,368.2461,156.8438,380.2461,144.8438,392.2461,132.8438,380.2461,144.8438,368.2461" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="192.8105" x="48.4385" y="412.2461"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="172.8105" x="58.4385" y="433.3848">Send project list to front-end</text><ellipse cx="144.8438" cy="476.2148" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.5;"/><line style="stroke:#222222;stroke-width:2.5;" x1="138.6566" x2="151.0309" y1="470.0277" y2="482.402"/><line style="stroke:#222222;stroke-width:2.5;" x1="151.0309" x2="138.6566" y1="470.0277" y2="482.402"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="30" y2="50"/><polygon fill="#181818" points="140.8438,40,144.8438,50,148.8438,40,144.8438,44" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="83.9688" y2="103.9688"/><polygon fill="#181818" points="140.8438,93.9688,144.8438,103.9688,148.8438,93.9688,144.8438,97.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="240.3086" y2="260.3086"/><polygon fill="#181818" points="140.8438,250.3086,144.8438,260.3086,148.8438,250.3086,144.8438,254.3086" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="294.2773" y2="314.2773"/><polygon fill="#181818" points="140.8438,304.2773,144.8438,314.2773,148.8438,304.2773,144.8438,308.2773" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="181.9375" y2="206.3398"/><polygon fill="#181818" points="140.8438,196.3398,144.8438,206.3398,148.8438,196.3398,144.8438,200.3398" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="227.3259" x2="288.6875" y1="169.9375" y2="169.9375"/><polygon fill="#181818" points="284.6875,267.293,288.6875,277.293,292.6875,267.293,288.6875,271.293" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="288.6875" x2="288.6875" y1="169.9375" y2="380.2461"/><line style="stroke:#181818;stroke-width:1.0;" x1="288.6875" x2="156.8438" y1="380.2461" y2="380.2461"/><polygon fill="#181818" points="166.8438,376.2461,156.8438,380.2461,166.8438,384.2461,162.8438,380.2461" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="348.2461" y2="368.2461"/><polygon fill="#181818" points="140.8438,358.2461,144.8438,368.2461,148.8438,358.2461,144.8438,362.2461" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="137.9375" y2="157.9375"/><polygon fill="#181818" points="140.8438,147.9375,144.8438,157.9375,148.8438,147.9375,144.8438,151.9375" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="392.2461" y2="412.2461"/><polygon fill="#181818" points="140.8438,402.2461,144.8438,412.2461,148.8438,402.2461,144.8438,406.2461" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="446.2148" y2="466.2148"/><polygon fill="#181818" points="140.8438,456.2148,144.8438,466.2148,148.8438,456.2148,144.8438,460.2148" style="stroke:#181818;stroke-width:1.0;"/></g></svg></div> -->
+
+<table>
+<thead>
+<tr>
+<th>Last_Synced</th>
+<th>Last_Used</th>
+<th>Record_Type</th>
+<th>Productive_Id</th>
+<th>Pmp_Id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>datetime</td>
+<td>datetime</td>
+<td>Ticket</td>
+<td>4297842</td>
+<td>Guid</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>datetime</td>
+<td>Project</td>
+<td>34354</td>
+<td>Guid</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>datetime</td>
+<td>Activities*</td>
+<td>34354</td>
+<td>Guid</td>
+</tr>
+</tbody>
+</table>
+<p>*Needed for comments?</p>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="602px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 461 602" width="461px" zoomAndPan="magnify"><title>passively creating the db population based on usage</title><defs/><g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="418.5371" x="20" y="32.9951">passively creating the db population based on usage</text><ellipse cx="229.0068" cy="57.2969" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="161.1289" x="148.4424" y="87.2969"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="141.1289" x="158.4424" y="108.4355">Webhook receives data</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="182.8438" x="137.585" y="189.668"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="162.8438" x="147.585" y="210.8066">search parent id in pmp db</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="189.4238" x="134.2949" y="292.0391"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="169.4238" x="144.2949" y="313.1777">Api request for parent data*</text><polygon fill="#F1F1F1" points="179.2087,346.0078,278.8049,346.0078,290.8049,358.0078,278.8049,370.0078,179.2087,370.0078,167.2087,358.0078,179.2087,346.0078" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="99.5962" x="179.2087" y="361.8159">parent data found</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="148.2004" y="355.4136">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="290.8049" y="355.4136">no</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="144.6934" x="84.8621" y="380.0078"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="124.6934" x="94.8621" y="401.1465">create parent item**</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="93.7402" x="253.9348" y="380.0078"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="73.7402" x="263.9348" y="401.1465">Some error?</text><ellipse cx="300.8049" cy="443.9766" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.5;"/><line style="stroke:#222222;stroke-width:2.5;" x1="294.6177" x2="306.9921" y1="437.7894" y2="450.1637"/><line style="stroke:#222222;stroke-width:2.5;" x1="306.9921" x2="294.6177" y1="437.7894" y2="450.1637"/><polygon fill="#F1F1F1" points="193.3455,243.6367,264.6682,243.6367,276.6682,255.6367,264.6682,267.6367,193.3455,267.6367,181.3455,255.6367,193.3455,243.6367" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="26.168" x="233.0068" y="277.8472">false</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="71.3228" x="193.3455" y="259.4448">parent found</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22.5747" x="276.6682" y="253.0425">true</text><polygon fill="#F1F1F1" points="229.0068,473.9766,241.0068,485.9766,229.0068,497.9766,217.0068,485.9766,229.0068,473.9766" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="89.2813" x="184.3662" y="517.9766"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="69.2813" x="194.3662" y="539.1152">create item</text><ellipse cx="229.0068" cy="581.9453" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.5;"/><line style="stroke:#222222;stroke-width:2.5;" x1="222.8197" x2="235.194" y1="575.7581" y2="588.1325"/><line style="stroke:#222222;stroke-width:2.5;" x1="235.194" x2="222.8197" y1="575.7581" y2="588.1325"/><polygon fill="#F1F1F1" points="186.6316,141.2656,271.3821,141.2656,283.3821,153.2656,271.3821,165.2656,186.6316,165.2656,174.6316,153.2656,186.6316,141.2656" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22.5747" x="233.0068" y="175.4761">true</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="84.7505" x="186.6316" y="157.0737">type==tracked</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="26.168" x="283.3821" y="150.6714">false</text><ellipse cx="329.55" cy="153.2656" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.5;"/><line style="stroke:#222222;stroke-width:2.5;" x1="323.3629" x2="335.7372" y1="147.0784" y2="159.4528"/><line style="stroke:#222222;stroke-width:2.5;" x1="335.7372" x2="323.3629" y1="147.0784" y2="159.4528"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="67.2969" y2="87.2969"/><polygon fill="#181818" points="225.0068,77.2969,229.0068,87.2969,233.0068,77.2969,229.0068,81.2969" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="300.8049" x2="300.8049" y1="413.9766" y2="433.9766"/><polygon fill="#181818" points="296.8049,423.9766,300.8049,433.9766,304.8049,423.9766,300.8049,427.9766" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="167.2087" x2="157.2087" y1="358.0078" y2="358.0078"/><line style="stroke:#181818;stroke-width:1.0;" x1="157.2087" x2="157.2087" y1="358.0078" y2="380.0078"/><polygon fill="#181818" points="153.2087,370.0078,157.2087,380.0078,161.2087,370.0078,157.2087,374.0078" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="290.8049" x2="300.8049" y1="358.0078" y2="358.0078"/><line style="stroke:#181818;stroke-width:1.0;" x1="300.8049" x2="300.8049" y1="358.0078" y2="380.0078"/><polygon fill="#181818" points="296.8049,370.0078,300.8049,380.0078,304.8049,370.0078,300.8049,374.0078" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="157.2087" x2="157.2087" y1="413.9766" y2="458.9766"/><line style="stroke:#181818;stroke-width:1.0;" x1="157.2087" x2="229.0068" y1="458.9766" y2="458.9766"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="458.9766" y2="473.9766"/><polygon fill="#181818" points="225.0068,463.9766,229.0068,473.9766,233.0068,463.9766,229.0068,467.9766" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="326.0078" y2="346.0078"/><polygon fill="#181818" points="225.0068,336.0078,229.0068,346.0078,233.0068,336.0078,229.0068,340.0078" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="267.6367" y2="292.0391"/><polygon fill="#181818" points="225.0068,282.0391,229.0068,292.0391,233.0068,282.0391,229.0068,286.0391" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="276.6682" x2="361.675" y1="255.6367" y2="255.6367"/><polygon fill="#181818" points="357.675,366.0078,361.675,376.0078,365.675,366.0078,361.675,370.0078" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="361.675" x2="361.675" y1="255.6367" y2="485.9766"/><line style="stroke:#181818;stroke-width:1.0;" x1="361.675" x2="241.0068" y1="485.9766" y2="485.9766"/><polygon fill="#181818" points="251.0068,481.9766,241.0068,485.9766,251.0068,489.9766,247.0068,485.9766" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="223.6367" y2="243.6367"/><polygon fill="#181818" points="225.0068,233.6367,229.0068,243.6367,233.0068,233.6367,229.0068,237.6367" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="497.9766" y2="517.9766"/><polygon fill="#181818" points="225.0068,507.9766,229.0068,517.9766,233.0068,507.9766,229.0068,511.9766" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="551.9453" y2="571.9453"/><polygon fill="#181818" points="225.0068,561.9453,229.0068,571.9453,233.0068,561.9453,229.0068,565.9453" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="165.2656" y2="189.668"/><polygon fill="#181818" points="225.0068,179.668,229.0068,189.668,233.0068,179.668,229.0068,183.668" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="283.3821" x2="319.55" y1="153.2656" y2="153.2656"/><polygon fill="#181818" points="309.55,149.2656,319.55,153.2656,309.55,157.2656,313.55,153.2656" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="229.0068" x2="229.0068" y1="121.2656" y2="141.2656"/><polygon fill="#181818" points="225.0068,131.2656,229.0068,141.2656,233.0068,131.2656,229.0068,135.2656" style="stroke:#181818;stroke-width:1.0;"/></g></svg></div>
+
+<p>*Requests zouden in bulk kunnen gebeuren wanneer het systeem niet veel wordt gebruikt waarbij data intern opgeslagen zou kunnen worden als "niet geverifieerd". Dit kan wel voor complexere scenario's zorgen waar data tussen de twee verschillende datasources niet overeen komt.</p>
+<p>**TODO: Recursief parent weer zoeken? Overlaten aan sync service? Als het een project is alle tickets binnenhalen?</p>
+<p>Tracked items: Task, Projects, People?, Comments?, Boards/task_lists?</p>
+<p>What if:</p>
+<ul>
+<li>Webhooks go down</li>
+</ul>
+<div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="497px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 289 497" width="289px" zoomAndPan="magnify"><defs/><g><ellipse cx="144.8438" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="141.7402" x="73.9736" y="50"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="121.7402" x="83.9736" y="71.1387">Manual sync started</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="130.4551" x="79.6162" y="152.3711"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="110.4551" x="89.6162" y="173.5098">Restore webhooks</text><polygon fill="#F1F1F1" points="99.6755,103.9688,190.012,103.9688,202.012,115.9688,190.012,127.9688,99.6755,127.9688,87.6755,115.9688,99.6755,103.9688" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="22.5747" x="148.8438" y="138.1792">true</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="90.3364" x="99.6755" y="119.7769">Webhooks down</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="26.168" x="202.012" y="113.3745">false</text><polygon fill="#F1F1F1" points="144.8438,206.3398,156.8438,218.3398,144.8438,230.3398,132.8438,218.3398,144.8438,206.3398" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="267.6875" x="11" y="250.3398"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="247.6875" x="21" y="271.4785">Api request for projects since last update</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="266.1816" x="11.7529" y="304.3086"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="246.1816" x="21.7529" y="325.4473">Add, edit and archive projects in local db</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="259.4492" x="15.1191" y="358.2773"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="239.4492" x="25.1191" y="379.416">Api request for tickets since last update</text><rect fill="#F1F1F1" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="257.9434" x="15.8721" y="412.2461"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="237.9434" x="25.8721" y="433.3848">Add, edit and archive tickets in local db</text><ellipse cx="144.8438" cy="476.2148" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.5;"/><line style="stroke:#222222;stroke-width:2.5;" x1="138.6566" x2="151.0309" y1="470.0277" y2="482.402"/><line style="stroke:#222222;stroke-width:2.5;" x1="151.0309" x2="138.6566" y1="470.0277" y2="482.402"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="30" y2="50"/><polygon fill="#181818" points="140.8438,40,144.8438,50,148.8438,40,144.8438,44" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="127.9688" y2="152.3711"/><polygon fill="#181818" points="140.8438,142.3711,144.8438,152.3711,148.8438,142.3711,144.8438,146.3711" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="202.012" x2="220.0713" y1="115.9688" y2="115.9688"/><polygon fill="#181818" points="216.0713,159.3555,220.0713,169.3555,224.0713,159.3555,220.0713,163.3555" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="220.0713" x2="220.0713" y1="115.9688" y2="218.3398"/><line style="stroke:#181818;stroke-width:1.0;" x1="220.0713" x2="156.8438" y1="218.3398" y2="218.3398"/><polygon fill="#181818" points="166.8438,214.3398,156.8438,218.3398,166.8438,222.3398,162.8438,218.3398" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="186.3398" y2="206.3398"/><polygon fill="#181818" points="140.8438,196.3398,144.8438,206.3398,148.8438,196.3398,144.8438,200.3398" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="83.9688" y2="103.9688"/><polygon fill="#181818" points="140.8438,93.9688,144.8438,103.9688,148.8438,93.9688,144.8438,97.9688" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="230.3398" y2="250.3398"/><polygon fill="#181818" points="140.8438,240.3398,144.8438,250.3398,148.8438,240.3398,144.8438,244.3398" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="284.3086" y2="304.3086"/><polygon fill="#181818" points="140.8438,294.3086,144.8438,304.3086,148.8438,294.3086,144.8438,298.3086" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="338.2773" y2="358.2773"/><polygon fill="#181818" points="140.8438,348.2773,144.8438,358.2773,148.8438,348.2773,144.8438,352.2773" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="392.2461" y2="412.2461"/><polygon fill="#181818" points="140.8438,402.2461,144.8438,412.2461,148.8438,402.2461,144.8438,406.2461" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="144.8438" x2="144.8438" y1="446.2148" y2="466.2148"/><polygon fill="#181818" points="140.8438,456.2148,144.8438,466.2148,148.8438,456.2148,144.8438,460.2148" style="stroke:#181818;stroke-width:1.0;"/></g></svg></div>
+
+<ul>
+<li>Incorrect data is added to the pmp db</li>
+</ul>
+<!-- <div class="puml"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1041px" preserveAspectRatio="true" style="background: #ffffff" version="1.1" viewBox="0 0 1352 1041" width="1352px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="20.9531" style="stroke:none;stroke-width:1.0;" width="1319.5725" x="15" y="12.7451"/><ellipse cx="370.0388" cy="48.6982" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><path d="M448.3992,127.1162 L448.3992,135.6826 L428.3992,139.6826 L448.3992,143.6826 L448.3992,152.249 A0,0 0 0 0 448.3992,152.249 L666.2844,152.249 A0,0 0 0 0 666.2844,152.249 L666.2844,137.1162 L656.2844,127.1162 L448.3992,127.1162 A0,0 0 0 0 448.3992,127.1162 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M656.2844,127.1162 L656.2844,137.1162 L666.2844,137.1162 L656.2844,127.1162 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="196.8853" x="454.3992" y="144.1831">FR3.1 Toevoegen nieuwe taak</text><rect fill="#FF0000" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="116.7207" x="311.6785" y="122.6982"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96.7207" x="321.6785" y="143.8369">Plaats aanvraag</text><path d="M450.5994,640.1357 L450.5994,648.7021 L430.5994,652.7021 L450.5994,656.7021 L450.5994,665.2686 A0,0 0 0 0 450.5994,665.2686 L714.7971,665.2686 A0,0 0 0 0 714.7971,665.2686 L714.7971,650.1357 L704.7971,640.1357 L450.5994,640.1357 A0,0 0 0 0 450.5994,640.1357 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M704.7971,640.1357 L704.7971,650.1357 L714.7971,650.1357 L704.7971,640.1357 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="243.1978" x="456.5994" y="657.2026">FR3.2 Toelichting geven op aanvraag</text><rect fill="#FF0000" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="121.1211" x="309.4783" y="635.7178"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="101.1211" x="319.4783" y="656.8564">Controleren taak</text><polygon fill="#FF0000" points="246.9736,689.6865,493.104,689.6865,505.104,701.6865,493.104,713.6865,246.9736,713.6865,234.9736,701.6865,246.9736,689.6865" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="246.1304" x="246.9736" y="705.4946">Eens met de omschrijving en time estimate?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="221.272" y="699.0923">no</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="505.104" y="699.0923">yes</text><rect fill="#FF0000" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="142.1504" x="54.761" y="782.0889"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="122.1504" x="64.761" y="803.2275">Aanvraag annuleren</text><ellipse cx="125.8362" cy="861.0576" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.5;"/><line style="stroke:#222222;stroke-width:2.5;" x1="119.649" x2="132.0234" y1="854.8704" y2="867.2448"/><line style="stroke:#222222;stroke-width:2.5;" x1="132.0234" x2="119.649" y1="854.8704" y2="867.2448"/><polygon fill="#FF0000" points="60,733.6865,191.6724,733.6865,203.6724,745.6865,191.6724,757.6865,60,757.6865,48,745.6865,60,733.6865" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="129.8362" y="767.897">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="131.6724" x="60" y="749.4946">Wil aanvraag annuleren</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="203.6724" y="743.0923">no</text><rect fill="#FF0000" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="131.2578" x="60.2073" y="931.8896"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="111.2578" x="70.2073" y="953.0283">Wijzigen aanvraag</text><rect fill="#FF0000" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="110.9844" x="558.7493" y="733.6865"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90.9844" x="568.7493" y="754.8252">Accepteer taak</text><polygon fill="#F1F1F1" points="370.0388,78.6982,382.0388,90.6982,370.0388,102.6982,358.0388,90.6982,370.0388,78.6982" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="15" x2="15" y1="12.7451" y2="1029.8584"/><path d="M724.7971,181.085 L724.7971,206.2178 A0,0 0 0 0 724.7971,206.2178 L929.4983,206.2178 A0,0 0 0 0 929.4983,206.2178 L929.4983,199.085 L949.4983,193.6514 L929.4983,191.085 L929.4983,191.085 L919.4983,181.085 L724.7971,181.085 A0,0 0 0 0 724.7971,181.085 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M919.4983,181.085 L919.4983,191.085 L929.4983,191.085 L919.4983,181.085 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="183.7012" x="730.7971" y="198.1519">FR8.1 Controleren aanvraag</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="151.4316" x="949.4983" y="176.667"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="131.4316" x="959.4983" y="197.8057">Controleren aanvraag</text><path d="M785.8953,331.8584 L785.8953,356.9912 A0,0 0 0 0 785.8953,356.9912 L880.5374,356.9912 A0,0 0 0 0 880.5374,356.9912 L880.5374,349.8584 L900.5374,344.4248 L880.5374,341.8584 L880.5374,341.8584 L870.5374,331.8584 L785.8953,331.8584 A0,0 0 0 0 785.8953,331.8584 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M870.5374,331.8584 L870.5374,341.8584 L880.5374,341.8584 L870.5374,331.8584 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><ellipse cx="797.3953" cy="344.4912" fill="#000000" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:0.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="61.6421" x="803.8953" y="348.9253">extra FR?</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="249.3535" x="900.5374" y="327.4404"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="229.3535" x="910.5374" y="348.5791">Maak aanvraag aan per functionaliteit</text><polygon fill="#ADD8E6" points="891.9949,279.0381,1158.4333,279.0381,1170.4333,291.0381,1158.4333,303.0381,891.9949,303.0381,879.9949,291.0381,891.9949,279.0381" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="1029.2141" y="313.2485">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="266.4385" x="891.9949" y="294.8462">Aanvraag bestaat uit meerdere functionaliteiten</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="1170.4333" y="288.4438">no</text><polygon fill="#ADD8E6" points="1025.2141,385.8115,1037.2141,397.8115,1025.2141,409.8115,1013.2141,397.8115,1025.2141,385.8115" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="136.3438" x="957.0422" y="429.8115"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116.3438" x="967.0422" y="450.9502">Wijzig omschrijving</text><polygon fill="#ADD8E6" points="915.7781,230.6357,1134.6501,230.6357,1146.6501,242.6357,1134.6501,254.6357,915.7781,254.6357,903.7781,242.6357,915.7781,230.6357" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="13.7017" x="1029.2141" y="264.8462">no</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="218.8721" x="915.7781" y="246.4438">Aanvraag één duidelijke functionaliteit?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="19.0083" x="1146.6501" y="240.0415">yes</text><polygon fill="#ADD8E6" points="1025.2141,483.7803,1037.2141,495.7803,1025.2141,507.7803,1013.2141,495.7803,1025.2141,483.7803" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="130.9883" x="959.72" y="527.7803"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="110.9883" x="969.72" y="548.9189">Add time estimate</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="137.252" x="956.5881" y="581.749"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="117.252" x="966.5881" y="602.8877">Vraag om feedback</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="118.5898" x="1210.1218" y="802.6553"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="98.5898" x="1220.1218" y="823.7939">Accepteren taak</text><path d="M894.0867,871.624 L894.0867,911.8896 A0,0 0 0 0 894.0867,911.8896 L1193.3298,911.8896 A0,0 0 0 0 1193.3298,911.8896 L1193.3298,895.7568 L1213.3298,891.7568 L1193.3298,887.7568 L1193.3298,881.624 L1183.3298,871.624 L894.0867,871.624 A0,0 0 0 0 894.0867,871.624 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M1183.3298,871.624 L1183.3298,881.624 L1193.3298,881.624 L1183.3298,871.624 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="278.2432" x="900.0867" y="888.6909">FR8.2: Op splitten taak naar &quot;team&quot; taken.</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="222.0029" x="900.0867" y="903.8237">Deze taken komen op de backlog.</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="112.1738" x="1213.3298" y="874.7725"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="92.1738" x="1223.3298" y="895.9111">Opsplitten taak</text><ellipse cx="1269.4167" cy="953.3193" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="1269.4167" cy="953.3193" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.5;" x1="719.7971" x2="719.7971" y1="12.7451" y2="1029.8584"/><line style="stroke:#000000;stroke-width:1.5;" x1="1332.7117" x2="1332.7117" y1="12.7451" y2="1029.8584"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.8362" x2="125.8362" y1="816.0576" y2="851.0576"/><polygon fill="#181818" points="121.8362,841.0576,125.8362,851.0576,129.8362,841.0576,125.8362,845.0576" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.8362" x2="125.8362" y1="757.6865" y2="782.0889"/><polygon fill="#181818" points="121.8362,772.0889,125.8362,782.0889,129.8362,772.0889,125.8362,776.0889" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="203.6724" x2="215.6724" y1="745.6865" y2="745.6865"/><polygon fill="#181818" points="211.6724,813.5732,215.6724,823.5732,219.6724,813.5732,215.6724,817.5732" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="215.6724" x2="215.6724" y1="745.6865" y2="901.46"/><line style="stroke:#181818;stroke-width:1.0;" x1="215.6724" x2="125.8362" y1="901.46" y2="901.46"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.8362" x2="125.8362" y1="901.46" y2="931.8896"/><polygon fill="#181818" points="121.8362,921.8896,125.8362,931.8896,129.8362,921.8896,125.8362,925.8896" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="234.9736" x2="125.8362" y1="701.6865" y2="701.6865"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.8362" x2="125.8362" y1="701.6865" y2="733.6865"/><polygon fill="#181818" points="121.8362,723.6865,125.8362,733.6865,129.8362,723.6865,125.8362,727.6865" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="505.104" x2="614.2415" y1="701.6865" y2="701.6865"/><line style="stroke:#181818;stroke-width:1.0;" x1="614.2415" x2="614.2415" y1="701.6865" y2="733.6865"/><polygon fill="#181818" points="610.2415,723.6865,614.2415,733.6865,618.2415,723.6865,614.2415,727.6865" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.8362" x2="125.8362" y1="965.8584" y2="981.8584"/><line style="stroke:#181818;stroke-width:1.0;" x1="125.8362" x2="370.0388" y1="981.8584" y2="981.8584"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="370.0388" y1="981.8584" y2="1029.8584"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="370.0388" y1="669.6865" y2="689.6865"/><polygon fill="#181818" points="366.0388,679.6865,370.0388,689.6865,374.0388,679.6865,370.0388,683.6865" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="370.0388" y1="102.6982" y2="122.6982"/><polygon fill="#181818" points="366.0388,112.6982,370.0388,122.6982,374.0388,112.6982,370.0388,116.6982" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="34" y1="1029.8584" y2="1029.8584"/><polygon fill="#181818" points="30,548.8623,34,538.8623,38,548.8623,34,544.8623" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="34" x2="34" y1="90.6982" y2="1029.8584"/><line style="stroke:#181818;stroke-width:1.0;" x1="34" x2="358.0388" y1="90.6982" y2="90.6982"/><polygon fill="#181818" points="348.0388,86.6982,358.0388,90.6982,348.0388,94.6982,352.0388,90.6982" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="370.0388" y1="58.6982" y2="78.6982"/><polygon fill="#181818" points="366.0388,68.6982,370.0388,78.6982,374.0388,68.6982,370.0388,72.6982" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="303.0381" y2="327.4404"/><polygon fill="#181818" points="1021.2141,317.4404,1025.2141,327.4404,1029.2141,317.4404,1025.2141,321.4404" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1170.4333" x2="1182.4333" y1="291.0381" y2="291.0381"/><polygon fill="#181818" points="1178.4333,334.4248,1182.4333,344.4248,1186.4333,334.4248,1182.4333,338.4248" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1182.4333" x2="1182.4333" y1="291.0381" y2="397.8115"/><line style="stroke:#181818;stroke-width:1.0;" x1="1182.4333" x2="1037.2141" y1="397.8115" y2="397.8115"/><polygon fill="#181818" points="1047.2141,393.8115,1037.2141,397.8115,1047.2141,401.8115,1043.2141,397.8115" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="361.4092" y2="385.8115"/><polygon fill="#181818" points="1021.2141,375.8115,1025.2141,385.8115,1029.2141,375.8115,1025.2141,379.8115" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="409.8115" y2="429.8115"/><polygon fill="#181818" points="1021.2141,419.8115,1025.2141,429.8115,1029.2141,419.8115,1025.2141,423.8115" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="254.6357" y2="279.0381"/><polygon fill="#181818" points="1021.2141,269.0381,1025.2141,279.0381,1029.2141,269.0381,1025.2141,273.0381" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1146.6501" x2="1192.4333" y1="242.6357" y2="242.6357"/><polygon fill="#181818" points="1188.4333,368.9092,1192.4333,378.9092,1196.4333,368.9092,1192.4333,372.9092" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1192.4333" x2="1192.4333" y1="242.6357" y2="495.7803"/><line style="stroke:#181818;stroke-width:1.0;" x1="1192.4333" x2="1037.2141" y1="495.7803" y2="495.7803"/><polygon fill="#181818" points="1047.2141,491.7803,1037.2141,495.7803,1047.2141,499.7803,1043.2141,495.7803" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="463.7803" y2="483.7803"/><polygon fill="#181818" points="1021.2141,473.7803,1025.2141,483.7803,1029.2141,473.7803,1025.2141,477.7803" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="210.6357" y2="230.6357"/><polygon fill="#181818" points="1021.2141,220.6357,1025.2141,230.6357,1029.2141,220.6357,1025.2141,224.6357" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="507.7803" y2="527.7803"/><polygon fill="#181818" points="1021.2141,517.7803,1025.2141,527.7803,1029.2141,517.7803,1025.2141,521.7803" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="561.749" y2="581.749"/><polygon fill="#181818" points="1021.2141,571.749,1025.2141,581.749,1029.2141,571.749,1025.2141,575.749" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1269.4167" x2="1269.4167" y1="836.624" y2="874.7725"/><polygon fill="#181818" points="1265.4167,864.7725,1269.4167,874.7725,1273.4167,864.7725,1269.4167,868.7725" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1269.4167" x2="1269.4167" y1="908.7412" y2="942.3193"/><polygon fill="#181818" points="1265.4167,932.3193,1269.4167,942.3193,1273.4167,932.3193,1269.4167,936.3193" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="370.0388" y1="156.667" y2="161.667"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="1025.2141" y1="161.667" y2="161.667"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="161.667" y2="176.667"/><polygon fill="#181818" points="1021.2141,166.667,1025.2141,176.667,1029.2141,166.667,1025.2141,170.667" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="1025.2141" y1="615.7178" y2="620.7178"/><line style="stroke:#181818;stroke-width:1.0;" x1="1025.2141" x2="370.0388" y1="620.7178" y2="620.7178"/><line style="stroke:#181818;stroke-width:1.0;" x1="370.0388" x2="370.0388" y1="620.7178" y2="635.7178"/><polygon fill="#181818" points="366.0388,625.7178,370.0388,635.7178,374.0388,625.7178,370.0388,629.7178" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="614.2415" x2="614.2415" y1="767.6553" y2="785.1553"/><line style="stroke:#181818;stroke-width:1.0;" x1="614.2415" x2="1269.4167" y1="785.1553" y2="785.1553"/><line style="stroke:#181818;stroke-width:1.0;" x1="1269.4167" x2="1269.4167" y1="785.1553" y2="802.6553"/><polygon fill="#181818" points="1265.4167,792.6553,1269.4167,802.6553,1273.4167,792.6553,1269.4167,796.6553" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="169.1191" x="282.839" y="29.4531">Externe beheerder</text><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="158.8535" x="946.8276" y="29.4531">Bluenotion admin</text></g></svg></div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "content.action.edit"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>
