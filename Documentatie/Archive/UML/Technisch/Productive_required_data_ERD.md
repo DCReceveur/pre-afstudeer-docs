@@ -1,3 +1,7 @@
+
+
+Intern:
+
 ```puml
 title Essential productive data
 skinparam linetype ortho
@@ -8,6 +12,7 @@ rectangle "Productive" {
   class Project {
     project_id
     name
+    updated_on
   }
   
   class Task {
@@ -16,7 +21,7 @@ rectangle "Productive" {
     description
     task_list_id
     status_id
-    last_edited_on
+    updated_on
     created_on
   }
 
@@ -54,7 +59,14 @@ rectangle "Productive" {
   }
 }
 
-class Ticket
+class Ticket{
+  id
+  name
+  description
+  productive_id
+  updated_on
+  created_on
+}
 
 ' Klant beheert project
 Klant "1"--"0..1" Project :> Eigenaar van

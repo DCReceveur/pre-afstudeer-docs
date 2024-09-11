@@ -20,15 +20,177 @@ De interne PMP database wordt gebruikt om extra data te koppelen aan Productive 
 
 ### Productive datamodel
 
-{%
-  include-markdown "../UML/Technisch/Productive_required_data_ERD.md"
-%}
+
+
+Intern:
+
+```puml
+title Essential productive data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle "Productive" {
+  class Project {
+    project_id
+    name
+    updated_on
+  }
+  
+  class Task {
+    task_id
+    title
+    description
+    task_list_id
+    status_id
+    updated_on
+    created_on
+  }
+
+  class Attachment{
+    id
+    url
+  }
+  
+  class Task_list {
+    task_list_id
+    name
+    board_id
+  }
+  
+  class Board {
+    board_id
+    name
+    project_id
+  }
+  
+  class Status {
+    status_id
+    name
+  }
+
+  class CustomField{
+    custom_field_id
+    value
+  }
+
+  class Comment {
+    comment_id
+    content
+    task_id
+  }
+}
+
+class Ticket{
+  id
+  name
+  description
+  productive_id
+  updated_on
+  created_on
+}
+
+' Klant beheert project
+Klant "1"--"0..1" Project :> Eigenaar van
+Klant "1..*"--"0..*" Project :> Beheerder van
+
+' Klant Ticket
+Klant "1"--"0..*" Ticket :> Maakt een
+Ticket "1"--"0..*" Task :> Resulteert in
+
+Task "0..*" -- "1" Task_list : > Weggeschreven op
+Task_list "0..*" -- "1" Board : < Onderdeel van
+
+Task "0..*" -- "1" Status :< Van
+Board "1..*" -- "1" Project :> Voor
+
+Task "1" -- "0..*" Comment :< Heeft
+Task "0..*" -- "1" CustomField
+
+Task "0..*" -- "0..*" Task :> Depends on
+
+Attachment -- Task
+Attachment -- Comment
+
+```
+
 
 ### PMP datamodel
 
-{%
-  include-markdown "../UML/Technisch/PMP_required_data_ERD.md"
-%}
+```puml
+title Essential PMP data
+skinparam linetype ortho
+skinparam nodesep 130
+skinparam ranksep 120
+
+rectangle Productive{
+    class "Task" as productive_task
+    class "Project" as productive_project
+    class "Attachment" as productive_attachment
+    class "Comment" as productive_comment
+}
+
+rectangle PMP{
+    class Ticket{
+        Guid id
+        int productive_id
+        Type
+        datetime last_updated_at
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Task{
+        Guid id
+        int productive_id
+        datetime last_updated_at
+    }
+    note right
+        Refers to Productive Task
+    end note
+    class Bedrijf{
+        Guid id
+    }
+    class Prioriteit{
+        int urgentie
+        int impact
+    }
+    class Klant{
+        Guid id
+        String voornaam
+        String achternaam
+        String email
+    }
+    class Project{
+        Guid id
+        int productive_id
+        datetime last_updated_at
+    }
+    note right
+        Refers to Productive Project. 
+        Last updated needed? 
+        Volgens mij zou alleen de naam kunnen veranderen?
+    end note
+}
+
+Klant "1..*"--"0..*" Project :> Beheerder van
+Klant "1..*"--"0..*" Bedrijf :> Beheerder van
+Project "0..*"--"1" Bedrijf :> Uitgevoerd voor
+Klant "1"--"0..*" Ticket :> Maakt een
+Ticket "1"--"0..*" Task :> Resulteert in
+Ticket "0..*"--"1" Project :> Werk voor
+Ticket "0..*" -- "1" Prioriteit :> Ingediend met
+
+Task "1"--"1" productive_task :> Links to
+Ticket "1"--"1" productive_task :> Links to
+Project "1"--"1" productive_project :> Links to
+
+productive_comment -- productive_task :> placed on
+productive_attachment -- productive_task :> bijlagen op
+productive_attachment -- productive_comment :> bijlagen op
+
+```
+
 
 ## Productive endpoints per scherm
 
@@ -46,7 +208,7 @@ De interne PMP database wordt gebruikt om extra data te koppelen aan Productive 
 | Admin: Toevoegen documentatie* |  |  |  |  |  |  |  |
 | Admin: Controleren aanvraag |  | x | x |  | x | x | x |
 
-*Waar slaan we documenten op?
+<!-- TODO: *Waar slaan we documenten op? -->
 
 Voor het uitlezen van data voor één pagina zouden bij sommige pagina's 5 verschillende Productive endpoints benaderd worden. Als volgens [NFR5.1](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) 50 gebruikers gelijktijdig bijvoorbeeld de details van een taak bekijken zou dit resulteren in 250 requests naar de Productive API. Er van uit gaande dat een pagina informatie nodig heeft van gemiddeld 3 a 4 endpoints zou de meest basale implementatie gebaseerd op directe communicatie met productive zich limiteren tot rond de 30 gelijktijdige gebruikers. (100/3.5=28.5)
 
@@ -65,10 +227,116 @@ Controllers worden per entiteit aangemaakt en volgen allemaal grofweg de zelfde 
 | Delete (DELETE) | Endpoint om bestaande entiteiten te verwijderen  | ```public async Task<NoContentResult> DeleteActivityAdmin([FromRoute] TaskId taskId, CancellationToken cancellationToken)```  |
 
 <!-- TODO?: Een redenatie toevoegen over patch vs put? -->
+<!-- Is het netjes om een find meer informatie terug te laten geven? -->
+
+| Endpoint | Gebruikt in | Filter fields | Sortable fields | Response |
+|---|---|---|---|---|
+| /projects | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View2](../Functioneel/Schermontwerpen.md#view2-mijn-projecten) | company_id, action_required, pmp_project_id | Datum ingediend, laatste update |  |
+| /tickets | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | pmp_project_id, status, action_required, type, prioriteit | titel, type, prio, datum ingediend, laatste update |  |
+| /tasks | ViewX Toekennen taak zonder ticket | pmp_project_id, status | datum ingediend, laatste update |  |
+| /feed | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard), [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view) | project_id, ticket_id |  |  |
+| /onboarding | [View1](../Functioneel/Schermontwerpen.md#view1-dashboard) | pmp_project_id |  |  |
+| /attachments | [View3](../Functioneel/Schermontwerpen.md#view3-taak-detail-view), [View4](../Functioneel/Schermontwerpen.md#view4-toevoegen-taak-view) | ticket_id |  |  |
+| /manuals | [View5](../Functioneel//Schermontwerpen.md#view5-documentatie-view) | pmp_project_id |  |  |
+
+/tickets & /projects hebben een {controller}/{id}/details endpoint om de ticket detail view en project settings te faciliteren.
+
+<!-- TODO: Paginatie kan op API of FE niveau, ADR schrijven? -->
+<!-- TODO: Is er nog een filter nodig op /projects die op user_id kan filteren? Zo zouden projecten waar de gevraagde gebruiker toegang toe heeft opgevraagd kunnen worden -->
+<!-- TODO: er is een argument te maken om attachments en manuals in één endpoint to stoppen -->
+<!-- TODO: pagination -->
+<!-- TODO: Is er een /tellers endpoint nodig? -->
 
 optie:
 
 endpoints ontwerpen zoals de repositories zodat filtering op de endpoints zelf toegepast kan worden.
+
+<!-- TODO: endpoint voorstellen nalopen -->
+
+GET /projects
+
+```C#
+List[ProjectModel] getProjects(ProjectSearchInputModel inputmodel){}
+
+ProjectSearchInputModel{
+  maybe Guid pmp_project_id
+  maybe int productive_id //Is dit nodig?
+  maybe Guid customer_id
+  boolean force_productive_sync
+}
+
+ProjectRowItemModel{
+  Guid pmp_project_id
+  String name
+  boolean actie_vereist
+}
+```
+
+/tickets
+
+```C#
+GET /tickets
+List[TicketRowItemModel] getTickets(TicketSearchInputModel inputmodel){}
+
+GET /tickets/{id} //Detail kan ook naar zijn eigen slug. /ticket oid?
+List[TicketDetailModel] getTickets(TicketSearchInputModel inputmodel){}
+
+TicketSearchInputModel{
+  maybe Guid Pmp_Id
+  maybe int Productive_Id //Is dit nodig?
+  maybe Guid Customer_Id
+  maybe Guid Project_Id
+  maybe boolean Action_required
+  boolean Force_Productive_Sync
+}
+
+TicketRowItemModel{
+  Guid pmp_ticket_id
+  String name
+  boolean actie_vereist
+  String beschrijving
+  String type
+  int prioriteit
+  String status //waarschijnlijk geen string
+  datetime created_at
+  datetime updated_at
+}
+
+TicketDetailModel{
+  Guid pmp_ticket_id
+  String name
+  boolean actie_vereist
+  String beschrijving
+  String type
+  int prioriteit
+  String status //waarschijnlijk geen string
+  datetime created_at
+  datetime updated_at
+
+  int impact
+  int urgentie
+  String prioriteit
+  int inschatting
+  String aangemaakt_door //Customer ID?
+
+  task dependency graph? //TODO: Bijwerken na gesprek UX 10-09
+  //Comments, screenshots en log is extra api call?
+
+}
+```
+
+GET /onboarding_tasks
+
+```C#
+List[OnboardingTaskModel] getOnboardingTasks(OnboardingTasksSearchInputModel inputmodel){}
+
+OnboardingTasksSearchInputModel{
+  maybe Guid Pmp_Id
+  maybe Guid Customer_Id
+  maybe Guid Project_Id
+  maybe boolean Action_required
+}
+```
 
 #### filtering pagination and sorting
 
@@ -76,7 +344,7 @@ endpoints ontwerpen zoals de repositories zodat filtering op de endpoints zelf t
 
 Afhankelijk van [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) zou er voor de PMP API gekeken moeten/kunnen worden naar filtering en pagination voor de RESTful endpoints. Bij de endpoints zoals aangeleverd door de Productive API op alle endpoints beiden filters en paginatie beschikbaar. Hiermee kunnen de hoeveelheid en welke records records die in een keer verstuurd worden beperkt worden en dus kunnen dus de reactiesnelheid en flexibiliteit van de endpoints vergroten. Met het voorlopig besluit van [ADR001-O2](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md#o2-continu-synchroniserende-backend-database-aan-de-hand-van-webhooks) waar het PMP een eigen database heeft waar de meeste productive data aan de hand van webhooks gesynchroniseerd wordt naar de lokale PMP database zouden filters en paginatie op de endpoints het uiteindelijke dataverkeer sterk verminderen.
 
-Om een grove schatting te maken van hoe nodig het inperken van de endpoint responses kan gekeken worden naar de resultaten van het pollen van endpoints voor een van de (wat grotere) projecten bij Bluenotion als te vinden in [OND01 Productive Sync](../Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1) waar aan één project 845 taken gekoppeld zijn waar voor het opsturen van de data 939ms (voor 1 pagina) nodig was. 
+Om een grove schatting te maken van hoe nodig het inperken van de endpoint responses kan gekeken worden naar de resultaten van het pollen van endpoints voor een van de (wat grotere) projecten bij Bluenotion als te vinden in [OND01 Productive Sync](../Onderzoek/OND01-ProductiveSync.md#polling-adr001-o1) waar aan één project 845 taken gekoppeld zijn waar voor het opsturen van de data 939ms (voor 1 pagina) nodig was.
 
 Door hier extra filters aan te hangen voor enkel het doorsturen van bijvoorbeeld taken die niet closed zijn of gekoppeld zijn aan een bepaald bord of takenlijst zou de filtertijd mogelijk wel vergroot worden maar de hoeveelheid te versturen data zou verminderen.
 
@@ -266,28 +534,6 @@ Task_Controller -LEFT-> IComment_Service
 Account_Controller -LEFT-> IAccount_Service
 
 ```
-
-<!-- *TODO: Betere logging procedure opzetten -->
-
-<!-- #### IProjectService
-
-#### ICommentService
-
-#### INotification
-
-#### IAccountService
-
-ITaskService	addTask(InputTaskModel), editTask(InputTaskModel), deleteTask(taskId)
-IProjectService	add, edit, delete
-ICommentService	add, edit, delete
-INotification	processNotificationSendRequest(NotificationSendRequest)
-IAccountService	signIn(username, password), sendForgotPasswordEmail(username), resetPassword(username, password, code)
-
-AccountController	Verantwoordelijk voor endpoints met betrekking tot inloggen of account management
-ProjectController	Verantwoordelijk voor endpoints met betrekking tot Projecten of project management
-TaskController	Verantwoordelijk voor endpoints met betrekking tot Taken of taak management
-CommentController	Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?).
-ProductiveSyncController	Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. -->
 
 ### Synchronisatieservice
 

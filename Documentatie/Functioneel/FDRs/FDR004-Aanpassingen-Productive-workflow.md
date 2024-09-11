@@ -6,7 +6,7 @@ Is dit eigenlijk een ADR? Het is niet perse relevant voor de architectuur van he
 
 ## **Context:**
 
-Aangezien voor elk project variaties bestaan op de boven beschreven werkwijzes/procedures en lang niet alle informatie interessant is voor de klant van Bluenotion is er na overleg met de UX ontwerper en PM gekozen om de "ontwikkelstraat"** lost te koppelen van de status die de klant ziet. De hoop is door de klant een gesimplificeerde werkwijze te laten zien de onduidelijkheden over benaming van verschillende takenlijsten en statussen te beperken. Wel komt hier bij kijken dat er een eis is in [NFR8.4](#nonfunctional-requirements) die specificeert dat de werkwijze van developers zo min mogelijk aangetast dient te worden door de introductie van het PMP.
+Aangezien voor elk project variaties bestaan op de boven beschreven werkwijzes/procedures en lang niet alle informatie interessant is voor de klant van Bluenotion is er na overleg met de UX ontwerper en PM gekozen om de "ontwikkelstraat"** lost te koppelen van de status die de klant ziet. De hoop is door de klant een gesimplificeerde werkwijze te laten zien de onduidelijkheden over benaming van verschillende takenlijsten en statussen te beperken. Wel komt hier bij kijken dat er een eis is in [NFR8.4](../FunctioneelOntwerp.md#nonfunctional-requirements) die specificeert dat de werkwijze van developers zo min mogelijk aangetast dient te worden door de introductie van het PMP.
 
 <!-- TODO2: **ontwikkelstraat toevoegen aan woordenlijst -->
 

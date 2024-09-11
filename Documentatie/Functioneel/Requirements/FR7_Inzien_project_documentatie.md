@@ -54,37 +54,3 @@ Filters op de support documentatie
 | Triggers |  |
 | Exceptions |  |
 | Open issues |  |
-
-## FR7.3: Beheren project documentatie
-
-User story: Als interne beheerder wil ik verschillende documenten open kunnen zetten voor verschillende projecten zodat de klant enkel toegang heeft tot de documenten die voor hem/haar relevant zijn.
-
-TODO: fully dressed versie uitwerken.
-
-| FR7.3 | Beheren project documentatie (CRUD) |
-|---|---|
-| Prioriteit | Could have  |
-| Primaire Actor | ACT2: Bluenotion admin |
-| Stakeholders | ACT1: Externe beheerder |
-| Pre condities | Er is een project toegevoegd in het PMP |
-| Post condities | Een document is toegevoegd, vervangen of verwijderd|
-| Triggers | Op aanvraag Bluenotion admin |
-| Exceptions |  |
-| Open issues |  |
-
-Notes:
-
-Documentatie wordt geupload aan de hand van FR7.4, aan de hand van FR7.3 wordt de (al bestaande) documentatie gekoppeld aan een project.
-
-TODO: Het voordeel aan deze opmerking is dat bij het uploaden van een nieuwe versie van bestaande documentatie er één nieuwe versie geüpload kan worden en deze met een handeling voor alle projecten vervangen kan worden. Je zou ook een nieuwe versie van een bestaand document kunnen uploaden en deze moeten koppelen aan elk project die je wilt updaten.
-
-### FR7.3: Main flow
-
-|Stap | Actor | System |
-|---|---|---|
-
-### FR7.3: Alternative flow - Geen uren ingepland op het project
-
-|Stap | Actor | System |
-|---|---|---|
-

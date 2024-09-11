@@ -9,9 +9,25 @@ Zoals beschreven in het [FO](../Functioneel/FunctioneelOntwerp.md) besproken die
 <!-- *TODO: Hoort het messaging systeem en/of db hier wel te staan? is dit geen Container of component?
 Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is dat ze gezien kunnen worden als externe systemen die relevant zijn voor de context van het systeem. -->
 
-{%
-    include-markdown "../UML/Technisch/C4_Context.md"
-%}
+```puml
+
+actor Klant
+actor Admin
+
+rectangle "Productive (API)" as productive
+rectangle "Messaging system" as message
+rectangle "Project Management Portal" as PMP
+rectangle "PMP Database" as DB
+' rectangle "PMP database" as BE_DB
+Klant --> PMP : "Manages projects in                           "
+Admin --> PMP : "Validates tasks in           "
+
+PMP --> productive : "Retrieves project data from"
+' PMP --> BE_DB : "Caches project data in"
+PMP --> message : "Informs customers using"
+PMP--> DB
+
+```
 
 | Element | Toelichting |
 |--|--|
@@ -22,9 +38,34 @@ Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is d
 
 ## Containers
 
-{%
-    include-markdown "../UML/Technisch/C4_Containers.md"
-%}
+```puml
+
+actor Klant
+actor Admin
+
+rectangle Browser{
+component "React front-end" as PWA
+}
+
+component PMP{
+component "PMP API" as API
+component "PMP Database" as DB
+component "PMP Services" as Service
+}
+
+rectangle "Notification system" as NS
+database "Productive.io API" as PR_API
+
+Klant --> PWA : HTTP(S)/JSON
+Admin --> PWA : HTTP(S)/JSON
+PWA --> API : HTTP(S)/JSON
+Service --> DB : MS Entity framework
+API-->Service
+Service --> PR_API : HTTP(S)/JSON
+Service --> NS : SMTP?
+
+```
+
 
 | Container | Toelichting |
 |---|---|
@@ -41,10 +82,44 @@ Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is d
 
 <!-- TODO: De echte views hier in zetten. -->
 
-{%
-    include-markdown "../UML/Technisch/C4_Component_FE.md"
-%}
+```puml
+top to bottom direction
+skinparam linetype ortho
+skinparam nodesep 10
+skinparam ranksep 10
 
+rectangle "React front-end"{
+    rectangle "View" as view{
+        rectangle "Admin" as Admin{
+            rectangle "AdminProjectView"
+            rectangle "AdminProjectDetailView"
+            rectangle "AdminTaskDetailView"
+            rectangle "AdminCommentsView"
+        }
+        rectangle "Customer" as Customer{
+            rectangle "CustomerProjectView"
+            rectangle "CustomerProjectDetailView"
+            rectangle "CustomerTaskDetailView"
+            rectangle "CustomerCommentsView"
+        }
+        rectangle "Partials" as Partials{
+            rectangle "ProjectsPartial"
+            rectangle "ProjectDetailsPartial"
+            rectangle "TaskDetailPartial"
+            rectangle "CommentsPartial"   
+        }
+    }
+
+    rectangle "Generated API" as GeneratedAPI{
+        rectangle "Generated Controllers"
+        rectangle "Generated Models"
+    }
+
+    view-->GeneratedAPI
+    Admin-->Partials : uses
+    Customer-->Partials : uses
+}
+```
 #### Toelichting FE componenten
 
 | Component | Uitleg |
@@ -61,9 +136,35 @@ Argument voor weghalen is dat het dingen zijn die ik beheer, argument tegen is d
 
 Het PMP API component is verantwoordelijk voor het beheer van de verschillende REST endpoints. De logica in dit component dient beperkt te worden tot configuratie van de endpoints, het afhandelen van role based autorisatie en model validatie.
 
-{%
-    include-markdown "../UML/Technisch/C4_Component_API.md"
-%}
+```puml
+rectangle PMP{
+rectangle "PMP API"{
+    rectangle "Controllers"{
+        rectangle "AccountController"
+        rectangle "ProjectController"
+        rectangle "TaskController"
+        rectangle "CommentController"
+    }
+    rectangle "Models"
+}
+    rectangle "Services"{
+        'interface "INotification"
+        interface "IAccountService"
+        interface "ITaskService"
+        ' rectangle TaskService
+        interface "IProjectService"
+        ' rectangle ProjectService
+        interface "ICommentService"
+    }
+}
+    Controllers -[norank]-> Models : uses
+    AccountController --> IAccountService
+    TaskController --> ITaskService
+    ProjectController --> IProjectService
+    CommentController --> ICommentService
+    'ITaskService --> INotification
+    'IProjectService --> INotification
+```
 
 #### Toelichting API componenten
 
@@ -74,10 +175,24 @@ Het PMP API component is verantwoordelijk voor het beheer van de verschillende R
 | **ProjectController**  | Verantwoordelijk voor endpoints met betrekking tot Projecten of project management  |
 | **TaskController**  | Verantwoordelijk voor endpoints met betrekking tot Taken of taak management  |
 | **CommentController**  | Verantwoordelijk voor endpoints met betrekking tot Comments op taken (bijlages?). |
-| **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API en de bijhorende webhooks. |
 | [**Models**](#Component-PMP-DB)  | De Models zijn data objecten die worden gebruikt voor data transfer tussen verschillende componenten. Later in dit document wordt [per laag toelichting](#Component-PMP-DB) gegeven op de models.  |
 
+<!-- | **ProductiveSyncController** | Verantwoordelijk voor endpoints met betrekking tot communicatie met de Productive API.* | -->
+<!-- TODO: Is er een aparte endpoint nodig voor forced syncs en dergelijke? Deze was eerst bedoeld voor webhook management -->
+
 <!-- TODO: is dit een ADR? -->
+<!-- TODO: is synchroniseren met productive de verantwoordelijkheid van een service of een repository?
+Repo roept service aan?
+Is er uberhaupt een repository voor project/task data?
+
+Nadeel in service:
+Als er een open gelaagd systeem is zou de controller direct kunnen praten met de repository. Als de repository niet persé up to date date bezit omdat de service verantwoordelijk is voor het bijwerken van 
+deze data zou je met incomplete of verouderde data kunnen werken.
+
+Voordeel in service:
+Door de repos enkel te gebruiken voor "lokaal" opgeslagen data is de code voor iemand die niet bekend is met het project beter te overzien.
+
+ -->
 
 Eén gemaakte keuze bij het gebruik van de verschillende lagen en de communicatie hiertussen is dat de verschillende controllers enkel toegang hebben tot de verschillende service interfaces en niet de repository interfaces. Hierdoor zal voor lees acties binnen de services extra code geschreven moeten worden maar is de controller laag niet gekoppeld aan de onderliggende repositories.
 
@@ -88,15 +203,85 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 
 De service laag is verantwoordelijk voor de business logica, [transformeren van input naar database models](#databasemodels) en het coördineren van "externe" verbindingen.
 
-{%
-    include-markdown "../UML/Technisch/C4_Component_Services.md"
-%}
+```puml
+top to bottom direction
+skinparam linetype ortho
+
+interface "INotification" as INotification
+interface "IAccountService"
+interface "ITaskService"
+interface "IProjectService"
+interface "ICommentService"
+
+' Main Services functionality
+rectangle "Services"{
+    rectangle "Repositories" as Repositories{
+        rectangle "BaseRepository<T>" as BaseRepository
+        rectangle AccountRepository
+        rectangle TaskRepository
+        rectangle ProjectRepository
+        rectangle CommentRepository
+    }
+    rectangle "PMP Services"{
+    rectangle "Notification service" as NotificationService
+    rectangle AccountService
+    rectangle ProductiveSyncService
+    }
+    rectangle "BaseService"
+    rectangle "Productive services" as ProductiveServices{
+        rectangle TaskService
+        rectangle ProjectService
+        rectangle CommentService
+    rectangle "BaseProductiveService<T>" as ProductiveService
+    }
+    rectangle Models
+}
+' Others
+interface dbContext
+interface "Mail*" as Mail
+interface "Productive REST API" as PRA
+rectangle "Other components"{
+    rectangle "Productive API" as productive
+    rectangle "Mail server" as mail
+    rectangle Database as db
+}
+
+' Relations to servicebases
+ProductiveService-->BaseService
+AccountService-[norank]->BaseService
+NotificationService-[norank]->BaseService
+TaskService-->ProductiveService
+ProjectService-->ProductiveService
+CommentService-->ProductiveService
+
+' Interfaces to services
+IAccountService-->AccountService
+ITaskService-->TaskService
+IProjectService-->ProjectService
+ICommentService-->CommentService
+INotification --> NotificationService
+
+' Externals
+BaseService --> Repositories
+ProductiveService --> PRA
+Repositories-->dbContext
+NotificationService-->Mail
+
+PRA-->productive
+dbContext-->db
+Mail-->mail
+
+' Relations to repository
+AccountRepository -->BaseRepository
+TaskRepository -->BaseRepository
+ProjectRepository -->BaseRepository
+CommentRepository -->BaseRepository
+
+```
 
 <!-- *TODO: interface naar de mailserver is nog niet uitgewerkt -->
 
 #### Toelichting Service componenten
-
-<!-- | ISyncProductive  | addTasks(<InputTaskModel[]>), modifyTasks(<InputTaskModel[]>), removeTasks(<InputTaskModel[]>) (*)  | -->
 
 ##### Interfaces
 
@@ -146,26 +331,6 @@ De verschillende componenten in de bovenstaande afbeelding zijn niet compleet ma
 - Hoe kom je er achter wanneer data fout is/niet overeenkomt met productive? (A. Wanneer een gebruiker iets probeert te updaten/verwijderen dat niet bestaat)
 - Voor het synchroniseren naar productive van via de FE binnen gekomen data (Heeft repositories een koppeling met Productive API zodat wanneer insert of update dit direct wordt doorgestuurd)
 - Productive kan ook gewoon een repository zijn?
-
-##### Sync service
-
-De sync service is verantwoordelijk voor het opzetten en verwerken van de productive synchronisatie data. Synchronisatie gebeurt aan de hand van twee verschillende methodes:
-
-###### Regular sync
-
-Eén belangrijke rol van de Productive service is het coördineren van de synchronisatie tussen het PMP en Productive. Zoals [hier](#productive-api-sync) toegelicht wordt er gebruik gemaakt van webhooks om op de hoogte gebracht te worden van wijzigingen binnen Productive. Normaliter komt hierdoor synchronisatie data binnen op de [hier boven genoemde 'ProductiveSyncController'](#toelichting-api-componenten). Deze webhooks dienen door de sync service opgezet te worden.
-
-<!-- TODO: setup webhooks toevoegen! -->
-
-###### Clean sync
-
-Ook is er een procedure nodig voor als de synchronisatie om wat voor reden dan ook mis loopt (denk langdurige uitval Productive/PMP, first time setup of 'corrupte' database data) waardoor het PMP zich zonder webhooks kan herstellen naar een werkende staat die overeen komt met de data die beschikbaar is op Productive. Aangezien deze actie veel data nodig heeft van productive zal deze procedure waarschijnlijk dermate veel tijd en requests kosten dat hij enkel als nood oplossing uitgevoerd dient te worden.
-
-Als toelichting op dit punt is gekeken naar hoe "duur" het ophalen van alle taak data is. Op het moment van schrijven komen er 27060 resultaten binnen op het [tasks endpoint](https://developer.productive.io/tasks.html#tasks). Met een maximale [pagina grootte](https://developer.productive.io/index.html#header-pagination) van 200 items op een pagina zijn er 136 requests nodig alle taak data binnen te halen. Over één request (van maximale pagina grootte) doet Productive 2.82 seconden om reactie te geven met een response size van 499 KB. Met volledig gebruik van de rate limits zoals beschreven in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md) van 100 requests per 10 sec zou deze procedure met de huidige Productive data best case scenario op zijn minst 10 seconden en waarschijnlijk significant langer duren.
-
-<!-- TODO: rename productive service? -->
-
-<!-- TODO: Zou het beter zijn productive service op te splitten naar taakservice, projectservice ect? Hierdoor kunnen de services gebruikt worden om voor beiden de sync en "dagelijks gebruik". -->
 
 ### <a id="Component-PMP-DB" /></a>PMP Database and Data models
 
@@ -301,36 +466,62 @@ Welke functionaliteiten binnen Productive beschikbaar zijn is afhankelijk van de
 
 ### Productive API sync
 
-De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.
+
+
+<!-- De productive API biedt webhooks om voor de volgende objecten een bericht te krijgen wanneer een create, update of delete wordt uitgevoerd.
 
 Aparte endpoints:
 
-{%
-    include-markdown "../UML/Technisch/Sequence/C4_Code_Productive_sync_multiple.md"
-%}
+
 
 Om te garanderen dat het PMP alle data weergeeft dat in productive aanwezig is dient er op een zeker moment data opgehaald te worden vanuit de Productive API. Binnen dit hoofdstuk wordt de (voorlopig) gekozen aanpak voor deze synchronisatie toegelicht. Andere overwogen aanpakken en de bijhorende voor/nadelen zijn te vinden in [ADR001](../Technisch/ADRs/ADR001-Communicatie_met_de_Productive_API.md).
 
-Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks. De
+Zoals beschreven in ADR001 wordt er voor "normaal" gebruik van het systeem data binnengehaald aan de hand van webhooks.
 
-Can a bad sync happen, how would you notice and how would you solve it?
+Can a bad sync happen, how would you notice and how would you solve it? -->
 
 ## Architectural Decision Records
 
-{%
-    include-markdown "../UML/Technisch/SAD_ADRs.md"
-%}
+
+```puml
+rectangle "ADR001-O2-Continu synchroniserende backend database aan de hand van Webhooks" as ADR001O2 #Red
+rectangle "ADR001-O5 Direct polling with cache" as ADR001O5 #Orange
+rectangle "ADR002-O1-React native" as ADR002 #Green
+rectangle "ADR003-O1-asp.net core" as ADR003 #Green
+rectangle "ADR004-Database system-O1-SQL" as ADR004 #Orange
+rectangle "ADR005-Database-ORM"
+rectangle "ADR006-Frontend backend Communicatie"
+rectangle "ADR007-MVC Design pattern"
+rectangle "ADR008-Taak Mijlpalen"
+rectangle "ADR010-Authentication" #Orange
+rectangle "ADR?-filtering pagination & sorting" as Sorting
+
+ADR001O2 <-- Sorting : Depends on
+' ADR001O5 <-- ADR001O2 : Superseded by
+
+legend left
+    | Color | Status |
+    |<#Orange>| Proposed |
+    |<#Green>| Accepted |
+    |<#Red>| Rejected |
+    | <#LightSlateGray> | Deprecated |
+    | <#Maroon> | Superseded by |
+endlegend
+
+```
+
 
 Verantwoordingen toe te voegen:
 
 - Keuze mail server
 <!-- - Keuze synchronisatie op service, repository of database niveau. (database is het consistentste, service het meest flexibel. Waarom waar?) -->
 - Keuze gescheiden houden van productive input controllers en user input controllers. (mocht één van de twee wijzigen mag de ander er geen last van hebben)
-- Productive webhook endpoints, per "object" of event? <https://developer.productive.io/webhooks.html#webhooks>
-- Basis tests met webhooks: als applicatie uit staat en aan de hand van de webhooks data naar het PMP wordt gestuurd wordt er vanuit productive automatisch een (aantal) nieuwe poging(en) gedaan om de data nogmaals te versturen. Als in de tussentijd het PMP weer draait kan het zijn dat updates over de zelfde taak in de verkeerde volgorde aankomen. Het is van belang dat er hierom gekeken wordt naar wanneer welke wijziging is gemaakt (welke timestamp?) voordat ze worden doorgevoerd.
 - In het geval dat het PMP geen directe reactie krijgt van productive bij bijvoorbeeld het aanmaken van een taak dienen de taken A. niet aangemaakt te worden met een foutmelding? B. aangemaakt te worden en op een later moment gesynchroniseerd te worden?
 - Filtering pagination & sorting [technisch ontwerp](./TechnischOntwerp.md#filtering-pagination-and-sorting)
 
 Is dit wel een ADR?
 
 <!-- - TODO: Discussie over endpoints op maat voor bepaalde views of CRUD endpoints en sorteren en filteren op de frontend. -->
+
+
+<!-- https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html -->

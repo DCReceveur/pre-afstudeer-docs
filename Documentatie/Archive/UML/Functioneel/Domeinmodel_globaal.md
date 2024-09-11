@@ -17,11 +17,21 @@ rectangle "Project management portal"{
   }
 }
 rectangle "Productive"{
-  class Project
-  class Taak
-  class Takenlijst
-  class Board
-  class Status
+  class Project{
+    Nr. 1
+  }
+  class Taak{
+    Nr. 2
+  }
+  class Takenlijst{
+    Nr. 3
+  }
+  class Board{
+    Nr. 4
+  }
+  class Status{
+    Nr. 5
+  }
 }
 
 SLA"1"--"1"Project :> Toegekend aan

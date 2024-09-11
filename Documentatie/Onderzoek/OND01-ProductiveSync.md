@@ -23,50 +23,6 @@ Tijdens het library onderzoek zijn nog een aantal vragen naar boven gekomen over
 
 In dit hoofdstuk volgt een korte toelichting over de overwogen en gekozen onderzoek patronen en methodes.
 
-### Overwogen
-
-Om tot antwoorden voor deze vragen te komen is gebruik gemaakt van verschillende onderzoeksmethodes. De gekozen onderzoek methodes zijn gebaseerd op de onderzoek patronen zoals beschreven op <https://ictresearchmethods.nl/>.
-
-Voor dit onderzoek zijn voornamelijk de patronen "Realise as required", "Realise as expert" en "Choose fitting technology" overwogen. Beide patronen worden vanaf de analyse fase gebruikt om tot een nog onbekende oplossing te komen met als voornaamste verschil of er vanuit een functioneel (required) of technisch standpunt (expert) naar het probleem wordt gekeken.
-
-In de omschrijving van het Realise as required pattern wordt onder risico's genoemd dat er mogelijk niet naar een optimale oplossing wordt gewerkt omdat er geen library of showroom onderzoek wordt gedaan die de wensen van de opdrachtgever zou vaststellen.
-
-In de omschrijving van het Realise as expert pattern wordt onder risico's genoemd dat het zicht op de applicatie context verloren kan raken en dus software niet aan de eisen van de opdrachtgever voldoet.
-
-In de omschrijving van het Choose fitting technology patroon wordt onder risico's genoemd dat er vaak suboptimale keuzes worden gemaakt door op basis van persoonlijke voorkeur en met incomplete criteria te kiezen.
-
-Om de zwakheden van de onderzoek patronen af te dekken is gekozen het Realise as required patroon toe te passen met extra library onderzoek. Aan de hand van dit extra library onderzoek worden verschillende opties voor synchronisatie verkend zodat deze in de rest van het onderzoek meegenomen kunnen worden.*
-
-*Side note: Eigenlijk is Realise as required met library onderzoek qua structuur het zelfde als choose fitting technology.
-
-Realise as required: Field -> Workshop -> Lab
-
-Realise as expert: Library -> Workshop -> Showroom
-
-Choose fitting technology: Library -> Field -> Workshop -> Lab
-
-De volgende methodes zijn overwogen toe te passen binnen het gekozen onderzoek patroon.
-
-| Stap | Naam | Type | Doel binnen dit project |
-|---|---|---|---|
-| 1 | [Best, good & bad practices](https://ictresearchmethods.nl/library/best-good-and-bad-practices/) | Library | Vindt opties door met collega's en online te zoeken naar potentiële oplossingen voor vergelijkbare synchronisaties. |
-| 2 | [Design Pattern Search](https://ictresearchmethods.nl/library/design-pattern-research/) | Library | Onderzoek of er standaard design patterns zijn die dergelijke synchronisaties afhandelen. |
-| 3 | [Literature Study](https://ictresearchmethods.nl/library/literature-study/) | Library | Uitbreiding op de gevonden resultaten van de bovenstaande methodes. |
-| 4 | [Peer review](https://ictresearchmethods.nl/showroom/peer-review/) | Showroom | Wordt gebruikt voorgestelde oplossingen te verifiëren met collega's die (ook als gebruiker van het systeem) uniek inzicht kunnen geven. Deze methode is gekozen om tijdens het proces toch de potentieel waardevolle kennis van mijn collega's te kunnen gebruiken. |
-| 5 | [Requirements prioritization](https://ictresearchmethods.nl/workshop/requirements-prioritization/) | Workshop | Voor synchronisatie zijn vaak meerdere potentiële oplossingen beschikbaar die afhankelijk van de eisen aan de software complexer of simpeler gemaakt kunnen worden en daarbij meer of minder ontwikkeltijd kosten. |
-| 6 | [Prototyping](https://ictresearchmethods.nl/workshop/prototyping/) | Workshop |  Na het vaststellen van de eisen en onderzoeken van de verschillende opties wordt de meest belovende optie uitgewerkt tot een PoC zodat er meer zekerheid is dat de oplossing naar verwachting functioneert. |
-| 7 | [Usability testing](https://ictresearchmethods.nl/lab/usability-testing/) | Lab | Zodra een PoC is gemaakt kunnen er tests uitgevoerd worden die de grenzen van het systeem testen. |
-| 8 | [A/B Testing](https://ictresearchmethods.nl/lab/a-b-testing/) | Lab | Zou gebruikt kunnen worden om twee oplossingen te vergelijken na het maken van één of meerdere PoC's. |
-| 9 | [Stakeholder analysis](https://ictresearchmethods.nl/field/stakeholder-analysis/) | Field | [Onderdeel FO](../Functioneel/FunctioneelOntwerp.md#actors-en-user-stories) |
-| 10 | [Problem analysis](https://ictresearchmethods.nl/field/problem-analysis/) | Field | Ter verificatie dat de voorgestelde oplossing niet vanaf een vroeg punt de verkeerde richting in is geslagen of onnodig complex is wordt met de PM&TL overlegd. |
-| 11 | [Observation](https://ictresearchmethods.nl/field/observation/) | Field | Discover productive workflow |
-| 12 | [Interview](https://ictresearchmethods.nl/field/interview/) | Field | Discover productive workflow |
-| 13 | [Document analysis](https://ictresearchmethods.nl/field/document-analysis/) | Field | Discover productive workflow |
-
-### Gekozen
-
-<!-- TODO: bovenstaande hoofdstuk is eigenlijk dubbele informatie. -->
-
 Op basis van de overwegingen uit het vorige hoofdstuk is het onderstaande onderzoek plan opgesteld.
 
 | Stappen | Te beantwoorden deelvragen |
@@ -162,9 +118,32 @@ Het grote nadeel van deze aanpak is dat je als gebruiker niet weet of de data up
 
 Eén optie om up to date te blijven met productive is door bij elke data request voor een project of taak de lokale data van de entiteit te vergelijken met de data zoals beschikbaar op Productive. Als het "last_activity_at" date time veld in het PMP lager is dan die van Productive weet je dat de lokale data bijgewerkt moet worden. Dit kan vervolgens gedaan worden aan de hand van het /activities endpoint of de endpoint van de bijbehorende entiteit. Onder volgt een stroomschema van dit proces.
 
-{%
-  include-markdown "../UML/Technisch/ADR001_Activity_change_based_polling.md"
-%}
+```puml
+
+start
+:get relevant project from local db;
+if (Project found) then (no)
+    :get project from productive;
+    note right: Request to Productive API
+    if(Productive contains project data) then (yes)
+        :get all activities from productive*;
+            note left: Request to Productive API as n1
+    else (no)
+    :Show project not found;
+    endif
+else (yes) 
+    :get Activities from productive since last local update;
+    note left: Request to Productive API
+    if(Activities>0) then (yes)
+    :Write changes to local db;
+    else (no)
+    endif
+endif
+
+:show data to user;
+stop
+
+```
 
 Als aan de hand van de Activities endpoint alle relevante data binnengehaald kan worden zou het PMP met deze oplossing na maximaal* 2 requests naar productive altijd zekerheid kunnen bieden dat de aangeboden data compleet en correct is.
 
@@ -196,7 +175,8 @@ Om tot een passende oplossing te komen voor de synchronisatie tussen het PMP en 
 | NFR2.1: Compleetheid & Betrouwbaarheid gesynchroniseerde data | ++ | + | -- | ++ | ++ |
 | NFR8.*: Opties voor catastrophisch herstel | ++ | +/- | +/- | +/- | +/- |
 | Implementatie complexiteit | + | - | + | - | - |
-| Totaal: | 8 | 6 | 0 | -1 | -2 |
+| Beschikbaar in het huidige Productive pakket | ++ | -- | ++ | ++ | -- |
+| Totaal: | 10 | 4 | 2 | 1 | -4 |
 
 Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het [functioneel ontwerp](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements).
 
@@ -204,12 +184,28 @@ Deze eisen zijn gebaseerd op de NFR's zoals beschreven en terug te vinden in het
 
 Na in het library onderzoek een aantal verschillende potentiële oplossingen uitgelicht te hebben en ze (voor zo ver mogelijk) op meetbare data gerangschikt te hebben wordt in elk geval de meest veelbelovende oplossing uitgewerkt naar een Proof of Concept prototype. Het doel van dit prototype is op kleine schaal project en taak data van en naar een lokale database te synchroniseren. Door eerst op (relatief) kleine schaal een prototype te maken vallen fouten in de synchronisatie eerder op en mocht de oplossing niet voldoen aan de verwachtingen kan er snel omgeslagen worden naar een andere potentiële oplossing. De eisen voor het PoC prototype zijn als volgt:
 
+<!-- 
 - POC: Worden binnen de webhooks alle identificerende data van objecten meegegeven of kan data uit de Productive API ambigu zijn?
 - POC: Zet een procedure op die bij Productive kijkt of de webhooks actief zijn en indien dit niet het geval is webhooks kan activeren.
 - POC: Zet een procedure op die aan de hand van webhooks één project passief op hoogte houdt met wijzigingen binnen Productive. (create, update delete webhooks on at least task & project)
 - POC: Zet een aantal API endpoints op die (tijdelijke) Project/Taak data accepteren en doorsturen naar Productive via de Productive REST APi
 - POC: (afhankelijk initiële dataset vraag) Zet een procedure op die voor één project alle voor het PMP relevante Project en taak informatie ophaalt.*
 *Dit is een grote. Er zou voor een initiële dataset veel data (boven de api limits) aan Productive gevraagd moeten worden.
+
+Polling POC -->
+
+Te beantwoorden vragen:
+
+- Welke data is binnen het PMP nodig om efficient Productive uit te lezen? (welke keys/entiteiten moeten lokaal beschikbaar zijn?)
+- Hoe zet je veilig een cache laag op die wanneer de zelfde data meerdere keren opgevraagd wordt niet elke keer de data aan Productive vraagt?
+- Hoe zet je een procedure op die schrijf acties in Productive in "real time" laat gebeuren maar geen gegevens kwijt raakt als de API overbelast is?
+
+POC eisen:
+
+- ASP.NET endpoint voor het opvragen van alle taken van een project
+- ASP.NET endpoint voor het toevoegen van een nieuwe taak aan een project
+- Relationele database met opzet van het lokale datamodel
+- Correcte foutafhandeling bij overbelaste Productive API
 
 Na het opzetten van het proof of concept worden de resultaten van het onderzoek en opgeleverde POC besproken met een techlead van Bluenotion om de haalbaarheid en compleetheid van het opgeleverde product aan de hand van peer review te testen.
 
@@ -229,14 +225,14 @@ Na het opzetten van het minimal viable product worden de resultaten van het onde
   - Wat als wijzigingen over de zelfde data gaan en ongeveer tegelijkertijd gedaan worden?
   - Wat als data in een onverwachte volgorde binnenkomt/verwerkt wordt?
   - Hoe gaan we met attachments om? Zelf hosten? Gebruik maken van Productive "hosting"?
-- Meet het gebruik van de webhooks tegenover de schatting van phase 1.
+<!-- - Meet het gebruik van de webhooks tegenover de schatting van phase 1. -->
 
 <!-- TODO: *Is dit concreet testbaar? Mogelijk met integratietests? Zijn dit "HAN deelvragen"? Moet ik überhaupt "HAN deelvragen" hebben? -->
 
-1. Set up webhook
+<!-- 1. Set up webhook
 2. Post data to productive
 3. Verify webhook trigger
-4. Verify database
+4. Verify database -->
 
 ## Lab
 
@@ -512,6 +508,5 @@ Als er van de webhook een wijziging binnen komt die niet overeen komt met de wij
  -->
 
 ## Conclusie
-
 
 ## Bronnen

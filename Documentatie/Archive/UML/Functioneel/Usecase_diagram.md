@@ -1,5 +1,4 @@
 ```puml
-
 left to right direction
 skinparam packageStyle rect
 :ACT1 Externe beheerder: as ACT1
@@ -21,12 +20,12 @@ usecase "FR2.3: Inzien taak details \n" as FR2_3 #66ff33
 usecase "FR2: Inzien taken" as FR2 
 usecase "FR2.4: Tonen taken in Gantt chart \n" as FR2_4 #ff9933 
 usecase "FR3.1: Toevoegen nieuwe taak \n" as FR3_1 #66ff33 
-usecase "FR3.2: Toelichting geven op ticket (extern) \n" as FR3_2 #66ff33 
+usecase "FR3.2: Toelichting geven op aanvraag (extern) \n" as FR3_2 #66ff33 
 usecase "FR3.3: Toevoegen taken past zich aan aan de klant zijn SLA \n" as FR3_3 #ff9933 
 usecase "FR3.4: Toevoegen bijlagen bij taak \n" as FR3_4 #66ff33 
 usecase "FR3.5: Aanpassen taak prioriteit \n" as FR3_5 #ff9933 
-usecase "FR3: Toevoegen ticket" as FR3 
-usecase "FR3.6: Annuleren ticket \n" as FR3_6 #ffff00 
+usecase "FR3: Toevoegen aanvraag" as FR3 
+usecase "FR3.6: Annuleren aanvraag \n" as FR3_6 #ffff00 
 usecase "FR4.1: Inlichten klant wanneer een taak wacht op input van de klant \n" as FR4_1 #ffff00 
 usecase "FR4: Versturen notificaties" as FR4 
 usecase "FR4.2: Inlichten Bluenotion bij blockers/criticals \n" as FR4_2 #ff9933 
@@ -41,8 +40,8 @@ usecase "FR6.2: Inzien huidige status (online/offline) project dependencies \n" 
 usecase "FR7.1: Openen/downloaden document \n" as FR7_1 #ff9933 
 usecase "FR7: Inzien project documentatie" as FR7 
 usecase "FR7.2: Filteren documentnaam/categorie \n" as FR7_2 #ff9933 
-usecase "FR8.1: Controleren ticket (intern) \n" as FR8_1 #66ff33 
-usecase "FR8: Controleren ticket" as FR8 
+usecase "FR8.1: Controleren aanvraag (intern) \n" as FR8_1 #66ff33 
+usecase "FR8: Controleren aanvraag" as FR8 
 usecase "FR8.2: Op splitten taak naar team taken \n" as FR8_2 #ff9933 
 usecase "FR9.1: Starten nieuwe chat \n" as FR9_1 #FF0000 
 usecase "FR9.2: Bericht sturen niet afgesloten chat \n" as FR9_2 #FF0000 
@@ -133,5 +132,4 @@ legend left
   | <#ff9933> | Could have |
   | <#FF0000> | Won't have |
   end legend
-
 ```

@@ -145,55 +145,44 @@ Per gemaakt scherm ontwerp wordt vastgelegd hoe het huidige ontwerp tot stand is
 |---|---|---|
 | ![Wireframe voor het globale overzicht van een klant](../Images/FunctioneelOntwerp/Klant_dashboard.png) | ![Scherm ontwerp voor het globale overzicht van een klant](../Images/FunctioneelOntwerp/schermontwerp_dashboard.png) |  |
 
-projecId, naam, startdatum, update: projects endpoint
+Benodigde PMP endpoints:
+
+- GET /projects
+- GET /feed/customer/{customerId}
+- GET /onboarding
+- GET /tickets
+
+Benodigde Productive endpoints:
+
+- GET /tasks
+
+<!-- projecId, naam, startdatum, update: projects endpoint
 
 Project manager: People endpoint
 
 Aantal taken: Tasks endpoint, grouped by project
 
-Vereiste input: Tasks filter status
-
-<!-- ### View1: Organization admin
-
-### View1: Company admin
-
-### View1: Organization employee
-
-### View1: Company employee -->
+Vereiste input: Tasks filter status -->
 
 ### View2: Mijn projecten
-
-#### View2: Organization admin
 
 | Wireframe | Scherm ontwerp | Realisatie |
 |---|---|---|
 | ![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](../Images/FunctioneelOntwerp/admin_projectenpage.png) | ![Scherm ontwerp voor het overzicht van alle projecten](../Images/Schermontwerpen/schermontwerp_projectenpage.png) |  |
 
-Projectnaam, begindatum, einddatum, status: projects endpoint
+<!-- Projectnaam, begindatum, einddatum, status: projects endpoint
 
 Klantnaam: Company endpoint
 
-Contactpersoon: People endpoint
+Contactpersoon: People endpoint -->
 
-<!-- budget, kosten, uren & uren: taken? -->
+Benodigde PMP endpoints:
 
-<!-- #### View2: Company admin
+- GET /projects
 
-![Scherm ontwerp voor het overzicht van alle projecten voor een klant](../Images/FunctioneelOntwerp/projectenpage.png)
+Benodigde Productive endpoints:
 
-ProjectId, naam, startdatum, update: projects endpoint
-
-Project manager: People endpoint
-
-Aantal taken: Tasks endpoint, grouped by project
-
-Vereiste input: Tasks filter status
-
-Prioriteit: ? -->
-
-<!-- ### View2: Organization employee
-
-### View2: Company employee -->
+- GET /tasks
 
 ### View3: Taak detail view
 
@@ -201,11 +190,28 @@ Prioriteit: ? -->
 |---|---|---|
 | ![Scherm ontwerp voor de detail pagina van één taak](../Images/FunctioneelOntwerp/TaakDetailPage.png) | ![Scherm ontwerp voor de detail pagina van één taak](../Images/Schermontwerpen/TaakDetailPage.png) |  |
 
+Benodigde PMP endpoints:
+
+- GET /tickets/{taskId}
+<!-- GET /tickets/{taskId}/details? -->
+- GET /tickets/{taskId}/comments
+<!-- GET /comments/task/{taskId} kan ook? -->
+<!-- GET /comments?filter[taskId]={taskId} -->
+<!-- GET /comments/task/{taskId} -->
+- GET /feed/tickets/{taskId}
+<!-- GET /feed?filter[taskId]={taskId} -->
+- GET /attachments
+
+Benodigde Productive endpoints:
+
+- GET /tasks
+
+<!-- TODO: Is deze mijlpalen ADR nog relevant? -->
 Mijlpalen:
 
 Mijlpalen is een keuze in te maken. De data over "mijlpalen" staat op het moment voor een taak en de workflow wordt bijgehouden door de PM. Zie [ADR008 Taak mijlpalen](../Technisch/ADRs/ADR008-Taak-Mijlpalen.md)
 
-Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
+<!-- Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
 
 Toegekend: Persons
 
@@ -213,15 +219,7 @@ Bijlagen: Attachments
 
 Opmerkingen: Comments
 
-Log: Activities
-
-<!-- ### View3: Organization admin
-
-### View3: Company admin
-
-### View3: Organization employee
-
-### View3: Company employee -->
+Log: Activities -->
 
 ### View4: Toevoegen taak view
 
@@ -235,7 +233,16 @@ Controleren:
 <!-- TODO: Maken controleren ontwerpen? -->
 ![Schermontwerp voor de admin taak detail pagina met knoppen voor het accepteren, weigeren of opsplitsen van een taak](../Images/FunctioneelOntwerp/admin_TaakDetailPage.png)
 
-Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
+Benodigde PMP endpoints:
+
+- POST /tasks
+- POST /attachments
+
+Benodigde Productive endpoints:
+
+- POST /attachments
+
+<!-- Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, inschatting tijd
 
 Toegekend: Persons
 
@@ -243,29 +250,45 @@ Bijlagen: Attachments
 
 Opmerkingen: Comments
 
-Log: Activities
+Log: Activities -->
 
 ### View5: Documentatie view
 
-![Schermontwerp voor het overzicht van documentatie binnen een project](../Images/FunctioneelOntwerp/DocumentatieOverzicht.png)
+| Wireframe | Scherm ontwerp | Realisatie |
+|---|---|---|
+| ![Schermontwerp voor het overzicht van documentatie binnen een project](../Images/FunctioneelOntwerp/DocumentatieOverzicht.png)</br>![Schermontwerp voor het toevoegen van een nieuw document](../Images/FunctioneelOntwerp/DocumentatieToevoegen.png)  |   |   |
 
-![Schermontwerp voor het toevoegen van een nieuw document](../Images/FunctioneelOntwerp/DocumentatieToevoegen.png)
+Benodigde PMP endpoints:
+
+GET/POST /manuals
+
+Benodigde Productive endpoints:
+
+GET /manuals
 
 ### View6: TakenOverview
 
 ![Scherm ontwerp voor de takenlijst van het project overzicht met alle taken van dat project](../Images/FunctioneelOntwerp/ProjectOverzichtTakenlijst.png)
 
-Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, laatste update: tasks endpoint
+Benodigde PMP endpoints:
+
+GET /tickets
+
+Benodigde Productive endpoints:
+
+GET /tasks
+
+<!-- Taak id, type, onderwerp, beschrijving, datum ingediend, status, prio, laatste update: tasks endpoint
 
 totaal taken, open taken gesloten taken, input vereist: tasks endpoint group by status
 
 Toegekend: Persons endpoint
 
-Prio hoog, prio middel, prio laag: tasks endpoint group by custom field*
+Prio hoog, prio middel, prio laag: tasks endpoint group by custom field* -->
 
 ### Componenten
 
-Taken tellers
+#### Taken tellers
 
 ![component met een tellertje voor totaal taken, open taken, gesloten taken en input vereist](../Images/FunctioneelOntwerp/TaskCounters.png)
 
