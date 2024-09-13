@@ -10,7 +10,7 @@ Documentatie eisen:
 
 - FO: Bevat user story met de eis
 - FO: Bevat fully dressed use case die de eis beschrijft
-- FO: Aangemaakte taken hebben een prioriteit (MoSCoW of nummering?)
+- FO: Aangemaakte taken hebben een MoSCoW prioriteit
 - FO: Er zijn wire frames of mockups gemaakt van de te realiseren functionaliteit.
 - FO: Voor actors, functionele requirements, niet functionele requirements en use cases worden unieke identifiers aangemaakt waar door de rest van de documentatie naar gerefereerd kan worden.
   - Actors: ACT1, ACT2, ACT3...
@@ -26,18 +26,16 @@ Documentatie eisen:
 
 Controle:
 
-- PM/TL heeft de fully dressed use case goedgekeurd in het Functioneel ontwerp. (of gewoon user story?)
+- PM/TL heeft de fully dressed use case goedgekeurd in het Functioneel ontwerp.
 
 ## Definition of Done
 
 - TR: Resultaten van de gemaakte functionaliteit zijn opgenomen in het test rapport.
-<!-- Doen we minimale unit test coverage? -->
-<!-- - TR: Code coverage is minimaal x%? -->
 - TO: Het Technisch ontwerp is bijgewerkt met de implementatie van de gemaakte functionaliteit.
 - SAD: Het Software Architecture Document is bijgewerkt met eventueel aangepaste architecturale beslissingen.
 - Code: Pull requests worden door op zijn minst 1 collega nagekeken voor ze op test/deploy komen.
-- Code: Front-end code heeft geen errors in ESLint. <!-- (iets over waarschuwingen?) -->
-- Code: Back-end code heeft geen errors in StyleCop. <!-- (iets over waarschuwingen?) -->
-- Code: Alle code is geformatteerd aan de hand van Editorconfig en prettier naar de Bluenotion style guide. <!-- link naar style guide? -->
+- Code: Front-end code heeft geen errors in ESLint.
+- Code: Back-end code heeft geen errors in StyleCop.
+- Code: Alle code is geformatteerd aan de hand van Editorconfig en prettier naar de Bluenotion style guide.
 - Code: Binnen de code wordt gebruik gemaakt van de FR, NFR en UC unieke identifiers (zie DoR) voor de tracability binnen de code.
 - Code: Geschreven in het Engels
