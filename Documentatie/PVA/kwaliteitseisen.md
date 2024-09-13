@@ -33,7 +33,7 @@ Controle:
 - TR: Resultaten van de gemaakte functionaliteit zijn opgenomen in het test rapport.
 - TO: Het Technisch ontwerp is bijgewerkt met de implementatie van de gemaakte functionaliteit.
 - SAD: Het Software Architecture Document is bijgewerkt met eventueel aangepaste architecturale beslissingen.
-- Code: Pull requests worden door op zijn minst 1 collega nagekeken voor ze op test/deploy komen.
+- Code: Werkt zoals beschreven in de eerder gemaakte fully dressed use case.
 - Code: Front-end code heeft geen errors in ESLint.
 - Code: Back-end code heeft geen errors in StyleCop.
 - Code: Alle code is geformatteerd aan de hand van Editorconfig en prettier naar de Bluenotion style guide.
