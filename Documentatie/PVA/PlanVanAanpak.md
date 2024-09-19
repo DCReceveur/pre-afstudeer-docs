@@ -4,7 +4,7 @@
 
 ![Bluenotion pand](../Images/pva/BN_pand.png)
 
-<!-- TODO: bron? -->
+<!-- TODO: bron https://dutchdigitalagencies.com/leden/bluenotion/ -->
 
 Naam: Daan Receveur
 
@@ -120,21 +120,6 @@ Binnen dit hoofdstuk wordt toegelicht welke delen in het huidig proces ervaren k
 
 De twee kanalen die worden gebruikt voor communicatie tussen Bluenotion en haar klanten laten zoals in [de aanleiding van het project](#aanleiding-voor-het-project) gemeld op gebied van duidelijkheid en werkdruk te wensen over. Hierdoor zijn projectmanagers en tech leads relatief veel tijd kwijt aan het mailen en bellen van de klant wanneer taken onduidelijk zijn of wanneer een klant feedback dient te geven op het verloop van een taak en raken klanten gefrustreerd over het gebrek aan overzicht van hun project en uit te voeren acties.
 
-<!-- TODO: dit is verhuisd naar aanleiding voor het project
-
-Op het moment worden te verrichte taken voor het bouwen van de softwareoplossingen bijgehouden in productive.io. De status van het project en de bijbehorende taken worden voornamelijk op de volgende twee manieren gecommuniceerd:
-
-- Directe communicatie via de PM:
-Voor de meeste projecten dient de projectmanager als koppeling tussen klant en development team. Het is dan aan de projectmanager om de huidige staat van het project tijdens vaste contactmomenten te communiceren en waar nodig nieuwe taken aan te maken voor het verwerken van feedback van de klant of het creëren van nieuwe functionaliteiten.
-- Guest account in Productive:
-Voor een aantal projecten zijn aan de klant accounts beschikbaar gesteld waarin ze direct inzicht kunnen krijgen in de status van het bouwproces. Hiermee kunnen ze real-time inzicht krijgen over de staat van het project en waar nodig zelf taken inschieten.
-
-Beide manieren van het communiceren van de project status brengen voor- en nadelen met zich mee.
-
-Het management volledig overlaten aan de projectmanager heeft als resultaat dat de klant geen direct eenduidig overzicht heeft van de status van zijn/haar project en wanneer hij/zij dit wel wil wordt de werkdruk van de PM verhoogd.
-
-Productive.io accounts beschikbaar stellen voor de klant heeft als resultaat dat de klant voor Bluenotion op een niet-Bluenotion portal terecht komt waar de data ongefilterd en voor klanten mogelijk onduidelijk beschikbaar is. Per klant verschilt of dit leidt tot vragen over bestaande taken en incorrect toegevoegde nieuwe taken. -->
-
 ### Doelstelling
 
 Aangezien Bluenotion voornamelijk maatwerk software bouwt wil Bluenotion dat de klant en ontwikkelaar in co-creatie samenwerken om tot de vereiste digitale oplossing te komen.
@@ -170,6 +155,8 @@ Hiervoor dient een centraal portal gebouwd te worden waar zowel de klant en mede
 Een applicatie met een C# back-end (.NET), Typescript front-end (React Native) waar een externe beheerder of interne PM de huidige staat van projecten zijn/haar kan inzien en/of nieuwe taken kan inschieten. De te maken applicatie dient informatie over projecten en de bijbehorende tickets inzichtelijk te maken voor de klant van Bluenotion en communicatiekanalen te bieden die de klant betrekken in het proces vanaf het indienen van een aanvraag tot de deployment op de live omgeving van de klant.
 
 Het gebruik van .NET en React Native staat niet vast, als er tijdens de loop van het project goede argumenten zijn voor het gebruik van andere frameworks en/of talen kan ervan af gestapt worden. Aangezien er inhouse veel kennis is en doorgaans gewerkt wordt met .NET back-end en React front-end is voor de onderhoudbaarheid de keuze gemaakt dit ook als uitgangspunt te nemen.
+
+Om het systeem schaalbaar te maken voor de toekomst dient er rekening gehouden te worden met de [rate limits van de Productive API](https://developer.productive.io/#header-rate-limits). In een ideale situatie kan het PMP meer gebruikers ondersteunen dan mogelijk is met de vastgestelde rate limits. Hiervoor dient een oplossing bedacht te worden die data van en naar Productive synchroniseert met een eigen data source. Om dit te verwerkelijken wordt vroeg in de stage een onderzoek gedaan naar hoe dit verwezenlijkt kan worden en een proof of concept uitgewerkt waarin de synchronisatie met Productive getest wordt.
 
 <div style="page-break-after: always;"></div>
 
@@ -214,54 +201,6 @@ Binnen dit project worden de volgende producten opgeleverd.
 <div style="page-break-after: always;"></div>
 
 ## Ontwikkelmethoden
-
-Het project wordt voornamelijk door één software developer uitgevoerd. Daar waar gewenst zijn binnen Bluenotion collega's beschikbaar voor feedback en tips op het gebied van projectmanagement, UX, FE en het programmeren zelf maar deze collega's zijn in hun dagelijks werk aan het werk aan andere projecten.
-
-Binnen Bluenotion wordt er een vereenvoudigde versie van SCRUM gehanteerd waar wel op een iteratieve wijze aan projecten wordt gewerkt maar een boel scrum rollen en ceremonies uit het [SCRUM manifesto](https://agilescrumgroup.nl/scrum-manifesto/) wegens tijdsbesparing en vermindering van complexiteit niet worden vervuld.
-
-Voor het afstudeerproject dien ik in 18 weken voornamelijk in mijn eentje een softwareoplossing neer te zetten. Op het begin van het project staat de kern van wat er over 18 weken moet staan redelijk vast maar staan er een aantal technische vragen (onderzoek productive) open en zijn niet alle functionele eisen even compleet uitgelegd omdat er tijdens de toelichting over het project ook uitbreidingsplannen zijn besproken.
-
-Om bij het afstudeerproject vroegtijdig project kritische aspecten te kunnen identificeren maar flexibiliteit te kunnen houden om onduidelijk beschreven (of nieuwe) functionaliteiten te kunnen implementeren is er gekozen voor een mix tussen agile en waterval, ook wel de [Hybride agile-watervalmethode](https://www.lucidchart.com/blog/nl/agile-waterval-hybride) genoemd.
-
-Een hybride agile waterval methode kan op verschillende manieren ingezet worden. De manier waarop in dit project wordt gewerkt met de agile waterval is als volgt:
-
-![Image of the workflow of agile waterval](../Images/pva/agilewaterval.png)
-*Fig 2: agile waterval*
-<!-- TODO: Bron agile waterval https://www.lucidchart.com/blog/nl/agile-waterval-hybride  -->
-
-Zoals in de bovenstaande afbeelding aangegeven begint de methode met een kleine waterval waarin onderzoek wordt gedaan naar wat (en hoe) het systeem dient te functioneren. Tijdens deze waterval wordt voor de stakeholders een overkoepelend beeld geschetst van de functionele en niet functionele eisen aan het systeem maar worden vooral ook de risico's en onzekerheden binnen het project vastgelegd. Hiermee wordt op een vroeg stadium duidelijk wat potentiële limitaties zijn zodat dit niet in een latere sprint als "verrassing" terugkomt.
-
-Nadat het initiële software ontwerp is gemaakt wordt er overgeschakeld naar een agile methode. In het geval van dit afstudeerproject wordt hier gebruik gemaakt van de vereenvoudigde versie van SCRUM die binnen Bluenotion gehanteerd wordt.
-
-De reden dat er eerst gewerkt wordt met een korte waterval is om een globaal beeld te krijgen van de functionaliteiten die voor het portaal nu en potentieel in de toekomst gewenst zijn maar vooral ook zodat eerst een goed onderzoek gedaan kan worden naar de wijze waarop het portaal met de Productive API gaat communiceren. Met de [rate limits](https://developer.productive.io/#header-rate-limits) die op de Productive API gehanteerd worden zou het voor een applicatie met weinig gebruikers mogelijk zijn om hier direct mee te communiceren. Binnen de initiële waterval worden de functionaliteiten van het project verzameld waarmee een concreter beeld geschetst kan worden van de potentiële data flow tussen de twee applicaties. Hierna wordt aan de hand van een onderzoek en proof of concept een wijze van caching of database synchronisatie uit gepland en uitgewerkt tot een proof of concept module waar de rest van de applicatie op kan doorbouwen.
-
-Nadat er een standaard wijze voor efficient data ontvangen en versturen van en naar Productive worden de rest van de functionaliteiten binnen de vereenvoudigde versie van SCRUM die grotendeels binnen Bluenotion gehanteerd wordt uitgewerkt.
-
-De punten die overgenomen worden van SCRUM zijn:
-
-Sprint retrospective:
-
-Zolang er niet regelmatig binnen een team wordt gewerkt wordt ook de retrospective niet meegenomen als aparte ceremonie. Dit omdat er tijdens de retrospective wordt gereflecteerd op het handelen en samenwerken van het team. Om de waarde van de retrospective toch niet volledig te niet te doen krijgen de bedrijfsbegeleider en opdrachtgever (beiden stakeholders van het PMP) aan het eind van sprint review het verzoek het liefst aan de hand van de [zeester methode](https://insightful.be/ontdek-de-starfish-retrospective-methode/) feedback te geven op de kwaliteit van de doorlopen processen.
-
-Sprint review:
-
-De sprint review wordt grotendeels gehouden zoals beschreven in het [SCRUM manifesto](https://agilescrumgroup.nl/scrum-manifesto/). De in de afgelopen sprint gemaakte functionaliteit wordt aan de stakeholders voorgelegd met de vraag hier feedback op te geven. Hierna wordt samen met de stakeholders een planning opgezet voor de volgende sprint en de functionaliteiten die de stakeholders graag zouden willen zien in de volgende sprint. Door deze twee acties wordt er over de loop van het project oog gehouden op of het geleverde werk overeenkomt met de wensen van de opdrachtgever en de andere stakeholders.
-
-backlog:
-
-Binnen dit project wordt gebruik gemaakt van een project backlog en sprint backlog om in beeld te houden welke taken nog voor het project gedaan moeten worden en wat er op de planning staat voor de huidige sprint. De sprint backlog wordt in overleg met de opdrachtgever tijdens de sprint review besproken.
-
-Definition of Ready (DoR) & Definition of Done (DoD):
-
-De DoD en DoR bevatten definities voor wanneer er aan een taak of functionaliteit begonnen mag worden en wanneer deze klaar is. Omdat deze twee doelen los van elkaar staan kan het voor komen dat een taak in de ene sprint Ready dient te zijn maar pas de volgende sprint Done.
-
-De DoR heeft voornamelijk betrekking op documentatie die gemaakt dient te worden om de functionaliteit naar de stakeholders te kunnen communiceren. Het doel hiervan is voordat er functionaliteit uitgewerkt wordt duidelijk met de stakeholders te kunnen communiceren over wat wanneer waarom gemaakt wordt.
-
-De DoD bevat definities voor wanneer een functionaliteit klaar is. Hier wordt meer ingegaan op de code en technische documentatie dan in de DoR. Het doel van de DoR is het testen van de geleverde functionaliteit, onderhouden van de code kwaliteit en garanderen van de traceability tussen code en documentatie.
-
-<!-- TODO: bron dod dor -->
-
-<!-- https://www.lucidchart.com/blog/nl/agile-waterval-hybride -->
 
 <div style="page-break-after: always;"></div>
 
@@ -330,6 +269,10 @@ Opmerking over de planning: Binnen de planning wordt gesproken over het "afronde
 | Sprint 9 | Implementatie uitloop | Uitloop implementatie |
 
 *Table 2: Sprint planning*
+
+| Sprint 1 (02-09-2024 - 13-09-2024) | Sprint 2 (16-09-2024 - 27-09-2024) | Sprint 3 (30-09-2024 - 11-10-2024) | Sprint 4 (14-10-2024 - (week herfstvakantie 21e tm 27e) - 01-11-2024) | Sprint 5 (04-11-2024 - 15-11-2024) | Sprint 6 (18-11-2024 - 29-11-2024) | Sprint 7 (02-12-2024 - 13-12-2024) | Sprint 8 (16-12-2024 - (kerstvakantie 23e tm 5e) - 10-01-2025) | Sprint 9 (13-01-2025 - 24-01-2024) |
+|--|--|--|--|--|--|--|--|--|
+|  |  | 4 Okt: inleveren projectplan </br> 11 Okt: Beoordelen projectplan |  |  |  | 6 Dec: Inleveren eindverslag feedback versie </br> 20 Dec: Feedback eindverslag </br> 20 Dec: Roosteren afstudeerpresentatie  |  | 17 Jan: Inleveren definitief eindverslag </br> 31 Jan: Samenvoegen eindverslag |
 
 ## Risico’s
 
