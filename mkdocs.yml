@@ -22,11 +22,13 @@ extra_css:
 - Styling/stylesheet.css
 
 plugins:
+# TODO: Je hebt een local puml server vervangen met een locale zodat hij niet de hele tijd errors gooit
     - plantuml:
-        puml_url: https://www.plantuml.com/plantuml/
+        puml_url: http://localhost:8005/
         num_workers: 8
     - search
     - mkdocs-nav-weight
+    - include-markdown
 
 repo_url: https://github.com/DCReceveur/pre-afstudeer-docs
 edit_uri: tree/main/Documentatie
