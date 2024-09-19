@@ -52,12 +52,12 @@ Endpoints for managing PMP project data.
                 {
                     "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA21309",
                     "name": "ProjectManagementPortal",
-                    "actie_vereist": false
+                    "action_required": false
                 },
                 {
                     "pmp_project_id": "C6E647A4-00C5-4F9A-9502-08F6FFA12345",
                     "name": "Eurowheelz",
-                    "actie_vereist": true
+                    "action_required": true
                 }
             ]
         }
@@ -296,7 +296,11 @@ Endpoints for managing ticket related data.
 
         | Parameter | usage |
         |--|--|
-        | projectId |  |
+        | projectId | filter by projectId |
+        | dependencies | include? |
+        | attachments | include? |
+
+        TODO: ga ik includes gebruiken om optioneel dependencies en attachments mee te geven?
 
         **Request body:**
 
@@ -313,7 +317,7 @@ Endpoints for managing ticket related data.
                         "ticketId": "3CE5AB8E-6C19-4ABA-B43B-6C10034657CE",
                         "name": "Trage laadtijden dashboard",
                         "description": "Het dashboard is traag, los dit op.",
-                        "actie_vereist": true,
+                        "action_required": true,
                         "type": "doorontwikkeling",
                         "prioriteit": null,
                         "status": "Bezig", 
@@ -325,7 +329,7 @@ Endpoints for managing ticket related data.
                         "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
                         "name": "Toevoegen knop werkt niet",
                         "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
-                        "actie_vereist": false,
+                        "action_required": false,
                         "type": "issue",
                         "prioriteit": "1",
                         "status": "Bezig", 
@@ -523,12 +527,12 @@ Endpoints for managing ticket related data.
                     "ticketId": "12345678-6C19-4ABA-B43B-6C10034657CE",
                     "name": "Toevoegen knop werkt niet",
                     "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
-                    "actie_vereist": false,
+                    "action_required": false,
                     "type": "issue",
                     "prioriteit": "1",
                     "impact": "Hoog",
                     "urgentie": "Laag",
-                    "Bijlages": [], // Aparte endpoint voor bijlages?
+                    "attachments": [], // Aparte endpoint voor attachments?
                     "Aangemaakt door": "Sjeff Wouters",
                     "status": "Bezig", 
                     "estimate_in_minutes": 720,
@@ -550,30 +554,32 @@ Endpoints for managing ticket related data.
 
         Only returns tickets you have at least read rights for, no logging.
 
-### /tickets/{ticketId}/tasks
+### /tasks
 
-Endpoints for managing task related data.
+Endpoint for managing task related data.
 
-??? "/tickets/{ticketId}/tasks"
+??? "/tasks"
 
     #### GET
 
-    Provides a list of tasks belonging to the given ticket.
+    Provides a filterable list of tasks.
 
-    TODO: Kan ook deel zijn van GET /tickets/{ticketId}/details
-
-    ??? "**Request:** GET `/tickets/{ticketId}/tasks`"
+    ??? "**Request:** GET `/tasks`"
 
         **Path parameters:**
-
-        ticketId
 
         **Query parameters:**
 
         | Parameter | usage |
         |---|---|
-        |  |  |
+        | ticketId | filter on ticket id |
+        | taskId | filter on task id |
+        | projectId | filter on project id |
+        | status | filter on status |
+        | dependencies | include? |
 
+        TODO: ga ik includes gebruiken om optioneel dependencies en attachments mee te geven?
+        
         **Request body:**
 
         N/A
@@ -587,6 +593,8 @@ Endpoints for managing task related data.
                     "task_name": "Schermontwerpen maken",
                     "task_team": "UX",
                     "status": "Done",
+                    "created_on": "12-09-2024:11:11:11",
+                    "updated_on": "12-09-2024:12:12:12",
                     "dependencies":[
                         {
                             "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
@@ -603,6 +611,8 @@ Endpoints for managing task related data.
                     "task_name": "Views updaten",
                     "task_team": "FE",
                     "status": "Started",
+                    "created_on": "12-09-2024:11:11:11",
+                    "updated_on": "12-09-2024:12:12:12",
                     "dependencies":[
                         {
                             "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
@@ -620,6 +630,8 @@ Endpoints for managing task related data.
                     "task_name": "Database server updaten",
                     "task_team": "BE",
                     "status": "Open",
+                    "created_on": "12-09-2024:11:11:11",
+                    "updated_on": "12-09-2024:12:12:12",
                     "dependencies":[
                         {
                             "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
@@ -649,9 +661,9 @@ Endpoints for managing task related data.
 
     #### POST
 
-    Adds a new task to the given ticket.
+    Adds a new task
 
-    ??? "**Request:** POST `/tickets/{ticketId}/tasks`"
+    ??? "**Request:** POST `/tasks`"
 
         **Path parameters:**
 
@@ -663,11 +675,18 @@ Endpoints for managing task related data.
 
         **Request body:**
 
+        <!-- TODO: hoort dependencies hier bij? -->
+        <!-- TODO: het feit dat je gelijk aan een ticketId koppelt geeft mij de indicatie dat dit mogelijk gewoon een endpoint op de ticket controller moet zijn. -->
+
+        !!! note "Note to self"
+
+            Post op ticketId, niet taakId zodat een taak gekoppeld is aan een ticket.
+
         ```json
         {
             "tasks":[
             {
-                "task_id": null,
+                "ticketId": "12312312-6C19-4ABA-B43B-6C10034657CE",
                 "name": "Toevoegen knop werkt niet",
                 "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
                 "estimate_in_minutes": 720,
@@ -684,7 +703,7 @@ Endpoints for managing task related data.
                 ]
             },
             {
-                "task_id": "08498498-29C2-442B-96F8-2F611087E948",
+                "ticketId": "08498498-29C2-442B-96F8-2F611087E948",
                 "name": "Dashboard",
                 "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
                 "task_team": "BE",
@@ -702,91 +721,11 @@ Endpoints for managing task related data.
         |---|---|
         |  |  |
 
-        TODO:     Ticket not found, task not found, forbidden
+        TODO: Ticket not found, task not found, forbidden
 
 
         **Authentication, Authorization, Auditing:**
 
-    #### DELETE
-
-    /tickets/{ticketId}/tasks/{taskId}
-
-    TODO
-
-    Removes a task from a ticket
-
-### /tasks
-
-??? "/tasks"
-
-    #### GET
-
-    Provides a filterable list of all tasks
-
-    ??? "**Request:** GET `/tasks`"
-
-        **Path parameters:**
-
-        N/A
-
-        **Query parameters:**
-
-        | Parameter | usage |
-        |---|---|
-        | taskId |  |
-        | projectId |  |
-        | pmp_has_corresponding_ticket | Filter tasks for whether the task has any connection to a PMP ticket  |
-
-
-        TODO
-
-        **Request body:**
-
-        N/A
-
-        **Response body:**
-
-            ```json
-            {
-                "tasks":[
-                    {
-                        "taskId": "12345678-6C19-4ABA-B43B-6C10034657CE",
-                        "productive_id": "12345",
-                        "name": "Toevoegen knop werkt niet",
-                        "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
-                        "estimate_in_minutes": 720,
-                        "dependencies":[],
-                        "created_at": "10-10-2024:16:44:31",
-                        "updated_at": "11-10-2024:16:44:31",
-                    },
-                    {
-                        "taskId": "98765432-B393-4A55-8431-ED2EB0CDC1EC",
-                        "productive_id": "12345",
-                        "name": "Toevoegen knop werkt niet",
-                        "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
-                        "estimate_in_minutes": 720,
-                        "dependencies":[],
-                        "created_at": "10-10-2024:16:44:31",
-                        "updated_at": "11-10-2024:16:44:31",
-                    },
-                ]
-            }
-            ```
-
-        **Errors:**
-
-        | Error response | Cause |
-        |---|---|
-        | Forbidden |  |
-
-        **Authentication, Authorization, Auditing:**
-
-        Only returns tickets you have at least read rights for, no logging.
-
-    #### POST
-
-    !!! note
-        Er is nog geen scenario bedacht waarop er een taak losstaand van een ticket gemaakt moet worden. Mocht dit in een van de wensen naar boven komen is dit endpoint te implementeren, taken gekoppeld aan tickets toevoegen gaat via `POST /tickets/{ticketId}/tasks`
 
     <!-- Moved to /tickets/{id}/tasks -->
 
@@ -804,12 +743,16 @@ Endpoints for managing task related data.
 
         **Request body:**
 
+        <!-- TODO: dependencies include? -->
+
         ```json
             {
             "tasks":[{
                         "taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+                        "ticketId":"98765432-6C19-4ABA-B43B-6C10034657CE",
                         "task_name": "Schermontwerpen maken",
                         "task_team": "UX",
+                        "estimate_in_minutes": 720,
                         "status": "Done",
                         "dependencies":[
                             {
@@ -824,8 +767,10 @@ Endpoints for managing task related data.
                     },
                     {
                         "taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+                        "ticketId":"98765432-6C19-4ABA-B43B-6C10034657CE",
                         "task_name": "Views updaten",
                         "task_team": "FE",
+                        "estimate_in_minutes": 720,
                         "status": "Started",
                         "dependencies":[
                             {
@@ -840,8 +785,10 @@ Endpoints for managing task related data.
                     },
                     {
                         "taskId":"ABCDEFG-6C19-4ABA-B43B-6C10034657CE",
+                        "ticketId":"98765432-6C19-4ABA-B43B-6C10034657CE",
                         "task_name": "Database server updaten",
                         "task_team": "BE",
+                        "estimate_in_minutes": 720,
                         "status": "Open",
                         "dependencies":[
                             {
@@ -879,6 +826,234 @@ Endpoints for managing task related data.
     <!-- #### GET /tasks/{taskId}/details -->
 
     <!-- TODO: response, errors, AAA -->
+
+    #### GET /ticketless
+
+    Provides a filterable list of all tasks
+
+    ??? "**Request:** GET `/tasks/ticketless`"
+
+        **Path parameters:**
+
+        N/A
+
+        **Query parameters:**
+
+        | Parameter | usage |
+        |---|---|
+        | taskId |  |
+        | ticketId | Only returns tasks related to a certain PMP ticket |
+        | projectId |  |
+        | pmp_has_corresponding_ticket | Filter tasks for whether the task has any connection to a PMP ticket  |
+
+
+        TODO
+
+        **Request body:**
+
+        N/A
+
+        **Response body:**
+
+        <!-- TODO: heeft een taak zonder ticket wel een taak id of voegen we ze niet toe in het PMP? -->
+
+        ```json
+            {
+                "tasks":[
+                    {
+                        "taskId": "12345678-6C19-4ABA-B43B-6C10034657CE",
+                        "productive_id": "12345",
+                        "name": "Toevoegen knop werkt niet",
+                        "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                        "estimate_in_minutes": 720,
+                        "dependencies":[],
+                        "created_at": "10-10-2024:16:44:31",
+                        "updated_at": "11-10-2024:16:44:31",
+                    },
+                    {
+                        "taskId": "98765432-B393-4A55-8431-ED2EB0CDC1EC",
+                        "productive_id": "12345",
+                        "name": "Toevoegen knop werkt niet",
+                        "description": "De toevoegen knop op de huppeldepup pagina werkt niet.",
+                        "estimate_in_minutes": 720,
+                        "dependencies":[],
+                        "created_at": "10-10-2024:16:44:31",
+                        "updated_at": "11-10-2024:16:44:31",
+                    },
+                ]
+            }
+        ```
+
+        **Errors:**
+
+        | Error response | Cause |
+        |---|---|
+        | Forbidden |  |
+
+        **Authentication, Authorization, Auditing:**
+
+        Only returns tickets you have at least read rights for, no logging.
+
+### /dependencies
+
+<!-- TODO potentially tickets and tickets. De functionaliteit om tickets afhankelijk te maken van andere tickets is mogelijk. Tot nu toe is er geen wens voor uitgesproken maar kan even gepitcht worden -->
+
+Endpoints for managing the relations between tasks and other tasks, tickets and tasks and (potentially) tickets and tickets.
+
+??? "/dependencies"
+
+    #### GET
+
+    ??? "**Request: ** GET `/dependencies`"
+
+        **Path parameters:** 
+
+        **Query parameters:**
+
+        | Parameter | usage |
+        |---|---|
+        | TicketId | Used to get all dependencies for a ticket |
+        | TaskId | Used to get all dependencies for a task |
+        | dependency_type |  |
+        | resource_type |  |
+
+
+        **Request body:**
+
+        ```json
+
+        ```
+        **Response body:**
+
+        ```json
+        {
+            "resource_type":"Ticket",
+            "resource_id":"12345678-6C19-4ABA-B43B-6C10034657CE",
+            "dependencies":[
+            {
+                "dependencyId": "D9425F6F-55A0-4312-8577-72C1DDC2876F",
+                "dependency_type":2, //Waiting
+                "resource_type": "Task",
+                "dependent_taskId":"12345678-6C19-4ABA-B43B-6C10034657CE",
+            },
+            {
+                "dependencyId": "E9425F6F-55A0-4312-8577-72C1DDC2876F",
+                "dependency_type":2, //Waiting
+                "resource_type":"Task",
+                "dependent_taskId":"98765432-6C19-4ABA-B43B-6C10034657CE",
+            },
+            ]
+        }
+        ```
+
+        **Errors:**
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+        **Authentication, Authorization, Auditing:**
+
+    #### POST
+
+    ??? "**Request: ** POST `/dependencies`"
+
+        **Path parameters:** 
+
+        **Query parameters:**
+
+        | Parameter | usage |
+        |---|---|
+        |  |  |
+
+        **Request body:**
+
+        ```json
+
+        ```
+
+        **Response body:**
+
+        ```json
+
+        ```
+
+        **Errors:**
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+        **Authentication, Authorization, Auditing:**
+
+    #### PATCH/PUT
+
+    ??? "**Request: ** PATCH/PUT `/dependencies`"
+
+        **Path parameters:** 
+
+        **Query parameters:**
+
+        | Parameter | usage |
+        |---|---|
+        |  |  |
+
+
+        **Request body:**
+
+        ```json
+
+        ```
+        **Response body:**
+
+        ```json
+
+        ```
+
+        **Errors:**
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+        **Authentication, Authorization, Auditing:**
+
+    #### DELETE
+
+    ??? "**Request: ** DELETE `/dependencies/{DependencyId}`"
+
+        **Path parameters:** 
+
+        **Query parameters:**
+
+        | Parameter | usage |
+        |---|---|
+        |  |  |
+
+
+        **Request body:**
+
+        ```json
+
+        ```
+        **Response body:**
+
+        ```json
+
+        ```
+
+        **Errors:**
+        | Error response | Cause |
+        |---|---|
+        | Too many requests | The API is overloaded and has reached its rate limit. |
+        | Forbidden | The requester doesn't have access to the requested project |
+        | Not found | The requested project does not exist |
+
+        **Authentication, Authorization, Auditing:**
+
 
 ### /feed
 

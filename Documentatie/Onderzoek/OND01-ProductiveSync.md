@@ -204,6 +204,7 @@ POC eisen:
 
 - ASP.NET endpoint voor het opvragen van alle taken van een project
 - ASP.NET endpoint voor het toevoegen van een nieuwe taak aan een project
+- Binnen 10 seconde herhalende requests resulteren niet in meer requests naar Productive
 - Relationele database met opzet van het lokale datamodel
 - Correcte foutafhandeling bij overbelaste Productive API
 

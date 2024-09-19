@@ -18,7 +18,7 @@ Klant: De omgeving waar de gebruiker zich in bevindt als hij/zij is aangemeld al
 
 | Pagina  | Doel(en)  |
 |---|---|
-| [Mijn projecten pagina](#view2-mijn-projecten) | - Een globaal overzicht geven van de voor de klant beschikbare projecten. [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) </br>- Om het extra duidelijk te maken voor de klant wanneer er iets van de klant wordt verwacht hier ook het lijstje met de "waiting for customer" lijst? [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
+| [ProjectOverview](#view2-projectoverview) | - Een globaal overzicht geven van de voor de klant beschikbare projecten. [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten) </br>- Om het extra duidelijk te maken voor de klant wanneer er iets van de klant wordt verwacht hier ook het lijstje met de "waiting for customer" lijst? [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
 | Project detail pagina  | - Een globaal overzicht geven van het door de klant geselecteerde project met snelle overzichten van de filters/lijstjes als beschreven in [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) </br>-Overzicht van de voor het project relevante dependencies en services zoals beschreven in [FR6.1](./Requirements/FR6_Inzien_project_service_statuses.md#fr61-inzien-lijst-van-project-dependencies) en [FR6.2](./Requirements/FR6_Inzien_project_service_statuses.md#fr62-inzien-huidige-status-onlineoffline-project-dependencies). </br>- Optie voor een timeline of Gantt chart view? [FR2.4](./Requirements/FR2_Inzien_taken.md#fr24-tonen-taken-in-gantt-chart) |
 | [Taken lijst pagina](#view6-takenoverview)  | - De taken lijstjes van de project detail pagina met extra informatie als wanneer er voor het laatst aan de taak is gewerkt, de datum waarop verwacht wordt dat de taak klaar is. [FR2.1](./Requirements/FR2_Inzien_taken.md#fr21-inzien-taken-van-project) & [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed) |
 | [Taak detail pagina](#view3-taak-detail-view)  | - De pagina waar alle beschikbare informatie voor een taak te vinden is inclusief de aan de taak gekoppelde bijlages en comments. [FR2.3](./Requirements/FR2_Inzien_taken.md#fr23-inzien-taak-details) </br>- De gebruiker dient ook comments toe te kunnen voegen [FR3.2](./Requirements/FR3_Toevoegen_aanvraag.md#fr32-toelichting-geven-op-aanvraag) |
@@ -29,9 +29,11 @@ Klant: De omgeving waar de gebruiker zich in bevindt als hij/zij is aangemeld al
 
 Admin: De omgeving waar een gebruiker zich bevindt als hij/zij is aangemeld als admin van een organisatie.
 
+<!-- TODO: projectoverview doel aanpassen -->
+
 | Pagina  | Doel(en)  |
 |---|---|
-| [Projecten pagina](#view2-company-admin)  | - Zelfde pagina als "Mijn projecten pagina" van de klant maar zonder filter op project eigenaar. [US4](./FunctioneelOntwerp.md#user-stories) |
+| [ProjectOverview](#view2-projectoverview)  | - Zelfde pagina als "ProjectOverview" van de klant maar zonder filter op project eigenaar. [US4](./FunctioneelOntwerp.md#user-stories) |
 | Tenant pagina | - Tonen tenant informatie en een lijst van alle projecten van deze tenant. </br> Tonen chat/communicatie met de tenant [FR9](./Requirements/FR9_Tenant_level_chat.md) |
 | Project setup pagina  | - Het afhandelen van het proces dat met de klant wordt aangegaan voordat aan een project wordt begonnen. Nog niet verder uitgewerkt. [FR5.1](./Requirements/FR5_Beheren_project.md#fr51-afhandelen-project-setup)  |
 | Project dependencies pagina | - Het toevoegen, verwijderen of wijzigen van de dependencies/services van een project [FR5.3](./Requirements/FR5_Beheren_project.md) |
@@ -50,7 +52,7 @@ Na het verder uitwerken van de eisen in het FO en het maken van de eerste low re
 
     FRs beheerder: [FR2.2](./Requirements/FR2_Inzien_taken.md#fr22-filteren-taken-op-waiting-for-feedback-internextern-open-stagingtesting-closed)
 
-- View 2: Mijn projecten
+- View 2: ProjectOverview
 
     FRs medewerker: [FR1.1](./Requirements/FR1_Inzien_project_plannings_informatie.md#fr11-inzien-projecten)
 
@@ -136,11 +138,6 @@ Per gemaakt scherm ontwerp wordt vastgelegd hoe het huidige ontwerp tot stand is
 
 ### View1: Dashboard
 
-- Toevoegen project dropdown?
-- Defaults to "All" or "only project"
-- Add pagination, search and filter to tickets component
-- Add banner (zie "Klant>Mijn projecten")
-
 | Wireframe | Scherm ontwerp | Realisatie |
 |---|---|---|
 | ![Wireframe voor het globale overzicht van een klant](../Images/FunctioneelOntwerp/Klant_dashboard.png) | ![Scherm ontwerp voor het globale overzicht van een klant](../Images/FunctioneelOntwerp/schermontwerp_dashboard.png) |  |
@@ -156,25 +153,11 @@ Benodigde Productive endpoints:
 
 - GET /tasks
 
-<!-- projecId, naam, startdatum, update: projects endpoint
-
-Project manager: People endpoint
-
-Aantal taken: Tasks endpoint, grouped by project
-
-Vereiste input: Tasks filter status -->
-
-### View2: Mijn projecten
+### View2: ProjectOverview
 
 | Wireframe | Scherm ontwerp | Realisatie |
 |---|---|---|
 | ![Scherm ontwerp voor het overzicht van alle projecten voor een admin van bluention](../Images/FunctioneelOntwerp/admin_projectenpage.png) | ![Scherm ontwerp voor het overzicht van alle projecten](../Images/Schermontwerpen/schermontwerp_projectenpage.png) |  |
-
-<!-- Projectnaam, begindatum, einddatum, status: projects endpoint
-
-Klantnaam: Company endpoint
-
-Contactpersoon: People endpoint -->
 
 Benodigde PMP endpoints:
 
