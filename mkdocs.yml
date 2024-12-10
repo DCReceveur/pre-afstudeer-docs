@@ -1,4 +1,5 @@
 site_name: PMP
+use_directory_urls: false
 theme:
   name: material
   features:
@@ -29,6 +30,7 @@ plugins:
     - search
     - mkdocs-nav-weight
     - include-markdown
+    - glightbox
 
 repo_url: https://github.com/DCReceveur/pre-afstudeer-docs
 edit_uri: tree/main/Documentatie

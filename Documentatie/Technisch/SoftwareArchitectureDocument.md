@@ -66,7 +66,6 @@ Service --> NS : SMTP?
 
 ```
 
-
 | Container | Toelichting |
 |---|---|
 | [React front-end](#Component-FE) | Levert mogelijkheden tot interactie met de rest van het PMP systeem aan de hand van REST API calls naar de PMP API. |
@@ -80,7 +79,11 @@ Service --> NS : SMTP?
 
 ### <a id="Component-FE" /></a>React front-end
 
-<!-- TODO: De echte views hier in zetten. -->
+Binnen Bluenotion wordt voor front-ends doorgaans gebruik gemaakt van React front-ends ontworpen met het [atomic design pattern](https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97)*
+
+*Animals wordt niet gebruikt, dit wordt in molecules gedaan.
+
+TODO: Is ticket detail view een page?
 
 ```puml
 top to bottom direction
@@ -89,6 +92,32 @@ skinparam nodesep 10
 skinparam ranksep 10
 
 rectangle "React front-end"{
+    rectangle "Components" {
+        rectangle atoms{
+
+        }
+        rectangle molecules{
+
+        }
+        rectangle organisms{
+
+        }
+        rectangle templates{
+
+        }
+        rectangle pages{
+            rectangle admin{
+                rectangle Dashboard
+                rectangle TicketOverview
+                rectangle TicketDetailView 
+                rectangle ProjectOverview
+            }
+            rectangle customer{
+
+            }
+        }
+    }
+
     rectangle "View" as view{
         rectangle "Admin" as Admin{
             rectangle "AdminProjectView"
@@ -525,3 +554,4 @@ Is dit wel een ADR?
 
 
 <!-- https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html -->
+<!-- https://medium.com/@janelle.wg/atomic-design-pattern-how-to-structure-your-react-application-2bb4d9ca5f97 -->

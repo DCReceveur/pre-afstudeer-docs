@@ -29,4 +29,5 @@ jobs:
       - run: pip install mkdocs-puml
       - run: pip install mkdocs-nav-weight
       - run: pip install mkdocs-include-markdown-plugin
+      - run: pip install mkdocs-glightbox
       - run: mkdocs gh-deploy --force

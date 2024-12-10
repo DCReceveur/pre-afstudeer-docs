@@ -45,13 +45,16 @@ Bluenotion is een bedrijf met +/- 20 medewerkers dat in opdracht van de klant me
 Doorgaans wordt door een Project Manager (PM) en Tech Lead (TL) voor een (nieuw of bestaand) project een scope opgezet met een estimate van hoe veel uur Bluenotion verwacht eraan kwijt te zijn. Na akkoord van de klant wijst de PM een aantal medewerkers met verschillende relevante expertises toe aan het project om het product van de scope te realiseren.
 
 ```puml
+
 rectangle CEO
 rectangle Finance 
 rectangle "Operationeel management" as OM
 rectangle HR
-
+rectangle "Project management portal" as PMP{
 rectangle "Project technisch/management" as PTM
-
+rectangle "Klant" as Klant
+rectangle "Productive" as Productive
+}
 rectangle Development
 
 rectangle "User experience" as UX
@@ -64,13 +67,13 @@ CEO -- HR
 
 OM--PTM
 PTM--Development
+PTM .right. Klant
+PTM .left. Productive
+Development .. Productive
 
 Development--UX
 Development--FE
 Development--BE
-note bottom
-    Daan Receveur
-end note
 ```
 
 *Fig 1: Organigram*

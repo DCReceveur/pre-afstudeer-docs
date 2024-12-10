@@ -55,7 +55,15 @@ Algemeen:
 - Q10: Wat zijn scenario's waarin foutieve informatie in het systeem zou kunnen komen?
 - Zijn de limieten op reactietijd en schaalbaarheid zoals opgenomen in het [FO](../Functioneel/FunctioneelOntwerp.md#nonfunctional-requirements) realistisch?
 
-## Methodiek
+<!-- TODO: betere vragen
+Hoofdvraag: Hoe gaat het PMP communicatie met Productive faciliteren met de vastgestelde rate limits?
+-	Wat zijn manieren om data naar Productive te sturen en te ontvangen? 
+-	Hoe dicht zit de verwachte gebruik frequentie van de applicatie tegen de rate limits?
+-	Wat zijn de opties de hoeveelheid PMP API requests los te koppelen van de hoeveelheid Productive API requests?
+-	Hoe kunnen atomic transactions en data consistency worden gegarandeerd bij overschrijding van de ratelimits of algehele onbereikbaarheid van de Productive API? -->
+
+
+<!-- ## Methodiek
 
 Voor dit onderzoek zijn voornamelijk de patronen "Realize as required", "Realise as expert" en "Choose fitting technology" overwogen. Beide patronen worden vanaf de analyse fase gebruikt om tot een nog onbekende oplossing te komen met als voornaamste verschil of er vanuit een functioneel (required) of technisch standpunt (expert) naar het probleem wordt gekeken.
 
@@ -104,7 +112,7 @@ Om de zwakheden van de onderzoek patronen af te dekken is gekozen het Realise as
 
 ## Doelstelling
 
-Aan het eind van dit onderzoek dient niet alleen antwoord gegeven te zijn op de deelvragen maar wordt er ook een Proof of Concept prototype opgeleverd waar in de [Bluenotion template](https://gitlab.bluenotion.nl/bluenotion/template.bluenotion.nl) endpoints neergezet zijn die een lijst aan taken per project kunnen leveren waarbij de geleverde data overeen komt met de data in Productive.
+Aan het eind van dit onderzoek dient niet alleen antwoord gegeven te zijn op de deelvragen maar wordt er ook een Proof of Concept prototype opgeleverd waar in de [Bluenotion template](https://gitlab.bluenotion.nl/bluenotion/template.bluenotion.nl) endpoints neergezet zijn die een lijst aan taken per project kunnen leveren waarbij de geleverde data overeen komt met de data in Productive. -->
 
 ## Resultaten
 

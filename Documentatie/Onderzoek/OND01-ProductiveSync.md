@@ -151,12 +151,12 @@ Als aan de hand van de Activities endpoint alle relevante data binnengehaald kan
 
 Het nadeel van deze optie zit hem echter ook in de twee requests naar Productive. Omdat de data van het eerste request als input dient voor de tweede request om de activities op te halen kunnen deze enkel sequentieel uitgevoerd worden.
 
-### Gecombineerd webhooks en change based polling ADR001-O5
+<!-- ### Gecombineerd webhooks en change based polling ADR001-O5
 
 Door webhooks de standaard data synchronisatie te laten afhandelen zou het scenario dat het PMP twee sequentiële requests moet doen minder vaak voorkomen. Om er voor te zorgen dat data wanneer de gebruiker er om vraagt zeker up to date is kan gebruik gemaakt worden van het proces zoals beschreven bij [ADR001-O4](#change-based-polling-adr001-o4).*
 
 Open vraag:
-*De last activity geeft me geen garantie dat alle data tot dat punt is weggeschreven, alleen dat de activity van dat moment is weggeschreven. Kan ik iets zeggen over de activities die er voor kwamen en de garantie dat deze ook in de lokale database voorkomen?
+*De last activity geeft me geen garantie dat alle data tot dat punt is weggeschreven, alleen dat de activity van dat moment is weggeschreven. Kan ik iets zeggen over de activities die er voor kwamen en de garantie dat deze ook in de lokale database voorkomen? -->
 
 ## Workshop
 
